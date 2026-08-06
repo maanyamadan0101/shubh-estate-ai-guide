@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as EmiCalculatorRouteImport } from './routes/emi-calculator'
+import { Route as GurugramGrowthStoryRouteImport } from './routes/gurugram-growth-story'
 import { Route as HomeLoansRouteImport } from './routes/home-loans'
 import { Route as PropertiesRouteImport } from './routes/properties'
 
@@ -36,6 +37,11 @@ const EmiCalculatorRoute = EmiCalculatorRouteImport.update({
   path: '/emi-calculator',
   getParentRoute: () => rootRouteImport,
 } as any)
+const GurugramGrowthStoryRoute = GurugramGrowthStoryRouteImport.update({
+  id: '/gurugram-growth-story',
+  path: '/gurugram-growth-story',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HomeLoansRoute = HomeLoansRouteImport.update({
   id: '/home-loans',
   path: '/home-loans',
@@ -52,6 +58,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/emi-calculator': typeof EmiCalculatorRoute
+  '/gurugram-growth-story': typeof GurugramGrowthStoryRoute
   '/home-loans': typeof HomeLoansRoute
   '/properties': typeof PropertiesRoute
 }
@@ -60,6 +67,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/emi-calculator': typeof EmiCalculatorRoute
+  '/gurugram-growth-story': typeof GurugramGrowthStoryRoute
   '/home-loans': typeof HomeLoansRoute
   '/properties': typeof PropertiesRoute
 }
@@ -69,6 +77,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/emi-calculator': typeof EmiCalculatorRoute
+  '/gurugram-growth-story': typeof GurugramGrowthStoryRoute
   '/home-loans': typeof HomeLoansRoute
   '/properties': typeof PropertiesRoute
 }
@@ -79,6 +88,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/contact'
     | '/emi-calculator'
+    | '/gurugram-growth-story'
     | '/home-loans'
     | '/properties'
   fileRoutesByTo: FileRoutesByTo
@@ -87,6 +97,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/contact'
     | '/emi-calculator'
+    | '/gurugram-growth-story'
     | '/home-loans'
     | '/properties'
   id:
@@ -95,6 +106,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/contact'
     | '/emi-calculator'
+    | '/gurugram-growth-story'
     | '/home-loans'
     | '/properties'
   fileRoutesById: FileRoutesById
@@ -104,6 +116,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
   EmiCalculatorRoute: typeof EmiCalculatorRoute
+  GurugramGrowthStoryRoute: typeof GurugramGrowthStoryRoute
   HomeLoansRoute: typeof HomeLoansRoute
   PropertiesRoute: typeof PropertiesRoute
 }
@@ -138,6 +151,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EmiCalculatorRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/gurugram-growth-story': {
+      id: '/gurugram-growth-story'
+      path: '/gurugram-growth-story'
+      fullPath: '/gurugram-growth-story'
+      preLoaderRoute: typeof GurugramGrowthStoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/home-loans': {
       id: '/home-loans'
       path: '/home-loans'
@@ -160,6 +180,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
   EmiCalculatorRoute: EmiCalculatorRoute,
+  GurugramGrowthStoryRoute: GurugramGrowthStoryRoute,
   HomeLoansRoute: HomeLoansRoute,
   PropertiesRoute: PropertiesRoute,
 }
