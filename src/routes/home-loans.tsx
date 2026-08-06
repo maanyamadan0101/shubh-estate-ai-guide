@@ -23,7 +23,7 @@ export const Route = createFileRoute("/home-loans")({
       },
     ],
   }),
-  component: HomeLoans;
+  component: HomeLoans,
 });
 
 const SERVICES = [
