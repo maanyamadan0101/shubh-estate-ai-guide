@@ -46,7 +46,7 @@ export function EmiCalculator() {
               className="w-44 text-right"
             />
           </div>
-          <Slider value={[price]} min={2000000} max={200000000} step={500000} onValueChange={([v]) => setPrice(v)} />
+          <Slider value={[price]} min={2000000} max={200000000} step={500000} onValueChange={(v) => setPrice(v[0] ?? price)} />
         </div>
 
         <div className="space-y-3">
@@ -54,7 +54,7 @@ export function EmiCalculator() {
             <Label>Down payment ({downPct}%)</Label>
             <span className="text-sm text-muted-foreground">{inr(downPayment)}</span>
           </div>
-          <Slider value={[downPct]} min={10} max={60} step={1} onValueChange={([v]) => setDownPct(v)} />
+          <Slider value={[downPct]} min={10} max={60} step={1} onValueChange={(v) => setDownPct(v[0] ?? downPct)} />
         </div>
 
         <div className="space-y-3">
@@ -62,7 +62,7 @@ export function EmiCalculator() {
             <Label>Interest rate</Label>
             <span className="text-sm text-muted-foreground">{rate.toFixed(2)}% p.a.</span>
           </div>
-          <Slider value={[rate]} min={7} max={12} step={0.05} onValueChange={([v]) => setRate(v)} />
+          <Slider value={[rate]} min={7} max={12} step={0.05} onValueChange={(v) => setRate(v[0] ?? rate)} />
         </div>
 
         <div className="space-y-3">
@@ -70,7 +70,7 @@ export function EmiCalculator() {
             <Label>Loan tenure</Label>
             <span className="text-sm text-muted-foreground">{years} years</span>
           </div>
-          <Slider value={[years]} min={1} max={30} step={1} onValueChange={([v]) => setYears(v)} />
+          <Slider value={[years]} min={1} max={30} step={1} onValueChange={(v) => setYears(v[0] ?? years)} />
         </div>
       </div>
 
