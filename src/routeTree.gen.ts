@@ -10,33 +10,53 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as HomeLoansRouteImport } from './routes/home-loans'
+import { Route as PropertiesRouteImport } from './routes/properties'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HomeLoansRoute = HomeLoansRouteImport.update({
+  id: '/home-loans',
+  path: '/home-loans',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PropertiesRoute = PropertiesRouteImport.update({
+  id: '/properties',
+  path: '/properties',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/home-loans': typeof HomeLoansRoute
+  '/properties': typeof PropertiesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/home-loans': typeof HomeLoansRoute
+  '/properties': typeof PropertiesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/home-loans': typeof HomeLoansRoute
+  '/properties': typeof PropertiesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/home-loans' | '/properties'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/home-loans' | '/properties'
+  id: '__root__' | '/' | '/home-loans' | '/properties'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  HomeLoansRoute: typeof HomeLoansRoute
+  PropertiesRoute: typeof PropertiesRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +68,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/home-loans': {
+      id: '/home-loans'
+      path: '/home-loans'
+      fullPath: '/home-loans'
+      preLoaderRoute: typeof HomeLoansRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/properties': {
+      id: '/properties'
+      path: '/properties'
+      fullPath: '/properties'
+      preLoaderRoute: typeof PropertiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  HomeLoansRoute: HomeLoansRoute,
+  PropertiesRoute: PropertiesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
