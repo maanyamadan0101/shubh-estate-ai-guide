@@ -133,8 +133,8 @@ export const savePropertyDraft = createServerFn({ method: "POST" })
   .handler(async ({ context, data }) => {
     const { id, amenities, features, images, ...fields } = data;
 
-    const row = { ...fields, published_at: undefined } as Record<string, unknown>;
-    delete row["published_at"];
+    const row = { ...fields } as never;
+    
 
     let propertyId = id ?? null;
     if (propertyId) {
