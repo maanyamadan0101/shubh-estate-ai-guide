@@ -10,21 +10,42 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as EmiCalculatorRouteImport } from './routes/emi-calculator'
 import { Route as GurugramGrowthStoryRouteImport } from './routes/gurugram-growth-story'
 import { Route as HomeLoansRouteImport } from './routes/home-loans'
+import { Route as LuxuryRouteImport } from './routes/luxury'
+import { Route as NriRouteImport } from './routes/nri'
 import { Route as PropertiesRouteImport } from './routes/properties'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as LocationsSlugRouteImport } from './routes/locations.$slug'
+import { Route as PropertySlugRouteImport } from './routes/property.$slug'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
+import { Route as AuthenticatedAdminIdRouteImport } from './routes/_authenticated/admin.$id'
+import { Route as AuthenticatedAdminNewRouteImport } from './routes/_authenticated/admin.new'
+import { Route as AuthenticatedAdminPreviewIdRouteImport } from './routes/_authenticated/admin.preview.$id'
+import { Route as ApiPublicImgSplatRouteImport } from './routes/api/public/img/$'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -47,78 +68,205 @@ const HomeLoansRoute = HomeLoansRouteImport.update({
   path: '/home-loans',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LuxuryRoute = LuxuryRouteImport.update({
+  id: '/luxury',
+  path: '/luxury',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NriRoute = NriRouteImport.update({
+  id: '/nri',
+  path: '/nri',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PropertiesRoute = PropertiesRouteImport.update({
   id: '/properties',
   path: '/properties',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LocationsSlugRoute = LocationsSlugRouteImport.update({
+  id: '/locations/$slug',
+  path: '/locations/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PropertySlugRoute = PropertySlugRouteImport.update({
+  id: '/property/$slug',
+  path: '/property/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAdminIdRoute = AuthenticatedAdminIdRouteImport.update({
+  id: '/admin/$id',
+  path: '/admin/$id',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAdminNewRoute = AuthenticatedAdminNewRouteImport.update({
+  id: '/admin/new',
+  path: '/admin/new',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAdminPreviewIdRoute =
+  AuthenticatedAdminPreviewIdRouteImport.update({
+    id: '/admin/preview/$id',
+    path: '/admin/preview/$id',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const ApiPublicImgSplatRoute = ApiPublicImgSplatRouteImport.update({
+  id: '/api/public/img/$',
+  path: '/api/public/img/$',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/emi-calculator': typeof EmiCalculatorRoute
   '/gurugram-growth-story': typeof GurugramGrowthStoryRoute
   '/home-loans': typeof HomeLoansRoute
+  '/luxury': typeof LuxuryRoute
+  '/nri': typeof NriRoute
   '/properties': typeof PropertiesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/locations/$slug': typeof LocationsSlugRoute
+  '/property/$slug': typeof PropertySlugRoute
+  '/admin/$id': typeof AuthenticatedAdminIdRoute
+  '/admin/new': typeof AuthenticatedAdminNewRoute
+  '/admin/': typeof AuthenticatedAdminIndexRoute
+  '/admin/preview/$id': typeof AuthenticatedAdminPreviewIdRoute
+  '/api/public/img/$': typeof ApiPublicImgSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/emi-calculator': typeof EmiCalculatorRoute
   '/gurugram-growth-story': typeof GurugramGrowthStoryRoute
   '/home-loans': typeof HomeLoansRoute
+  '/luxury': typeof LuxuryRoute
+  '/nri': typeof NriRoute
   '/properties': typeof PropertiesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/locations/$slug': typeof LocationsSlugRoute
+  '/property/$slug': typeof PropertySlugRoute
+  '/admin/$id': typeof AuthenticatedAdminIdRoute
+  '/admin/new': typeof AuthenticatedAdminNewRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
+  '/admin/preview/$id': typeof AuthenticatedAdminPreviewIdRoute
+  '/api/public/img/$': typeof ApiPublicImgSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/emi-calculator': typeof EmiCalculatorRoute
   '/gurugram-growth-story': typeof GurugramGrowthStoryRoute
   '/home-loans': typeof HomeLoansRoute
+  '/luxury': typeof LuxuryRoute
+  '/nri': typeof NriRoute
   '/properties': typeof PropertiesRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/locations/$slug': typeof LocationsSlugRoute
+  '/property/$slug': typeof PropertySlugRoute
+  '/_authenticated/admin/$id': typeof AuthenticatedAdminIdRoute
+  '/_authenticated/admin/new': typeof AuthenticatedAdminNewRoute
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
+  '/_authenticated/admin/preview/$id': typeof AuthenticatedAdminPreviewIdRoute
+  '/api/public/img/$': typeof ApiPublicImgSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/about'
+    | '/auth'
     | '/contact'
     | '/emi-calculator'
     | '/gurugram-growth-story'
     | '/home-loans'
+    | '/luxury'
+    | '/nri'
     | '/properties'
+    | '/sitemap.xml'
+    | '/locations/$slug'
+    | '/property/$slug'
+    | '/admin/$id'
+    | '/admin/new'
+    | '/admin/'
+    | '/admin/preview/$id'
+    | '/api/public/img/$'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
+    | '/auth'
     | '/contact'
     | '/emi-calculator'
     | '/gurugram-growth-story'
     | '/home-loans'
+    | '/luxury'
+    | '/nri'
     | '/properties'
+    | '/sitemap.xml'
+    | '/locations/$slug'
+    | '/property/$slug'
+    | '/admin/$id'
+    | '/admin/new'
+    | '/admin'
+    | '/admin/preview/$id'
+    | '/api/public/img/$'
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/about'
+    | '/auth'
     | '/contact'
     | '/emi-calculator'
     | '/gurugram-growth-story'
     | '/home-loans'
+    | '/luxury'
+    | '/nri'
     | '/properties'
+    | '/sitemap.xml'
+    | '/locations/$slug'
+    | '/property/$slug'
+    | '/_authenticated/admin/$id'
+    | '/_authenticated/admin/new'
+    | '/_authenticated/admin/'
+    | '/_authenticated/admin/preview/$id'
+    | '/api/public/img/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
+  AuthRoute: typeof AuthRoute
   ContactRoute: typeof ContactRoute
   EmiCalculatorRoute: typeof EmiCalculatorRoute
   GurugramGrowthStoryRoute: typeof GurugramGrowthStoryRoute
   HomeLoansRoute: typeof HomeLoansRoute
+  LuxuryRoute: typeof LuxuryRoute
+  NriRoute: typeof NriRoute
   PropertiesRoute: typeof PropertiesRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  LocationsSlugRoute: typeof LocationsSlugRoute
+  PropertySlugRoute: typeof PropertySlugRoute
+  ApiPublicImgSplatRoute: typeof ApiPublicImgSplatRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -130,11 +278,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -165,6 +327,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HomeLoansRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/luxury': {
+      id: '/luxury'
+      path: '/luxury'
+      fullPath: '/luxury'
+      preLoaderRoute: typeof LuxuryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nri': {
+      id: '/nri'
+      path: '/nri'
+      fullPath: '/nri'
+      preLoaderRoute: typeof NriRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/properties': {
       id: '/properties'
       path: '/properties'
@@ -172,17 +348,98 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PropertiesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/locations/$slug': {
+      id: '/locations/$slug'
+      path: '/locations/$slug'
+      fullPath: '/locations/$slug'
+      preLoaderRoute: typeof LocationsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/property/$slug': {
+      id: '/property/$slug'
+      path: '/property/$slug'
+      fullPath: '/property/$slug'
+      preLoaderRoute: typeof PropertySlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/$id': {
+      id: '/_authenticated/admin/$id'
+      path: '/admin/$id'
+      fullPath: '/admin/$id'
+      preLoaderRoute: typeof AuthenticatedAdminIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/new': {
+      id: '/_authenticated/admin/new'
+      path: '/admin/new'
+      fullPath: '/admin/new'
+      preLoaderRoute: typeof AuthenticatedAdminNewRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/preview/$id': {
+      id: '/_authenticated/admin/preview/$id'
+      path: '/admin/preview/$id'
+      fullPath: '/admin/preview/$id'
+      preLoaderRoute: typeof AuthenticatedAdminPreviewIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/api/public/img/$': {
+      id: '/api/public/img/$'
+      path: '/api/public/img/$'
+      fullPath: '/api/public/img/$'
+      preLoaderRoute: typeof ApiPublicImgSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminIdRoute: typeof AuthenticatedAdminIdRoute
+  AuthenticatedAdminNewRoute: typeof AuthenticatedAdminNewRoute
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+  AuthenticatedAdminPreviewIdRoute: typeof AuthenticatedAdminPreviewIdRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminIdRoute: AuthenticatedAdminIdRoute,
+  AuthenticatedAdminNewRoute: AuthenticatedAdminNewRoute,
+  AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+  AuthenticatedAdminPreviewIdRoute: AuthenticatedAdminPreviewIdRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AboutRoute: AboutRoute,
+  AuthRoute: AuthRoute,
   ContactRoute: ContactRoute,
   EmiCalculatorRoute: EmiCalculatorRoute,
   GurugramGrowthStoryRoute: GurugramGrowthStoryRoute,
   HomeLoansRoute: HomeLoansRoute,
+  LuxuryRoute: LuxuryRoute,
+  NriRoute: NriRoute,
   PropertiesRoute: PropertiesRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
+  LocationsSlugRoute: LocationsSlugRoute,
+  PropertySlugRoute: PropertySlugRoute,
+  ApiPublicImgSplatRoute: ApiPublicImgSplatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
