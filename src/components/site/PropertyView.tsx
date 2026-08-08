@@ -9,7 +9,51 @@ import { CONTACT } from "@/data/site";
 import { formatArea, formatINR, PROPERTY_TYPE_LABEL, STATUS_LABEL } from "@/lib/seo";
 import type { ListingRow } from "@/lib/properties.functions";
 
-export type PropertyRecord = Record<string, any>;
+export type PropertyRecord = {
+  id: string;
+  title: string;
+  slug: string;
+  description: string | null;
+  property_type: string;
+  status: string;
+  listing_type: string;
+  bhk: string | null;
+  bathrooms: number | null;
+  balconies: number | null;
+  area_sqft: number | null;
+  carpet_area_sqft: number | null;
+  price: number;
+  furnishing: string | null;
+  facing: string | null;
+  floor_number: number | null;
+  total_floors: number | null;
+  parking?: number | null;
+  servant_room?: boolean | null;
+  study_room?: boolean | null;
+  sector: string | null;
+  locality: string | null;
+  city: string;
+  rera_number: string | null;
+  cover_image_url: string | null;
+  is_luxury?: boolean | null;
+  meta_title?: string | null;
+  meta_description?: string | null;
+  og_title?: string | null;
+  og_description?: string | null;
+  canonical_url?: string | null;
+  updated_at?: string;
+  builder?: { id: string; name: string; slug: string; description: string | null; website: string | null } | null;
+  project?: {
+    id: string;
+    name: string;
+    slug: string;
+    locality: string | null;
+    sector: string | null;
+    rera_number: string | null;
+    possession_date: string | null;
+    description: string | null;
+  } | null;
+};
 
 export type PropertyViewData = {
   property: PropertyRecord;
