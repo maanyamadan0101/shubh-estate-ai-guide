@@ -19,6 +19,7 @@ import { Route as GurugramGrowthStoryRouteImport } from './routes/gurugram-growt
 import { Route as HomeLoansRouteImport } from './routes/home-loans'
 import { Route as PropertiesRouteImport } from './routes/properties'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as LocationsSlugRouteImport } from './routes/locations.$slug'
 import { Route as PropertySlugRouteImport } from './routes/property.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedAdminIdRouteImport } from './routes/_authenticated/admin.$id'
@@ -75,6 +76,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LocationsSlugRoute = LocationsSlugRouteImport.update({
+  id: '/locations/$slug',
+  path: '/locations/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PropertySlugRoute = PropertySlugRouteImport.update({
   id: '/property/$slug',
   path: '/property/$slug',
@@ -117,6 +123,7 @@ export interface FileRoutesByFullPath {
   '/home-loans': typeof HomeLoansRoute
   '/properties': typeof PropertiesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/locations/$slug': typeof LocationsSlugRoute
   '/property/$slug': typeof PropertySlugRoute
   '/admin/$id': typeof AuthenticatedAdminIdRoute
   '/admin/new': typeof AuthenticatedAdminNewRoute
@@ -134,6 +141,7 @@ export interface FileRoutesByTo {
   '/home-loans': typeof HomeLoansRoute
   '/properties': typeof PropertiesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/locations/$slug': typeof LocationsSlugRoute
   '/property/$slug': typeof PropertySlugRoute
   '/admin/$id': typeof AuthenticatedAdminIdRoute
   '/admin/new': typeof AuthenticatedAdminNewRoute
@@ -153,6 +161,7 @@ export interface FileRoutesById {
   '/home-loans': typeof HomeLoansRoute
   '/properties': typeof PropertiesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/locations/$slug': typeof LocationsSlugRoute
   '/property/$slug': typeof PropertySlugRoute
   '/_authenticated/admin/$id': typeof AuthenticatedAdminIdRoute
   '/_authenticated/admin/new': typeof AuthenticatedAdminNewRoute
@@ -172,6 +181,7 @@ export interface FileRouteTypes {
     | '/home-loans'
     | '/properties'
     | '/sitemap.xml'
+    | '/locations/$slug'
     | '/property/$slug'
     | '/admin/$id'
     | '/admin/new'
@@ -189,6 +199,7 @@ export interface FileRouteTypes {
     | '/home-loans'
     | '/properties'
     | '/sitemap.xml'
+    | '/locations/$slug'
     | '/property/$slug'
     | '/admin/$id'
     | '/admin/new'
@@ -207,6 +218,7 @@ export interface FileRouteTypes {
     | '/home-loans'
     | '/properties'
     | '/sitemap.xml'
+    | '/locations/$slug'
     | '/property/$slug'
     | '/_authenticated/admin/$id'
     | '/_authenticated/admin/new'
@@ -226,6 +238,7 @@ export interface RootRouteChildren {
   HomeLoansRoute: typeof HomeLoansRoute
   PropertiesRoute: typeof PropertiesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  LocationsSlugRoute: typeof LocationsSlugRoute
   PropertySlugRoute: typeof PropertySlugRoute
   ApiPublicImgSplatRoute: typeof ApiPublicImgSplatRoute
 }
@@ -302,6 +315,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/locations/$slug': {
+      id: '/locations/$slug'
+      path: '/locations/$slug'
+      fullPath: '/locations/$slug'
+      preLoaderRoute: typeof LocationsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/property/$slug': {
       id: '/property/$slug'
       path: '/property/$slug'
@@ -375,6 +395,7 @@ const rootRouteChildren: RootRouteChildren = {
   HomeLoansRoute: HomeLoansRoute,
   PropertiesRoute: PropertiesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  LocationsSlugRoute: LocationsSlugRoute,
   PropertySlugRoute: PropertySlugRoute,
   ApiPublicImgSplatRoute: ApiPublicImgSplatRoute,
 }

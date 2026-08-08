@@ -128,7 +128,10 @@ export const Route = createFileRoute("/locations/$slug")({
 });
 
 function LocationPage() {
-  const { location, properties } = Route.useLoaderData();
+  const { location, properties } = Route.useLoaderData() as {
+    location: Location;
+    properties: Array<{ id: string } & Record<string, unknown>>;
+  };
 
   return (
     <>
@@ -136,13 +139,13 @@ function LocationPage() {
 
       <section className="container-page grid gap-10 py-12 lg:grid-cols-[1fr_20rem]">
         <div className="space-y-5">
-          {location.body.map((paragraph, i) => (
+          {location.body.map((paragraph: string, i: number) => (
             <p key={i} className="text-muted-foreground">{paragraph}</p>
           ))}
           <div className="rounded-xl border border-border bg-card p-6">
             <h2 className="font-display text-xl">What we check before recommending a purchase</h2>
             <ul className="mt-4 grid gap-2 text-sm text-muted-foreground">
-              {location.highlights.map((h) => (
+              {location.highlights.map((h: string) => (
                 <li key={h}>• {h}</li>
               ))}
             </ul>
