@@ -2,5 +2,7 @@ User-agent: *
 Allow: /
 Disallow: /admin
 Disallow: /auth
+Disallow: /forgot-password
+Disallow: /reset-password
 
-Sitemap: https://shubh-estate-ai-guide.lovable.app/sitemap.xml
+Sitemap: https://www.shubhestatebroker.in/sitemap.xml
