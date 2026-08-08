@@ -143,7 +143,7 @@ export const savePropertyDraft = createServerFn({ method: "POST" })
     } else {
       const { data: inserted, error } = await context.supabase
         .from("properties")
-        .insert({ ...row, created_by: context.userId } as never)
+        .insert({ ...fields, created_by: context.userId } as never)
         .select("id")
         .single();
       if (error) throw new Error(error.message);
@@ -195,7 +195,7 @@ export const setPropertyState = createServerFn({ method: "POST" })
       if (data.is_published) patch["published_at"] = new Date().toISOString();
     }
     if (data.status) patch["status"] = data.status;
-    const { error } = await context.supabase.from("properties").update(patch).eq("id", data.id);
+    const { error } = await context.supabase.from("properties").update(patch as never).eq("id", data.id);
     if (error) throw new Error(error.message);
     return { ok: true };
   });
