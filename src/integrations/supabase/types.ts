@@ -324,6 +324,7 @@ export type Database = {
           bedrooms: number | null
           bhk: string | null
           builder_id: string | null
+          canonical_url: string | null
           carpet_area_sqft: number | null
           city: string
           cover_image_url: string | null
@@ -335,21 +336,30 @@ export type Database = {
           furnishing: string | null
           id: string
           is_featured: boolean
+          is_luxury: boolean
           is_published: boolean
           latitude: number | null
           listing_type: string
           locality: string | null
           longitude: number | null
+          meta_description: string | null
+          meta_title: string | null
+          og_description: string | null
+          og_title: string | null
+          parking: number
           pincode: string | null
+          possession_date: string | null
           price: number
           price_per_sqft: number | null
           project_id: string | null
           property_type: Database["public"]["Enums"]["property_type"]
           rera_number: string | null
           sector: string | null
+          servant_room: boolean
           slug: string
           state: string
           status: Database["public"]["Enums"]["listing_status"]
+          study_room: boolean
           tags: string[]
           title: string
           total_floors: number | null
@@ -363,6 +373,7 @@ export type Database = {
           bedrooms?: number | null
           bhk?: string | null
           builder_id?: string | null
+          canonical_url?: string | null
           carpet_area_sqft?: number | null
           city?: string
           cover_image_url?: string | null
@@ -374,21 +385,30 @@ export type Database = {
           furnishing?: string | null
           id?: string
           is_featured?: boolean
+          is_luxury?: boolean
           is_published?: boolean
           latitude?: number | null
           listing_type?: string
           locality?: string | null
           longitude?: number | null
+          meta_description?: string | null
+          meta_title?: string | null
+          og_description?: string | null
+          og_title?: string | null
+          parking?: number
           pincode?: string | null
+          possession_date?: string | null
           price?: number
           price_per_sqft?: number | null
           project_id?: string | null
           property_type?: Database["public"]["Enums"]["property_type"]
           rera_number?: string | null
           sector?: string | null
+          servant_room?: boolean
           slug: string
           state?: string
           status?: Database["public"]["Enums"]["listing_status"]
+          study_room?: boolean
           tags?: string[]
           title: string
           total_floors?: number | null
@@ -402,6 +422,7 @@ export type Database = {
           bedrooms?: number | null
           bhk?: string | null
           builder_id?: string | null
+          canonical_url?: string | null
           carpet_area_sqft?: number | null
           city?: string
           cover_image_url?: string | null
@@ -413,21 +434,30 @@ export type Database = {
           furnishing?: string | null
           id?: string
           is_featured?: boolean
+          is_luxury?: boolean
           is_published?: boolean
           latitude?: number | null
           listing_type?: string
           locality?: string | null
           longitude?: number | null
+          meta_description?: string | null
+          meta_title?: string | null
+          og_description?: string | null
+          og_title?: string | null
+          parking?: number
           pincode?: string | null
+          possession_date?: string | null
           price?: number
           price_per_sqft?: number | null
           project_id?: string | null
           property_type?: Database["public"]["Enums"]["property_type"]
           rera_number?: string | null
           sector?: string | null
+          servant_room?: boolean
           slug?: string
           state?: string
           status?: Database["public"]["Enums"]["listing_status"]
+          study_room?: boolean
           tags?: string[]
           title?: string
           total_floors?: number | null
