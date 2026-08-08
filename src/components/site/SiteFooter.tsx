@@ -12,6 +12,13 @@ const LOCATION_LINKS = [
   ["new-gurgaon", "New Gurgaon"],
 ] as const;
 
+const NRI_MARKET_LINKS = [
+  ["usa", "USA"],
+  ["canada", "Canada"],
+  ["australia", "Australia"],
+  ["europe", "Europe"],
+] as const;
+
 export function SiteFooter() {
   return (
     <footer className="mt-24 surface-navy">
@@ -72,6 +79,16 @@ export function SiteFooter() {
 
       <div className="border-t border-navy-foreground/10">
         <div className="container-page space-y-4 py-8">
+          <p className="text-xs text-navy-foreground/65">
+            Overseas NRI buyers:{" "}
+            {NRI_MARKET_LINKS.map(([slug, label], index) => (
+              <span key={slug}>
+                {index > 0 ? " · " : ""}
+                <a href={`/nri/${slug}`} className="hover:text-gold">{label}</a>
+              </span>
+            ))}
+            {" · "}<Link to="/nri" className="hover:text-gold">All NRI property services</Link>
+          </p>
           <p className="text-xs leading-relaxed text-navy-foreground/55">{LOAN_DISCLAIMER}</p>
           <p className="text-xs text-navy-foreground/55">
             © {new Date().getFullYear()} Shubh Estate Brokers, Gurugram. All rights reserved.
