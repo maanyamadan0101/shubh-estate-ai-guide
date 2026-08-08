@@ -30,6 +30,33 @@ const STEPS = [
   },
 ];
 
+const NRI_MARKETS = [
+  {
+    slug: "usa",
+    label: "USA",
+    title: "Buying Gurgaon property from the USA",
+    body: "For US-based NRI and OCI buyers searching India, Delhi NCR, Gurgaon or Gurugram property.",
+  },
+  {
+    slug: "canada",
+    label: "Canada",
+    title: "Buying Gurgaon property from Canada",
+    body: "Remote shortlisting and transaction coordination for Canada-based overseas Indian buyers.",
+  },
+  {
+    slug: "australia",
+    label: "Australia",
+    title: "Buying Gurgaon property from Australia",
+    body: "Gurugram property guidance designed around remote viewing and Australian time zones.",
+  },
+  {
+    slug: "europe",
+    label: "Europe",
+    title: "Buying Gurgaon property from Europe",
+    body: "On-ground Gurgaon advisory for NRI and OCI buyers across the UK and continental Europe.",
+  },
+] as const;
+
 const FAQS = [
   {
     q: "Can an NRI buy residential property in India?",
@@ -48,6 +75,13 @@ const FAQS = [
     a: "Repatriation is permitted subject to RBI conditions, including limits on the number of residential properties and evidence that the purchase was funded through permissible channels. Keeping clean records from day one is essential.",
   },
 ];
+
+const NRI_ALTERNATES = [
+  { rel: "alternate", hrefLang: "en-US", href: `${SITE_ORIGIN}/nri/usa` },
+  { rel: "alternate", hrefLang: "en-CA", href: `${SITE_ORIGIN}/nri/canada` },
+  { rel: "alternate", hrefLang: "en-AU", href: `${SITE_ORIGIN}/nri/australia` },
+  { rel: "alternate", hrefLang: "x-default", href: `${SITE_ORIGIN}/nri` },
+] as const;
 
 export const Route = createFileRoute("/nri")({
   loader: async () => {
@@ -70,7 +104,10 @@ export const Route = createFileRoute("/nri")({
       { property: "og:type", content: "website" },
       { property: "og:url", content: `${SITE_ORIGIN}/nri` },
     ],
-    links: [{ rel: "canonical", href: `${SITE_ORIGIN}/nri` }],
+    links: [
+      { rel: "canonical", href: `${SITE_ORIGIN}/nri` },
+      ...NRI_ALTERNATES,
+    ],
     scripts: [
       {
         type: "application/ld+json",
@@ -107,8 +144,31 @@ function NriPage() {
       <PageHero
         eyebrow="NRI Desk"
         title="Buying property in Gurugram from overseas"
-        body="A single point of accountability across shortlisting, due diligence, financing and registration — designed for buyers in the Gulf, UK, US, Singapore and Australia."
+        body="A single point of accountability across shortlisting, due diligence, financing and registration — designed for buyers in the USA, Canada, Australia, Europe, the Gulf and other global markets."
       />
+
+      <section className="container-page pt-12">
+        <div className="rounded-2xl border border-border bg-card p-6 md:p-8">
+          <p className="eyebrow">International NRI Guides</p>
+          <h2 className="mt-3 font-display text-2xl">Searching India, Delhi NCR, Gurgaon or Gurugram from overseas?</h2>
+          <p className="mt-3 max-w-3xl text-sm text-muted-foreground">
+            Choose your region for a country-focused guide. These pages are written for overseas buyers who need local Gurgaon execution, remote viewing and clear coordination while they remain abroad.
+          </p>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {NRI_MARKETS.map((market) => (
+              <a
+                key={market.slug}
+                href={`/nri/${market.slug}`}
+                className="rounded-xl border border-border p-5 transition-colors hover:border-gold"
+              >
+                <span className="text-xs font-medium uppercase tracking-wide text-gold">{market.label}</span>
+                <h3 className="mt-2 font-display text-lg">{market.title}</h3>
+                <p className="mt-2 text-sm text-muted-foreground">{market.body}</p>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <section className="container-page grid gap-10 py-12 lg:grid-cols-[1fr_20rem]">
         <div>
@@ -146,7 +206,7 @@ function NriPage() {
 
         <aside className="rounded-xl border border-border bg-card p-6 lg:sticky lg:top-24 lg:self-start">
           <h2 className="font-display text-xl">Talk to the NRI desk</h2>
-          <p className="mt-1 text-xs text-muted-foreground">Share your timezone — we'll call at a convenient hour.</p>
+          <p className="mt-1 text-xs text-muted-foreground">Share your country and timezone — we'll call at a convenient hour.</p>
           <div className="mt-4">
             <EnquiryForm interest="NRI enquiry" compact />
           </div>
