@@ -28,6 +28,18 @@ export const Route = createFileRoute("/auth")({
   component: AuthPage,
 });
 
+function withTimeout<T>(promise: Promise<T>, ms = 12000): Promise<T> {
+  return Promise.race([
+    promise,
+    new Promise<never>((_, reject) =>
+      window.setTimeout(
+        () => reject(new Error("Login request timed out. Please try once more.")),
+        ms,
+      ),
+    ),
+  ]);
+}
+
 function AuthPage() {
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
@@ -37,32 +49,36 @@ function AuthPage() {
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
+    if (busy) return;
     setBusy(true);
 
-    if (mode === "signin") {
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
+    try {
+      if (mode === "signin") {
+        const { error } = await withTimeout(
+          supabase.auth.signInWithPassword({
+            email: email.trim(),
+            password,
+          }),
+        );
 
-      setBusy(false);
+        if (error) {
+          toast.error(error.message);
+          return;
+        }
 
-      if (error) {
-        toast.error(error.message);
+        void navigate({ to: "/admin" });
         return;
       }
 
-      void navigate({ to: "/admin" });
-    } else {
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          emailRedirectTo: window.location.origin + "/admin",
-        },
-      });
-
-      setBusy(false);
+      const { data, error } = await withTimeout(
+        supabase.auth.signUp({
+          email: email.trim(),
+          password,
+          options: {
+            emailRedirectTo: window.location.origin + "/admin",
+          },
+        }),
+      );
 
       if (error) {
         toast.error(error.message);
@@ -74,6 +90,12 @@ function AuthPage() {
       } else {
         toast.success("Check your email to confirm your account.");
       }
+    } catch (error) {
+      const message = error instanceof Error ? error.message : "Login failed unexpectedly.";
+      console.error("Authentication error:", error);
+      toast.error(message);
+    } finally {
+      setBusy(false);
     }
   }
 
@@ -95,6 +117,7 @@ function AuthPage() {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Email"
             aria-label="Email"
+            autoComplete="email"
             required
           />
 
@@ -104,6 +127,7 @@ function AuthPage() {
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
             aria-label="Password"
+            autoComplete="current-password"
             minLength={8}
             required
           />
@@ -136,9 +160,8 @@ function AuthPage() {
         <button
           type="button"
           className="mt-4 text-xs text-muted-foreground underline-offset-4 hover:underline"
-          onClick={() =>
-            setMode(mode === "signin" ? "signup" : "signin")
-          }
+          onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
+          disabled={busy}
         >
           {mode === "signin"
             ? "Need an account? Create one"
