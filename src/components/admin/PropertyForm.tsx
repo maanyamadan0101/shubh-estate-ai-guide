@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { Loader2, Sparkles, Wand2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -9,8 +9,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
-import { ImageManager, type ManagedImage } from "@/components/admin/ImageManager";
-import { generateDescription, savePropertyDraft } from "@/lib/admin.functions";
+import { type ManagedImage } from "@/components/admin/ImageManager";
+import { savePropertyDraft } from "@/lib/admin.functions";
 import {
   buildCanonical,
   buildImageAlt,
@@ -130,7 +130,7 @@ export const EMPTY_PROPERTY: PropertyFormValues = {
   images: [],
 };
 
-const STEPS = ["Basics", "Details", "Photos", "Description", "SEO & Publish"];
+const STEPS = ["Basics", "Details", "Description"];
 
 function num(value: string): number | null {
   if (value.trim() === "") return null;
@@ -150,10 +150,8 @@ export function PropertyForm({
   const [step, setStep] = useState(0);
   const [values, setValues] = useState<PropertyFormValues>(initial);
   const [saving, setSaving] = useState(false);
-  const [aiLoading, setAiLoading] = useState(false);
   const navigate = useNavigate();
   const save = useServerFn(savePropertyDraft);
-  const askAi = useServerFn(generateDescription);
 
   const set = <K extends keyof PropertyFormValues>(key: K, value: PropertyFormValues[K]) =>
     setValues((prev) => ({ ...prev, [key]: value }));
@@ -200,46 +198,6 @@ export function PropertyForm({
     });
   }
 
-  async function runAi() {
-    setAiLoading(true);
-    const prompt = [
-      `Property: ${values.title}`,
-      projectName ? `Project: ${projectName}` : null,
-      builderName ? `Builder: ${builderName}` : null,
-      `Type: ${PROPERTY_TYPE_LABEL[values.property_type]} for ${values.listing_type}`,
-      values.bhk ? `Configuration: ${values.bhk}` : null,
-      `Location: ${[values.sector, values.locality, values.city].filter(Boolean).join(", ")}`,
-      values.price ? `Price: INR ${values.price}` : null,
-      values.area_sqft ? `Built-up area: ${values.area_sqft} sq.ft.` : null,
-      values.carpet_area_sqft ? `Carpet area: ${values.carpet_area_sqft} sq.ft.` : null,
-      values.bathrooms ? `Bathrooms: ${values.bathrooms}` : null,
-      values.balconies ? `Balconies: ${values.balconies}` : null,
-      values.floor_number ? `Floor: ${values.floor_number} of ${values.total_floors || "?"}` : null,
-      values.facing ? `Facing: ${values.facing}` : null,
-      values.furnishing ? `Furnishing: ${values.furnishing}` : null,
-      values.parking ? `Parking: ${values.parking}` : null,
-      values.servant_room ? "Has servant room" : null,
-      values.study_room ? "Has study room" : null,
-      values.rera_number ? `RERA: ${values.rera_number}` : null,
-      values.amenities.length ? `Amenities: ${values.amenities.join(", ")}` : null,
-      values.features.length ? `Features: ${values.features.join(", ")}` : null,
-    ]
-      .filter(Boolean)
-      .join("\n");
-
-    try {
-      const result = await askAi({ data: { prompt } });
-      if (result.error || !result.text) {
-        toast.error(result.error ?? "Could not generate a description.");
-      } else {
-        set("description", result.text);
-        toast.success("Description drafted — please review it.");
-      }
-    } catch {
-      toast.error("Could not generate a description.");
-    }
-    setAiLoading(false);
-  }
 
   async function persist(overrides: Partial<PropertyFormValues> = {}) {
     const merged = { ...values, ...overrides };
@@ -314,10 +272,7 @@ export function PropertyForm({
           <li key={label}>
             <button
               type="button"
-              onClick={() => {
-                if (i === 4) autoFillSeo();
-                setStep(i);
-              }}
+              onClick={() => setStep(i)}
               className={`rounded-full border px-4 py-1.5 text-xs uppercase tracking-[0.14em] transition-colors ${
                 step === i ? "border-gold bg-gold text-gold-foreground" : "border-border text-muted-foreground hover:text-foreground"
               }`}
@@ -449,22 +404,8 @@ export function PropertyForm({
         ) : null}
 
         {step === 2 ? (
-          <ImageManager
-            images={values.images}
-            onChange={(next) => set("images", next)}
-            altFor={(i) => buildImageAlt(seoSource, i)}
-          />
-        ) : null}
-
-        {step === 3 ? (
           <div className="space-y-4">
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <Label htmlFor="description">Property description</Label>
-              <Button type="button" variant="goldOutline" size="sm" onClick={() => void runAi()} disabled={aiLoading}>
-                {aiLoading ? <Loader2 className="size-4 animate-spin" aria-hidden="true" /> : <Sparkles className="size-4" aria-hidden="true" />}
-                Write with AI
-              </Button>
-            </div>
+            <Label htmlFor="description">Property description</Label>
             <Textarea
               id="description"
               rows={14}
@@ -472,42 +413,6 @@ export function PropertyForm({
               onChange={(e) => set("description", e.target.value)}
               placeholder="Describe the home, the project and the neighbourhood in plain language."
             />
-            <p className="text-xs text-muted-foreground">
-              AI drafts are a starting point. Please read and correct before publishing.
-            </p>
-          </div>
-        ) : null}
-
-        {step === 4 ? (
-          <div className="space-y-5">
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <p className="text-sm text-muted-foreground">
-                These fields are generated for you. Edit anything before publishing.
-              </p>
-              <Button type="button" variant="outline" size="sm" onClick={() => autoFillSeo(true)}>
-                <Wand2 className="size-4" aria-hidden="true" />
-                Regenerate
-              </Button>
-            </div>
-            <Field label="Page address (slug)">
-              <Input value={values.slug} onChange={(e) => set("slug", e.target.value)} />
-            </Field>
-            <p className="-mt-3 text-xs text-muted-foreground">/property/{values.slug || "…"}</p>
-            <Field label="SEO title">
-              <Input value={values.meta_title} onChange={(e) => set("meta_title", e.target.value)} maxLength={70} />
-            </Field>
-            <Field label="Meta description">
-              <Textarea rows={3} value={values.meta_description} onChange={(e) => set("meta_description", e.target.value)} maxLength={170} />
-            </Field>
-            <Field label="Social share title">
-              <Input value={values.og_title} onChange={(e) => set("og_title", e.target.value)} />
-            </Field>
-            <Field label="Social share description">
-              <Textarea rows={3} value={values.og_description} onChange={(e) => set("og_description", e.target.value)} />
-            </Field>
-            <Field label="Canonical URL">
-              <Input value={values.canonical_url} onChange={(e) => set("canonical_url", e.target.value)} />
-            </Field>
           </div>
         ) : null}
       </div>
@@ -519,11 +424,8 @@ export function PropertyForm({
         <Button
           type="button"
           variant="outline"
-          disabled={step === 4}
-          onClick={() => {
-            if (step === 3) autoFillSeo();
-            setStep((s) => Math.min(4, s + 1));
-          }}
+          disabled={step === 2}
+          onClick={() => setStep((s) => Math.min(2, s + 1))}
         >
           Next
         </Button>
