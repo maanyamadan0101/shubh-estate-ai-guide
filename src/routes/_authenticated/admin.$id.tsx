@@ -70,7 +70,7 @@ function EditProperty() {
     canonical_url: str(p["canonical_url"]),
     amenities: record.data.amenities,
     features: record.data.features,
-    images: record.data.images.map((img) => ({
+    images: record.data.images.map((img: { image_url: string; alt_text: string | null; is_primary: boolean }) => ({
       image_url: img.image_url,
       alt_text: img.alt_text ?? "",
       is_primary: img.is_primary,

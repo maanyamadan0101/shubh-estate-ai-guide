@@ -26,7 +26,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         const urls = [
           ...STATIC_PATHS.map((p) => `  <url>\n    <loc>${SITE_ORIGIN}${p.path}</loc>\n    <priority>${p.priority}</priority>\n  </url>`),
           ...properties.map(
-            (p) =>
+            (p: { slug: string; updated_at: string }) =>
               `  <url>\n    <loc>${SITE_ORIGIN}/property/${p.slug}</loc>\n    <lastmod>${new Date(p.updated_at).toISOString().slice(0, 10)}</lastmod>\n    <priority>0.8</priority>\n  </url>`,
           ),
         ].join("\n");
