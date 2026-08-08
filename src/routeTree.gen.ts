@@ -10,7 +10,9 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as EmiCalculatorRouteImport } from './routes/emi-calculator'
 import { Route as GurugramGrowthStoryRouteImport } from './routes/gurugram-growth-story'
@@ -18,6 +20,7 @@ import { Route as HomeLoansRouteImport } from './routes/home-loans'
 import { Route as PropertiesRouteImport } from './routes/properties'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PropertySlugRouteImport } from './routes/property.$slug'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as ApiPublicImgSplatRouteImport } from './routes/api/public/img/$'
 
 const IndexRoute = IndexRouteImport.update({
@@ -25,9 +28,18 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -65,6 +77,11 @@ const PropertySlugRoute = PropertySlugRouteImport.update({
   path: '/property/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const ApiPublicImgSplatRoute = ApiPublicImgSplatRouteImport.update({
   id: '/api/public/img/$',
   path: '/api/public/img/$',
@@ -74,6 +91,7 @@ const ApiPublicImgSplatRoute = ApiPublicImgSplatRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/emi-calculator': typeof EmiCalculatorRoute
   '/gurugram-growth-story': typeof GurugramGrowthStoryRoute
@@ -81,11 +99,13 @@ export interface FileRoutesByFullPath {
   '/properties': typeof PropertiesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/property/$slug': typeof PropertySlugRoute
+  '/admin/': typeof AuthenticatedAdminIndexRoute
   '/api/public/img/$': typeof ApiPublicImgSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/emi-calculator': typeof EmiCalculatorRoute
   '/gurugram-growth-story': typeof GurugramGrowthStoryRoute
@@ -93,12 +113,15 @@ export interface FileRoutesByTo {
   '/properties': typeof PropertiesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/property/$slug': typeof PropertySlugRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
   '/api/public/img/$': typeof ApiPublicImgSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
   '/emi-calculator': typeof EmiCalculatorRoute
   '/gurugram-growth-story': typeof GurugramGrowthStoryRoute
@@ -106,6 +129,7 @@ export interface FileRoutesById {
   '/properties': typeof PropertiesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/property/$slug': typeof PropertySlugRoute
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/api/public/img/$': typeof ApiPublicImgSplatRoute
 }
 export interface FileRouteTypes {
@@ -113,6 +137,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/auth'
     | '/contact'
     | '/emi-calculator'
     | '/gurugram-growth-story'
@@ -120,11 +145,13 @@ export interface FileRouteTypes {
     | '/properties'
     | '/sitemap.xml'
     | '/property/$slug'
+    | '/admin/'
     | '/api/public/img/$'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
+    | '/auth'
     | '/contact'
     | '/emi-calculator'
     | '/gurugram-growth-story'
@@ -132,11 +159,14 @@ export interface FileRouteTypes {
     | '/properties'
     | '/sitemap.xml'
     | '/property/$slug'
+    | '/admin'
     | '/api/public/img/$'
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/about'
+    | '/auth'
     | '/contact'
     | '/emi-calculator'
     | '/gurugram-growth-story'
@@ -144,12 +174,15 @@ export interface FileRouteTypes {
     | '/properties'
     | '/sitemap.xml'
     | '/property/$slug'
+    | '/_authenticated/admin/'
     | '/api/public/img/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
+  AuthRoute: typeof AuthRoute
   ContactRoute: typeof ContactRoute
   EmiCalculatorRoute: typeof EmiCalculatorRoute
   GurugramGrowthStoryRoute: typeof GurugramGrowthStoryRoute
@@ -169,11 +202,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -225,6 +272,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PropertySlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/api/public/img/$': {
       id: '/api/public/img/$'
       path: '/api/public/img/$'
@@ -235,9 +289,22 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AboutRoute: AboutRoute,
+  AuthRoute: AuthRoute,
   ContactRoute: ContactRoute,
   EmiCalculatorRoute: EmiCalculatorRoute,
   GurugramGrowthStoryRoute: GurugramGrowthStoryRoute,
