@@ -2,22 +2,18 @@
 import { createClient } from '@supabase/supabase-js';
 import type { Database } from './types';
 
+const FALLBACK_SUPABASE_URL = 'https://ggjvzzmrtkrvmmchcszh.supabase.co';
+const FALLBACK_SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_xwHC8FTBbQJin1wwzMFHMQ_fvR94L96';
+
 function createSupabaseClient() {
   const SUPABASE_URL =
-    import.meta.env['VITE_SUPABASE_URL'] || process.env['SUPABASE_URL'];
+    import.meta.env['VITE_SUPABASE_URL'] ||
+    process.env['SUPABASE_URL'] ||
+    FALLBACK_SUPABASE_URL;
   const SUPABASE_PUBLISHABLE_KEY =
     import.meta.env['VITE_SUPABASE_PUBLISHABLE_KEY'] ||
-    process.env['SUPABASE_PUBLISHABLE_KEY'];
-
-  if (!SUPABASE_URL || !SUPABASE_PUBLISHABLE_KEY) {
-    const missing = [
-      ...(!SUPABASE_URL ? ['SUPABASE_URL'] : []),
-      ...(!SUPABASE_PUBLISHABLE_KEY ? ['SUPABASE_PUBLISHABLE_KEY'] : []),
-    ];
-    const message = `Missing Supabase environment variable(s): ${missing.join(', ')}`;
-    console.error(`[Supabase] ${message}`);
-    throw new Error(message);
-  }
+    process.env['SUPABASE_PUBLISHABLE_KEY'] ||
+    FALLBACK_SUPABASE_PUBLISHABLE_KEY;
 
   return createClient<Database>(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
     auth: {
