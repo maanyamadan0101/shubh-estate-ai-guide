@@ -1,2 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /auth
+
+Sitemap: https://shubh-estate-ai-guide.lovable.app/sitemap.xml
