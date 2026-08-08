@@ -1,4 +1,4 @@
-export const SITE_ORIGIN = "https://shubh-estate-ai-guide.lovable.app";
+export const SITE_ORIGIN = "https://www.shubhestatebroker.in";
 
 export function slugify(input: string): string {
   return input
