@@ -17,6 +17,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as EmiCalculatorRouteImport } from './routes/emi-calculator'
 import { Route as GurugramGrowthStoryRouteImport } from './routes/gurugram-growth-story'
 import { Route as HomeLoansRouteImport } from './routes/home-loans'
+import { Route as LuxuryRouteImport } from './routes/luxury'
 import { Route as NriRouteImport } from './routes/nri'
 import { Route as PropertiesRouteImport } from './routes/properties'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
@@ -65,6 +66,11 @@ const GurugramGrowthStoryRoute = GurugramGrowthStoryRouteImport.update({
 const HomeLoansRoute = HomeLoansRouteImport.update({
   id: '/home-loans',
   path: '/home-loans',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LuxuryRoute = LuxuryRouteImport.update({
+  id: '/luxury',
+  path: '/luxury',
   getParentRoute: () => rootRouteImport,
 } as any)
 const NriRoute = NriRouteImport.update({
@@ -127,6 +133,7 @@ export interface FileRoutesByFullPath {
   '/emi-calculator': typeof EmiCalculatorRoute
   '/gurugram-growth-story': typeof GurugramGrowthStoryRoute
   '/home-loans': typeof HomeLoansRoute
+  '/luxury': typeof LuxuryRoute
   '/nri': typeof NriRoute
   '/properties': typeof PropertiesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -146,6 +153,7 @@ export interface FileRoutesByTo {
   '/emi-calculator': typeof EmiCalculatorRoute
   '/gurugram-growth-story': typeof GurugramGrowthStoryRoute
   '/home-loans': typeof HomeLoansRoute
+  '/luxury': typeof LuxuryRoute
   '/nri': typeof NriRoute
   '/properties': typeof PropertiesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -167,6 +175,7 @@ export interface FileRoutesById {
   '/emi-calculator': typeof EmiCalculatorRoute
   '/gurugram-growth-story': typeof GurugramGrowthStoryRoute
   '/home-loans': typeof HomeLoansRoute
+  '/luxury': typeof LuxuryRoute
   '/nri': typeof NriRoute
   '/properties': typeof PropertiesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
@@ -188,6 +197,7 @@ export interface FileRouteTypes {
     | '/emi-calculator'
     | '/gurugram-growth-story'
     | '/home-loans'
+    | '/luxury'
     | '/nri'
     | '/properties'
     | '/sitemap.xml'
@@ -207,6 +217,7 @@ export interface FileRouteTypes {
     | '/emi-calculator'
     | '/gurugram-growth-story'
     | '/home-loans'
+    | '/luxury'
     | '/nri'
     | '/properties'
     | '/sitemap.xml'
@@ -227,6 +238,7 @@ export interface FileRouteTypes {
     | '/emi-calculator'
     | '/gurugram-growth-story'
     | '/home-loans'
+    | '/luxury'
     | '/nri'
     | '/properties'
     | '/sitemap.xml'
@@ -248,6 +260,7 @@ export interface RootRouteChildren {
   EmiCalculatorRoute: typeof EmiCalculatorRoute
   GurugramGrowthStoryRoute: typeof GurugramGrowthStoryRoute
   HomeLoansRoute: typeof HomeLoansRoute
+  LuxuryRoute: typeof LuxuryRoute
   NriRoute: typeof NriRoute
   PropertiesRoute: typeof PropertiesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
@@ -312,6 +325,13 @@ declare module '@tanstack/react-router' {
       path: '/home-loans'
       fullPath: '/home-loans'
       preLoaderRoute: typeof HomeLoansRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/luxury': {
+      id: '/luxury'
+      path: '/luxury'
+      fullPath: '/luxury'
+      preLoaderRoute: typeof LuxuryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/nri': {
@@ -413,6 +433,7 @@ const rootRouteChildren: RootRouteChildren = {
   EmiCalculatorRoute: EmiCalculatorRoute,
   GurugramGrowthStoryRoute: GurugramGrowthStoryRoute,
   HomeLoansRoute: HomeLoansRoute,
+  LuxuryRoute: LuxuryRoute,
   NriRoute: NriRoute,
   PropertiesRoute: PropertiesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
