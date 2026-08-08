@@ -2,7 +2,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ListingCard } from "@/components/site/ListingCard";
 import { PageHero } from "@/components/site/SectionHead";
 import { EnquiryForm } from "@/components/site/EnquiryForm";
-import { listPublicProperties } from "@/lib/properties.functions";
+import { listPublicProperties, type ListingRow } from "@/lib/properties.functions";
 import { SITE_ORIGIN } from "@/lib/seo";
 
 type Location = {
@@ -130,7 +130,7 @@ export const Route = createFileRoute("/locations/$slug")({
 function LocationPage() {
   const { location, properties } = Route.useLoaderData() as {
     location: Location;
-    properties: Array<{ id: string } & Record<string, unknown>>;
+    properties: ListingRow[];
   };
 
   return (
