@@ -30,6 +30,24 @@ export const getMyAccess = createServerFn({ method: "GET" })
     return { roles, canEdit: roles.some((r) => r === "admin" || r === "editor") };
   });
 
+export type AdminPropertyRow = {
+  id: string;
+  title: string;
+  slug: string;
+  bhk: string | null;
+  sector: string | null;
+  locality: string | null;
+  price: number | string;
+  status: string;
+  listing_type: string;
+  is_published: boolean;
+  is_luxury: boolean;
+  updated_at: string;
+  cover_image_url: string | null;
+};
+export type AdminImageRow = { id: string; image_url: string; alt_text: string | null; sort_order: number; is_primary: boolean };
+export type FeatureRow = { feature_name: string; category: string };
+
 export const listAdminProperties = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
@@ -38,7 +56,7 @@ export const listAdminProperties = createServerFn({ method: "GET" })
       .select("id,title,slug,bhk,sector,locality,price,status,listing_type,is_published,is_luxury,updated_at,cover_image_url")
       .order("updated_at", { ascending: false });
     if (error) throw new Error(error.message);
-    return data ?? [];
+    return (data ?? []) as AdminPropertyRow[];
   });
 
 export const getAdminProperty = createServerFn({ method: "GET" })
@@ -62,9 +80,9 @@ export const getAdminProperty = createServerFn({ method: "GET" })
     ]);
     return {
       property,
-      images: images ?? [],
-      amenities: (features ?? []).filter((f) => f.category === "amenity").map((f) => f.feature_name),
-      features: (features ?? []).filter((f) => f.category !== "amenity").map((f) => f.feature_name),
+      images: (images ?? []) as AdminImageRow[],
+      amenities: ((features ?? []) as FeatureRow[]).filter((f) => f.category === "amenity").map((f) => f.feature_name),
+      features: ((features ?? []) as FeatureRow[]).filter((f) => f.category !== "amenity").map((f) => f.feature_name),
     };
   });
 

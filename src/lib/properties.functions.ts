@@ -63,6 +63,9 @@ export const listPublicProperties = createServerFn({ method: "GET" })
     return { properties: (rows ?? []) as unknown as ListingRow[], error: null };
   });
 
+export type FeatureRow = { feature_name: string; category: string };
+export type SitemapRow = { slug: string; updated_at: string; status: string };
+
 export const getPublicProperty = createServerFn({ method: "GET" })
   .inputValidator((input: unknown) => z.object({ slug: z.string().min(1) }).parse(input))
   .handler(async ({ data }) => {
@@ -93,8 +96,8 @@ export const getPublicProperty = createServerFn({ method: "GET" })
     return {
       property,
       images: images ?? [],
-      amenities: (features ?? []).filter((f) => f.category === "amenity").map((f) => f.feature_name),
-      features: (features ?? []).filter((f) => f.category !== "amenity").map((f) => f.feature_name),
+      amenities: ((features ?? []) as FeatureRow[]).filter((f) => f.category === "amenity").map((f) => f.feature_name),
+      features: ((features ?? []) as FeatureRow[]).filter((f) => f.category !== "amenity").map((f) => f.feature_name),
     };
   });
 
@@ -104,5 +107,5 @@ export const listSitemapProperties = createServerFn({ method: "GET" }).handler(a
     .select("slug,updated_at,status")
     .eq("is_published", true)
     .neq("status", "sold_out");
-  return data ?? [];
+  return (data ?? []) as SitemapRow[];
 });
