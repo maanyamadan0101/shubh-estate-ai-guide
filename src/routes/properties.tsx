@@ -2,15 +2,17 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { Search } from "lucide-react";
 import { PageHero } from "@/components/site/SectionHead";
-import { PropertyCard } from "@/components/site/PropertyCard";
+import { ListingCard } from "@/components/site/ListingCard";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { PROPERTIES } from "@/data/site";
+import { listPublicProperties, type ListingRow } from "@/lib/properties.functions";
+import { PROPERTY_TYPE_LABEL, SITE_ORIGIN, STATUS_LABEL } from "@/lib/seo";
 
-const TYPES = ["All", "Apartment", "Builder Floor", "Villa", "Commercial"] as const;
-const STATUSES = ["All", "Ready to Move", "Under Construction", "New Launch"] as const;
+const TYPES = ["All", "apartment", "builder_floor", "villa", "plot", "commercial", "office", "retail"] as const;
+const STATUSES = ["All", "ready_to_move", "under_construction", "new_launch"] as const;
 
 export const Route = createFileRoute("/properties")({
+  loader: async () => listPublicProperties({ data: { limit: 60 } }),
   head: () => ({
     meta: [
       { title: "Flats, Villas & Commercial Property in Gurgaon | Shubh Estate" },
@@ -24,26 +26,41 @@ export const Route = createFileRoute("/properties")({
         property: "og:description",
         content: "Curated Gurugram inventory with price, configuration, possession status and loan availability.",
       },
+      { property: "og:type", content: "website" },
+      { property: "og:url", content: `${SITE_ORIGIN}/properties` },
     ],
+    links: [{ rel: "canonical", href: `${SITE_ORIGIN}/properties` }],
   }),
   component: Properties,
+  errorComponent: () => (
+    <div className="container-page py-24 text-center">
+      <h1 className="font-display text-3xl">Listings didn't load</h1>
+      <p className="mt-2 text-muted-foreground">Please refresh in a moment.</p>
+    </div>
+  ),
+  notFoundComponent: () => (
+    <div className="container-page py-24 text-center">
+      <h1 className="font-display text-3xl">Page not found</h1>
+    </div>
+  ),
 });
 
 function Properties() {
+  const { properties } = Route.useLoaderData() as { properties: ListingRow[] };
   const [query, setQuery] = useState("");
   const [type, setType] = useState<(typeof TYPES)[number]>("All");
   const [status, setStatus] = useState<(typeof STATUSES)[number]>("All");
 
   const results = useMemo(
     () =>
-      PROPERTIES.filter((p) => {
+      properties.filter((p) => {
         const q = query.trim().toLowerCase();
         const matchesQuery =
           !q ||
-          [p.title, p.builder, p.locality, p.sector, p.bhk].some((v) => v.toLowerCase().includes(q));
-        return matchesQuery && (type === "All" || p.type === type) && (status === "All" || p.status === status);
+          [p.title, p.locality, p.sector, p.bhk, p.city].some((v) => (v ?? "").toLowerCase().includes(q));
+        return matchesQuery && (type === "All" || p.property_type === type) && (status === "All" || p.status === status);
       }),
-    [query, type, status],
+    [properties, query, type, status],
   );
 
   return (
@@ -68,14 +85,26 @@ function Properties() {
               id="prop-search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Search by project, builder, sector or configuration"
+              placeholder="Search by project, sector, locality or configuration"
               className="h-11 pl-9"
             />
           </div>
 
           <div className="mt-5 space-y-3">
-            <FilterRow label="Type" options={TYPES} active={type} onSelect={setType} />
-            <FilterRow label="Possession" options={STATUSES} active={status} onSelect={setStatus} />
+            <FilterRow
+              label="Type"
+              options={TYPES}
+              active={type}
+              onSelect={setType}
+              labelOf={(v) => (v === "All" ? "All" : (PROPERTY_TYPE_LABEL[v] ?? v))}
+            />
+            <FilterRow
+              label="Possession"
+              options={STATUSES}
+              active={status}
+              onSelect={setStatus}
+              labelOf={(v) => (v === "All" ? "All" : (STATUS_LABEL[v] ?? v))}
+            />
           </div>
         </div>
 
@@ -85,7 +114,7 @@ function Properties() {
 
         <div className="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {results.map((property) => (
-            <PropertyCard key={property.id} property={property} />
+            <ListingCard key={property.id} property={property} />
           ))}
         </div>
 
@@ -104,11 +133,13 @@ function FilterRow<T extends string>({
   options,
   active,
   onSelect,
+  labelOf,
 }: {
   label: string;
   options: readonly T[];
   active: T;
   onSelect: (value: T) => void;
+  labelOf: (value: T) => string;
 }) {
   return (
     <div className="flex flex-wrap items-center gap-2">
@@ -121,7 +152,7 @@ function FilterRow<T extends string>({
           variant={active === option ? "gold" : "outline"}
           onClick={() => onSelect(option)}
         >
-          {option}
+          {labelOf(option)}
         </Button>
       ))}
     </div>
