@@ -25,6 +25,8 @@ function createSupabaseClient() {
       persistSession: true,
       autoRefreshToken: true,
       detectSessionInUrl: true,
+      // Avoid browser Web Locks deadlocks that can leave auth calls pending forever.
+      lock: async (_name, _acquireTimeout, fn) => await fn(),
     },
   });
 }
