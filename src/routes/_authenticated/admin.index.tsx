@@ -6,7 +6,7 @@ import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
-import { bootstrapAdmin, listAdminProperties, setPropertyState } from "@/lib/admin.functions";
+import { bootstrapAdmin, listAdminProperties, setPropertyState, type AdminPropertyRow } from "@/lib/admin.functions";
 import { formatINR, STATUS_LABEL } from "@/lib/seo";
 
 export const Route = createFileRoute("/_authenticated/admin/")({
@@ -80,7 +80,7 @@ function AdminHome() {
       ) : null}
 
       <ul className="mt-8 grid gap-3">
-        {(data ?? []).map((p) => (
+        {(data ?? []).map((p: AdminPropertyRow) => (
           <li key={p.id} className="flex flex-wrap items-center gap-4 rounded-xl border border-border bg-card p-4">
             <div className="size-16 shrink-0 overflow-hidden rounded-md bg-muted">
               {p.cover_image_url ? (
