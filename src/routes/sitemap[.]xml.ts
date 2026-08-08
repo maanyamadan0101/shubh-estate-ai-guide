@@ -18,7 +18,7 @@ const STATIC_PATHS = [
   { path: "/contact", priority: "0.5" },
 ];
 
-export const Route = createFileRoute("/sitemap/xml")({
+export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: async () => {

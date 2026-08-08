@@ -17,6 +17,7 @@ import { Route as GurugramGrowthStoryRouteImport } from './routes/gurugram-growt
 import { Route as HomeLoansRouteImport } from './routes/home-loans'
 import { Route as PropertiesRouteImport } from './routes/properties'
 import { Route as PropertySlugRouteImport } from './routes/property.$slug'
+import { Route as SitemapXmlRouteImport } from './routes/sitemap.xml'
 import { Route as ApiPublicImgSplatRouteImport } from './routes/api/public/img/$'
 
 const IndexRoute = IndexRouteImport.update({
@@ -59,6 +60,11 @@ const PropertySlugRoute = PropertySlugRouteImport.update({
   path: '/property/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SitemapXmlRoute = SitemapXmlRouteImport.update({
+  id: '/sitemap/xml',
+  path: '/sitemap/xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiPublicImgSplatRoute = ApiPublicImgSplatRouteImport.update({
   id: '/api/public/img/$',
   path: '/api/public/img/$',
@@ -74,6 +80,7 @@ export interface FileRoutesByFullPath {
   '/home-loans': typeof HomeLoansRoute
   '/properties': typeof PropertiesRoute
   '/property/$slug': typeof PropertySlugRoute
+  '/sitemap/xml': typeof SitemapXmlRoute
   '/api/public/img/$': typeof ApiPublicImgSplatRoute
 }
 export interface FileRoutesByTo {
@@ -85,6 +92,7 @@ export interface FileRoutesByTo {
   '/home-loans': typeof HomeLoansRoute
   '/properties': typeof PropertiesRoute
   '/property/$slug': typeof PropertySlugRoute
+  '/sitemap/xml': typeof SitemapXmlRoute
   '/api/public/img/$': typeof ApiPublicImgSplatRoute
 }
 export interface FileRoutesById {
@@ -97,6 +105,7 @@ export interface FileRoutesById {
   '/home-loans': typeof HomeLoansRoute
   '/properties': typeof PropertiesRoute
   '/property/$slug': typeof PropertySlugRoute
+  '/sitemap/xml': typeof SitemapXmlRoute
   '/api/public/img/$': typeof ApiPublicImgSplatRoute
 }
 export interface FileRouteTypes {
@@ -110,6 +119,7 @@ export interface FileRouteTypes {
     | '/home-loans'
     | '/properties'
     | '/property/$slug'
+    | '/sitemap/xml'
     | '/api/public/img/$'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -121,6 +131,7 @@ export interface FileRouteTypes {
     | '/home-loans'
     | '/properties'
     | '/property/$slug'
+    | '/sitemap/xml'
     | '/api/public/img/$'
   id:
     | '__root__'
@@ -132,6 +143,7 @@ export interface FileRouteTypes {
     | '/home-loans'
     | '/properties'
     | '/property/$slug'
+    | '/sitemap/xml'
     | '/api/public/img/$'
   fileRoutesById: FileRoutesById
 }
@@ -144,6 +156,7 @@ export interface RootRouteChildren {
   HomeLoansRoute: typeof HomeLoansRoute
   PropertiesRoute: typeof PropertiesRoute
   PropertySlugRoute: typeof PropertySlugRoute
+  SitemapXmlRoute: typeof SitemapXmlRoute
   ApiPublicImgSplatRoute: typeof ApiPublicImgSplatRoute
 }
 
@@ -205,6 +218,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PropertySlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/sitemap/xml': {
+      id: '/sitemap/xml'
+      path: '/sitemap/xml'
+      fullPath: '/sitemap/xml'
+      preLoaderRoute: typeof SitemapXmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/public/img/$': {
       id: '/api/public/img/$'
       path: '/api/public/img/$'
@@ -224,6 +244,7 @@ const rootRouteChildren: RootRouteChildren = {
   HomeLoansRoute: HomeLoansRoute,
   PropertiesRoute: PropertiesRoute,
   PropertySlugRoute: PropertySlugRoute,
+  SitemapXmlRoute: SitemapXmlRoute,
   ApiPublicImgSplatRoute: ApiPublicImgSplatRoute,
 }
 export const routeTree = rootRouteImport
