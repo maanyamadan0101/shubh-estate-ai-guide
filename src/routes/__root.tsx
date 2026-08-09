@@ -95,22 +95,30 @@ const localBusinessSchema = {
   areaServed: "Gurugram, Haryana, India",
 };
 
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Shubh Estate Brokers",
+  alternateName: "Shubh Estate",
+  url: "https://www.shubhestatebroker.in",
+};
+
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Shubh Estate Brokers | Property Consultant in Gurgaon" },
+      { title: "Property in Gurgaon | Shubh Estate Brokers" },
       {
         name: "description",
         content:
-          "Buy, sell or rent property in Gurgaon with Shubh Estate Brokers — luxury homes, builder floors, villas, commercial spaces and home loan assistance.",
+          "Buy, sell or rent property in Gurgaon with Shubh Estate Brokers — apartments, builder floors, villas, plots, commercial property and home loan assistance.",
       },
       { name: "author", content: "Shubh Estate Brokers" },
       { property: "og:title", content: "Shubh Estate Brokers | Property Consultant in Gurgaon" },
       {
         property: "og:description",
-        content: "Fair & transparent real estate deals in Gurugram, backed by banking and mortgage expertise.",
+        content: "Fair and transparent real estate advice in Gurugram, backed by banking, mortgage and property due-diligence experience.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -131,6 +139,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         children: `window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${GA_MEASUREMENT_ID}');`,
       },
       { type: "application/ld+json", children: JSON.stringify(localBusinessSchema) },
+      { type: "application/ld+json", children: JSON.stringify(websiteSchema) },
     ],
   }),
   shellComponent: RootShell,
@@ -160,7 +169,6 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <SiteHeader />
       <main className="pb-24 md:pb-0">
-        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
         <Outlet />
       </main>
       <SiteFooter />
