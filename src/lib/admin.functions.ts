@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { buildCanonical } from "@/lib/seo";
 
 /** Grants the admin role to the first signed-in user when no admin exists yet. */
 export const bootstrapAdmin = createServerFn({ method: "POST" })
@@ -153,7 +154,33 @@ export const savePropertyDraft = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => propertySchema.parse(input))
   .handler(async ({ context, data }) => {
     const { id, amenities, features, videos, images, ...fields } = data;
-    const row = { ...fields } as never;
+
+    const baseSlug = fields.slug.replace(/-+$/g, "").slice(0, 120);
+    let uniqueSlug = "";
+
+    for (let suffix = 1; suffix <= 99; suffix += 1) {
+      const suffixText = suffix === 1 ? "" : `-${suffix}`;
+      const candidate = `${baseSlug.slice(0, 120 - suffixText.length)}${suffixText}`;
+      let conflictQuery = context.supabase.from("properties").select("id").eq("slug", candidate).limit(1);
+      if (id) conflictQuery = conflictQuery.neq("id", id);
+      const { data: conflicts, error: conflictError } = await conflictQuery;
+      if (conflictError) throw new Error(conflictError.message);
+      if (!conflicts?.length) {
+        uniqueSlug = candidate;
+        break;
+      }
+    }
+
+    if (!uniqueSlug) {
+      throw new Error("Could not create a unique property URL. Please change the property title slightly and try again.");
+    }
+
+    const normalizedFields = {
+      ...fields,
+      slug: uniqueSlug,
+      canonical_url: buildCanonical(uniqueSlug),
+    };
+    const row = { ...normalizedFields } as never;
 
     let propertyId = id ?? null;
     if (propertyId) {
@@ -162,7 +189,7 @@ export const savePropertyDraft = createServerFn({ method: "POST" })
     } else {
       const { data: inserted, error } = await context.supabase
         .from("properties")
-        .insert({ ...fields, created_by: context.userId } as never)
+        .insert({ ...normalizedFields, created_by: context.userId } as never)
         .select("id")
         .single();
       if (error) throw new Error(error.message);
@@ -194,7 +221,7 @@ export const savePropertyDraft = createServerFn({ method: "POST" })
       if (error) throw new Error(error.message);
     }
 
-    return { id: propertyId!, slug: data.slug };
+    return { id: propertyId!, slug: uniqueSlug };
   });
 
 export const setPropertyState = createServerFn({ method: "POST" })
