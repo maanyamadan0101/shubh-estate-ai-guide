@@ -1,5 +1,6 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
+import { AdminShell } from "@/components/admin/AdminShell";
 import { EMPTY_PROPERTY, PropertyForm, type PropertyFormValues } from "@/components/admin/PropertyForm";
 import { getAdminProperty, listTaxonomy } from "@/lib/admin.functions";
 import { PROPERTY_TYPE_LABEL } from "@/lib/seo";
@@ -10,8 +11,6 @@ export const Route = createFileRoute("/_authenticated/admin/$id")({
       { title: "Edit Property | Shubh Estate Brokers" },
       { name: "description", content: "Update and republish a property listing." },
       { name: "robots", content: "noindex, nofollow" },
-      { property: "og:title", content: "Edit Property" },
-      { property: "og:description", content: "Update and republish a property listing." },
     ],
   }),
   component: EditProperty,
@@ -26,8 +25,21 @@ function EditProperty() {
   const taxonomy = useQuery({ queryKey: ["taxonomy"], queryFn: () => listTaxonomy() });
   const record = useQuery({ queryKey: ["admin-property", id], queryFn: () => getAdminProperty({ data: { id } }) });
 
-  if (record.isLoading) return <p className="container-page py-16 text-sm text-muted-foreground">Loading…</p>;
-  if (!record.data) return <p className="container-page py-16 text-sm text-muted-foreground">Property not found.</p>;
+  if (record.isLoading) {
+    return (
+      <AdminShell title="Edit Property" subtitle="Loading listing…">
+        <p className="rounded-2xl border border-border bg-card p-8 text-sm text-muted-foreground">Loading property details…</p>
+      </AdminShell>
+    );
+  }
+
+  if (!record.data) {
+    return (
+      <AdminShell title="Edit Property" subtitle="This listing could not be found.">
+        <p className="rounded-2xl border border-border bg-card p-8 text-sm text-muted-foreground">Property not found.</p>
+      </AdminShell>
+    );
+  }
 
   const p = record.data.property as Record<string, unknown>;
   const initial: PropertyFormValues = {
@@ -77,12 +89,16 @@ function EditProperty() {
   };
 
   return (
-    <section className="container-page py-12">
-      <Link to="/admin" className="text-xs uppercase tracking-[0.16em] text-muted-foreground hover:text-foreground">← Back to properties</Link>
-      <h1 className="mt-4 font-display text-3xl">Edit property</h1>
-      <div className="mt-8">
+    <AdminShell title="Edit Property" subtitle={initial.title || "Update listing details and media."}>
+      <div className="mx-auto max-w-5xl">
+        <div className="mb-5 rounded-2xl border border-border bg-card p-5">
+          <p className="text-xs font-medium uppercase tracking-[0.18em] text-gold">Manage Content</p>
+          <p className="mt-2 text-sm leading-6 text-muted-foreground">
+            Edit any section below, preview the result, then use Publish to update the live property page.
+          </p>
+        </div>
         <PropertyForm initial={initial} builders={taxonomy.data?.builders ?? []} projects={taxonomy.data?.projects ?? []} />
       </div>
-    </section>
+    </AdminShell>
   );
 }
