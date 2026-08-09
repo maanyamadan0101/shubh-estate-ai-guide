@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
-import { requestMediaUpload } from "@/lib/media-upload.client";
+import { requestMediaUpload } from "@/lib/media-upload";
 
 export type ManagedImage = {
   image_url: string;
