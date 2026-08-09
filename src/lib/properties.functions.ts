@@ -1,14 +1,9 @@
 import { createServerFn } from "@tanstack/react-start";
-import { createClient } from "@supabase/supabase-js";
 import { z } from "zod";
-import type { Database } from "@/integrations/supabase/types";
 
-function publicClient() {
-  return createClient<Database>(
-    process.env["SUPABASE_URL"]!,
-    process.env["SUPABASE_PUBLISHABLE_KEY"]!,
-    { auth: { storage: undefined, persistSession: false, autoRefreshToken: false } },
-  );
+async function publishedClient() {
+  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  return supabaseAdmin;
 }
 
 const LIST_COLUMNS =
@@ -46,7 +41,8 @@ export const listPublicProperties = createServerFn({ method: "GET" })
       .parse(input ?? {}),
   )
   .handler(async ({ data }) => {
-    let query = publicClient()
+    const supabase = await publishedClient();
+    let query = supabase
       .from("properties")
       .select(LIST_COLUMNS)
       .eq("is_published", true)
@@ -59,7 +55,10 @@ export const listPublicProperties = createServerFn({ method: "GET" })
     if (data.excludeSlug) query = query.neq("slug", data.excludeSlug);
 
     const { data: rows, error } = await query;
-    if (error) return { properties: [] as ListingRow[], error: error.message };
+    if (error) {
+      console.error("[Public properties] Could not load published listings:", error.message);
+      return { properties: [] as ListingRow[], error: error.message };
+    }
     return { properties: (rows ?? []) as unknown as ListingRow[], error: null };
   });
 
@@ -69,7 +68,7 @@ export type SitemapRow = { slug: string; updated_at: string; status: string };
 export const getPublicProperty = createServerFn({ method: "GET" })
   .inputValidator((input: unknown) => z.object({ slug: z.string().min(1) }).parse(input))
   .handler(async ({ data }) => {
-    const supabase = publicClient();
+    const supabase = await publishedClient();
     const { data: property, error } = await supabase
       .from("properties")
       .select(
@@ -79,9 +78,13 @@ export const getPublicProperty = createServerFn({ method: "GET" })
       .eq("is_published", true)
       .maybeSingle();
 
-    if (error || !property) return null;
+    if (error) {
+      console.error(`[Public property] Could not load ${data.slug}:`, error.message);
+      return null;
+    }
+    if (!property) return null;
 
-    const [{ data: images }, { data: features }] = await Promise.all([
+    const [{ data: images, error: imageError }, { data: features, error: featureError }] = await Promise.all([
       supabase
         .from("property_images")
         .select("id,image_url,alt_text,sort_order,is_primary")
@@ -92,6 +95,9 @@ export const getPublicProperty = createServerFn({ method: "GET" })
         .select("id,feature_name,category")
         .eq("property_id", property.id),
     ]);
+
+    if (imageError) console.error(`[Public property] Could not load images for ${data.slug}:`, imageError.message);
+    if (featureError) console.error(`[Public property] Could not load features for ${data.slug}:`, featureError.message);
 
     const rows = (features ?? []) as FeatureRow[];
     return {
@@ -104,10 +110,15 @@ export const getPublicProperty = createServerFn({ method: "GET" })
   });
 
 export const listSitemapProperties = createServerFn({ method: "GET" }).handler(async () => {
-  const { data } = await publicClient()
+  const supabase = await publishedClient();
+  const { data, error } = await supabase
     .from("properties")
     .select("slug,updated_at,status")
     .eq("is_published", true)
     .neq("status", "sold_out");
+  if (error) {
+    console.error("[Sitemap] Could not load published properties:", error.message);
+    return [] as SitemapRow[];
+  }
   return (data ?? []) as SitemapRow[];
 });
