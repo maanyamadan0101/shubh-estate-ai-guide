@@ -1,17 +1,15 @@
 import { useRef, useState } from "react";
-import { useServerFn } from "@tanstack/react-start";
 import { Loader2, Trash2, Upload, Video } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
-import { createMediaUploadUrl } from "@/lib/media.functions";
+import { requestMediaUpload } from "@/lib/media-upload.client";
 
 export function VideoManager({ videos, onChange }: { videos: string[]; onChange: (next: string[]) => void }) {
   const [uploading, setUploading] = useState(false);
   const [link, setLink] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
-  const prepareUpload = useServerFn(createMediaUploadUrl);
 
   async function upload(files: FileList | File[]) {
     const list = Array.from(files).filter((file) => file.type === "video/mp4" || file.type === "video/webm");
@@ -38,13 +36,11 @@ export function VideoManager({ videos, onChange }: { videos: string[]; onChange:
 
         const extension = file.name.split(".").pop()?.toLowerCase() || "mp4";
         try {
-          const signed = await prepareUpload({
-            data: {
-              kind: "video",
-              extension,
-              contentType: file.type,
-              accessToken,
-            },
+          const signed = await requestMediaUpload({
+            kind: "video",
+            extension,
+            contentType: file.type,
+            accessToken,
           });
 
           const { error } = await supabase.storage
