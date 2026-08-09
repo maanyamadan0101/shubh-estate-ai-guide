@@ -19,6 +19,14 @@ export function VideoManager({ videos, onChange }: { videos: string[]; onChange:
       toast.error("Please choose an MP4 or WebM video.");
       return;
     }
+
+    const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+    const accessToken = sessionData.session?.access_token;
+    if (sessionError || !accessToken) {
+      toast.error("Your login session has expired. Please sign in again.");
+      return;
+    }
+
     setUploading(true);
     const added: string[] = [];
     try {
@@ -35,6 +43,7 @@ export function VideoManager({ videos, onChange }: { videos: string[]; onChange:
               kind: "video",
               extension,
               contentType: file.type,
+              accessToken,
             },
           });
 
