@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
-import { requestMediaUpload } from "@/lib/media-upload.client";
+import { requestMediaUpload } from "@/lib/media-upload";
 
 export function VideoManager({ videos, onChange }: { videos: string[]; onChange: (next: string[]) => void }) {
   const [uploading, setUploading] = useState(false);
