@@ -1,9 +1,11 @@
 import { useCallback, useRef, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import { GripVertical, ImagePlus, Loader2, Star, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
+import { createMediaUploadUrl } from "@/lib/media.functions";
 
 export type ManagedImage = {
   image_url: string;
@@ -24,41 +26,67 @@ export function ImageManager({
   const [dragOver, setDragOver] = useState(false);
   const dragIndex = useRef<number | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const prepareUpload = useServerFn(createMediaUploadUrl);
 
   const upload = useCallback(
     async (files: FileList | File[]) => {
       const list = Array.from(files).filter((f) => f.type.startsWith("image/"));
-      if (!list.length) return;
+      if (!list.length) {
+        toast.error("Please choose an image file.");
+        return;
+      }
+
       setUploading(true);
       const added: ManagedImage[] = [];
-      for (const file of list) {
-        if (file.size > 10 * 1024 * 1024) {
-          toast.error(`${file.name} is larger than 10 MB`);
-          continue;
+      try {
+        for (const file of list) {
+          if (file.size > 10 * 1024 * 1024) {
+            toast.error(`${file.name} is larger than 10 MB`);
+            continue;
+          }
+
+          const extension = file.name.split(".").pop()?.toLowerCase() || "jpg";
+          try {
+            const signed = await prepareUpload({
+              data: {
+                kind: "image",
+                extension,
+                contentType: file.type || "image/jpeg",
+              },
+            });
+
+            const { error } = await supabase.storage
+              .from("property-images")
+              .uploadToSignedUrl(signed.path, signed.token, file, {
+                cacheControl: "31536000",
+                contentType: file.type || "image/jpeg",
+              });
+
+            if (error) {
+              toast.error(`Upload failed: ${error.message}`);
+              continue;
+            }
+
+            added.push({
+              image_url: `/api/public/img/${signed.path}`,
+              alt_text: altFor(images.length + added.length),
+              is_primary: false,
+            });
+          } catch (error) {
+            toast.error(error instanceof Error ? error.message : `Could not upload ${file.name}`);
+          }
         }
-        const ext = file.name.split(".").pop()?.toLowerCase() ?? "jpg";
-        const path = `${new Date().getFullYear()}/${crypto.randomUUID()}.${ext}`;
-        const { error } = await supabase.storage
-          .from("property-images")
-          .upload(path, file, { cacheControl: "31536000", upsert: false });
-        if (error) {
-          toast.error(`Upload failed: ${error.message}`);
-          continue;
-        }
-        added.push({
-          image_url: `/api/public/img/${path}`,
-          alt_text: altFor(images.length + added.length),
-          is_primary: false,
-        });
+      } finally {
+        setUploading(false);
       }
-      setUploading(false);
+
       if (!added.length) return;
       const next = [...images, ...added];
-      if (!next.some((i) => i.is_primary)) next[0]!.is_primary = true;
+      if (!next.some((i) => i.is_primary)) next[0] = { ...next[0]!, is_primary: true };
       onChange(next);
       toast.success(`${added.length} photo${added.length > 1 ? "s" : ""} added`);
     },
-    [images, onChange, altFor],
+    [images, onChange, altFor, prepareUpload],
   );
 
   function move(from: number, to: number) {
@@ -92,14 +120,21 @@ export function ImageManager({
           <ImagePlus className="size-6 text-gold" aria-hidden="true" />
         )}
         <p className="mt-3 text-sm font-medium">Drag & drop photos here</p>
-        <p className="mt-1 text-xs text-muted-foreground">JPG or PNG, up to 10 MB each</p>
-        <Button type="button" variant="outline" size="sm" className="mt-4" onClick={() => inputRef.current?.click()}>
-          Choose photos
+        <p className="mt-1 text-xs text-muted-foreground">JPG, PNG, WebP or AVIF, up to 10 MB each</p>
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          className="mt-4"
+          disabled={uploading}
+          onClick={() => inputRef.current?.click()}
+        >
+          {uploading ? "Uploading…" : "Choose photos"}
         </Button>
         <input
           ref={inputRef}
           type="file"
-          accept="image/*"
+          accept="image/jpeg,image/png,image/webp,image/avif,image/gif"
           multiple
           className="sr-only"
           onChange={(e) => {
@@ -169,7 +204,7 @@ export function ImageManager({
                   aria-label="Remove photo"
                   onClick={() => {
                     const next = images.filter((_, i) => i !== index);
-                    if (next.length && !next.some((i) => i.is_primary)) next[0]!.is_primary = true;
+                    if (next.length && !next.some((i) => i.is_primary)) next[0] = { ...next[0]!, is_primary: true };
                     onChange(next);
                   }}
                 >
