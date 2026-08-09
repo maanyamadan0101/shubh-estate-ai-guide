@@ -1,14 +1,17 @@
 import { useRef, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
 import { Loader2, Trash2, Upload, Video } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
+import { createMediaUploadUrl } from "@/lib/media.functions";
 
 export function VideoManager({ videos, onChange }: { videos: string[]; onChange: (next: string[]) => void }) {
   const [uploading, setUploading] = useState(false);
   const [link, setLink] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
+  const prepareUpload = useServerFn(createMediaUploadUrl);
 
   async function upload(files: FileList | File[]) {
     const list = Array.from(files).filter((file) => file.type === "video/mp4" || file.type === "video/webm");
@@ -18,23 +21,43 @@ export function VideoManager({ videos, onChange }: { videos: string[]; onChange:
     }
     setUploading(true);
     const added: string[] = [];
-    for (const file of list.slice(0, 4)) {
-      if (file.size > 100 * 1024 * 1024) {
-        toast.error(`${file.name} is larger than 100 MB`);
-        continue;
+    try {
+      for (const file of list.slice(0, 4)) {
+        if (file.size > 100 * 1024 * 1024) {
+          toast.error(`${file.name} is larger than 100 MB`);
+          continue;
+        }
+
+        const extension = file.name.split(".").pop()?.toLowerCase() || "mp4";
+        try {
+          const signed = await prepareUpload({
+            data: {
+              kind: "video",
+              extension,
+              contentType: file.type,
+            },
+          });
+
+          const { error } = await supabase.storage
+            .from("property-images")
+            .uploadToSignedUrl(signed.path, signed.token, file, {
+              cacheControl: "31536000",
+              contentType: file.type,
+            });
+
+          if (error) {
+            toast.error(`Video upload failed: ${error.message}`);
+            continue;
+          }
+          added.push(`/api/public/img/${signed.path}`);
+        } catch (error) {
+          toast.error(error instanceof Error ? error.message : `Could not upload ${file.name}`);
+        }
       }
-      const ext = file.name.split(".").pop()?.toLowerCase() ?? "mp4";
-      const path = `videos/${new Date().getFullYear()}/${crypto.randomUUID()}.${ext}`;
-      const { error } = await supabase.storage
-        .from("property-images")
-        .upload(path, file, { cacheControl: "31536000", upsert: false, contentType: file.type });
-      if (error) {
-        toast.error(`Video upload failed: ${error.message}`);
-        continue;
-      }
-      added.push(`/api/public/img/${path}`);
+    } finally {
+      setUploading(false);
     }
-    setUploading(false);
+
     if (added.length) {
       onChange([...videos, ...added].slice(0, 4));
       toast.success(`${added.length} video${added.length > 1 ? "s" : ""} added`);
@@ -69,7 +92,7 @@ export function VideoManager({ videos, onChange }: { videos: string[]; onChange:
         <div className="flex flex-wrap items-center gap-3">
           <Button type="button" variant="outline" onClick={() => inputRef.current?.click()} disabled={uploading || videos.length >= 4}>
             {uploading ? <Loader2 className="size-4 animate-spin" aria-hidden="true" /> : <Upload className="size-4" aria-hidden="true" />}
-            Upload MP4 / WebM
+            {uploading ? "Uploading…" : "Upload MP4 / WebM"}
           </Button>
           <input
             ref={inputRef}
