@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { Clock3, FileCheck2, Landmark, Video } from "lucide-react";
+import { BadgeIndianRupee, Clock3, FileCheck2, Landmark, Video } from "lucide-react";
 import { ListingCard } from "@/components/site/ListingCard";
 import { PageHero } from "@/components/site/SectionHead";
 import { EnquiryForm } from "@/components/site/EnquiryForm";
@@ -174,7 +174,22 @@ function NriCountryPage() {
             Shubh Estate Brokers provides an on-ground point of contact in Gurugram for overseas buyers. We focus on practical property comparison, transparent communication and coordination across the steps that are difficult to manage from another country.
           </p>
 
-          <h2 className="mt-10 font-display text-2xl">How we help from {market.label}</h2>
+          <div className="mt-8 rounded-2xl border border-gold/40 bg-card p-6 md:p-8">
+            <BadgeIndianRupee className="size-6 text-gold" aria-hidden="true" />
+            <p className="mt-4 eyebrow">Already Own Property in Gurgaon?</p>
+            <h2 className="mt-2 font-display text-2xl">Sell your Gurgaon property while living in {market.label}</h2>
+            <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">
+              We also work with NRI owners who want to sell. We can prepare and market the resale property, coordinate buyer visits, qualify enquiries, negotiate offers and manage local follow-up while you remain overseas.
+            </p>
+            <Link
+              to="/nri-sell-property-gurgaon"
+              className="mt-5 inline-flex rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
+            >
+              Submit Your Property for Sale
+            </Link>
+          </div>
+
+          <h2 className="mt-10 font-display text-2xl">How we help buyers from {market.label}</h2>
           <div className="mt-6 grid gap-4 sm:grid-cols-2">
             {PROCESS.map((step) => (
               <div key={step.title} className="rounded-xl border border-border bg-card p-6">
@@ -212,10 +227,10 @@ function NriCountryPage() {
         <aside className="rounded-xl border border-border bg-card p-6 lg:sticky lg:top-24 lg:self-start">
           <h2 className="font-display text-xl">Talk to the NRI desk</h2>
           <p className="mt-1 text-xs text-muted-foreground">
-            Mention {market.label} and your preferred callback time.
+            Mention {market.label} and whether you want to buy or sell.
           </p>
           <div className="mt-4">
-            <EnquiryForm interest={`NRI enquiry — ${market.label}`} compact />
+            <EnquiryForm interest={`NRI buyer or seller enquiry — ${market.label}`} compact />
           </div>
         </aside>
       </section>
