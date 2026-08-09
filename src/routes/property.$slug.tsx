@@ -1,11 +1,12 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { PropertyView } from "@/components/site/PropertyView";
-import { getPublicProperty, listPublicProperties } from "@/lib/properties.functions";
+import { getPublicPropertyDetail } from "@/lib/public-property-detail.functions";
+import { listPublicProperties } from "@/lib/properties.functions";
 import { buildCanonical, formatArea, formatINR, PROPERTY_TYPE_LABEL, SITE_ORIGIN } from "@/lib/seo";
 
 export const Route = createFileRoute("/property/$slug")({
   loader: async ({ params }) => {
-    const data = await getPublicProperty({ data: { slug: params.slug } });
+    const data = await getPublicPropertyDetail({ data: { slug: params.slug } });
     if (!data) throw notFound();
     const related = await listPublicProperties({
       data: { locality: data.property.locality ?? undefined, limit: 4, excludeSlug: params.slug },
