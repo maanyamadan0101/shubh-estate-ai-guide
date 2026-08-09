@@ -1,5 +1,6 @@
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { PropertyView } from "@/components/site/PropertyView";
+import { ProjectImageDisclosure } from "@/components/site/ProjectImageDisclosure";
 import { getPublicPropertyDetail } from "@/lib/public-property-detail.functions";
 import { listPublicProperties } from "@/lib/properties.functions";
 import { buildCanonical, formatArea, formatINR, PROPERTY_TYPE_LABEL, SITE_ORIGIN } from "@/lib/seo";
@@ -90,15 +91,18 @@ export const Route = createFileRoute("/property/$slug")({
 function PropertyPage() {
   const data = Route.useLoaderData();
   return (
-    <PropertyView
-      data={{
-        property: data.property,
-        images: data.images,
-        amenities: data.amenities,
-        features: data.features,
-        videos: data.videos,
-      }}
-      related={data.related}
-    />
+    <>
+      <ProjectImageDisclosure coverImageUrl={data.property.cover_image_url} images={data.images} />
+      <PropertyView
+        data={{
+          property: data.property,
+          images: data.images,
+          amenities: data.amenities,
+          features: data.features,
+          videos: data.videos,
+        }}
+        related={data.related}
+      />
+    </>
   );
 }
