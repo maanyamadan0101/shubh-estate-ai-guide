@@ -46,7 +46,7 @@ export const Route = createFileRoute("/properties")({
 });
 
 function Properties() {
-  const { properties } = Route.useLoaderData() as { properties: ListingRow[] };
+  const { properties, error } = Route.useLoaderData() as { properties: ListingRow[]; error: string | null };
   const [query, setQuery] = useState("");
   const [type, setType] = useState<(typeof TYPES)[number]>("All");
   const [status, setStatus] = useState<(typeof STATUSES)[number]>("All");
@@ -108,21 +108,30 @@ function Properties() {
           </div>
         </div>
 
-        <p className="mt-8 text-sm text-muted-foreground" aria-live="polite">
-          Showing {results.length} {results.length === 1 ? "property" : "properties"}
-        </p>
+        {error ? (
+          <div className="mt-8 rounded-xl border border-destructive/30 bg-destructive/5 p-6">
+            <p className="font-medium">Property listings could not be loaded.</p>
+            <p className="mt-1 text-sm text-muted-foreground">Please refresh the page. If this continues, the website administrator can now see the actual server error in deployment logs.</p>
+          </div>
+        ) : (
+          <>
+            <p className="mt-8 text-sm text-muted-foreground" aria-live="polite">
+              Showing {results.length} {results.length === 1 ? "property" : "properties"}
+            </p>
 
-        <div className="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {results.map((property) => (
-            <ListingCard key={property.id} property={property} />
-          ))}
-        </div>
+            <div className="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {results.map((property) => (
+                <ListingCard key={property.id} property={property} />
+              ))}
+            </div>
 
-        {results.length === 0 ? (
-          <p className="mt-10 rounded-xl border border-dashed border-border p-10 text-center text-muted-foreground">
-            No matches yet — tell us what you're looking for and we'll source it off-market.
-          </p>
-        ) : null}
+            {results.length === 0 ? (
+              <p className="mt-10 rounded-xl border border-dashed border-border p-10 text-center text-muted-foreground">
+                No published properties are available right now. If you just published a listing, return to Admin → Property Catalogue and confirm its status shows “Published”.
+              </p>
+            ) : null}
+          </>
+        )}
       </section>
     </>
   );
