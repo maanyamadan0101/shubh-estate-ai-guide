@@ -42,9 +42,7 @@ export const Route = createFileRoute("/property/$slug")({
         addressRegion: "Haryana",
         addressCountry: "IN",
       },
-      ...(p.area_sqft
-        ? { floorSize: { "@type": "QuantitativeValue", value: p.area_sqft, unitCode: "FTK" } }
-        : {}),
+      ...(p.area_sqft ? { floorSize: { "@type": "QuantitativeValue", value: p.area_sqft, unitCode: "FTK" } } : {}),
       ...(p.bathrooms ? { numberOfBathroomsTotal: p.bathrooms } : {}),
       ...(p.price
         ? {
@@ -52,8 +50,7 @@ export const Route = createFileRoute("/property/$slug")({
               "@type": "Offer",
               price: p.price,
               priceCurrency: "INR",
-              availability:
-                p.status === "sold_out" ? "https://schema.org/SoldOut" : "https://schema.org/InStock",
+              availability: p.status === "sold_out" ? "https://schema.org/SoldOut" : "https://schema.org/InStock",
               url: canonical,
             },
           }
@@ -68,12 +65,7 @@ export const Route = createFileRoute("/property/$slug")({
         { property: "og:description", content: p.og_description || description },
         { property: "og:type", content: "article" },
         { property: "og:url", content: canonical },
-        ...(image
-          ? [
-              { property: "og:image", content: image },
-              { name: "twitter:image", content: image },
-            ]
-          : []),
+        ...(image ? [{ property: "og:image", content: image }, { name: "twitter:image", content: image }] : []),
       ],
       links: [{ rel: "canonical", href: canonical }],
       scripts: [{ type: "application/ld+json", children: JSON.stringify(schema) }],
@@ -98,7 +90,13 @@ function PropertyPage() {
   const data = Route.useLoaderData();
   return (
     <PropertyView
-      data={{ property: data.property, images: data.images, amenities: data.amenities, features: data.features }}
+      data={{
+        property: data.property,
+        images: data.images,
+        amenities: data.amenities,
+        features: data.features,
+        videos: data.videos,
+      }}
       related={data.related}
     />
   );
