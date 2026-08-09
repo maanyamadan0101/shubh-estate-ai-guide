@@ -1,6 +1,20 @@
 import type { ReactNode } from "react";
 import { Link, useNavigate } from "@tanstack/react-router";
-import { Building2, ExternalLink, Globe2, LayoutDashboard, LogOut, Plus, Settings2 } from "lucide-react";
+import {
+  BarChart3,
+  Building2,
+  ExternalLink,
+  Globe2,
+  Images,
+  LayoutDashboard,
+  LogOut,
+  Plus,
+  Settings,
+  Settings2,
+  UserRound,
+  Users,
+  Youtube,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -24,7 +38,7 @@ export function AdminShell({
 
   return (
     <div className="min-h-screen bg-muted/30">
-      <div className="mx-auto grid min-h-screen max-w-[1600px] lg:grid-cols-[250px_1fr]">
+      <div className="mx-auto grid min-h-screen max-w-[1600px] lg:grid-cols-[260px_1fr]">
         <aside className="border-b border-border bg-card lg:border-b-0 lg:border-r">
           <div className="flex h-16 items-center justify-between border-b border-border px-5">
             <Link to="/admin" className="min-w-0">
@@ -34,10 +48,20 @@ export function AdminShell({
           </div>
 
           <nav className="flex gap-2 overflow-x-auto p-3 lg:block lg:space-y-1 lg:overflow-visible" aria-label="Admin navigation">
-            <AdminNavLink to="/admin" icon={LayoutDashboard} label="Dashboard" />
-            <AdminNavLink to="/admin" icon={Building2} label="Property Catalogue" />
-            <AdminNavLink to="/admin/new" icon={Plus} label="Add Property" />
-            <AdminNavLink to="/properties" icon={Globe2} label="View Website" external />
+            <AdminNavLink href="/admin" icon={LayoutDashboard} label="Dashboard" />
+            <AdminNavLink href="/admin#property-catalogue" icon={Building2} label="Property Catalogue" />
+            <AdminNavLink href="/admin/new" icon={Plus} label="Add Property" />
+
+            <p className="hidden px-3 pb-1 pt-5 text-[10px] font-medium uppercase tracking-[0.18em] text-muted-foreground lg:block">Manage Business</p>
+            <AdminNavLink href="/admin/enquiries" icon={Users} label="Enquiries / Leads" />
+            <AdminNavLink href="/admin/media" icon={Images} label="Photos & Videos" />
+            <AdminNavLink href="/admin/social" icon={Youtube} label="YouTube & Social" />
+            <AdminNavLink href="/admin/profile" icon={UserRound} label="Business Profile" />
+
+            <p className="hidden px-3 pb-1 pt-5 text-[10px] font-medium uppercase tracking-[0.18em] text-muted-foreground lg:block">Growth & Settings</p>
+            <AdminNavLink href="/admin/seo" icon={BarChart3} label="SEO / Google" />
+            <AdminNavLink href="/admin/settings" icon={Settings} label="Website Settings" />
+            <AdminNavLink href="/properties" icon={Globe2} label="View Website" external />
           </nav>
 
           <div className="hidden border-t border-border p-3 lg:block">
@@ -47,7 +71,7 @@ export function AdminShell({
                 <p className="text-sm font-medium">Manage Content</p>
               </div>
               <p className="mt-2 text-xs leading-5 text-muted-foreground">
-                Add, edit, preview and publish listings from one place.
+                Listings, leads, media, social links and website settings in one place.
               </p>
             </div>
             <Button variant="ghost" className="mt-2 w-full justify-start" onClick={() => void signOut()}>
@@ -87,24 +111,26 @@ export function AdminShell({
 }
 
 function AdminNavLink({
-  to,
+  href,
   icon: Icon,
   label,
   external = false,
 }: {
-  to: "/admin" | "/admin/new" | "/properties";
+  href: string;
   icon: typeof LayoutDashboard;
   label: string;
   external?: boolean;
 }) {
   return (
-    <Link
-      to={to}
+    <a
+      href={href}
+      target={external ? "_blank" : undefined}
+      rel={external ? "noreferrer" : undefined}
       className="flex shrink-0 items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground lg:w-full"
     >
       <Icon className="size-4 text-gold" aria-hidden="true" />
       <span>{label}</span>
       {external ? <ExternalLink className="ml-auto size-3.5" aria-hidden="true" /> : null}
-    </Link>
+    </a>
   );
 }
