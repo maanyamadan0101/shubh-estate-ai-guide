@@ -1,11 +1,10 @@
 import { useCallback, useRef, useState } from "react";
-import { useServerFn } from "@tanstack/react-start";
 import { GripVertical, ImagePlus, Loader2, Star, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
-import { createMediaUploadUrl } from "@/lib/media.functions";
+import { requestMediaUpload } from "@/lib/media-upload";
 
 export type ManagedImage = {
   image_url: string;
@@ -26,7 +25,6 @@ export function ImageManager({
   const [dragOver, setDragOver] = useState(false);
   const dragIndex = useRef<number | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const prepareUpload = useServerFn(createMediaUploadUrl);
 
   const upload = useCallback(
     async (files: FileList | File[]) => {
@@ -54,13 +52,11 @@ export function ImageManager({
 
           const extension = file.name.split(".").pop()?.toLowerCase() || "jpg";
           try {
-            const signed = await prepareUpload({
-              data: {
-                kind: "image",
-                extension,
-                contentType: file.type || "image/jpeg",
-                accessToken,
-              },
+            const signed = await requestMediaUpload({
+              kind: "image",
+              extension,
+              contentType: file.type || "image/jpeg",
+              accessToken,
             });
 
             const { error } = await supabase.storage
@@ -94,7 +90,7 @@ export function ImageManager({
       onChange(next);
       toast.success(`${added.length} photo${added.length > 1 ? "s" : ""} added`);
     },
-    [images, onChange, altFor, prepareUpload],
+    [images, onChange, altFor],
   );
 
   function move(from: number, to: number) {
