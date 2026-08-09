@@ -56,51 +56,58 @@ export type SeoSource = {
 function parts(s: SeoSource) {
   const type = PROPERTY_TYPE_LABEL[s.propertyType ?? ""] ?? "Property";
   const place = [s.sector, s.locality].filter(Boolean).join(", ");
-  const city = s.city || "Gurgaon";
-  return { type, place, city };
+  const city = s.city || "Gurugram";
+  const searchCity = /gurugram/i.test(city) ? "Gurgaon" : city;
+  return { type, place, city, searchCity };
 }
 
 export function buildSlug(s: SeoSource): string {
-  const { type } = parts(s);
+  const { type, searchCity } = parts(s);
   return slugify(
-    [s.bhk, s.projectName || s.title, type, s.sector, s.city || "Gurgaon"].filter(Boolean).join(" "),
+    [s.bhk, s.projectName || s.title, type, s.sector, searchCity].filter(Boolean).join(" "),
   );
 }
 
 export function buildSeoTitle(s: SeoSource): string {
-  const { type, city } = parts(s);
-  const head = [s.bhk, type, "for", s.listingType === "rent" ? "Rent" : "Sale"].filter(Boolean).join(" ");
-  const where = [s.projectName, s.sector, city].filter(Boolean).join(", ");
-  return `${head} in ${where}`.slice(0, 60);
+  const { type, searchCity } = parts(s);
+  const action = s.listingType === "rent" ? "Rent" : "Sale";
+  const head = [s.bhk, type, "for", action].filter(Boolean).join(" ");
+  const where = [s.projectName, s.sector, searchCity].filter(Boolean).join(", ");
+  return `${head} in ${where}`.replace(/\s+/g, " ").trim().slice(0, 68);
 }
 
 export function buildMetaDescription(s: SeoSource): string {
-  const { type, city } = parts(s);
+  const { type, searchCity } = parts(s);
   const bits = [
     `${s.bhk ?? ""} ${type}`.trim(),
     s.projectName ? `at ${s.projectName}` : null,
-    s.sector ? `in ${s.sector}, ${city}` : `in ${city}`,
-    s.areaSqft ? `spread over ${formatArea(s.areaSqft)}` : null,
-    s.price ? `priced at ${formatINR(s.price)}` : null,
+    s.sector ? `in ${s.sector}, ${searchCity}` : `in ${searchCity}`,
+    s.areaSqft ? `${formatArea(s.areaSqft)}` : null,
+    s.price ? `${formatINR(s.price)}` : null,
   ].filter(Boolean);
-  return `${bits.join(" ")}. Verified listing with title checks, RERA details and home loan assistance from Shubh Estate Brokers.`.slice(
-    0,
-    158,
-  );
+  return `${bits.join(" · ")}. View actual photos, property details, location and availability from Shubh Estate Brokers, Gurugram.`.slice(0, 160);
 }
 
 export function buildOgTitle(s: SeoSource): string {
-  const { city } = parts(s);
-  return `${s.projectName || s.title} — ${s.bhk ?? ""} in ${s.sector || city}`.replace(/\s+/g, " ").trim();
+  const { searchCity } = parts(s);
+  return `${s.projectName || s.title} — ${s.bhk ?? ""} ${s.sector ? `${s.sector}, ` : ""}${searchCity}`
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 export function buildImageAlt(s: SeoSource, index: number): string {
-  const { type, city } = parts(s);
-  const base = `${s.bhk ? s.bhk + " " : ""}${type} ${s.projectName ? `at ${s.projectName}` : ""} in ${
-    s.sector || city
-  }`.replace(/\s+/g, " ");
-  const views = ["exterior view", "living area", "bedroom", "kitchen", "balcony view", "interior view"];
-  return `${base.trim()} — ${views[index % views.length]}`;
+  const { type, searchCity } = parts(s);
+  const base = [
+    s.bhk,
+    type,
+    s.projectName ? `at ${s.projectName}` : null,
+    s.sector ? `in ${s.sector}, ${searchCity}` : `in ${searchCity}`,
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .replace(/\s+/g, " ");
+  const views = ["property exterior", "living room", "bedroom", "kitchen", "balcony view", "interior view"];
+  return `${base} — ${views[index % views.length]}`;
 }
 
 export function buildCanonical(slug: string): string {
