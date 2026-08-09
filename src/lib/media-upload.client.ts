@@ -11,7 +11,7 @@ export async function requestMediaUpload({
   contentType: string;
   accessToken: string;
 }): Promise<{ path: string; token: string }> {
-  const response = await fetch("/api/admin/media-upload", {
+  const response = await fetch("/api/public/img/upload", {
     method: "POST",
     headers: {
       "content-type": "application/json",
