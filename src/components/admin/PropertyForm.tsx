@@ -151,7 +151,7 @@ export function PropertyForm({
   projects: Array<{ id: string; name: string; builder_id: string | null }>;
 }) {
   const [step, setStep] = useState(0);
-  const [values, setValues] = useState<PropertyFormValues>(initial);
+  const [values, setValues] = useState<PropertyFormValues>({ ...initial, is_luxury: false });
   const [saving, setSaving] = useState(false);
   const navigate = useNavigate();
   const save = useServerFn(savePropertyDraft);
@@ -180,33 +180,26 @@ export function PropertyForm({
     [values, projectName, builderName],
   );
 
-  function autoFillSeo(force = false) {
-    setValues((prev) => {
-      const slug = prev.slug && !force ? prev.slug : buildSlug(seoSource);
-      return {
-        ...prev,
-        slug,
-        meta_title: force || !prev.meta_title ? buildSeoTitle(seoSource) : prev.meta_title,
-        meta_description: force || !prev.meta_description ? buildMetaDescription(seoSource) : prev.meta_description,
-        og_title: force || !prev.og_title ? buildOgTitle(seoSource) : prev.og_title,
-        og_description: force || !prev.og_description ? buildMetaDescription(seoSource) : prev.og_description,
-        canonical_url: force || !prev.canonical_url ? buildCanonical(slug) : prev.canonical_url,
-        images: prev.images.map((img, i) => ({
-          ...img,
-          alt_text: force || !img.alt_text ? buildImageAlt(seoSource, i) : img.alt_text,
-        })),
-      };
-    });
-  }
-
   async function persist(overrides: Partial<PropertyFormValues> = {}) {
-    const merged = { ...values, ...overrides };
+    const merged = { ...values, ...overrides, is_luxury: false };
     if (!merged.title.trim()) {
       toast.error("Please add a property title.");
       setStep(0);
       return null;
     }
-    const slug = merged.slug.trim() || buildSlug(seoSource);
+
+    const slug = merged.id && merged.slug.trim() ? merged.slug.trim() : buildSlug(seoSource);
+    const publishing = merged.is_published;
+    const metaTitle = publishing ? buildSeoTitle(seoSource) : merged.meta_title || buildSeoTitle(seoSource);
+    const metaDescription = publishing ? buildMetaDescription(seoSource) : merged.meta_description || buildMetaDescription(seoSource);
+    const ogTitle = publishing ? buildOgTitle(seoSource) : merged.og_title || buildOgTitle(seoSource);
+    const ogDescription = publishing ? buildMetaDescription(seoSource) : merged.og_description || buildMetaDescription(seoSource);
+    const canonicalUrl = buildCanonical(slug);
+    const imagesWithAlt = merged.images.map((image, index) => ({
+      ...image,
+      alt_text: image.alt_text || buildImageAlt(seoSource, index),
+    }));
+
     setSaving(true);
     try {
       const result = await save({
@@ -239,24 +232,36 @@ export function PropertyForm({
           description: merged.description || null,
           is_published: merged.is_published,
           is_featured: merged.is_featured,
-          is_luxury: merged.is_luxury,
-          meta_title: merged.meta_title || buildSeoTitle(seoSource),
-          meta_description: merged.meta_description || buildMetaDescription(seoSource),
-          og_title: merged.og_title || buildOgTitle(seoSource),
-          og_description: merged.og_description || buildMetaDescription(seoSource),
-          canonical_url: merged.canonical_url || buildCanonical(slug),
-          cover_image_url: merged.images.find((i) => i.is_primary)?.image_url ?? merged.images[0]?.image_url ?? null,
+          is_luxury: false,
+          meta_title: metaTitle,
+          meta_description: metaDescription,
+          og_title: ogTitle,
+          og_description: ogDescription,
+          canonical_url: canonicalUrl,
+          cover_image_url: imagesWithAlt.find((i) => i.is_primary)?.image_url ?? imagesWithAlt[0]?.image_url ?? null,
           amenities: merged.amenities,
           features: merged.features,
           videos: merged.videos,
-          images: merged.images.map((i) => ({
+          images: imagesWithAlt.map((i) => ({
             image_url: i.image_url,
             alt_text: i.alt_text || null,
             is_primary: i.is_primary,
           })),
         },
       });
-      setValues((prev) => ({ ...prev, ...overrides, id: result.id, slug: result.slug }));
+      setValues((prev) => ({
+        ...prev,
+        ...overrides,
+        id: result.id,
+        slug: result.slug,
+        is_luxury: false,
+        meta_title: metaTitle,
+        meta_description: metaDescription,
+        og_title: ogTitle,
+        og_description: ogDescription,
+        canonical_url: buildCanonical(result.slug),
+        images: imagesWithAlt,
+      }));
       return result;
     } catch (error) {
       toast.error(error instanceof Error ? error.message : "Could not save this property.");
@@ -288,7 +293,7 @@ export function PropertyForm({
         {step === 0 ? (
           <div className="grid gap-5 md:grid-cols-2">
             <Field label="Property title" className="md:col-span-2">
-              <Input value={values.title} onChange={(e) => set("title", e.target.value)} placeholder="3 BHK at Conscient Heritage One" />
+              <Input value={values.title} onChange={(e) => set("title", e.target.value)} placeholder="3 BHK + Servant at Conscient Heritage One, Sector 62" />
             </Field>
             <Field label="Sale or rent">
               <Select value={values.listing_type} onChange={(v) => set("listing_type", v as "sale" | "rent")} options={[["sale", "For Sale"], ["rent", "For Rent"]]} />
@@ -297,7 +302,7 @@ export function PropertyForm({
               <Select value={values.property_type} onChange={(v) => set("property_type", v as PropertyFormValues["property_type"])} options={Object.entries(PROPERTY_TYPE_LABEL)} />
             </Field>
             <Field label="Configuration (BHK)">
-              <Input value={values.bhk} onChange={(e) => set("bhk", e.target.value)} placeholder="3 BHK" />
+              <Input value={values.bhk} onChange={(e) => set("bhk", e.target.value)} placeholder="3 BHK + Servant" />
             </Field>
             <Field label="Project">
               <Select value={values.project_id ?? ""} onChange={(v) => set("project_id", v || null)} options={[["", "Not linked"], ...projects.map((p) => [p.id, p.name] as [string, string])]} />
@@ -308,7 +313,7 @@ export function PropertyForm({
             <Field label="Sector"><Input value={values.sector} onChange={(e) => set("sector", e.target.value)} placeholder="Sector 62" /></Field>
             <Field label="Locality"><Input value={values.locality} onChange={(e) => set("locality", e.target.value)} placeholder="Golf Course Extension Road" /></Field>
             <Field label="City"><Input value={values.city} onChange={(e) => set("city", e.target.value)} /></Field>
-            <Field label="Price (₹)"><Input inputMode="numeric" value={values.price} onChange={(e) => set("price", e.target.value)} placeholder="47500000" /></Field>
+            <Field label="Price (₹)"><Input inputMode="numeric" value={values.price} onChange={(e) => set("price", e.target.value)} placeholder="40000000" /></Field>
             <Field label="Built-up area (sq.ft.)"><Input inputMode="numeric" value={values.area_sqft} onChange={(e) => set("area_sqft", e.target.value)} /></Field>
             <Field label="Carpet area (sq.ft.)"><Input inputMode="numeric" value={values.carpet_area_sqft} onChange={(e) => set("carpet_area_sqft", e.target.value)} /></Field>
           </div>
@@ -337,7 +342,6 @@ export function PropertyForm({
             <div className="flex flex-wrap gap-6">
               <Toggle label="Servant room" checked={values.servant_room} onChange={(v) => set("servant_room", v)} />
               <Toggle label="Study room" checked={values.study_room} onChange={(v) => set("study_room", v)} />
-              <Toggle label="Luxury collection" checked={values.is_luxury} onChange={(v) => set("is_luxury", v)} />
               <Toggle label="Featured" checked={values.is_featured} onChange={(v) => set("is_featured", v)} />
             </div>
 
@@ -350,14 +354,14 @@ export function PropertyForm({
           <div className="space-y-10">
             <section>
               <h2 className="font-display text-xl">Property photos</h2>
-              <p className="mt-1 text-sm text-muted-foreground">Upload multiple photos, choose the cover image, drag to reorder, and edit image descriptions for SEO.</p>
+              <p className="mt-1 text-sm text-muted-foreground">Upload multiple actual photos, choose the strongest cover image, drag to reorder, and keep the image descriptions accurate.</p>
               <div className="mt-5">
                 <ImageManager images={values.images} onChange={(next) => set("images", next)} altFor={(index) => buildImageAlt(seoSource, index)} />
               </div>
             </section>
             <section className="border-t border-border pt-8">
               <h2 className="font-display text-xl">Property videos</h2>
-              <p className="mt-1 text-sm text-muted-foreground">Upload MP4/WebM videos or paste a YouTube/video link. Videos are shown on the property detail page.</p>
+              <p className="mt-1 text-sm text-muted-foreground">Upload MP4/WebM videos or paste a YouTube/video link. A real walkthrough can improve buyer engagement.</p>
               <div className="mt-5">
                 <VideoManager videos={values.videos} onChange={(next) => set("videos", next)} />
               </div>
@@ -366,9 +370,21 @@ export function PropertyForm({
         ) : null}
 
         {step === 3 ? (
-          <div className="space-y-4">
+          <div className="space-y-5">
+            <div className="rounded-xl border border-gold/30 bg-gold/5 p-4">
+              <p className="text-xs font-medium uppercase tracking-[0.16em] text-gold">SEO before you publish</p>
+              <ul className="mt-3 grid gap-2 text-sm leading-6 text-muted-foreground sm:grid-cols-2">
+                <li>• Use a specific title with project + configuration + sector.</li>
+                <li>• Enter exact price, area, floor, facing and possession details.</li>
+                <li>• Use several sharp, actual property photos with a strong cover image.</li>
+                <li>• Write unique natural text for this exact unit; do not copy another listing.</li>
+                <li>• Mention genuine view, condition, amenities and connectivity advantages.</li>
+                <li>• Avoid keyword stuffing, ALL CAPS and Markdown symbols such as ** or ###.</li>
+              </ul>
+              <p className="mt-3 text-xs text-muted-foreground">SEO title, search description, URL, canonical URL and missing image ALT text are generated automatically when you publish.</p>
+            </div>
             <Label htmlFor="description">Property description</Label>
-            <Textarea id="description" rows={14} value={values.description} onChange={(e) => set("description", e.target.value)} placeholder="Describe the home, the project and the neighbourhood in plain language." />
+            <Textarea id="description" rows={14} value={values.description} onChange={(e) => set("description", e.target.value)} placeholder="Describe this exact home, project and location in clear natural language." />
           </div>
         ) : null}
       </div>
@@ -391,10 +407,9 @@ export function PropertyForm({
             variant="gold"
             disabled={saving}
             onClick={() => {
-              autoFillSeo();
               void persist({ is_published: true }).then((r) => {
                 if (r) {
-                  toast.success("Property published");
+                  toast.success("Property published with SEO updated");
                   void navigate({ to: "/property/$slug", params: { slug: r.slug } });
                 }
               });
