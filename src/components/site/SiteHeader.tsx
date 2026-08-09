@@ -8,7 +8,6 @@ import { CONTACT } from "@/data/site";
 const NAV = [
   { to: "/", label: "Home" },
   { to: "/properties", label: "Properties" },
-  { to: "/luxury", label: "Luxury" },
   { to: "/nri", label: "NRI" },
   { to: "/home-loans", label: "Home Loans" },
   { to: "/emi-calculator", label: "EMI Calculator" },

@@ -47,7 +47,6 @@ export function SiteFooter() {
           <ul className="mt-4 space-y-2 text-sm text-navy-foreground/80">
             <li><Link to="/properties" className="hover:text-gold">Buy Property in Gurgaon</Link></li>
             <li><Link to="/properties" className="hover:text-gold">Rent & Lease</Link></li>
-            <li><Link to="/luxury" className="hover:text-gold">Luxury Property</Link></li>
             <li><Link to="/nri" className="hover:text-gold">NRI Property Services</Link></li>
             <li><Link to="/home-loans" className="hover:text-gold">Home Loan Assistance</Link></li>
             <li><Link to="/emi-calculator" className="hover:text-gold">EMI Calculator</Link></li>
