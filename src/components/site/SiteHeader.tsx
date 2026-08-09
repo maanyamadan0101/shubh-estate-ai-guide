@@ -8,6 +8,7 @@ import { CONTACT } from "@/data/site";
 const NAV = [
   { to: "/", label: "Home" },
   { to: "/properties", label: "Properties" },
+  { to: "/sell-property-gurgaon", label: "Sell Property" },
   { to: "/nri", label: "NRI" },
   { to: "/home-loans", label: "Home Loans" },
   { to: "/emi-calculator", label: "EMI Calculator" },
@@ -33,7 +34,7 @@ export function SiteHeader() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-6 lg:flex" aria-label="Primary">
           {NAV.map((item) => (
             <Link
               key={item.to}
