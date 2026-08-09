@@ -1,10 +1,11 @@
 import { useCallback, useRef, useState } from "react";
-import { GripVertical, ImagePlus, Loader2, Star, Trash2 } from "lucide-react";
+import { GripVertical, ImagePlus, Loader2, Star, Trash2, Globe2 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
 import { requestMediaUpload } from "@/lib/media-upload";
+import { encodeProjectImageAlt, isReusableImageLicense, parseProjectImageAlt } from "@/lib/project-image";
 
 export type ManagedImage = {
   image_url: string;
@@ -23,6 +24,10 @@ export function ImageManager({
 }) {
   const [uploading, setUploading] = useState(false);
   const [dragOver, setDragOver] = useState(false);
+  const [projectImageUrl, setProjectImageUrl] = useState("");
+  const [projectImageCredit, setProjectImageCredit] = useState("");
+  const [projectImageLicense, setProjectImageLicense] = useState("");
+  const [projectImageSource, setProjectImageSource] = useState("");
   const dragIndex = useRef<number | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -93,6 +98,32 @@ export function ImageManager({
     [images, onChange, altFor],
   );
 
+  function addProjectImage() {
+    const url = projectImageUrl.trim();
+    const credit = projectImageCredit.trim();
+    const license = projectImageLicense.trim();
+    const sourceUrl = projectImageSource.trim();
+    if (!/^https:\/\//i.test(url)) return toast.error("Use a direct HTTPS image URL.");
+    if (!credit) return toast.error("Add the photographer/creator credit.");
+    if (!license || !isReusableImageLicense(license)) return toast.error("Use a verified reusable licence such as CC BY, CC BY-SA, CC0, Public Domain or OGL.");
+    if (!/^https:\/\//i.test(sourceUrl)) return toast.error("Add the HTTPS source page where the licence can be checked.");
+    if (images.some((image) => image.image_url === url)) return toast.error("This image is already attached.");
+
+    const altText = encodeProjectImageAlt({
+      description: altFor(images.length).replace(/—\s*(property exterior|living room|bedroom|kitchen|balcony view|interior view)$/i, "— representative project image"),
+      credit,
+      license,
+      sourceUrl,
+    });
+    const next = [...images, { image_url: url, alt_text: altText, is_primary: !images.some((image) => image.is_primary) }];
+    onChange(next);
+    setProjectImageUrl("");
+    setProjectImageCredit("");
+    setProjectImageLicense("");
+    setProjectImageSource("");
+    toast.success("Licensed project image added");
+  }
+
   function move(from: number, to: number) {
     if (to < 0 || to >= images.length || from === to) return;
     const next = [...images];
@@ -102,7 +133,26 @@ export function ImageManager({
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-5">
+      <div className="rounded-xl border border-gold/30 bg-gold/5 p-4">
+        <div className="flex items-start gap-3">
+          <Globe2 className="mt-0.5 size-4 shrink-0 text-gold" aria-hidden="true" />
+          <div>
+            <p className="text-sm font-medium">Licensed project / representative image</p>
+            <p className="mt-1 text-xs leading-5 text-muted-foreground">
+              Use this only when the reuse licence is clear. The public listing will label it as a project image, not as a photograph of the specific unit.
+            </p>
+          </div>
+        </div>
+        <div className="mt-4 grid gap-3 md:grid-cols-2">
+          <Input value={projectImageUrl} onChange={(e) => setProjectImageUrl(e.target.value)} placeholder="Direct HTTPS image URL" />
+          <Input value={projectImageCredit} onChange={(e) => setProjectImageCredit(e.target.value)} placeholder="Credit / creator" />
+          <Input value={projectImageLicense} onChange={(e) => setProjectImageLicense(e.target.value)} placeholder="Licence, e.g. CC BY-SA 4.0" />
+          <Input value={projectImageSource} onChange={(e) => setProjectImageSource(e.target.value)} placeholder="Source/licence page URL" />
+        </div>
+        <Button type="button" size="sm" variant="outline" className="mt-3" onClick={addProjectImage}>Add project image</Button>
+      </div>
+
       <div
         onDragOver={(e) => {
           e.preventDefault();
@@ -123,7 +173,7 @@ export function ImageManager({
         ) : (
           <ImagePlus className="size-6 text-gold" aria-hidden="true" />
         )}
-        <p className="mt-3 text-sm font-medium">Drag & drop photos here</p>
+        <p className="mt-3 text-sm font-medium">Drag & drop actual property photos here</p>
         <p className="mt-1 text-xs text-muted-foreground">JPG, PNG, WebP or AVIF, up to 10 MB each</p>
         <Button
           type="button"
@@ -150,73 +200,80 @@ export function ImageManager({
 
       {images.length > 0 ? (
         <ul className="grid gap-3">
-          {images.map((image, index) => (
-            <li
-              key={image.image_url}
-              draggable
-              onDragStart={() => (dragIndex.current = index)}
-              onDragOver={(e) => e.preventDefault()}
-              onDrop={() => {
-                if (dragIndex.current !== null) move(dragIndex.current, index);
-                dragIndex.current = null;
-              }}
-              className="flex flex-wrap items-center gap-3 rounded-lg border border-border bg-card p-3"
-            >
-              <GripVertical className="size-4 shrink-0 cursor-grab text-muted-foreground" aria-hidden="true" />
-              <img
-                src={image.image_url}
-                alt={image.alt_text}
-                className="size-16 shrink-0 rounded-md object-cover"
-                loading="lazy"
-              />
-              <div className="min-w-[12rem] flex-1">
-                <label className="sr-only" htmlFor={`alt-${index}`}>
-                  Image description
-                </label>
-                <Input
-                  id={`alt-${index}`}
-                  value={image.alt_text}
-                  onChange={(e) => {
-                    const next = [...images];
-                    next[index] = { ...image, alt_text: e.target.value };
-                    onChange(next);
-                  }}
-                  placeholder="Image description"
-                  className="h-9"
+          {images.map((image, index) => {
+            const projectMeta = parseProjectImageAlt(image.alt_text);
+            return (
+              <li
+                key={image.image_url}
+                draggable
+                onDragStart={() => (dragIndex.current = index)}
+                onDragOver={(e) => e.preventDefault()}
+                onDrop={() => {
+                  if (dragIndex.current !== null) move(dragIndex.current, index);
+                  dragIndex.current = null;
+                }}
+                className="flex flex-wrap items-center gap-3 rounded-lg border border-border bg-card p-3"
+              >
+                <GripVertical className="size-4 shrink-0 cursor-grab text-muted-foreground" aria-hidden="true" />
+                <img
+                  src={image.image_url}
+                  alt={projectMeta?.description ?? image.alt_text}
+                  className="size-16 shrink-0 rounded-md object-cover"
+                  loading="lazy"
                 />
-              </div>
-              <div className="flex items-center gap-1">
-                <Button
-                  type="button"
-                  size="sm"
-                  variant={image.is_primary ? "gold" : "outline"}
-                  onClick={() => onChange(images.map((im, i) => ({ ...im, is_primary: i === index })))}
-                >
-                  <Star className="size-3.5" aria-hidden="true" />
-                  {image.is_primary ? "Cover" : "Set cover"}
-                </Button>
-                <Button type="button" size="sm" variant="outline" onClick={() => move(index, index - 1)} aria-label="Move up">
-                  ↑
-                </Button>
-                <Button type="button" size="sm" variant="outline" onClick={() => move(index, index + 1)} aria-label="Move down">
-                  ↓
-                </Button>
-                <Button
-                  type="button"
-                  size="sm"
-                  variant="outline"
-                  aria-label="Remove photo"
-                  onClick={() => {
-                    const next = images.filter((_, i) => i !== index);
-                    if (next.length && !next.some((i) => i.is_primary)) next[0] = { ...next[0]!, is_primary: true };
-                    onChange(next);
-                  }}
-                >
-                  <Trash2 className="size-3.5" aria-hidden="true" />
-                </Button>
-              </div>
-            </li>
-          ))}
+                <div className="min-w-[12rem] flex-1">
+                  {projectMeta ? (
+                    <div className="rounded-md bg-muted/50 px-3 py-2 text-xs leading-5 text-muted-foreground">
+                      <p className="font-medium text-foreground">Project / representative image</p>
+                      <p>{projectMeta.description}</p>
+                      <p>Credit: {projectMeta.credit} · {projectMeta.license}</p>
+                    </div>
+                  ) : (
+                    <>
+                      <label className="sr-only" htmlFor={`alt-${index}`}>Image description</label>
+                      <Input
+                        id={`alt-${index}`}
+                        value={image.alt_text}
+                        onChange={(e) => {
+                          const next = [...images];
+                          next[index] = { ...image, alt_text: e.target.value };
+                          onChange(next);
+                        }}
+                        placeholder="Image description"
+                        className="h-9"
+                      />
+                    </>
+                  )}
+                </div>
+                <div className="flex items-center gap-1">
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant={image.is_primary ? "gold" : "outline"}
+                    onClick={() => onChange(images.map((im, i) => ({ ...im, is_primary: i === index })))}
+                  >
+                    <Star className="size-3.5" aria-hidden="true" />
+                    {image.is_primary ? "Cover" : "Set cover"}
+                  </Button>
+                  <Button type="button" size="sm" variant="outline" onClick={() => move(index, index - 1)} aria-label="Move up">↑</Button>
+                  <Button type="button" size="sm" variant="outline" onClick={() => move(index, index + 1)} aria-label="Move down">↓</Button>
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="outline"
+                    aria-label="Remove photo"
+                    onClick={() => {
+                      const next = images.filter((_, i) => i !== index);
+                      if (next.length && !next.some((i) => i.is_primary)) next[0] = { ...next[0]!, is_primary: true };
+                      onChange(next);
+                    }}
+                  >
+                    <Trash2 className="size-3.5" aria-hidden="true" />
+                  </Button>
+                </div>
+              </li>
+            );
+          })}
         </ul>
       ) : null}
     </div>
