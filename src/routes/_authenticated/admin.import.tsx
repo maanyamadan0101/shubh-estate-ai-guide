@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AdminShell } from "@/components/admin/AdminShell";
-import { PropertyBulkImporter } from "@/components/admin/PropertyBulkImporter";
+import { PropertyBulkImporterV2 } from "@/components/admin/PropertyBulkImporterV2";
 
 export const Route = createFileRoute("/_authenticated/admin/import")({
   head: () => ({
@@ -16,9 +16,9 @@ function ImportPropertiesPage() {
   return (
     <AdminShell
       title="Import Properties"
-      subtitle="Upload the Shubh Estate Excel template, preview the rows and publish them to the website."
+      subtitle="Upload Excel, preview the rows, and optionally include licensed project images with credit and reuse details."
     >
-      <PropertyBulkImporter />
+      <PropertyBulkImporterV2 />
     </AdminShell>
   );
 }

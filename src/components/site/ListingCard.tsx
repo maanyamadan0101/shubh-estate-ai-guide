@@ -6,6 +6,8 @@ import type { ListingRow } from "@/lib/properties.functions";
 
 export function ListingCard({ property }: { property: ListingRow }) {
   const place = [property.sector, property.locality].filter(Boolean).join(", ");
+  const representativeImage = Boolean(property.cover_image_url?.startsWith("https://") || property.cover_image_url?.startsWith("http://"));
+
   return (
     <article className="group overflow-hidden rounded-xl border border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]">
       <Link to="/property/$slug" params={{ slug: property.slug }} className="block">
@@ -25,6 +27,11 @@ export function ListingCard({ property }: { property: ListingRow }) {
           <Badge className="absolute left-3 top-3 bg-gold text-gold-foreground hover:bg-gold">
             {STATUS_LABEL[property.status]}
           </Badge>
+          {representativeImage ? (
+            <Badge variant="secondary" className="absolute bottom-3 left-3 bg-background/90 text-[10px] font-medium uppercase tracking-[0.12em] backdrop-blur">
+              Project image
+            </Badge>
+          ) : null}
         </div>
       </Link>
 
