@@ -3,6 +3,7 @@ import { Link, useNavigate } from "@tanstack/react-router";
 import {
   BarChart3,
   Building2,
+  ClipboardList,
   ExternalLink,
   FileSpreadsheet,
   Globe2,
@@ -56,6 +57,7 @@ export function AdminShell({
 
             <p className="hidden px-3 pb-1 pt-5 text-[10px] font-medium uppercase tracking-[0.18em] text-muted-foreground lg:block">Manage Business</p>
             <AdminNavLink href="/admin/enquiries" icon={Users} label="Enquiries / Leads" />
+            <AdminNavLink href="/admin/seller-submissions" icon={ClipboardList} label="Private Seller Submissions" />
             <AdminNavLink href="/admin/media" icon={Images} label="Photos & Videos" />
             <AdminNavLink href="/admin/social" icon={Youtube} label="YouTube & Social" />
             <AdminNavLink href="/admin/profile" icon={UserRound} label="Business Profile" />
