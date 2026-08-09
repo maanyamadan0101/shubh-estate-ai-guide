@@ -3,16 +3,31 @@ import { PropertyView } from "@/components/site/PropertyView";
 import { ProjectImageDisclosure } from "@/components/site/ProjectImageDisclosure";
 import { getPublicPropertyDetail } from "@/lib/public-property-detail.functions";
 import { listPublicProperties } from "@/lib/properties.functions";
+import { representativeProjectImageFor } from "@/lib/project-image-catalog";
 import { buildCanonical, formatArea, formatINR, PROPERTY_TYPE_LABEL, SITE_ORIGIN } from "@/lib/seo";
 
 export const Route = createFileRoute("/property/$slug")({
   loader: async ({ params }) => {
     const data = await getPublicPropertyDetail({ data: { slug: params.slug } });
     if (!data) throw notFound();
+
+    const fallbackProjectImage =
+      data.images.length || data.property.cover_image_url ? null : representativeProjectImageFor(data.property.title);
+    const images = fallbackProjectImage
+      ? [
+          {
+            id: "licensed-project-fallback",
+            image_url: fallbackProjectImage.url,
+            alt_text: fallbackProjectImage.altText,
+            is_primary: true,
+          },
+        ]
+      : data.images;
+
     const related = await listPublicProperties({
       data: { locality: data.property.locality ?? undefined, limit: 4, excludeSlug: params.slug },
     });
-    return { ...data, related: related.properties };
+    return { ...data, images, fallbackProjectImage, related: related.properties };
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) {
@@ -24,11 +39,12 @@ export const Route = createFileRoute("/property/$slug")({
       p.meta_description ||
       `${p.title} — ${formatArea(p.area_sqft)} at ${formatINR(p.price)} in ${[p.sector, p.locality, p.city].filter(Boolean).join(", ")}.`;
     const canonical = p.canonical_url || buildCanonical(params.slug);
+    const fallback = representativeProjectImageFor(p.title);
     const image = p.cover_image_url?.startsWith("http")
       ? p.cover_image_url
       : p.cover_image_url
         ? `${SITE_ORIGIN}${p.cover_image_url}`
-        : null;
+        : fallback?.url ?? null;
 
     const schema = {
       "@context": "https://schema.org",

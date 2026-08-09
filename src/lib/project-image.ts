@@ -37,7 +37,10 @@ export function parseProjectImageAlt(value: string | null | undefined): ProjectI
 export function licenseUrlFor(license: string) {
   const text = license.toLowerCase();
   if (text.includes("cc by-sa 4.0") || text.includes("attribution-sharealike 4.0")) return "https://creativecommons.org/licenses/by-sa/4.0/";
+  if (text.includes("cc by-sa 3.0") || text.includes("attribution-sharealike 3.0")) return "https://creativecommons.org/licenses/by-sa/3.0/";
+  if (text.includes("cc by-sa 2.0") || text.includes("attribution-sharealike 2.0")) return "https://creativecommons.org/licenses/by-sa/2.0/";
   if (text.includes("cc by 4.0") || text.includes("attribution 4.0")) return "https://creativecommons.org/licenses/by/4.0/";
+  if (text.includes("cc by 3.0") || text.includes("attribution 3.0")) return "https://creativecommons.org/licenses/by/3.0/";
   if (text.includes("cc0")) return "https://creativecommons.org/publicdomain/zero/1.0/";
   if (text.includes("open government") || /\bogl\b/.test(text)) return "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/";
   return null;
