@@ -2,39 +2,32 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   Banknote,
   Building2,
-  ChevronRight,
   FileCheck2,
   Landmark,
   Quote,
   Scale,
-  Search,
   ShieldCheck,
   Sparkles,
   TrendingUp,
 } from "lucide-react";
 import heroImage from "@/assets/hero-gurugram.jpg";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { PropertyCard } from "@/components/site/PropertyCard";
-import { BUILDERS, CONTACT, FAQS, LOCALITIES, PROPERTIES, TESTIMONIALS } from "@/data/site";
+import { CONTACT, FAQS } from "@/data/site";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Property in Gurgaon | Shubh Estate Brokers — Buy, Sell, Rent" },
+      { title: "Gurugram Real Estate Advisory | Shubh Estate Brokers" },
       {
         name: "description",
         content:
-          "Gurugram's trusted real estate advisory. Luxury apartments, builder floors, villas and commercial property with home loan assistance and legal due diligence.",
+          "Founder-led Gurugram real estate advisory backed by banking, mortgage, valuation and legal due-diligence experience. Buy, sell and invest with financial clarity.",
       },
-      { property: "og:title", content: "Property in Gurgaon | Shubh Estate Brokers" },
+      { property: "og:title", content: "Shubh Estate Brokers | Founder-led Gurugram Property Advisory" },
       {
         property: "og:description",
-        content: "Fair & transparent real estate deals at the best price, backed by banking and mortgage expertise.",
+        content: "Fair and transparent Gurugram property advice backed by banking, mortgage, valuation and title-assessment experience.",
       },
     ],
   }),
@@ -42,12 +35,42 @@ export const Route = createFileRoute("/")({
 });
 
 const WHY = [
-  { icon: Landmark, title: "Banking Expertise", body: "Founder-led advisory shaped by two decades across HDFC, ICICI, Citigroup and IndusInd." },
-  { icon: Scale, title: "Legal Due Diligence", body: "Title assessment, approvals and RERA verification before a single rupee moves." },
-  { icon: Banknote, title: "Mortgage Structuring", body: "Loans arranged at the best available rates with minimal documentation." },
-  { icon: TrendingUp, title: "Investment Advisory", body: "Micro-market data, rental yield and appreciation modelling on every recommendation." },
-  { icon: ShieldCheck, title: "Fair & Transparent", body: "Honest pricing guidance — including when we advise you not to buy." },
-  { icon: FileCheck2, title: "End-to-End Support", body: "Valuation, documentation, registry and after-sales assistance." },
+  {
+    icon: Landmark,
+    title: "Banking Perspective",
+    body: "Advice shaped by years inside banking, mortgage and credit environments — not only by brokerage experience.",
+  },
+  {
+    icon: Scale,
+    title: "Legal & Title Review",
+    body: "We look at ownership, approvals, documentation and RERA position before asking you to commit capital.",
+  },
+  {
+    icon: Banknote,
+    title: "Mortgage Structuring",
+    body: "Financing is evaluated alongside the property so the purchase fits your cash flow and long-term plan.",
+  },
+  {
+    icon: TrendingUp,
+    title: "Investment Discipline",
+    body: "Entry price, micro-market supply, rental demand, developer quality and likely exit are reviewed together.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Fair & Transparent",
+    body: "The objective is not to sell every property. We are comfortable advising a client not to buy when the risk-reward is weak.",
+  },
+  {
+    icon: FileCheck2,
+    title: "End-to-End Execution",
+    body: "Shortlisting, valuation, negotiation, documentation, financing coordination and transaction support in one advisory relationship.",
+  },
+];
+
+const MARKET_FACTS = [
+  ["250+", "Fortune 500 companies in Gurugram"],
+  ["100+ mn sq. ft.", "Completed office stock"],
+  ["~US$6.0 bn", "Investment inflows since 2018"],
 ];
 
 function Home() {
@@ -56,157 +79,196 @@ function Home() {
       <section className="relative isolate overflow-hidden">
         <img
           src={heroImage}
-          alt="Gurugram Cyber City skyline at twilight"
+          alt="Gurugram skyline at twilight"
           width={1920}
           height={1088}
           fetchPriority="high"
           className="absolute inset-0 -z-10 size-full object-cover"
         />
-        <div className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,oklch(0.21_0.042_248/0.92),oklch(0.21_0.042_248/0.72))]" />
+        <div className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,oklch(0.21_0.042_248/0.94),oklch(0.21_0.042_248/0.76))]" />
 
         <div className="container-page py-24 text-navy-foreground md:py-36">
           <div className="max-w-3xl animate-rise">
-            <span className="eyebrow">Gurugram · Since 2009</span>
-            <h1 className="mt-4 font-display text-4xl leading-[1.1] sm:text-5xl md:text-6xl">
-              Fair & Transparent Real Estate Deals at the{" "}
-              <span className="text-gradient-gold">Best Price</span>
+            <span className="eyebrow">Founder-led · Gurugram</span>
+            <h1 className="mt-4 font-display text-4xl leading-[1.08] sm:text-5xl md:text-6xl">
+              Property advice backed by
+              <span className="text-gradient-gold"> banking-grade judgement</span>
             </h1>
-            <p className="mt-6 max-w-2xl text-base text-navy-foreground/75 md:text-lg">
-              A boutique property advisory for Gurugram — luxury homes, builder floors, villas, plots and commercial
-              assets, supported by mortgage structuring, valuation and legal due diligence.
+            <p className="mt-6 max-w-2xl text-base leading-7 text-navy-foreground/80 md:text-lg">
+              Shubh Estate Brokers helps buyers, sellers, investors and NRIs make property decisions with financial clarity — combining Gurugram market knowledge with mortgage, valuation and legal due-diligence experience.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button asChild variant="gold" size="xl">
-                <Link to="/properties">Explore Properties</Link>
+                <Link to="/properties">View Verified Properties</Link>
               </Button>
               <Button asChild variant="goldOutline" size="xl">
-                <Link to="/home-loans">Talk to a Mortgage Expert</Link>
+                <a href={CONTACT.phoneHref}>Speak with Arun Madan</a>
               </Button>
             </div>
-          </div>
-
-          <div className="mt-14 rounded-2xl glass-panel p-4 shadow-[var(--shadow-lift)] md:p-6">
-            <Tabs defaultValue="buy">
-              <TabsList className="bg-background/60">
-                <TabsTrigger value="buy">Buy</TabsTrigger>
-                <TabsTrigger value="rent">Rent</TabsTrigger>
-                <TabsTrigger value="sell">Sell</TabsTrigger>
-                <TabsTrigger value="commercial">Commercial</TabsTrigger>
-              </TabsList>
-            </Tabs>
-
-            <form
-              className="mt-4 grid gap-3 md:grid-cols-[1.4fr_1fr_1fr_auto]"
-              onSubmit={(e) => e.preventDefault()}
-              role="search"
-            >
-              <div className="relative">
-                <Search
-                  className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
-                  aria-hidden="true"
-                />
-                <label className="sr-only" htmlFor="hero-search">
-                  Search sector, locality, builder or project
-                </label>
-                <Input
-                  id="hero-search"
-                  placeholder="Sector, locality, builder or project"
-                  className="h-11 bg-background pl-9"
-                />
-              </div>
-              <Select>
-                <SelectTrigger className="h-11 bg-background" aria-label="Property type">
-                  <SelectValue placeholder="Property type" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="apartment">Apartment</SelectItem>
-                  <SelectItem value="floor">Builder Floor</SelectItem>
-                  <SelectItem value="villa">Villa</SelectItem>
-                  <SelectItem value="plot">Plot</SelectItem>
-                  <SelectItem value="commercial">Commercial</SelectItem>
-                </SelectContent>
-              </Select>
-              <Select>
-                <SelectTrigger className="h-11 bg-background" aria-label="Budget">
-                  <SelectValue placeholder="Budget" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="1">Under ₹1 Cr</SelectItem>
-                  <SelectItem value="2">₹1 – 3 Cr</SelectItem>
-                  <SelectItem value="3">₹3 – 6 Cr</SelectItem>
-                  <SelectItem value="4">₹6 Cr +</SelectItem>
-                </SelectContent>
-              </Select>
-              <Button asChild variant="gold" size="lg" className="h-11">
-                <Link to="/properties">Search</Link>
-              </Button>
-            </form>
-            <p className="mt-3 flex items-center gap-2 text-xs text-muted-foreground">
-              <Sparkles className="size-3.5 text-gold" aria-hidden="true" />
-              AI-assisted matching across RERA-approved projects in Gurugram
+            <p className="mt-5 flex max-w-2xl items-start gap-2 text-xs leading-5 text-navy-foreground/65">
+              <Sparkles className="mt-0.5 size-3.5 shrink-0 text-gold" aria-hidden="true" />
+              The objective is not to push inventory. It is to help you understand the price, title, financing, downside and exit before you commit.
             </p>
           </div>
-        </div>
-      </section>
-
-      <section className="border-b border-border bg-secondary/60">
-        <div className="container-page grid grid-cols-2 gap-8 py-10 md:grid-cols-4">
-          {[
-            ["1,200+", "Families advised"],
-            ["₹ 900 Cr+", "Transaction value"],
-            ["15+ Years", "Banking experience"],
-            ["100%", "Legal verification"],
-          ].map(([stat, label]) => (
-            <div key={label}>
-              <p className="font-display text-3xl">{stat}</p>
-              <p className="mt-1 text-sm text-muted-foreground">{label}</p>
-            </div>
-          ))}
         </div>
       </section>
 
       <section className="container-page py-20">
-        <SectionHead
-          eyebrow="Featured Collection"
-          title="Handpicked homes across Gurugram"
-          body="Curated from RERA-approved inventory across Golf Course Road, Dwarka Expressway, SPR and New Gurgaon."
-        />
-        <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {PROPERTIES.slice(0, 6).map((property) => (
-            <PropertyCard key={property.id} property={property} />
-          ))}
+        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+          <div className="rounded-2xl surface-navy p-8 md:p-10">
+            <p className="eyebrow">Founder Profile</p>
+            <h2 className="mt-4 font-display text-3xl text-navy-foreground">Arun Madan</h2>
+            <p className="mt-2 text-sm text-navy-foreground/70">Founder & Promoter · MBA · LLB · Former Banking Professional</p>
+
+            <div className="mt-7 grid gap-3 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
+              {[
+                "Mortgage Expert",
+                "Property Valuation Specialist",
+                "Legal Title Assessment",
+              ].map((item) => (
+                <div key={item} className="rounded-xl border border-navy-foreground/15 bg-white/5 p-4 text-sm text-navy-foreground/85">
+                  {item}
+                </div>
+              ))}
+            </div>
+
+            <p className="mt-8 text-xs uppercase tracking-[0.18em] text-navy-foreground/55">Professional experience includes</p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {["HDFC Bank", "ICICI Bank", "Citigroup", "IndusInd Bank"].map((bank) => (
+                <span key={bank} className="rounded-full border border-gold/50 px-4 py-1.5 text-xs text-gold">
+                  {bank}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <SectionHead
+              eyebrow="Why clients can trust the advice"
+              title="A property decision reviewed like a financial decision"
+              body="Years spent around banking credit, mortgages, collateral valuation and documentation shape how Shubh Estate Brokers approaches a transaction today."
+            />
+            <div className="mt-7 space-y-5 text-muted-foreground">
+              <p>
+                A home or investment property is often one of the largest financial commitments a family makes. Our role is therefore wider than finding an attractive unit. We examine whether the asking price is sensible, whether the title and approvals deserve confidence, how the loan should be structured and whether the asset still makes sense when you think about resale or rental exit.
+              </p>
+              <p>
+                That is why recommendations are stress-tested before a token amount is paid. If valuation, documentation, financing or exit assumptions do not work, we say so. The relationship is designed around protecting the client's capital first and completing a transaction second.
+              </p>
+            </div>
+
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Button asChild variant="navy" size="lg">
+                <Link to="/about">Read Arun's Full Profile</Link>
+              </Button>
+              <Button asChild variant="outline" size="lg">
+                <Link to="/contact">Book a Consultation</Link>
+              </Button>
+            </div>
+          </div>
         </div>
-        <div className="mt-10 text-center">
-          <Button asChild variant="outline" size="lg">
-            <Link to="/properties">
-              View all properties <ChevronRight aria-hidden="true" />
-            </Link>
-          </Button>
+      </section>
+
+      <section className="bg-secondary/60 py-20">
+        <div className="container-page">
+          <SectionHead
+            eyebrow="Gurugram Property Market"
+            title="Growth backed by jobs, capital and connectivity"
+            body="Gurugram's property story is tied to the depth of its corporate economy and the continued expansion of NCR infrastructure — not simply to launch prices or marketing narratives."
+          />
+
+          <div className="mt-10 grid gap-4 md:grid-cols-3">
+            {MARKET_FACTS.map(([stat, label]) => (
+              <div key={label} className="rounded-2xl border border-border bg-card p-6">
+                <p className="font-display text-3xl">{stat}</p>
+                <p className="mt-2 text-sm text-muted-foreground">{label}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-8 grid gap-6 lg:grid-cols-3">
+            <MarketCard
+              title="Employment & occupier depth"
+              body="A large corporate and office base supports end-user housing demand, rental demand and the long-term relevance of well-connected residential micro-markets."
+            />
+            <MarketCard
+              title="Infrastructure-led expansion"
+              body="Expressways, metro extensions and planned RRTS corridors are opening new growth nodes while improving access between established Gurugram and emerging corridors."
+            />
+            <MarketCard
+              title="Shift toward quality"
+              body="India's 2026 residential market continues to show stronger preference for high-end and quality housing. In Gurugram, this makes developer track record, specifications and entry price even more important."
+            />
+          </div>
+
+          <div className="mt-8 rounded-2xl border border-gold/30 bg-card p-6 md:p-8">
+            <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
+              <div>
+                <p className="font-display text-2xl">Growth does not make every property a good investment.</p>
+                <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">
+                  City-level momentum can support demand, but returns remain project- and entry-price-specific. We therefore evaluate supply, developer quality, construction stage, legal position, rental depth, financing cost and realistic exit before recommending a property.
+                </p>
+              </div>
+              <Button asChild variant="gold" size="lg">
+                <Link to="/gurugram-growth-story">Explore Gurugram Growth Story</Link>
+              </Button>
+            </div>
+          </div>
+
+          <p className="mt-6 text-xs leading-5 text-muted-foreground">
+            Market context updated July 2026. Sources: {" "}
+            <a
+              href="https://www.cbre.co.in/insights/reports/corridors-clusters-driving-haryana-s-next-growth-phase"
+              target="_blank"
+              rel="noreferrer"
+              className="underline decoration-gold/50 underline-offset-4 hover:text-foreground"
+            >
+              CBRE Research — Corridors & Clusters: Driving Haryana's Next Growth Phase
+            </a>
+            {" · "}
+            <a
+              href="https://www.knightfrank.co.in/research/india-real-estate-office-and-residential-market-h1-2026-12927.aspx"
+              target="_blank"
+              rel="noreferrer"
+              className="underline decoration-gold/50 underline-offset-4 hover:text-foreground"
+            >
+              Knight Frank India — H1 2026 Office & Residential Market
+            </a>
+          </p>
+        </div>
+      </section>
+
+      <section className="container-page py-20">
+        <SectionHead eyebrow="Our Advisory Standard" title="Advisory first. Brokerage second." />
+        <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {WHY.map(({ icon: Icon, title, body }) => (
+            <div key={title} className="rounded-xl border border-border bg-card p-7 transition-shadow hover:shadow-[var(--shadow-elegant)]">
+              <span className="flex size-11 items-center justify-center rounded-lg bg-accent">
+                <Icon className="size-5 text-gold" aria-hidden="true" />
+              </span>
+              <h3 className="mt-5 font-display text-xl">{title}</h3>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">{body}</p>
+            </div>
+          ))}
         </div>
       </section>
 
       <section className="surface-navy py-20">
-        <div className="container-page grid gap-12 lg:grid-cols-[1fr_1fr]">
+        <div className="container-page grid gap-10 lg:grid-cols-[1fr_0.9fr] lg:items-center">
           <div>
-            <span className="eyebrow">Home Loan Assistance</span>
-            <h2 className="mt-4 font-display text-3xl md:text-4xl">
-              Loans up to 90% at the best available interest rates
-            </h2>
-            <p className="mt-4 text-navy-foreground/75">
-              We arrange home loans at the best available interest rates with minimal documentation through leading
-              banks and financial institutions — structured by a former banker who has approved them from the other
-              side of the table.
+            <span className="eyebrow">Mortgage & Transaction Support</span>
+            <h2 className="mt-4 font-display text-3xl md:text-4xl">The property and the financing should work together</h2>
+            <p className="mt-4 max-w-2xl text-navy-foreground/75">
+              Mortgage eligibility, property valuation, documentation and lender acceptance are considered as part of the purchase — not as an afterthought after the property is selected.
             </p>
-            <ul className="mt-8 grid gap-3 sm:grid-cols-2">
+            <ul className="mt-7 grid gap-3 sm:grid-cols-2">
               {[
-                "Property Valuation",
-                "Legal Verification",
-                "Title Assessment",
-                "Loan Structuring",
-                "Bank Coordination",
-                "Balance Transfer",
-                "Top-Up Loans",
-                "NRI Home Loans",
+                "Property valuation",
+                "Title & document review",
+                "Loan structuring",
+                "Bank coordination",
+                "NRI home-loan assistance",
+                "Registry & transaction support",
               ].map((item) => (
                 <li key={item} className="flex items-center gap-2 text-sm text-navy-foreground/85">
                   <ShieldCheck className="size-4 shrink-0 text-gold" aria-hidden="true" />
@@ -214,108 +276,26 @@ function Home() {
                 </li>
               ))}
             </ul>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Button asChild variant="gold" size="lg">
-                <Link to="/home-loans">Apply for Home Loan</Link>
-              </Button>
-              <Button asChild variant="goldOutline" size="lg">
-                <Link to="/emi-calculator">Open EMI Calculator</Link>
-              </Button>
-            </div>
           </div>
-
           <div className="rounded-2xl glass-panel p-8 text-foreground">
-            <p className="eyebrow">Quick estimate</p>
-            <h3 className="mt-3 font-display text-2xl">See your EMI before you shortlist</h3>
-            <p className="mt-3 text-sm text-muted-foreground">
-              Model property price, down payment, interest rate and tenure — with a full interest breakdown and
-              amortisation view.
-            </p>
-            <dl className="mt-6 space-y-3 text-sm">
-              {[
-                ["Typical rate band", "8.35% – 9.25% p.a."],
-                ["Maximum tenure", "30 years"],
-                ["Maximum funding", "Up to 90% of property value"],
-              ].map(([k, v]) => (
-                <div key={k} className="flex justify-between border-b border-border pb-2">
-                  <dt className="text-muted-foreground">{k}</dt>
-                  <dd className="font-medium">{v}</dd>
-                </div>
-              ))}
-            </dl>
-            <Button asChild variant="navy" size="lg" className="mt-6 w-full">
-              <Link to="/emi-calculator">Calculate my EMI</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      <section className="container-page py-20">
-        <SectionHead eyebrow="Why Shubh Estate Brokers" title="Advisory first. Brokerage second." />
-        <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {WHY.map(({ icon: Icon, title, body }) => (
-            <div
-              key={title}
-              className="rounded-xl border border-border bg-card p-7 transition-shadow hover:shadow-[var(--shadow-elegant)]"
-            >
-              <span className="flex size-11 items-center justify-center rounded-lg bg-accent">
-                <Icon className="size-5 text-gold" aria-hidden="true" />
-              </span>
-              <h3 className="mt-5 font-display text-xl">{title}</h3>
-              <p className="mt-2 text-sm text-muted-foreground">{body}</p>
+            <Quote className="size-7 text-gold" aria-hidden="true" />
+            <p className="mt-5 font-display text-2xl">“The best property is not the one with the loudest sales pitch. It is the one whose price, paperwork, financing and exit all stand up to scrutiny.”</p>
+            <p className="mt-5 text-sm text-muted-foreground">— Shubh Estate Brokers advisory approach</p>
+            <div className="mt-7 flex flex-wrap gap-3">
+              <Button asChild variant="navy">
+                <Link to="/home-loans">Home Loan Assistance</Link>
+              </Button>
+              <Button asChild variant="outline">
+                <Link to="/emi-calculator">EMI Calculator</Link>
+              </Button>
             </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="bg-secondary/60 py-20">
-        <div className="container-page">
-          <SectionHead eyebrow="Trending Localities" title="Where Gurugram is moving" />
-          <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {LOCALITIES.map((l) => (
-              <div key={l.name} className="rounded-xl border border-border bg-card p-6">
-                <h3 className="font-display text-lg">{l.name}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">Avg. {l.price}</p>
-                <Badge className="mt-3 bg-accent text-accent-foreground hover:bg-accent">{l.growth}</Badge>
-              </div>
-            ))}
           </div>
         </div>
       </section>
 
       <section className="container-page py-20">
-        <SectionHead eyebrow="Top Builders" title="Developer relationships across Gurugram" />
-        <ul className="mt-10 flex flex-wrap gap-3">
-          {BUILDERS.map((b) => (
-            <li
-              key={b}
-              className="rounded-full border border-border bg-card px-5 py-2.5 text-sm transition-colors hover:border-gold hover:text-gold"
-            >
-              {b}
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="container-page pb-20">
-        <SectionHead eyebrow="Client Voices" title="Trusted by buyers, sellers and NRIs" />
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {TESTIMONIALS.map((t) => (
-            <figure key={t.name} className="rounded-xl border border-border bg-card p-7">
-              <Quote className="size-6 text-gold" aria-hidden="true" />
-              <blockquote className="mt-4 text-sm leading-relaxed text-muted-foreground">{t.quote}</blockquote>
-              <figcaption className="mt-5 border-t border-border pt-4">
-                <span className="block font-medium">{t.name}</span>
-                <span className="block text-xs text-muted-foreground">{t.role}</span>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-      </section>
-
-      <section className="container-page pb-20">
         <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
-          <SectionHead eyebrow="FAQ" title="Questions we answer every week" />
+          <SectionHead eyebrow="FAQ" title="Questions serious buyers should ask" />
           <Accordion type="single" collapsible className="w-full">
             {FAQS.map((f) => (
               <AccordionItem key={f.q} value={f.q}>
@@ -330,10 +310,9 @@ function Home() {
       <section className="container-page pb-24">
         <div className="rounded-2xl surface-navy px-8 py-14 text-center">
           <Building2 className="mx-auto size-8 text-gold" aria-hidden="true" />
-          <h2 className="mt-5 font-display text-3xl md:text-4xl">Let's find the right property — and the right loan</h2>
+          <h2 className="mt-5 font-display text-3xl md:text-4xl">Discuss the decision before you discuss the property</h2>
           <p className="mx-auto mt-4 max-w-2xl text-navy-foreground/75">
-            Speak with our advisory team at {CONTACT.address.split(",")[0]}, Sector 51, Gurugram — or request a callback
-            at a time that suits you.
+            Tell us your objective, budget, time horizon and financing position. We will help you evaluate where — and whether — you should buy in Gurugram.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Button asChild variant="gold" size="lg">
@@ -349,13 +328,23 @@ function Home() {
   );
 }
 
+function MarketCard({ title, body }: { title: string; body: string }) {
+  return (
+    <div className="rounded-2xl border border-border bg-card p-6">
+      <TrendingUp className="size-5 text-gold" aria-hidden="true" />
+      <h3 className="mt-4 font-display text-xl">{title}</h3>
+      <p className="mt-2 text-sm leading-6 text-muted-foreground">{body}</p>
+    </div>
+  );
+}
+
 export function SectionHead({ eyebrow, title, body }: { eyebrow: string; title: string; body?: string }) {
   return (
     <div className="max-w-2xl">
       <span className="eyebrow">{eyebrow}</span>
       <h2 className="mt-3 font-display text-3xl md:text-4xl">{title}</h2>
       <span className="gold-rule mt-4" />
-      {body ? <p className="mt-4 text-muted-foreground">{body}</p> : null}
+      {body ? <p className="mt-4 leading-7 text-muted-foreground">{body}</p> : null}
     </div>
   );
 }
