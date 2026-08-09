@@ -1,4 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { Landmark } from "lucide-react";
 import { ListingCard } from "@/components/site/ListingCard";
 import { PageHero } from "@/components/site/SectionHead";
 import { EnquiryForm } from "@/components/site/EnquiryForm";
@@ -22,11 +23,11 @@ const LOCATIONS: Record<string, Location> = {
     name: "Gurgaon (Gurugram)",
     title: "Property in Gurgaon — Buying Guide & Listings",
     description:
-      "A practical guide to buying property in Gurgaon: key residential corridors, due diligence, financing and verified listings.",
+      "A practical guide to buying property in Gurgaon: key residential corridors, due diligence, financing and current listings from Shubh Estate Brokers.",
     intro:
       "Gurugram has several distinct residential corridors, each with a different mix of completed homes, new launches, connectivity and price points. Choosing the right micro-market is as important as choosing the project.",
     body: [
-      "Golf Course Road remains an established premium address, while Golf Course Extension Road and the Southern Peripheral Road offer a broad mix of newer luxury and mid-premium developments. Dwarka Expressway and New Gurgaon provide another large pool of residential options for buyers comparing connectivity, possession status and value.",
+      "Golf Course Road remains an established premium address, while Golf Course Extension Road and the Southern Peripheral Road offer a broad mix of newer premium and mid-premium developments. Dwarka Expressway and New Gurugram provide another large pool of residential options for buyers comparing connectivity, possession status and value.",
       "For end users, possession certainty matters more than headline discounts. We verify the occupation certificate where applicable, the completion status of the specific tower, and the maintenance handover position before recommending a ready-to-move purchase.",
       "For investors, we compare rental demand, total cost of ownership, developer execution history and likely resale liquidity instead of relying only on a quoted per-square-foot rate.",
     ],
@@ -43,7 +44,7 @@ const LOCATIONS: Record<string, Location> = {
     localityFilter: "Golf Course Road",
     title: "Property on Golf Course Road, Gurgaon",
     description:
-      "Apartments and premium residences on Golf Course Road, Gurugram, with resale, location and due-diligence guidance.",
+      "Apartments and premium residences on Golf Course Road, Gurugram, with resale, location, financing and due-diligence guidance.",
     intro:
       "Golf Course Road is one of Gurugram's most established premium residential and commercial corridors, with mature infrastructure and a deep resale market.",
     body: [
@@ -56,14 +57,15 @@ const LOCATIONS: Record<string, Location> = {
     slug: "golf-course-extension-road",
     name: "Golf Course Extension Road",
     localityFilter: "Golf Course Extension Road",
-    title: "Property on Golf Course Extension Road, Gurgaon",
+    title: "Property on Golf Course Extension Road, Gurgaon | Current Listings",
     description:
-      "Luxury and premium homes on Golf Course Extension Road, Gurugram, with project, possession and investment guidance.",
+      "Browse current apartments and homes on Golf Course Extension Road, Gurugram, with project, possession, NRI and home-loan guidance from Shubh Estate Brokers.",
     intro:
       "Golf Course Extension Road connects established Gurugram sectors with newer residential development towards the Southern Peripheral Road and Sohna Road catchment.",
     body: [
       "The corridor combines completed societies with newer launches and under-construction projects. Buyers should compare actual delivery history, tower density, access roads, maintenance plans and possession timelines before deciding between projects.",
       "For investors, project selection matters more than simply buying the newest launch. We compare developer execution, construction progress and likely end-user demand before recommending an entry point.",
+      "For NRI and end-user buyers, financing can be coordinated alongside legal and project due diligence. Home loans of up to 90% may be available subject to buyer eligibility, lender approval and property/document verification.",
     ],
     highlights: ["Wide choice of premium projects", "Access to SPR and Sohna Road catchments", "Mix of completed and under-construction inventory"],
   },
@@ -71,14 +73,15 @@ const LOCATIONS: Record<string, Location> = {
     slug: "dwarka-expressway",
     name: "Dwarka Expressway",
     localityFilter: "Dwarka Expressway",
-    title: "Property on Dwarka Expressway, Gurgaon",
+    title: "Property on Dwarka Expressway, Gurgaon | Current Listings",
     description:
-      "Apartments and investment property along Dwarka Expressway, Gurugram, with connectivity, project and possession guidance.",
+      "Browse current apartments on Dwarka Expressway, Gurugram, with connectivity, project, NRI, possession and home-loan guidance from Shubh Estate Brokers.",
     intro:
       "Dwarka Expressway has developed into a major residential corridor linking west Gurugram with Delhi-side connectivity and a large supply of newer housing.",
     body: [
       "The corridor includes delivered, near-delivery and under-construction projects across multiple sectors. Because supply is broad, buyers should compare developer execution, access to the expressway, surrounding social infrastructure and the status of the specific phase or tower.",
       "For investors, we focus on actual construction progress, end-user demand and realistic resale competition within the same sector rather than relying only on launch-stage appreciation projections.",
+      "For NRI and end-user buyers, we can coordinate financing and documentation review together. Home loans of up to 90% may be available subject to buyer eligibility, lender approval and property/document verification.",
     ],
     highlights: ["Delhi-side connectivity", "Large choice of newer residential projects", "Project and sector selection are especially important"],
   },
@@ -88,7 +91,7 @@ const LOCATIONS: Record<string, Location> = {
     localityFilter: "Southern Peripheral Road",
     title: "Property on Southern Peripheral Road (SPR), Gurgaon",
     description:
-      "Homes and investment property along SPR, Gurugram, with connectivity, project-quality and possession guidance.",
+      "Homes and investment property along SPR, Gurugram, with connectivity, project-quality, financing and possession guidance.",
     intro:
       "The Southern Peripheral Road connects several fast-growing residential sectors in Gurugram and acts as an important link between Golf Course Extension Road, Sohna Road and NH-48-side areas.",
     body: [
@@ -114,13 +117,13 @@ const LOCATIONS: Record<string, Location> = {
   },
   "new-gurgaon": {
     slug: "new-gurgaon",
-    name: "New Gurgaon",
-    localityFilter: "New Gurgaon",
-    title: "Property in New Gurgaon — Buying Guide & Listings",
+    name: "New Gurugram",
+    localityFilter: "New Gurugram",
+    title: "Property in New Gurugram — Buying Guide & Current Listings",
     description:
-      "Residential property in New Gurgaon with project, possession, connectivity and investment due-diligence guidance.",
+      "Residential property in New Gurugram with current listings, project, possession, connectivity, financing and investment due-diligence guidance.",
     intro:
-      "New Gurgaon covers a large cluster of developing sectors with substantial residential supply and a mix of ready, near-ready and under-construction projects.",
+      "New Gurugram covers a large cluster of developing sectors with substantial residential supply and a mix of ready, near-ready and under-construction projects.",
     body: [
       "Because the area contains many competing projects, buyers should compare the exact sector, access roads, occupancy, nearby commercial development, developer delivery record and the amount of future supply still to come.",
       "For end users, we prioritise liveability and possession certainty. For investors, we compare realistic rental demand and resale competition before recommending a project or unit.",
@@ -199,6 +202,22 @@ function LocationPage() {
           {location.body.map((paragraph: string, i: number) => (
             <p key={i} className="text-muted-foreground">{paragraph}</p>
           ))}
+
+          <div className="rounded-xl border border-gold/30 bg-gold/5 p-5">
+            <div className="flex items-start gap-3">
+              <Landmark className="mt-0.5 size-5 shrink-0 text-gold" aria-hidden="true" />
+              <div>
+                <h2 className="font-display text-xl">Home-loan assistance</h2>
+                <p className="mt-1 text-sm leading-6 text-muted-foreground">
+                  Home loans of up to 90% may be available for eligible buyers, subject to lender approval and property/document verification.
+                </p>
+                <Link to="/home-loans" className="mt-2 inline-block text-sm font-medium text-gold underline-offset-4 hover:underline">
+                  Understand home-loan support
+                </Link>
+              </div>
+            </div>
+          </div>
+
           <div className="rounded-xl border border-border bg-card p-6">
             <h2 className="font-display text-xl">What we check before recommending a purchase</h2>
             <ul className="mt-4 grid gap-2 text-sm text-muted-foreground">
@@ -225,14 +244,14 @@ function LocationPage() {
           </div>
 
           <p className="text-sm text-muted-foreground">
-            Related: <Link to="/nri" className="text-gold underline-offset-4 hover:underline">NRI property buying guide</Link>{" "}
-            · <Link to="/luxury" className="text-gold underline-offset-4 hover:underline">Luxury homes in Gurgaon</Link>{" "}
+            Related: <Link to="/properties" className="text-gold underline-offset-4 hover:underline">Current properties in Gurgaon</Link>{" "}
+            · <Link to="/nri" className="text-gold underline-offset-4 hover:underline">NRI property buying guide</Link>{" "}
             · <Link to="/home-loans" className="text-gold underline-offset-4 hover:underline">Home loan assistance</Link>
           </p>
         </div>
         <aside className="rounded-xl border border-border bg-card p-6 lg:sticky lg:top-24 lg:self-start">
           <h2 className="font-display text-xl">Speak to an advisor</h2>
-          <p className="mt-1 text-xs text-muted-foreground">Local pricing, availability and practical guidance.</p>
+          <p className="mt-1 text-xs text-muted-foreground">Local pricing, availability, financing and practical guidance.</p>
           <div className="mt-4">
             <EnquiryForm interest={`Location enquiry — ${location.name}`} compact />
           </div>
@@ -241,7 +260,15 @@ function LocationPage() {
 
       {properties.length ? (
         <section className="container-page pb-16">
-          <h2 className="font-display text-2xl">Available in {location.name}</h2>
+          <div className="flex flex-wrap items-end justify-between gap-3">
+            <div>
+              <p className="text-xs font-medium uppercase tracking-[0.18em] text-gold">Current Inventory</p>
+              <h2 className="mt-1 font-display text-2xl">Available in {location.name}</h2>
+            </div>
+            <Link to="/properties" className="text-sm font-medium text-gold underline-offset-4 hover:underline">
+              View all properties
+            </Link>
+          </div>
           <div className="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {properties.map((property) => (
               <ListingCard key={property.id} property={property} />

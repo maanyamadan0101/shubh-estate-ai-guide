@@ -48,7 +48,10 @@ export const listPublicProperties = createServerFn({ method: "GET" })
         .order("updated_at", { ascending: false })
         .limit(data.limit ?? 60);
 
-      if (data.locality) query = query.eq("locality", data.locality);
+      // Imported listings often contain combined locality labels such as
+      // "New Gurugram / Dwarka Expressway". A contains match keeps those
+      // listings discoverable on the relevant corridor landing page.
+      if (data.locality) query = query.ilike("locality", `%${data.locality}%`);
       if (data.excludeSlug) query = query.neq("slug", data.excludeSlug);
 
       const { data: rows, error } = await query;
