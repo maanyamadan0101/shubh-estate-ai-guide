@@ -36,6 +36,13 @@ export function ImageManager({
         return;
       }
 
+      const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+      const accessToken = sessionData.session?.access_token;
+      if (sessionError || !accessToken) {
+        toast.error("Your login session has expired. Please sign in again.");
+        return;
+      }
+
       setUploading(true);
       const added: ManagedImage[] = [];
       try {
@@ -52,6 +59,7 @@ export function ImageManager({
                 kind: "image",
                 extension,
                 contentType: file.type || "image/jpeg",
+                accessToken,
               },
             });
 
