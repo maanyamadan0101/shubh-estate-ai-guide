@@ -4,6 +4,7 @@ import {
   BarChart3,
   Building2,
   ExternalLink,
+  FileSpreadsheet,
   Globe2,
   Images,
   LayoutDashboard,
@@ -51,6 +52,7 @@ export function AdminShell({
             <AdminNavLink href="/admin" icon={LayoutDashboard} label="Dashboard" />
             <AdminNavLink href="/admin#property-catalogue" icon={Building2} label="Property Catalogue" />
             <AdminNavLink href="/admin/new" icon={Plus} label="Add Property" />
+            <AdminNavLink href="/admin/import" icon={FileSpreadsheet} label="Import Properties" />
 
             <p className="hidden px-3 pb-1 pt-5 text-[10px] font-medium uppercase tracking-[0.18em] text-muted-foreground lg:block">Manage Business</p>
             <AdminNavLink href="/admin/enquiries" icon={Users} label="Enquiries / Leads" />
