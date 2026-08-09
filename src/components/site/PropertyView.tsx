@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Building2, Compass, Car, Layers, MapPin, Phone, MessageCircle, Ruler, ShieldCheck, Sofa } from "lucide-react";
+import { Building2, Compass, Car, Layers, Landmark, MapPin, Phone, MessageCircle, Ruler, ShieldCheck, Sofa } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { EnquiryForm } from "@/components/site/EnquiryForm";
@@ -100,6 +100,7 @@ export function PropertyView({
   const place = [property.sector, property.locality, property.city].filter(Boolean).join(", ");
   const mapQuery = encodeURIComponent(`${property.project?.name ?? property.title}, ${place}`);
   const whatsappText = encodeURIComponent(`Hi, I'm interested in ${property.title} (${place}).`);
+  const forSale = property.listing_type !== "rent";
 
   const specs = [
     property.bhk ? { icon: Building2, label: "Configuration", value: property.bhk } : null,
@@ -141,6 +142,7 @@ export function PropertyView({
               <Badge variant="secondary" className="font-normal">
                 {PROPERTY_TYPE_LABEL[property.property_type] ?? "Property"} · {property.listing_type === "rent" ? "For Rent" : "For Sale"}
               </Badge>
+              {forSale ? <Badge variant="secondary" className="font-normal">Home loan up to 90%*</Badge> : null}
               {property.is_luxury ? <Badge variant="secondary" className="font-normal">Private Collection</Badge> : null}
             </div>
             <h1 className="mt-3 font-display text-3xl md:text-4xl">{property.title}</h1>
@@ -284,6 +286,22 @@ export function PropertyView({
           <div className="rounded-xl border border-border bg-card p-6">
             <p className="font-display text-2xl">{formatINR(property.price)}</p>
             <p className="mt-1 text-sm text-muted-foreground">{formatArea(property.area_sqft)}{property.bhk ? ` · ${property.bhk}` : ""}</p>
+
+            {forSale ? (
+              <div className="mt-4 rounded-lg border border-gold/30 bg-gold/5 p-4">
+                <p className="flex items-center gap-2 text-sm font-semibold">
+                  <Landmark className="size-4 text-gold" aria-hidden="true" />
+                  Home loan up to 90%*
+                </p>
+                <p className="mt-1 text-xs leading-5 text-muted-foreground">
+                  Subject to buyer eligibility, lender approval and property/document verification.
+                </p>
+                <Link to="/home-loans" className="mt-2 inline-block text-xs font-medium text-gold underline-offset-4 hover:underline">
+                  Check home-loan assistance
+                </Link>
+              </div>
+            ) : null}
+
             <div className="mt-5 grid gap-2">
               <Button asChild variant="gold"><a href={CONTACT.phoneHref}><Phone className="size-4" aria-hidden="true" />Call an advisor</a></Button>
               <Button asChild variant="goldOutline"><a href={`${CONTACT.whatsapp}?text=${whatsappText}`} target="_blank" rel="noreferrer"><MessageCircle className="size-4" aria-hidden="true" />WhatsApp</a></Button>
@@ -292,6 +310,9 @@ export function PropertyView({
               <p className="font-display text-lg">Request a private viewing</p>
               <p className="mt-1 text-xs text-muted-foreground">Discreet, appointment-only visits for serious buyers and NRI clients.</p>
               <div className="mt-4"><EnquiryForm propertyId={property.id} interest={`Private viewing — ${property.title}`} compact /></div>
+            </div>
+            <div className="mt-5 border-t border-border pt-4 text-xs leading-5 text-muted-foreground">
+              Buying from overseas? <Link to="/nri" className="font-medium text-gold underline-offset-4 hover:underline">View NRI property assistance</Link> for remote review and transaction coordination.
             </div>
           </div>
         </aside>
