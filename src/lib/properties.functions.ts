@@ -6,8 +6,11 @@ async function publishedClient() {
   return supabaseAdmin;
 }
 
+// Keep the catalogue query deliberately minimal. These are the only fields the
+// public listing cards need. Avoiding unrelated optional columns prevents one
+// schema mismatch from hiding every published property.
 const LIST_COLUMNS =
-  "id,title,slug,bhk,property_type,listing_type,status,price,area_sqft,sector,locality,city,cover_image_url,tags,is_featured,is_luxury,updated_at";
+  "id,title,slug,bhk,property_type,listing_type,status,price,area_sqft,sector,locality,city,cover_image_url";
 
 export type ListingRow = {
   id: string;
@@ -23,10 +26,6 @@ export type ListingRow = {
   locality: string | null;
   city: string;
   cover_image_url: string | null;
-  tags: string[];
-  is_featured: boolean;
-  is_luxury: boolean;
-  updated_at: string;
 };
 
 export const listPublicProperties = createServerFn({ method: "GET" })
@@ -47,7 +46,6 @@ export const listPublicProperties = createServerFn({ method: "GET" })
         .from("properties")
         .select(LIST_COLUMNS)
         .eq("is_published", true)
-        .order("is_featured", { ascending: false })
         .order("updated_at", { ascending: false })
         .limit(data.limit ?? 60);
 
@@ -57,8 +55,8 @@ export const listPublicProperties = createServerFn({ method: "GET" })
 
       const { data: rows, error } = await query;
       if (error) {
-        console.error("[Public properties] Could not load published listings:", error.message);
-        return { properties: [] as ListingRow[], error: error.message };
+        console.error("[Public properties] Could not load published listings:", error.code, error.message);
+        return { properties: [] as ListingRow[], error: `${error.code ?? "query_error"}: ${error.message}` };
       }
 
       return { properties: (rows ?? []) as unknown as ListingRow[], error: null };
