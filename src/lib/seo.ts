@@ -1,4 +1,4 @@
-export const SITE_ORIGIN = "https://www.shubhestatebroker.in";
+export const SITE_ORIGIN = "https://shubhestatebroker.in";
 
 export function slugify(input: string): string {
   return input
@@ -85,7 +85,7 @@ export function buildMetaDescription(s: SeoSource): string {
     s.areaSqft ? `${formatArea(s.areaSqft)}` : null,
     s.price ? `${formatINR(s.price)}` : null,
   ].filter(Boolean);
-  return `${bits.join(" · ")}. View actual photos, property details, location and availability from Shubh Estate Brokers, Gurugram.`.slice(0, 160);
+  return `${bits.join(" · ")}. View property details, location, home-loan assistance and availability from Shubh Estate Brokers, Gurugram.`.slice(0, 160);
 }
 
 export function buildOgTitle(s: SeoSource): string {

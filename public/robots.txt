@@ -5,4 +5,4 @@ Disallow: /auth
 Disallow: /forgot-password
 Disallow: /reset-password
 
-Sitemap: https://www.shubhestatebroker.in/sitemap.xml
+Sitemap: https://shubhestatebroker.in/sitemap.xml

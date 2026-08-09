@@ -17,6 +17,7 @@ import { FloatingActions } from "@/components/site/FloatingActions";
 import { Toaster } from "@/components/ui/sonner";
 
 const GA_MEASUREMENT_ID = "G-8EWLZD8V5H";
+const SITE_ORIGIN = "https://shubhestatebroker.in";
 
 function NotFoundComponent() {
   return (
@@ -83,7 +84,7 @@ const localBusinessSchema = {
   slogan: "Fair & Transparent Real Estate Deals at the Best Price",
   telephone: "+91-8130785000",
   email: "sales@shubhestatebroker.in",
-  url: "https://www.shubhestatebroker.in",
+  url: SITE_ORIGIN,
   address: {
     "@type": "PostalAddress",
     streetAddress: "15th Floor, Ocus Quantum Mall, Sector 51",
@@ -100,7 +101,7 @@ const websiteSchema = {
   "@type": "WebSite",
   name: "Shubh Estate Brokers",
   alternateName: "Shubh Estate",
-  url: "https://www.shubhestatebroker.in",
+  url: SITE_ORIGIN,
 };
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
@@ -121,6 +122,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content: "Fair and transparent real estate advice in Gurugram, backed by banking, mortgage and property due-diligence experience.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: SITE_ORIGIN },
       { name: "twitter:card", content: "summary_large_image" },
     ],
     links: [
