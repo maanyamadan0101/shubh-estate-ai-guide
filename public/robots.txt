@@ -4,5 +4,7 @@ Disallow: /admin
 Disallow: /auth
 Disallow: /forgot-password
 Disallow: /reset-password
+Disallow: /seller-submit
+Disallow: /api/seller-submission
 
 Sitemap: https://shubhestatebroker.in/sitemap.xml
