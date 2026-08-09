@@ -1,27 +1,38 @@
 import { Link } from "@tanstack/react-router";
-import { BedDouble, MapPin, Maximize } from "lucide-react";
+import { BedDouble, Building2, MapPin, Maximize } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { formatArea, formatINR, PROPERTY_TYPE_LABEL, STATUS_LABEL } from "@/lib/seo";
+import { representativeProjectImageFor } from "@/lib/project-image-catalog";
 import type { ListingRow } from "@/lib/properties.functions";
 
 export function ListingCard({ property }: { property: ListingRow }) {
   const place = [property.sector, property.locality].filter(Boolean).join(", ");
-  const representativeImage = Boolean(property.cover_image_url?.startsWith("https://") || property.cover_image_url?.startsWith("http://"));
+  const fallbackProjectImage = property.cover_image_url ? null : representativeProjectImageFor(property.title);
+  const visualUrl = property.cover_image_url || fallbackProjectImage?.url || null;
+  const representativeImage = Boolean(
+    fallbackProjectImage || property.cover_image_url?.startsWith("https://") || property.cover_image_url?.startsWith("http://"),
+  );
 
   return (
     <article className="group overflow-hidden rounded-xl border border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]">
       <Link to="/property/$slug" params={{ slug: property.slug }} className="block">
         <div className="relative aspect-[4/3] overflow-hidden bg-muted">
-          {property.cover_image_url ? (
+          {visualUrl ? (
             <img
-              src={property.cover_image_url}
-              alt={`${property.bhk ?? ""} ${PROPERTY_TYPE_LABEL[property.property_type] ?? "Property"} in ${place || property.city}`.trim()}
+              src={visualUrl}
+              alt={fallbackProjectImage?.altText ?? `${property.bhk ?? ""} ${PROPERTY_TYPE_LABEL[property.property_type] ?? "Property"} in ${place || property.city}`.trim()}
               loading="lazy"
               className="size-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
           ) : (
-            <div className="flex size-full items-center justify-center text-xs uppercase tracking-[0.2em] text-muted-foreground">
-              Photos on request
+            <div className="flex size-full flex-col items-center justify-center bg-navy px-6 text-center text-navy-foreground">
+              <div className="flex size-12 items-center justify-center rounded-full border border-gold/40 bg-gold/10 text-gold">
+                <Building2 className="size-6" aria-hidden="true" />
+              </div>
+              <p className="mt-4 font-display text-lg leading-snug">{property.title}</p>
+              <p className="mt-2 text-[10px] uppercase tracking-[0.18em] text-navy-foreground/65">
+                Project photo on request
+              </p>
             </div>
           )}
           <Badge className="absolute left-3 top-3 bg-gold text-gold-foreground hover:bg-gold">
@@ -30,6 +41,10 @@ export function ListingCard({ property }: { property: ListingRow }) {
           {representativeImage ? (
             <Badge variant="secondary" className="absolute bottom-3 left-3 bg-background/90 text-[10px] font-medium uppercase tracking-[0.12em] backdrop-blur">
               Project image
+            </Badge>
+          ) : !visualUrl ? (
+            <Badge variant="secondary" className="absolute bottom-3 left-3 bg-background/90 text-[10px] font-medium uppercase tracking-[0.12em] backdrop-blur">
+              Photo on request
             </Badge>
           ) : null}
         </div>
