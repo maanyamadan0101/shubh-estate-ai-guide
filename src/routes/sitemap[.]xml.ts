@@ -6,6 +6,7 @@ const STATIC_PATHS = [
   { path: "/", priority: "1.0" },
   { path: "/properties", priority: "0.9" },
   { path: "/sell-property-gurgaon", priority: "0.8" },
+  { path: "/nri-sell-property-gurgaon", priority: "0.8" },
   { path: "/nri", priority: "0.8" },
   { path: "/nri/usa", priority: "0.8" },
   { path: "/nri/canada", priority: "0.8" },
