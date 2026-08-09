@@ -36,9 +36,7 @@ function EditProperty() {
     title: str(p["title"]),
     slug: str(p["slug"]),
     listing_type: (str(p["listing_type"]) === "rent" ? "rent" : "sale") as PropertyFormValues["listing_type"],
-    property_type: (str(p["property_type"]) in PROPERTY_TYPE_LABEL
-      ? str(p["property_type"])
-      : "apartment") as PropertyFormValues["property_type"],
+    property_type: (str(p["property_type"]) in PROPERTY_TYPE_LABEL ? str(p["property_type"]) : "apartment") as PropertyFormValues["property_type"],
     status: str(p["status"]) as PropertyFormValues["status"],
     bhk: str(p["bhk"]),
     project_id: (p["project_id"] as string | null) ?? null,
@@ -75,20 +73,15 @@ function EditProperty() {
       alt_text: img.alt_text ?? "",
       is_primary: img.is_primary,
     })),
+    videos: record.data.videos ?? [],
   };
 
   return (
     <section className="container-page py-12">
-      <Link to="/admin" className="text-xs uppercase tracking-[0.16em] text-muted-foreground hover:text-foreground">
-        ← Back to properties
-      </Link>
+      <Link to="/admin" className="text-xs uppercase tracking-[0.16em] text-muted-foreground hover:text-foreground">← Back to properties</Link>
       <h1 className="mt-4 font-display text-3xl">Edit property</h1>
       <div className="mt-8">
-        <PropertyForm
-          initial={initial}
-          builders={taxonomy.data?.builders ?? []}
-          projects={taxonomy.data?.projects ?? []}
-        />
+        <PropertyForm initial={initial} builders={taxonomy.data?.builders ?? []} projects={taxonomy.data?.projects ?? []} />
       </div>
     </section>
   );

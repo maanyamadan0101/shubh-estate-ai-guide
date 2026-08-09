@@ -93,11 +93,13 @@ export const getPublicProperty = createServerFn({ method: "GET" })
         .eq("property_id", property.id),
     ]);
 
+    const rows = (features ?? []) as FeatureRow[];
     return {
       property,
       images: images ?? [],
-      amenities: ((features ?? []) as FeatureRow[]).filter((f) => f.category === "amenity").map((f) => f.feature_name),
-      features: ((features ?? []) as FeatureRow[]).filter((f) => f.category !== "amenity").map((f) => f.feature_name),
+      amenities: rows.filter((f) => f.category === "amenity").map((f) => f.feature_name),
+      features: rows.filter((f) => f.category === "feature").map((f) => f.feature_name),
+      videos: rows.filter((f) => f.category === "video").map((f) => f.feature_name),
     };
   });
 

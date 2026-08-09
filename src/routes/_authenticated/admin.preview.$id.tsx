@@ -29,9 +29,7 @@ function PreviewProperty() {
   return (
     <>
       <div className="container-page pt-6">
-        <Link to="/admin/$id" params={{ id }} className="text-xs uppercase tracking-[0.16em] text-muted-foreground hover:text-foreground">
-          ← Back to editing
-        </Link>
+        <Link to="/admin/$id" params={{ id }} className="text-xs uppercase tracking-[0.16em] text-muted-foreground hover:text-foreground">← Back to editing</Link>
       </div>
       <PropertyView
         isPreview
@@ -40,6 +38,7 @@ function PreviewProperty() {
           images: data.images,
           amenities: data.amenities,
           features: data.features,
+          videos: data.videos ?? [],
         }}
       />
     </>

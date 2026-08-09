@@ -78,11 +78,13 @@ export const getAdminProperty = createServerFn({ method: "GET" })
         .order("sort_order", { ascending: true }),
       context.supabase.from("property_features").select("feature_name,category").eq("property_id", data.id),
     ]);
+    const rows = (features ?? []) as FeatureRow[];
     return {
       property,
       images: (images ?? []) as AdminImageRow[],
-      amenities: ((features ?? []) as FeatureRow[]).filter((f) => f.category === "amenity").map((f) => f.feature_name),
-      features: ((features ?? []) as FeatureRow[]).filter((f) => f.category !== "amenity").map((f) => f.feature_name),
+      amenities: rows.filter((f) => f.category === "amenity").map((f) => f.feature_name),
+      features: rows.filter((f) => f.category === "feature").map((f) => f.feature_name),
+      videos: rows.filter((f) => f.category === "video").map((f) => f.feature_name),
     };
   });
 
@@ -134,6 +136,7 @@ const propertySchema = z.object({
   cover_image_url: z.string().max(600).nullable(),
   amenities: z.array(z.string().trim().min(1).max(80)).max(60),
   features: z.array(z.string().trim().min(1).max(80)).max(60),
+  videos: z.array(z.string().trim().min(1).max(600)).max(4),
   images: z
     .array(
       z.object({
@@ -149,10 +152,8 @@ export const savePropertyDraft = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((input: unknown) => propertySchema.parse(input))
   .handler(async ({ context, data }) => {
-    const { id, amenities, features, images, ...fields } = data;
-
+    const { id, amenities, features, videos, images, ...fields } = data;
     const row = { ...fields } as never;
-    
 
     let propertyId = id ?? null;
     if (propertyId) {
@@ -186,6 +187,7 @@ export const savePropertyDraft = createServerFn({ method: "POST" })
     const featureRows = [
       ...amenities.map((name) => ({ property_id: propertyId!, feature_name: name, category: "amenity" })),
       ...features.map((name) => ({ property_id: propertyId!, feature_name: name, category: "feature" })),
+      ...videos.map((url) => ({ property_id: propertyId!, feature_name: url, category: "video" })),
     ];
     if (featureRows.length) {
       const { error } = await context.supabase.from("property_features").insert(featureRows);
