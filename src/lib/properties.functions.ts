@@ -33,7 +33,6 @@ export const listPublicProperties = createServerFn({ method: "GET" })
     z
       .object({
         locality: z.string().optional(),
-        luxury: z.boolean().optional(),
         limit: z.number().int().positive().max(60).optional(),
         excludeSlug: z.string().optional(),
       })
@@ -50,7 +49,6 @@ export const listPublicProperties = createServerFn({ method: "GET" })
         .limit(data.limit ?? 60);
 
       if (data.locality) query = query.eq("locality", data.locality);
-      if (data.luxury) query = query.eq("is_luxury", true);
       if (data.excludeSlug) query = query.neq("slug", data.excludeSlug);
 
       const { data: rows, error } = await query;
@@ -68,7 +66,7 @@ export const listPublicProperties = createServerFn({ method: "GET" })
   });
 
 export type FeatureRow = { feature_name: string; category: string };
-export type SitemapRow = { slug: string; updated_at: string; status: string };
+export type SitemapRow = { slug: string; updated_at: string; status: string; cover_image_url: string | null };
 
 export const getPublicProperty = createServerFn({ method: "GET" })
   .inputValidator((input: unknown) => z.object({ slug: z.string().min(1) }).parse(input))
@@ -122,7 +120,7 @@ export const listSitemapProperties = createServerFn({ method: "GET" }).handler(a
     const supabase = await publishedClient();
     const { data, error } = await supabase
       .from("properties")
-      .select("slug,updated_at,status")
+      .select("slug,updated_at,status,cover_image_url")
       .eq("is_published", true)
       .neq("status", "sold_out");
     if (error) {
