@@ -90,6 +90,11 @@ export function SiteFooter() {
               </Link>
             </li>
             <li>
+              <Link to="/luxury" className="hover:text-gold">
+                Luxury Apartments in Gurgaon
+              </Link>
+            </li>
+            <li>
               <Link to="/property-buying-advisory-gurgaon" className="hover:text-gold">
                 Property Buying Advisory
               </Link>

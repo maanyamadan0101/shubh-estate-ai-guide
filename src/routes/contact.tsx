@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -8,8 +8,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { CONTACT } from "@/data/site";
+import { SITE_ORIGIN } from "@/lib/seo";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -23,16 +30,22 @@ export const Route = createFileRoute("/contact")({
       { property: "og:title", content: "Contact Shubh Estate Brokers, Gurugram" },
       {
         property: "og:description",
-        content: "Book a site visit, request a callback or speak with our property and mortgage advisory team.",
+        content:
+          "Book a site visit, request a callback or speak with our property and mortgage advisory team.",
       },
+      { property: "og:url", content: `${SITE_ORIGIN}/contact` },
     ],
+    links: [{ rel: "canonical", href: `${SITE_ORIGIN}/contact` }],
   }),
   component: Contact,
 });
 
 const schema = z.object({
   name: z.string().trim().min(2, "Please enter your name").max(100),
-  phone: z.string().trim().regex(/^[+0-9 -]{8,16}$/, "Enter a valid phone number"),
+  phone: z
+    .string()
+    .trim()
+    .regex(/^[+0-9 -]{8,16}$/, "Enter a valid phone number"),
   email: z.string().trim().email("Enter a valid email").max(255).or(z.literal("")),
   interest: z.string().min(1, "Select what you need"),
   message: z.string().trim().max(1000).optional(),
@@ -77,7 +90,11 @@ function Contact() {
       />
 
       <section className="container-page grid gap-12 py-16 lg:grid-cols-[1.1fr_0.9fr]">
-        <form onSubmit={onSubmit} noValidate className="rounded-2xl border border-border bg-card p-7 md:p-9">
+        <form
+          onSubmit={onSubmit}
+          noValidate
+          className="rounded-2xl border border-border bg-card p-7 md:p-9"
+        >
           <h2 className="font-display text-2xl">Request a callback</h2>
           <div className="mt-6 grid gap-5 sm:grid-cols-2">
             <div className="space-y-2">
@@ -88,12 +105,22 @@ function Contact() {
             <div className="space-y-2">
               <Label htmlFor="phone">Phone / WhatsApp</Label>
               <Input id="phone" name="phone" autoComplete="tel" aria-invalid={!!errors["phone"]} />
-              {errors["phone"] ? <p className="text-xs text-destructive">{errors["phone"]}</p> : null}
+              {errors["phone"] ? (
+                <p className="text-xs text-destructive">{errors["phone"]}</p>
+              ) : null}
             </div>
             <div className="space-y-2 sm:col-span-2">
               <Label htmlFor="email">Email (optional)</Label>
-              <Input id="email" name="email" type="email" autoComplete="email" aria-invalid={!!errors["email"]} />
-              {errors["email"] ? <p className="text-xs text-destructive">{errors["email"]}</p> : null}
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                autoComplete="email"
+                aria-invalid={!!errors["email"]}
+              />
+              {errors["email"] ? (
+                <p className="text-xs text-destructive">{errors["email"]}</p>
+              ) : null}
             </div>
             <div className="space-y-2 sm:col-span-2">
               <Label htmlFor="interest">I'm interested in</Label>
@@ -118,7 +145,9 @@ function Contact() {
                   ))}
                 </SelectContent>
               </Select>
-              {errors["interest"] ? <p className="text-xs text-destructive">{errors["interest"]}</p> : null}
+              {errors["interest"] ? (
+                <p className="text-xs text-destructive">{errors["interest"]}</p>
+              ) : null}
             </div>
             <div className="space-y-2 sm:col-span-2">
               <Label htmlFor="message">Requirement details</Label>
@@ -174,6 +203,32 @@ function Contact() {
               className="h-72 w-full border-0"
               referrerPolicy="no-referrer-when-downgrade"
             />
+          </div>
+        </div>
+      </section>
+
+      <section className="container-page pb-16">
+        <div className="rounded-2xl border border-border bg-secondary/50 p-7 md:p-9">
+          <h2 className="font-display text-2xl">Help us prepare useful options before we call</h2>
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
+            For a buying enquiry, share your usable property budget, preferred Gurgaon corridors,
+            configuration, possession timeline and whether a home loan is required. Property owners
+            can share the project, unit size, floor, condition, expected price and preferred sale
+            timeline. NRI clients may also include their country and convenient call window.
+          </p>
+          <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+            <Link to="/properties" className="text-gold hover:underline">
+              Browse Gurgaon properties
+            </Link>
+            <Link to="/sell-property-gurgaon" className="text-gold hover:underline">
+              Submit a property to sell
+            </Link>
+            <Link to="/nri" className="text-gold hover:underline">
+              Contact the NRI property desk
+            </Link>
+            <Link to="/home-loans" className="text-gold hover:underline">
+              Home-loan assistance
+            </Link>
           </div>
         </div>
       </section>
