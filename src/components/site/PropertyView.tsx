@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { EnquiryForm } from "@/components/site/EnquiryForm";
 import { ListingCard } from "@/components/site/ListingCard";
 import { CONTACT } from "@/data/site";
+import { trackContact } from "@/lib/analytics";
 import { formatArea, formatINR, PROPERTY_TYPE_LABEL, STATUS_LABEL } from "@/lib/seo";
 import type { ListingRow } from "@/lib/properties.functions";
 
@@ -303,8 +304,8 @@ export function PropertyView({
             ) : null}
 
             <div className="mt-5 grid gap-2">
-              <Button asChild variant="gold"><a href={CONTACT.phoneHref}><Phone className="size-4" aria-hidden="true" />Call an advisor</a></Button>
-              <Button asChild variant="goldOutline"><a href={`${CONTACT.whatsapp}?text=${whatsappText}`} target="_blank" rel="noreferrer"><MessageCircle className="size-4" aria-hidden="true" />WhatsApp</a></Button>
+              <Button asChild variant="gold"><a href={CONTACT.phoneHref} onClick={() => trackContact("phone", "property_detail")}><Phone className="size-4" aria-hidden="true" />Call an advisor</a></Button>
+              <Button asChild variant="goldOutline"><a href={`${CONTACT.whatsapp}?text=${whatsappText}`} target="_blank" rel="noreferrer" onClick={() => trackContact("whatsapp", "property_detail")}><MessageCircle className="size-4" aria-hidden="true" />WhatsApp</a></Button>
             </div>
             <div className="mt-6 border-t border-border pt-5">
               <p className="font-display text-lg">Request a private viewing</p>
