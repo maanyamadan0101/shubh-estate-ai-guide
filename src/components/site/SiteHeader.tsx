@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { CONTACT } from "@/data/site";
+import { trackContact } from "@/lib/analytics";
 
 const NAV = [
   { to: "/", label: "Home" },
@@ -48,7 +49,7 @@ export function SiteHeader() {
 
         <div className="flex items-center gap-2">
           <Button asChild variant="gold" className="hidden sm:inline-flex">
-            <a href={CONTACT.phoneHref}>
+            <a href={CONTACT.phoneHref} onClick={() => trackContact("phone", "site_header")}>
               <Phone aria-hidden="true" />
               <span>{CONTACT.phone}</span>
             </a>

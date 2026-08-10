@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { CalendarCheck, MessageCircle, Phone } from "lucide-react";
 import { CONTACT } from "@/data/site";
+import { trackContact } from "@/lib/analytics";
 
 export function FloatingActions() {
   return (
@@ -8,6 +9,7 @@ export function FloatingActions() {
       <div className="mx-auto flex max-w-md items-center justify-around gap-1 px-2 py-2 md:max-w-none md:gap-2 md:px-3">
         <a
           href={CONTACT.phoneHref}
+          onClick={() => trackContact("phone", "floating_actions")}
           className="flex min-h-11 flex-1 flex-col items-center justify-center gap-0.5 rounded-full px-3 py-1.5 text-[0.68rem] font-medium transition-colors hover:bg-accent md:flex-row md:gap-2 md:text-sm"
         >
           <Phone className="size-4 text-gold" aria-hidden="true" />
@@ -17,6 +19,7 @@ export function FloatingActions() {
           href={CONTACT.whatsapp}
           target="_blank"
           rel="noreferrer"
+          onClick={() => trackContact("whatsapp", "floating_actions")}
           className="flex min-h-11 flex-1 flex-col items-center justify-center gap-0.5 rounded-full px-3 py-1.5 text-[0.68rem] font-medium transition-colors hover:bg-accent md:flex-row md:gap-2 md:text-sm"
         >
           <MessageCircle className="size-4 text-gold" aria-hidden="true" />
@@ -24,6 +27,7 @@ export function FloatingActions() {
         </a>
         <Link
           to="/contact"
+          onClick={() => trackContact("site_visit", "floating_actions")}
           className="flex min-h-11 flex-1 flex-col items-center justify-center gap-0.5 rounded-full bg-primary px-3 py-1.5 text-[0.68rem] font-medium text-primary-foreground transition-opacity hover:opacity-90 md:flex-row md:gap-2 md:text-sm"
         >
           <CalendarCheck className="size-4 text-gold" aria-hidden="true" />

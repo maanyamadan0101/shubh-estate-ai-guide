@@ -13,8 +13,9 @@ export const CONTACT = {
   alternatePhoneHref: "tel:+918130785000",
   whatsapp: "https://wa.me/919911050561",
   email: "sales@shubhestatebroker.in",
-  website: "www.shubhestatebroker.in",
-  googleBusinessProfile: "https://www.google.com/search?q=Shubh+Estate+Brokers&stick=H4sIAAAAAAAA_-NgU1I1qDC2NEgxMjZJSjS1SDNJSjO1AgqlJKYZpBqYpSUlG5qbp5ouYhUJzihNylBwLS5JLElVcCrKz04tKgYAC6kHGEAAAAA&hl=en-GB&mat=CQc4_erXssgBElYBa0lj_ybgmqVIZrB49UjyibAzFmZh9OK8qFLi_nYKDltSnbMrwIBsFTUjH8wfBsu3gyXxLwV5zSI2FA9iRh2qJnxzRfuDGDzpEFaMfMJGQspwRNUuWw",
+  website: "shubhestatebroker.in",
+  googleBusinessProfile:
+    "https://www.google.com/search?q=Shubh+Estate+Brokers&stick=H4sIAAAAAAAA_-NgU1I1qDC2NEgxMjZJSjS1SDNJSjO1AgqlJKYZpBqYpSUlG5qbp5ouYhUJzihNylBwLS5JLElVcCrKz04tKgYAC6kHGEAAAAA&hl=en-GB&mat=CQc4_erXssgBElYBa0lj_ybgmqVIZrB49UjyibAzFmZh9OK8qFLi_nYKDltSnbMrwIBsFTUjH8wfBsu3gyXxLwV5zSI2FA9iRh2qJnxzRfuDGDzpEFaMfMJGQspwRNUuWw",
 };
 
 export const LOAN_DISCLAIMER =
@@ -179,23 +180,35 @@ export const TESTIMONIALS = [
 
 export const FAQS = [
   {
-    q: "Which areas of Gurugram do you cover?",
-    a: "We advise across Golf Course Road, Golf Course Extension Road, Dwarka Expressway, SPR, Sohna Road, New Gurgaon and Sectors 42–115, along with Manesar and emerging micro-markets.",
+    q: "Can you shortlist Gurgaon properties within my fixed budget instead of pushing overpriced projects?",
+    a: "Yes. We first separate the usable property budget from stamp duty, registration, brokerage, loan charges and other expected costs. Properties are then shortlisted around the buyer's location, family or investment objective, timeline and financing position—not simply the highest-priced available inventory.",
+  },
+  {
+    q: "How does Shubh Estate Brokers help buyers avoid overpaying in an overhyped Gurgaon area?",
+    a: "We compare the specific unit with available market evidence, competing inventory, project stage, future supply, rental depth, developer quality and the premium already built into the asking price. Buyers receive the relevant disadvantages as well as the strengths before deciding whether to visit or make an offer.",
+  },
+  {
+    q: "Can one Gurgaon adviser coordinate site visits, a home loan and the transaction process?",
+    a: "Shubh Estate Brokers can coordinate the shortlist, planned site visits, price discussion, property-related lender requirements and transaction follow-up. Final lending, legal, tax and registration decisions remain with the relevant bank or qualified professional.",
+  },
+  {
+    q: "Do you explain the disadvantages of each property instead of only promoting it?",
+    a: "Yes. Our comparison considers price premium, construction or maintenance concerns, density, access, future supply, financing constraints and likely resale or rental depth where relevant. A client should be able to reject unsuitable options before paying a token amount.",
+  },
+  {
+    q: "How do you verify builder credentials, approvals and property documents?",
+    a: "We review available Haryana RERA information, project and developer disclosures, property documents supplied for the transaction and relevant lender acceptance. Transaction-specific legal conclusions should be confirmed by an independent qualified lawyer before funds are committed.",
+  },
+  {
+    q: "Do you assist first-time homebuyers and women buyers?",
+    a: "Yes. We explain budgeting, shortlisting, price comparison, site visits, documents, financing and the transaction sequence step by step. Buyers can also request clearly scheduled daytime visits and location comparisons based on commute, occupied surroundings and nearby daily-use facilities.",
   },
   {
     q: "Do you assist with home loans?",
-    a: "Yes. We arrange home loans at the best available interest rates with minimal documentation through leading banks and financial institutions, including balance transfers, top-up loans and NRI loans.",
+    a: "Yes. We coordinate home-loan eligibility, documentation, lender valuation and bank follow-up for eligible salaried, self-employed and NRI applicants. Financing of up to 90% may be available for qualifying applicants and properties, subject to lender policies and final approval.",
   },
   {
-    q: "How much loan can I get on a property?",
-    a: "Eligible applicants may receive financing of up to 90% of property value, subject to lender credit policy, income eligibility and property approval.",
-  },
-  {
-    q: "Do you carry out legal due diligence?",
-    a: "Every transaction includes title assessment, approval verification, RERA checks and documentation review before you commit funds.",
-  },
-  {
-    q: "Do you work with NRI clients?",
-    a: "Yes. We offer end-to-end NRI services covering property shortlisting, virtual tours, valuation, NRI home loans, POA guidance and repatriation-compliant documentation.",
+    q: "Can an NRI buy or sell Gurgaon property while living abroad?",
+    a: "Much of the shortlisting, video viewing, resale marketing, buyer communication and transaction coordination can be handled remotely. Transaction-specific power of attorney, tax and repatriation questions should be confirmed with the appropriate legal or tax professional.",
   },
 ];

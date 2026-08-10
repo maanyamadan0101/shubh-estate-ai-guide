@@ -12,20 +12,45 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as ApartmentsForSaleDlfPhase1GurgaonRouteImport } from './routes/apartments-for-sale-dlf-phase-1-gurgaon'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as BestAreasGurgaonPropertyInvestmentRouteImport } from './routes/best-areas-gurgaon-property-investment'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as DesperateDealsGurgaonRouteImport } from './routes/desperate-deals-gurgaon'
 import { Route as EmiCalculatorRouteImport } from './routes/emi-calculator'
+import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
+import { Route as Godrej101Sector79GurgaonRouteImport } from './routes/godrej-101-sector-79-gurgaon'
 import { Route as GurugramGrowthStoryRouteImport } from './routes/gurugram-growth-story'
+import { Route as HigherFloorApartmentsGolfCourseExtensionRoadRouteImport } from './routes/higher-floor-apartments-golf-course-extension-road'
 import { Route as HomeLoansRouteImport } from './routes/home-loans'
 import { Route as LuxuryRouteImport } from './routes/luxury'
 import { Route as NriRouteImport } from './routes/nri'
+import { Route as NriSellPropertyGurgaonRouteImport } from './routes/nri-sell-property-gurgaon'
 import { Route as PropertiesRouteImport } from './routes/properties'
+import { Route as PropertyBuyingAdvisoryGurgaonRouteImport } from './routes/property-buying-advisory-gurgaon'
+import { Route as PropertySector79GurgaonRouteImport } from './routes/property-sector-79-gurgaon'
+import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as SellPropertyGurgaonRouteImport } from './routes/sell-property-gurgaon'
+import { Route as SellerSubmitRouteImport } from './routes/seller-submit'
+import { Route as SeniorCitizenHousingGurgaonRouteImport } from './routes/senior-citizen-housing-gurgaon'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as ApiSellerSubmissionRouteImport } from './routes/api/seller-submission'
 import { Route as LocationsSlugRouteImport } from './routes/locations.$slug'
+import { Route as NriMarketRouteImport } from './routes/nri.$market'
+import { Route as NriCountryRouteImport } from './routes/nri_.$country'
 import { Route as PropertySlugRouteImport } from './routes/property.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedAdminIdRouteImport } from './routes/_authenticated/admin.$id'
+import { Route as AuthenticatedAdminEnquiriesRouteImport } from './routes/_authenticated/admin.enquiries'
+import { Route as AuthenticatedAdminImportRouteImport } from './routes/_authenticated/admin.import'
+import { Route as AuthenticatedAdminMediaRouteImport } from './routes/_authenticated/admin.media'
 import { Route as AuthenticatedAdminNewRouteImport } from './routes/_authenticated/admin.new'
+import { Route as AuthenticatedAdminProfileRouteImport } from './routes/_authenticated/admin.profile'
+import { Route as AuthenticatedAdminSellerSubmissionsRouteImport } from './routes/_authenticated/admin.seller-submissions'
+import { Route as AuthenticatedAdminSeoRouteImport } from './routes/_authenticated/admin.seo'
+import { Route as AuthenticatedAdminSettingsRouteImport } from './routes/_authenticated/admin.settings'
+import { Route as AuthenticatedAdminSocialRouteImport } from './routes/_authenticated/admin.social'
+import { Route as ApiPublicPropertyHealthRouteImport } from './routes/api/public/property-health'
 import { Route as AuthenticatedAdminPreviewIdRouteImport } from './routes/_authenticated/admin.preview.$id'
 import { Route as ApiPublicImgSplatRouteImport } from './routes/api/public/img/$'
 
@@ -43,14 +68,31 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApartmentsForSaleDlfPhase1GurgaonRoute =
+  ApartmentsForSaleDlfPhase1GurgaonRouteImport.update({
+    id: '/apartments-for-sale-dlf-phase-1-gurgaon',
+    path: '/apartments-for-sale-dlf-phase-1-gurgaon',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BestAreasGurgaonPropertyInvestmentRoute =
+  BestAreasGurgaonPropertyInvestmentRouteImport.update({
+    id: '/best-areas-gurgaon-property-investment',
+    path: '/best-areas-gurgaon-property-investment',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DesperateDealsGurgaonRoute = DesperateDealsGurgaonRouteImport.update({
+  id: '/desperate-deals-gurgaon',
+  path: '/desperate-deals-gurgaon',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EmiCalculatorRoute = EmiCalculatorRouteImport.update({
@@ -58,11 +100,28 @@ const EmiCalculatorRoute = EmiCalculatorRouteImport.update({
   path: '/emi-calculator',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
+  id: '/forgot-password',
+  path: '/forgot-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Godrej101Sector79GurgaonRoute =
+  Godrej101Sector79GurgaonRouteImport.update({
+    id: '/godrej-101-sector-79-gurgaon',
+    path: '/godrej-101-sector-79-gurgaon',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const GurugramGrowthStoryRoute = GurugramGrowthStoryRouteImport.update({
   id: '/gurugram-growth-story',
   path: '/gurugram-growth-story',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HigherFloorApartmentsGolfCourseExtensionRoadRoute =
+  HigherFloorApartmentsGolfCourseExtensionRoadRouteImport.update({
+    id: '/higher-floor-apartments-golf-course-extension-road',
+    path: '/higher-floor-apartments-golf-course-extension-road',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const HomeLoansRoute = HomeLoansRouteImport.update({
   id: '/home-loans',
   path: '/home-loans',
@@ -78,19 +137,71 @@ const NriRoute = NriRouteImport.update({
   path: '/nri',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NriSellPropertyGurgaonRoute = NriSellPropertyGurgaonRouteImport.update({
+  id: '/nri-sell-property-gurgaon',
+  path: '/nri-sell-property-gurgaon',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PropertiesRoute = PropertiesRouteImport.update({
   id: '/properties',
   path: '/properties',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PropertyBuyingAdvisoryGurgaonRoute =
+  PropertyBuyingAdvisoryGurgaonRouteImport.update({
+    id: '/property-buying-advisory-gurgaon',
+    path: '/property-buying-advisory-gurgaon',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const PropertySector79GurgaonRoute = PropertySector79GurgaonRouteImport.update({
+  id: '/property-sector-79-gurgaon',
+  path: '/property-sector-79-gurgaon',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResetPasswordRoute = ResetPasswordRouteImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SellPropertyGurgaonRoute = SellPropertyGurgaonRouteImport.update({
+  id: '/sell-property-gurgaon',
+  path: '/sell-property-gurgaon',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SellerSubmitRoute = SellerSubmitRouteImport.update({
+  id: '/seller-submit',
+  path: '/seller-submit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SeniorCitizenHousingGurgaonRoute =
+  SeniorCitizenHousingGurgaonRouteImport.update({
+    id: '/senior-citizen-housing-gurgaon',
+    path: '/senior-citizen-housing-gurgaon',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiSellerSubmissionRoute = ApiSellerSubmissionRouteImport.update({
+  id: '/api/seller-submission',
+  path: '/api/seller-submission',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const LocationsSlugRoute = LocationsSlugRouteImport.update({
   id: '/locations/$slug',
   path: '/locations/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NriMarketRoute = NriMarketRouteImport.update({
+  id: '/$market',
+  path: '/$market',
+  getParentRoute: () => NriRoute,
+} as any)
+const NriCountryRoute = NriCountryRouteImport.update({
+  id: '/nri_/$country',
+  path: '/nri/$country',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PropertySlugRoute = PropertySlugRouteImport.update({
@@ -108,10 +219,61 @@ const AuthenticatedAdminIdRoute = AuthenticatedAdminIdRouteImport.update({
   path: '/admin/$id',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAdminEnquiriesRoute =
+  AuthenticatedAdminEnquiriesRouteImport.update({
+    id: '/admin/enquiries',
+    path: '/admin/enquiries',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAdminImportRoute =
+  AuthenticatedAdminImportRouteImport.update({
+    id: '/admin/import',
+    path: '/admin/import',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAdminMediaRoute = AuthenticatedAdminMediaRouteImport.update({
+  id: '/admin/media',
+  path: '/admin/media',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedAdminNewRoute = AuthenticatedAdminNewRouteImport.update({
   id: '/admin/new',
   path: '/admin/new',
   getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAdminProfileRoute =
+  AuthenticatedAdminProfileRouteImport.update({
+    id: '/admin/profile',
+    path: '/admin/profile',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAdminSellerSubmissionsRoute =
+  AuthenticatedAdminSellerSubmissionsRouteImport.update({
+    id: '/admin/seller-submissions',
+    path: '/admin/seller-submissions',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAdminSeoRoute = AuthenticatedAdminSeoRouteImport.update({
+  id: '/admin/seo',
+  path: '/admin/seo',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAdminSettingsRoute =
+  AuthenticatedAdminSettingsRouteImport.update({
+    id: '/admin/settings',
+    path: '/admin/settings',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAdminSocialRoute =
+  AuthenticatedAdminSocialRouteImport.update({
+    id: '/admin/social',
+    path: '/admin/social',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const ApiPublicPropertyHealthRoute = ApiPublicPropertyHealthRouteImport.update({
+  id: '/api/public/property-health',
+  path: '/api/public/property-health',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAdminPreviewIdRoute =
   AuthenticatedAdminPreviewIdRouteImport.update({
@@ -128,19 +290,44 @@ const ApiPublicImgSplatRoute = ApiPublicImgSplatRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/apartments-for-sale-dlf-phase-1-gurgaon': typeof ApartmentsForSaleDlfPhase1GurgaonRoute
   '/auth': typeof AuthRoute
+  '/best-areas-gurgaon-property-investment': typeof BestAreasGurgaonPropertyInvestmentRoute
   '/contact': typeof ContactRoute
+  '/desperate-deals-gurgaon': typeof DesperateDealsGurgaonRoute
   '/emi-calculator': typeof EmiCalculatorRoute
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/godrej-101-sector-79-gurgaon': typeof Godrej101Sector79GurgaonRoute
   '/gurugram-growth-story': typeof GurugramGrowthStoryRoute
+  '/higher-floor-apartments-golf-course-extension-road': typeof HigherFloorApartmentsGolfCourseExtensionRoadRoute
   '/home-loans': typeof HomeLoansRoute
   '/luxury': typeof LuxuryRoute
-  '/nri': typeof NriRoute
+  '/nri': typeof NriRouteWithChildren
+  '/nri-sell-property-gurgaon': typeof NriSellPropertyGurgaonRoute
   '/properties': typeof PropertiesRoute
+  '/property-buying-advisory-gurgaon': typeof PropertyBuyingAdvisoryGurgaonRoute
+  '/property-sector-79-gurgaon': typeof PropertySector79GurgaonRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/sell-property-gurgaon': typeof SellPropertyGurgaonRoute
+  '/seller-submit': typeof SellerSubmitRoute
+  '/senior-citizen-housing-gurgaon': typeof SeniorCitizenHousingGurgaonRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/api/seller-submission': typeof ApiSellerSubmissionRoute
   '/locations/$slug': typeof LocationsSlugRoute
+  '/nri/$market': typeof NriMarketRoute
+  '/nri/$country': typeof NriCountryRoute
   '/property/$slug': typeof PropertySlugRoute
   '/admin/$id': typeof AuthenticatedAdminIdRoute
+  '/admin/enquiries': typeof AuthenticatedAdminEnquiriesRoute
+  '/admin/import': typeof AuthenticatedAdminImportRoute
+  '/admin/media': typeof AuthenticatedAdminMediaRoute
   '/admin/new': typeof AuthenticatedAdminNewRoute
+  '/admin/profile': typeof AuthenticatedAdminProfileRoute
+  '/admin/seller-submissions': typeof AuthenticatedAdminSellerSubmissionsRoute
+  '/admin/seo': typeof AuthenticatedAdminSeoRoute
+  '/admin/settings': typeof AuthenticatedAdminSettingsRoute
+  '/admin/social': typeof AuthenticatedAdminSocialRoute
+  '/api/public/property-health': typeof ApiPublicPropertyHealthRoute
   '/admin/': typeof AuthenticatedAdminIndexRoute
   '/admin/preview/$id': typeof AuthenticatedAdminPreviewIdRoute
   '/api/public/img/$': typeof ApiPublicImgSplatRoute
@@ -148,19 +335,44 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/apartments-for-sale-dlf-phase-1-gurgaon': typeof ApartmentsForSaleDlfPhase1GurgaonRoute
   '/auth': typeof AuthRoute
+  '/best-areas-gurgaon-property-investment': typeof BestAreasGurgaonPropertyInvestmentRoute
   '/contact': typeof ContactRoute
+  '/desperate-deals-gurgaon': typeof DesperateDealsGurgaonRoute
   '/emi-calculator': typeof EmiCalculatorRoute
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/godrej-101-sector-79-gurgaon': typeof Godrej101Sector79GurgaonRoute
   '/gurugram-growth-story': typeof GurugramGrowthStoryRoute
+  '/higher-floor-apartments-golf-course-extension-road': typeof HigherFloorApartmentsGolfCourseExtensionRoadRoute
   '/home-loans': typeof HomeLoansRoute
   '/luxury': typeof LuxuryRoute
-  '/nri': typeof NriRoute
+  '/nri': typeof NriRouteWithChildren
+  '/nri-sell-property-gurgaon': typeof NriSellPropertyGurgaonRoute
   '/properties': typeof PropertiesRoute
+  '/property-buying-advisory-gurgaon': typeof PropertyBuyingAdvisoryGurgaonRoute
+  '/property-sector-79-gurgaon': typeof PropertySector79GurgaonRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/sell-property-gurgaon': typeof SellPropertyGurgaonRoute
+  '/seller-submit': typeof SellerSubmitRoute
+  '/senior-citizen-housing-gurgaon': typeof SeniorCitizenHousingGurgaonRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/api/seller-submission': typeof ApiSellerSubmissionRoute
   '/locations/$slug': typeof LocationsSlugRoute
+  '/nri/$market': typeof NriMarketRoute
+  '/nri/$country': typeof NriCountryRoute
   '/property/$slug': typeof PropertySlugRoute
   '/admin/$id': typeof AuthenticatedAdminIdRoute
+  '/admin/enquiries': typeof AuthenticatedAdminEnquiriesRoute
+  '/admin/import': typeof AuthenticatedAdminImportRoute
+  '/admin/media': typeof AuthenticatedAdminMediaRoute
   '/admin/new': typeof AuthenticatedAdminNewRoute
+  '/admin/profile': typeof AuthenticatedAdminProfileRoute
+  '/admin/seller-submissions': typeof AuthenticatedAdminSellerSubmissionsRoute
+  '/admin/seo': typeof AuthenticatedAdminSeoRoute
+  '/admin/settings': typeof AuthenticatedAdminSettingsRoute
+  '/admin/social': typeof AuthenticatedAdminSocialRoute
+  '/api/public/property-health': typeof ApiPublicPropertyHealthRoute
   '/admin': typeof AuthenticatedAdminIndexRoute
   '/admin/preview/$id': typeof AuthenticatedAdminPreviewIdRoute
   '/api/public/img/$': typeof ApiPublicImgSplatRoute
@@ -170,19 +382,44 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/about': typeof AboutRoute
+  '/apartments-for-sale-dlf-phase-1-gurgaon': typeof ApartmentsForSaleDlfPhase1GurgaonRoute
   '/auth': typeof AuthRoute
+  '/best-areas-gurgaon-property-investment': typeof BestAreasGurgaonPropertyInvestmentRoute
   '/contact': typeof ContactRoute
+  '/desperate-deals-gurgaon': typeof DesperateDealsGurgaonRoute
   '/emi-calculator': typeof EmiCalculatorRoute
+  '/forgot-password': typeof ForgotPasswordRoute
+  '/godrej-101-sector-79-gurgaon': typeof Godrej101Sector79GurgaonRoute
   '/gurugram-growth-story': typeof GurugramGrowthStoryRoute
+  '/higher-floor-apartments-golf-course-extension-road': typeof HigherFloorApartmentsGolfCourseExtensionRoadRoute
   '/home-loans': typeof HomeLoansRoute
   '/luxury': typeof LuxuryRoute
-  '/nri': typeof NriRoute
+  '/nri': typeof NriRouteWithChildren
+  '/nri-sell-property-gurgaon': typeof NriSellPropertyGurgaonRoute
   '/properties': typeof PropertiesRoute
+  '/property-buying-advisory-gurgaon': typeof PropertyBuyingAdvisoryGurgaonRoute
+  '/property-sector-79-gurgaon': typeof PropertySector79GurgaonRoute
+  '/reset-password': typeof ResetPasswordRoute
+  '/sell-property-gurgaon': typeof SellPropertyGurgaonRoute
+  '/seller-submit': typeof SellerSubmitRoute
+  '/senior-citizen-housing-gurgaon': typeof SeniorCitizenHousingGurgaonRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/api/seller-submission': typeof ApiSellerSubmissionRoute
   '/locations/$slug': typeof LocationsSlugRoute
+  '/nri/$market': typeof NriMarketRoute
+  '/nri_/$country': typeof NriCountryRoute
   '/property/$slug': typeof PropertySlugRoute
   '/_authenticated/admin/$id': typeof AuthenticatedAdminIdRoute
+  '/_authenticated/admin/enquiries': typeof AuthenticatedAdminEnquiriesRoute
+  '/_authenticated/admin/import': typeof AuthenticatedAdminImportRoute
+  '/_authenticated/admin/media': typeof AuthenticatedAdminMediaRoute
   '/_authenticated/admin/new': typeof AuthenticatedAdminNewRoute
+  '/_authenticated/admin/profile': typeof AuthenticatedAdminProfileRoute
+  '/_authenticated/admin/seller-submissions': typeof AuthenticatedAdminSellerSubmissionsRoute
+  '/_authenticated/admin/seo': typeof AuthenticatedAdminSeoRoute
+  '/_authenticated/admin/settings': typeof AuthenticatedAdminSettingsRoute
+  '/_authenticated/admin/social': typeof AuthenticatedAdminSocialRoute
+  '/api/public/property-health': typeof ApiPublicPropertyHealthRoute
   '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
   '/_authenticated/admin/preview/$id': typeof AuthenticatedAdminPreviewIdRoute
   '/api/public/img/$': typeof ApiPublicImgSplatRoute
@@ -192,19 +429,44 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/apartments-for-sale-dlf-phase-1-gurgaon'
     | '/auth'
+    | '/best-areas-gurgaon-property-investment'
     | '/contact'
+    | '/desperate-deals-gurgaon'
     | '/emi-calculator'
+    | '/forgot-password'
+    | '/godrej-101-sector-79-gurgaon'
     | '/gurugram-growth-story'
+    | '/higher-floor-apartments-golf-course-extension-road'
     | '/home-loans'
     | '/luxury'
     | '/nri'
+    | '/nri-sell-property-gurgaon'
     | '/properties'
+    | '/property-buying-advisory-gurgaon'
+    | '/property-sector-79-gurgaon'
+    | '/reset-password'
+    | '/sell-property-gurgaon'
+    | '/seller-submit'
+    | '/senior-citizen-housing-gurgaon'
     | '/sitemap.xml'
+    | '/api/seller-submission'
     | '/locations/$slug'
+    | '/nri/$market'
+    | '/nri/$country'
     | '/property/$slug'
     | '/admin/$id'
+    | '/admin/enquiries'
+    | '/admin/import'
+    | '/admin/media'
     | '/admin/new'
+    | '/admin/profile'
+    | '/admin/seller-submissions'
+    | '/admin/seo'
+    | '/admin/settings'
+    | '/admin/social'
+    | '/api/public/property-health'
     | '/admin/'
     | '/admin/preview/$id'
     | '/api/public/img/$'
@@ -212,19 +474,44 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/apartments-for-sale-dlf-phase-1-gurgaon'
     | '/auth'
+    | '/best-areas-gurgaon-property-investment'
     | '/contact'
+    | '/desperate-deals-gurgaon'
     | '/emi-calculator'
+    | '/forgot-password'
+    | '/godrej-101-sector-79-gurgaon'
     | '/gurugram-growth-story'
+    | '/higher-floor-apartments-golf-course-extension-road'
     | '/home-loans'
     | '/luxury'
     | '/nri'
+    | '/nri-sell-property-gurgaon'
     | '/properties'
+    | '/property-buying-advisory-gurgaon'
+    | '/property-sector-79-gurgaon'
+    | '/reset-password'
+    | '/sell-property-gurgaon'
+    | '/seller-submit'
+    | '/senior-citizen-housing-gurgaon'
     | '/sitemap.xml'
+    | '/api/seller-submission'
     | '/locations/$slug'
+    | '/nri/$market'
+    | '/nri/$country'
     | '/property/$slug'
     | '/admin/$id'
+    | '/admin/enquiries'
+    | '/admin/import'
+    | '/admin/media'
     | '/admin/new'
+    | '/admin/profile'
+    | '/admin/seller-submissions'
+    | '/admin/seo'
+    | '/admin/settings'
+    | '/admin/social'
+    | '/api/public/property-health'
     | '/admin'
     | '/admin/preview/$id'
     | '/api/public/img/$'
@@ -233,19 +520,44 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/about'
+    | '/apartments-for-sale-dlf-phase-1-gurgaon'
     | '/auth'
+    | '/best-areas-gurgaon-property-investment'
     | '/contact'
+    | '/desperate-deals-gurgaon'
     | '/emi-calculator'
+    | '/forgot-password'
+    | '/godrej-101-sector-79-gurgaon'
     | '/gurugram-growth-story'
+    | '/higher-floor-apartments-golf-course-extension-road'
     | '/home-loans'
     | '/luxury'
     | '/nri'
+    | '/nri-sell-property-gurgaon'
     | '/properties'
+    | '/property-buying-advisory-gurgaon'
+    | '/property-sector-79-gurgaon'
+    | '/reset-password'
+    | '/sell-property-gurgaon'
+    | '/seller-submit'
+    | '/senior-citizen-housing-gurgaon'
     | '/sitemap.xml'
+    | '/api/seller-submission'
     | '/locations/$slug'
+    | '/nri/$market'
+    | '/nri_/$country'
     | '/property/$slug'
     | '/_authenticated/admin/$id'
+    | '/_authenticated/admin/enquiries'
+    | '/_authenticated/admin/import'
+    | '/_authenticated/admin/media'
     | '/_authenticated/admin/new'
+    | '/_authenticated/admin/profile'
+    | '/_authenticated/admin/seller-submissions'
+    | '/_authenticated/admin/seo'
+    | '/_authenticated/admin/settings'
+    | '/_authenticated/admin/social'
+    | '/api/public/property-health'
     | '/_authenticated/admin/'
     | '/_authenticated/admin/preview/$id'
     | '/api/public/img/$'
@@ -255,17 +567,33 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AboutRoute: typeof AboutRoute
+  ApartmentsForSaleDlfPhase1GurgaonRoute: typeof ApartmentsForSaleDlfPhase1GurgaonRoute
   AuthRoute: typeof AuthRoute
+  BestAreasGurgaonPropertyInvestmentRoute: typeof BestAreasGurgaonPropertyInvestmentRoute
   ContactRoute: typeof ContactRoute
+  DesperateDealsGurgaonRoute: typeof DesperateDealsGurgaonRoute
   EmiCalculatorRoute: typeof EmiCalculatorRoute
+  ForgotPasswordRoute: typeof ForgotPasswordRoute
+  Godrej101Sector79GurgaonRoute: typeof Godrej101Sector79GurgaonRoute
   GurugramGrowthStoryRoute: typeof GurugramGrowthStoryRoute
+  HigherFloorApartmentsGolfCourseExtensionRoadRoute: typeof HigherFloorApartmentsGolfCourseExtensionRoadRoute
   HomeLoansRoute: typeof HomeLoansRoute
   LuxuryRoute: typeof LuxuryRoute
-  NriRoute: typeof NriRoute
+  NriRoute: typeof NriRouteWithChildren
+  NriSellPropertyGurgaonRoute: typeof NriSellPropertyGurgaonRoute
   PropertiesRoute: typeof PropertiesRoute
+  PropertyBuyingAdvisoryGurgaonRoute: typeof PropertyBuyingAdvisoryGurgaonRoute
+  PropertySector79GurgaonRoute: typeof PropertySector79GurgaonRoute
+  ResetPasswordRoute: typeof ResetPasswordRoute
+  SellPropertyGurgaonRoute: typeof SellPropertyGurgaonRoute
+  SellerSubmitRoute: typeof SellerSubmitRoute
+  SeniorCitizenHousingGurgaonRoute: typeof SeniorCitizenHousingGurgaonRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  ApiSellerSubmissionRoute: typeof ApiSellerSubmissionRoute
   LocationsSlugRoute: typeof LocationsSlugRoute
+  NriCountryRoute: typeof NriCountryRoute
   PropertySlugRoute: typeof PropertySlugRoute
+  ApiPublicPropertyHealthRoute: typeof ApiPublicPropertyHealthRoute
   ApiPublicImgSplatRoute: typeof ApiPublicImgSplatRoute
 }
 
@@ -292,11 +620,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/apartments-for-sale-dlf-phase-1-gurgaon': {
+      id: '/apartments-for-sale-dlf-phase-1-gurgaon'
+      path: '/apartments-for-sale-dlf-phase-1-gurgaon'
+      fullPath: '/apartments-for-sale-dlf-phase-1-gurgaon'
+      preLoaderRoute: typeof ApartmentsForSaleDlfPhase1GurgaonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth': {
       id: '/auth'
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/best-areas-gurgaon-property-investment': {
+      id: '/best-areas-gurgaon-property-investment'
+      path: '/best-areas-gurgaon-property-investment'
+      fullPath: '/best-areas-gurgaon-property-investment'
+      preLoaderRoute: typeof BestAreasGurgaonPropertyInvestmentRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -306,6 +648,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/desperate-deals-gurgaon': {
+      id: '/desperate-deals-gurgaon'
+      path: '/desperate-deals-gurgaon'
+      fullPath: '/desperate-deals-gurgaon'
+      preLoaderRoute: typeof DesperateDealsGurgaonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/emi-calculator': {
       id: '/emi-calculator'
       path: '/emi-calculator'
@@ -313,11 +662,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EmiCalculatorRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/forgot-password': {
+      id: '/forgot-password'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof ForgotPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/godrej-101-sector-79-gurgaon': {
+      id: '/godrej-101-sector-79-gurgaon'
+      path: '/godrej-101-sector-79-gurgaon'
+      fullPath: '/godrej-101-sector-79-gurgaon'
+      preLoaderRoute: typeof Godrej101Sector79GurgaonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/gurugram-growth-story': {
       id: '/gurugram-growth-story'
       path: '/gurugram-growth-story'
       fullPath: '/gurugram-growth-story'
       preLoaderRoute: typeof GurugramGrowthStoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/higher-floor-apartments-golf-course-extension-road': {
+      id: '/higher-floor-apartments-golf-course-extension-road'
+      path: '/higher-floor-apartments-golf-course-extension-road'
+      fullPath: '/higher-floor-apartments-golf-course-extension-road'
+      preLoaderRoute: typeof HigherFloorApartmentsGolfCourseExtensionRoadRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/home-loans': {
@@ -341,11 +711,60 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof NriRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/nri-sell-property-gurgaon': {
+      id: '/nri-sell-property-gurgaon'
+      path: '/nri-sell-property-gurgaon'
+      fullPath: '/nri-sell-property-gurgaon'
+      preLoaderRoute: typeof NriSellPropertyGurgaonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/properties': {
       id: '/properties'
       path: '/properties'
       fullPath: '/properties'
       preLoaderRoute: typeof PropertiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/property-buying-advisory-gurgaon': {
+      id: '/property-buying-advisory-gurgaon'
+      path: '/property-buying-advisory-gurgaon'
+      fullPath: '/property-buying-advisory-gurgaon'
+      preLoaderRoute: typeof PropertyBuyingAdvisoryGurgaonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/property-sector-79-gurgaon': {
+      id: '/property-sector-79-gurgaon'
+      path: '/property-sector-79-gurgaon'
+      fullPath: '/property-sector-79-gurgaon'
+      preLoaderRoute: typeof PropertySector79GurgaonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reset-password': {
+      id: '/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sell-property-gurgaon': {
+      id: '/sell-property-gurgaon'
+      path: '/sell-property-gurgaon'
+      fullPath: '/sell-property-gurgaon'
+      preLoaderRoute: typeof SellPropertyGurgaonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/seller-submit': {
+      id: '/seller-submit'
+      path: '/seller-submit'
+      fullPath: '/seller-submit'
+      preLoaderRoute: typeof SellerSubmitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/senior-citizen-housing-gurgaon': {
+      id: '/senior-citizen-housing-gurgaon'
+      path: '/senior-citizen-housing-gurgaon'
+      fullPath: '/senior-citizen-housing-gurgaon'
+      preLoaderRoute: typeof SeniorCitizenHousingGurgaonRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -355,11 +774,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/seller-submission': {
+      id: '/api/seller-submission'
+      path: '/api/seller-submission'
+      fullPath: '/api/seller-submission'
+      preLoaderRoute: typeof ApiSellerSubmissionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/locations/$slug': {
       id: '/locations/$slug'
       path: '/locations/$slug'
       fullPath: '/locations/$slug'
       preLoaderRoute: typeof LocationsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nri/$market': {
+      id: '/nri/$market'
+      path: '/$market'
+      fullPath: '/nri/$market'
+      preLoaderRoute: typeof NriMarketRouteImport
+      parentRoute: typeof NriRoute
+    }
+    '/nri_/$country': {
+      id: '/nri_/$country'
+      path: '/nri/$country'
+      fullPath: '/nri/$country'
+      preLoaderRoute: typeof NriCountryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/property/$slug': {
@@ -383,12 +823,75 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminIdRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/admin/enquiries': {
+      id: '/_authenticated/admin/enquiries'
+      path: '/admin/enquiries'
+      fullPath: '/admin/enquiries'
+      preLoaderRoute: typeof AuthenticatedAdminEnquiriesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/import': {
+      id: '/_authenticated/admin/import'
+      path: '/admin/import'
+      fullPath: '/admin/import'
+      preLoaderRoute: typeof AuthenticatedAdminImportRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/media': {
+      id: '/_authenticated/admin/media'
+      path: '/admin/media'
+      fullPath: '/admin/media'
+      preLoaderRoute: typeof AuthenticatedAdminMediaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/admin/new': {
       id: '/_authenticated/admin/new'
       path: '/admin/new'
       fullPath: '/admin/new'
       preLoaderRoute: typeof AuthenticatedAdminNewRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/profile': {
+      id: '/_authenticated/admin/profile'
+      path: '/admin/profile'
+      fullPath: '/admin/profile'
+      preLoaderRoute: typeof AuthenticatedAdminProfileRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/seller-submissions': {
+      id: '/_authenticated/admin/seller-submissions'
+      path: '/admin/seller-submissions'
+      fullPath: '/admin/seller-submissions'
+      preLoaderRoute: typeof AuthenticatedAdminSellerSubmissionsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/seo': {
+      id: '/_authenticated/admin/seo'
+      path: '/admin/seo'
+      fullPath: '/admin/seo'
+      preLoaderRoute: typeof AuthenticatedAdminSeoRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/settings': {
+      id: '/_authenticated/admin/settings'
+      path: '/admin/settings'
+      fullPath: '/admin/settings'
+      preLoaderRoute: typeof AuthenticatedAdminSettingsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/social': {
+      id: '/_authenticated/admin/social'
+      path: '/admin/social'
+      fullPath: '/admin/social'
+      preLoaderRoute: typeof AuthenticatedAdminSocialRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/api/public/property-health': {
+      id: '/api/public/property-health'
+      path: '/api/public/property-health'
+      fullPath: '/api/public/property-health'
+      preLoaderRoute: typeof ApiPublicPropertyHealthRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_authenticated/admin/preview/$id': {
       id: '/_authenticated/admin/preview/$id'
@@ -409,14 +912,31 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAdminIdRoute: typeof AuthenticatedAdminIdRoute
+  AuthenticatedAdminEnquiriesRoute: typeof AuthenticatedAdminEnquiriesRoute
+  AuthenticatedAdminImportRoute: typeof AuthenticatedAdminImportRoute
+  AuthenticatedAdminMediaRoute: typeof AuthenticatedAdminMediaRoute
   AuthenticatedAdminNewRoute: typeof AuthenticatedAdminNewRoute
+  AuthenticatedAdminProfileRoute: typeof AuthenticatedAdminProfileRoute
+  AuthenticatedAdminSellerSubmissionsRoute: typeof AuthenticatedAdminSellerSubmissionsRoute
+  AuthenticatedAdminSeoRoute: typeof AuthenticatedAdminSeoRoute
+  AuthenticatedAdminSettingsRoute: typeof AuthenticatedAdminSettingsRoute
+  AuthenticatedAdminSocialRoute: typeof AuthenticatedAdminSocialRoute
   AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
   AuthenticatedAdminPreviewIdRoute: typeof AuthenticatedAdminPreviewIdRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAdminIdRoute: AuthenticatedAdminIdRoute,
+  AuthenticatedAdminEnquiriesRoute: AuthenticatedAdminEnquiriesRoute,
+  AuthenticatedAdminImportRoute: AuthenticatedAdminImportRoute,
+  AuthenticatedAdminMediaRoute: AuthenticatedAdminMediaRoute,
   AuthenticatedAdminNewRoute: AuthenticatedAdminNewRoute,
+  AuthenticatedAdminProfileRoute: AuthenticatedAdminProfileRoute,
+  AuthenticatedAdminSellerSubmissionsRoute:
+    AuthenticatedAdminSellerSubmissionsRoute,
+  AuthenticatedAdminSeoRoute: AuthenticatedAdminSeoRoute,
+  AuthenticatedAdminSettingsRoute: AuthenticatedAdminSettingsRoute,
+  AuthenticatedAdminSocialRoute: AuthenticatedAdminSocialRoute,
   AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
   AuthenticatedAdminPreviewIdRoute: AuthenticatedAdminPreviewIdRoute,
 }
@@ -424,21 +944,50 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
+interface NriRouteChildren {
+  NriMarketRoute: typeof NriMarketRoute
+}
+
+const NriRouteChildren: NriRouteChildren = {
+  NriMarketRoute: NriMarketRoute,
+}
+
+const NriRouteWithChildren = NriRoute._addFileChildren(NriRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AboutRoute: AboutRoute,
+  ApartmentsForSaleDlfPhase1GurgaonRoute:
+    ApartmentsForSaleDlfPhase1GurgaonRoute,
   AuthRoute: AuthRoute,
+  BestAreasGurgaonPropertyInvestmentRoute:
+    BestAreasGurgaonPropertyInvestmentRoute,
   ContactRoute: ContactRoute,
+  DesperateDealsGurgaonRoute: DesperateDealsGurgaonRoute,
   EmiCalculatorRoute: EmiCalculatorRoute,
+  ForgotPasswordRoute: ForgotPasswordRoute,
+  Godrej101Sector79GurgaonRoute: Godrej101Sector79GurgaonRoute,
   GurugramGrowthStoryRoute: GurugramGrowthStoryRoute,
+  HigherFloorApartmentsGolfCourseExtensionRoadRoute:
+    HigherFloorApartmentsGolfCourseExtensionRoadRoute,
   HomeLoansRoute: HomeLoansRoute,
   LuxuryRoute: LuxuryRoute,
-  NriRoute: NriRoute,
+  NriRoute: NriRouteWithChildren,
+  NriSellPropertyGurgaonRoute: NriSellPropertyGurgaonRoute,
   PropertiesRoute: PropertiesRoute,
+  PropertyBuyingAdvisoryGurgaonRoute: PropertyBuyingAdvisoryGurgaonRoute,
+  PropertySector79GurgaonRoute: PropertySector79GurgaonRoute,
+  ResetPasswordRoute: ResetPasswordRoute,
+  SellPropertyGurgaonRoute: SellPropertyGurgaonRoute,
+  SellerSubmitRoute: SellerSubmitRoute,
+  SeniorCitizenHousingGurgaonRoute: SeniorCitizenHousingGurgaonRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  ApiSellerSubmissionRoute: ApiSellerSubmissionRoute,
   LocationsSlugRoute: LocationsSlugRoute,
+  NriCountryRoute: NriCountryRoute,
   PropertySlugRoute: PropertySlugRoute,
+  ApiPublicPropertyHealthRoute: ApiPublicPropertyHealthRoute,
   ApiPublicImgSplatRoute: ApiPublicImgSplatRoute,
 }
 export const routeTree = rootRouteImport

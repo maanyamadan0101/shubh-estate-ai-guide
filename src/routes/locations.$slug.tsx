@@ -218,6 +218,21 @@ function LocationPage() {
             </div>
           </div>
 
+          <div className="rounded-xl border border-gold/30 bg-card p-6">
+            <h2 className="font-display text-xl">Own property in {location.name}?</h2>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">
+              Get pricing guidance, listing preparation and qualified buyer follow-up. Overseas owners can coordinate the sale remotely through our NRI seller desk.
+            </p>
+            <div className="mt-4 flex flex-wrap gap-4 text-sm">
+              <Link to="/sell-property-gurgaon" className="font-medium text-gold underline-offset-4 hover:underline">
+                Sell property in Gurgaon
+              </Link>
+              <Link to="/nri-sell-property-gurgaon" className="font-medium text-gold underline-offset-4 hover:underline">
+                NRI owner selling support
+              </Link>
+            </div>
+          </div>
+
           <div className="rounded-xl border border-border bg-card p-6">
             <h2 className="font-display text-xl">What we check before recommending a purchase</h2>
             <ul className="mt-4 grid gap-2 text-sm text-muted-foreground">
@@ -247,7 +262,8 @@ function LocationPage() {
             Related: <Link to="/properties" className="text-gold underline-offset-4 hover:underline">Flats for sale in Gurgaon</Link>{" "}
             · <Link to="/nri" className="text-gold underline-offset-4 hover:underline">NRI property buying guide</Link>{" "}
             · <Link to="/home-loans" className="text-gold underline-offset-4 hover:underline">Home loan assistance</Link>{" "}
-            · <a href="/best-areas-gurgaon-property-investment" className="text-gold underline-offset-4 hover:underline">Investment-area guide</a>
+            · <a href="/best-areas-gurgaon-property-investment" className="text-gold underline-offset-4 hover:underline">Investment-area guide</a>{" "}
+            · <Link to="/sell-property-gurgaon" className="text-gold underline-offset-4 hover:underline">Sell property in Gurgaon</Link>
             {location.slug === "golf-course-extension-road" ? <>{" · "}<a href="/higher-floor-apartments-golf-course-extension-road" className="text-gold underline-offset-4 hover:underline">Higher-floor apartments</a></> : null}
           </p>
         </div>

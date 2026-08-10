@@ -54,6 +54,18 @@ const FAQS = [
     q: "Can you coordinate with the buyer's bank if the buyer needs a home loan?",
     a: "Yes. We can coordinate property-related lender requirements and valuation access. Final loan approval and valuation remain subject to the lender's policies.",
   },
+  {
+    q: "Can you coordinate Power of Attorney and transaction documents for an NRI seller?",
+    a: "We can organise the property and transaction information and coordinate with the seller's appointed lawyer, tax advisor, buyer and lender. The form, scope, execution and registration acceptance of a power of attorney must be confirmed by a qualified lawyer and the relevant authority for the specific transaction.",
+  },
+  {
+    q: "Will an NRI owner's property and contact details be published immediately?",
+    a: "No. A seller submission is reviewed privately first and does not automatically become a public property listing. Public marketing is a separate step after the information, presentation plan and owner's instructions are agreed.",
+  },
+  {
+    q: "How do you protect an overseas seller's private information?",
+    a: "Private documents and contact details should be shared only with parties who need them for the agreed property review or transaction. Buyer-facing marketing should use approved property information and should not expose private seller documents or contact details.",
+  },
 ];
 
 export const Route = createFileRoute("/nri-sell-property-gurgaon")({
@@ -125,9 +137,13 @@ function NriSellerPage() {
         <div>
           <div className="rounded-2xl border border-gold/30 bg-card p-6 md:p-8">
             <p className="eyebrow">NRI Seller Desk</p>
-            <h2 className="mt-3 font-display text-2xl md:text-3xl">Your local property-selling team in Gurgaon</h2>
+            <h2 className="mt-3 font-display text-2xl md:text-3xl">
+              Your local property-selling team in Gurgaon
+            </h2>
             <p className="mt-4 max-w-3xl text-sm leading-6 text-muted-foreground">
-              An overseas owner should not have to depend on scattered calls between tenants, guards, relatives, buyers and brokers. We provide one local coordination point for pricing, listing preparation, buyer visits, negotiation and transaction follow-up.
+              An overseas owner should not have to depend on scattered calls between tenants,
+              guards, relatives, buyers and brokers. We provide one local coordination point for
+              pricing, listing preparation, buyer visits, negotiation and transaction follow-up.
             </p>
           </div>
 
@@ -144,9 +160,13 @@ function NriSellerPage() {
 
           <div className="mt-10 rounded-2xl surface-navy p-7 md:p-9">
             <p className="eyebrow">Buyer Network</p>
-            <h2 className="mt-3 font-display text-2xl">Your property can be marketed to buyers already searching Gurgaon</h2>
+            <h2 className="mt-3 font-display text-2xl">
+              Your property can be marketed to buyers already searching Gurgaon
+            </h2>
             <p className="mt-3 max-w-3xl text-sm leading-6 text-navy-foreground/75">
-              Our buyer enquiries include end users, investors, outstation buyers and NRIs. A properly prepared resale listing gives us a better chance of matching the unit with buyers whose budget and location requirements fit the property.
+              Our buyer enquiries include end users, investors, outstation buyers and NRIs. A
+              properly prepared resale listing gives us a better chance of matching the unit with
+              buyers whose budget and location requirements fit the property.
             </p>
           </div>
 
@@ -161,15 +181,26 @@ function NriSellerPage() {
           </dl>
 
           <p className="mt-8 text-sm text-muted-foreground">
-            Looking to buy instead? <Link to="/nri" className="text-gold underline-offset-4 hover:underline">Visit our NRI buyer desk</Link>. Local owner?{" "}
-            <Link to="/sell-property-gurgaon" className="text-gold underline-offset-4 hover:underline">Sell property in Gurgaon</Link>.
+            Looking to buy instead?{" "}
+            <Link to="/nri" className="text-gold underline-offset-4 hover:underline">
+              Visit our NRI buyer desk
+            </Link>
+            . Local owner?{" "}
+            <Link
+              to="/sell-property-gurgaon"
+              className="text-gold underline-offset-4 hover:underline"
+            >
+              Sell property in Gurgaon
+            </Link>
+            .
           </p>
         </div>
 
         <aside className="rounded-xl border border-border bg-card p-6 lg:sticky lg:top-24 lg:self-start">
           <h2 className="font-display text-xl">Submit your Gurgaon property</h2>
           <p className="mt-1 text-xs leading-5 text-muted-foreground">
-            Tell us your country, project or sector, configuration, property status and expected price.
+            Tell us your country, project or sector, configuration, property status and expected
+            price.
           </p>
           <div className="mt-4">
             <EnquiryForm interest="NRI seller enquiry — Gurgaon property" compact />

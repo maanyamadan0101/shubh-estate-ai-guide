@@ -43,6 +43,14 @@ const FAQS = [
     a: "We compare the specific unit with current competing inventory, project positioning, floor and view, property condition, recent market evidence and buyer demand before discussing an asking-price range with the owner.",
   },
   {
+    q: "Do you use recent market evidence instead of relying only on asking prices?",
+    a: "Yes. We consider available transaction evidence, current competing inventory, buyer responses and unit-specific differences. Public records and reported transactions can be incomplete or delayed, so the evidence is explained with its limitations rather than presented as a guaranteed selling price.",
+  },
+  {
+    q: "Can you help with a time-sensitive or difficult-to-sell Gurgaon property?",
+    a: "Yes. We can review whether the main obstacle is price, presentation, access for visits, property condition, documentation or a narrow buyer pool, then recommend a practical sale plan. No broker can guarantee a sale date, but realistic positioning and transaction readiness can reduce avoidable delay.",
+  },
+  {
     q: "Can you market a resale flat to NRI and outstation buyers?",
     a: "Yes. A well-prepared listing can be shared with local, outstation and NRI buyers, with video walkthroughs and remote coordination where appropriate.",
   },
@@ -53,6 +61,14 @@ const FAQS = [
   {
     q: "Can an owner start the sale process without immediately visiting your office?",
     a: "Yes. The initial property review, pricing discussion, document checklist and marketing preparation can begin remotely. Physical inspection can then be scheduled when needed.",
+  },
+  {
+    q: "Will an owner's property details become public immediately after submission?",
+    a: "No. A private seller submission is reviewed by the Shubh Estate Brokers team first. It is not automatically added to the buyer-facing property catalogue, and publication remains a separate manual decision after the property information is checked.",
+  },
+  {
+    q: "How is seller and client information handled?",
+    a: "Only information needed for the property review, marketing decision or transaction coordination should be collected and shared with relevant parties. Private documents and contact details are not intended to appear in a public listing without permission.",
   },
 ];
 
@@ -86,7 +102,8 @@ export const Route = createFileRoute("/sell-property-gurgaon")({
               url: SITE_ORIGIN,
             },
             areaServed: "Gurugram, Haryana, India",
-            serviceType: "Residential property selling, resale listing and transaction coordination",
+            serviceType:
+              "Residential property selling, resale listing and transaction coordination",
             url: canonical,
           }),
         },
@@ -121,9 +138,13 @@ function SellPropertyPage() {
         <div>
           <div className="rounded-2xl border border-gold/30 bg-card p-6 md:p-8">
             <p className="eyebrow">List Your Property</p>
-            <h2 className="mt-3 font-display text-2xl md:text-3xl">From owner listing to a transaction-ready opportunity</h2>
+            <h2 className="mt-3 font-display text-2xl md:text-3xl">
+              From owner listing to a transaction-ready opportunity
+            </h2>
             <p className="mt-4 max-w-3xl text-sm leading-6 text-muted-foreground">
-              Shubh Estate Brokers works with owners of apartments, builder floors, villas and other residential properties across Gurugram. The aim is to present the property accurately, attract serious enquiries and reduce friction once a buyer is ready to proceed.
+              Shubh Estate Brokers works with owners of apartments, builder floors, villas and other
+              residential properties across Gurugram. The aim is to present the property accurately,
+              attract serious enquiries and reduce friction once a buyer is ready to proceed.
             </p>
           </div>
 
@@ -142,7 +163,15 @@ function SellPropertyPage() {
             <p className="eyebrow">Better Listings</p>
             <h2 className="mt-3 font-display text-2xl">Give buyers enough information to act</h2>
             <p className="mt-3 max-w-3xl text-sm leading-6 text-navy-foreground/75">
-              Good property marketing should answer the questions serious buyers ask: exact configuration, area, floor, facing, view, parking, condition, possession, project amenities, connectivity, asking price and loan suitability. Clear information improves enquiry quality and reduces repetitive calls.
+              Good property marketing should answer the questions serious buyers ask: exact
+              configuration, area, floor, facing, view, parking, condition, possession, project
+              amenities, connectivity, asking price and loan suitability. Clear information improves
+              enquiry quality and reduces repetitive calls.
+            </p>
+            <p className="mt-4 text-sm leading-6 text-navy-foreground/75">
+              Owner submissions are reviewed privately and do not become buyer-facing listings
+              automatically. Publication happens only after the Shubh Estate Brokers team checks the
+              information and chooses to create or approve a public listing.
             </p>
           </div>
 
@@ -157,14 +186,19 @@ function SellPropertyPage() {
           </dl>
 
           <p className="mt-8 text-sm text-muted-foreground">
-            Buying instead? <Link to="/properties" className="text-gold underline-offset-4 hover:underline">Browse current Gurgaon properties</Link>.
+            Buying instead?{" "}
+            <Link to="/properties" className="text-gold underline-offset-4 hover:underline">
+              Browse current Gurgaon properties
+            </Link>
+            .
           </p>
         </div>
 
         <aside className="rounded-xl border border-border bg-card p-6 lg:sticky lg:top-24 lg:self-start">
           <h2 className="font-display text-xl">List your property</h2>
           <p className="mt-1 text-xs leading-5 text-muted-foreground">
-            Share the project or sector, configuration and expected price. We can start with a property review.
+            Share the project or sector, configuration and expected price. We can start with a
+            property review.
           </p>
           <div className="mt-4">
             <EnquiryForm interest="Sell property in Gurgaon" compact />

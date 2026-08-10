@@ -99,7 +99,7 @@ const ALTERNATES = Object.entries(MARKETS).map(([country, market]) => ({
   href: `${SITE_ORIGIN}/nri/${country}`,
 }));
 
-export const Route = createFileRoute("/nri/$country")({
+export const Route = createFileRoute("/nri_/$country")({
   loader: async ({ params }) => {
     if (!(params.country in MARKETS)) throw notFound();
     const market = MARKETS[params.country as MarketKey];

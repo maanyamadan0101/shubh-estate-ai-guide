@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { supabase } from "@/integrations/supabase/client";
+import { trackEvent } from "@/lib/analytics";
 
 const schema = z.object({
   full_name: z.string().trim().min(2, "Please enter your name").max(100),
@@ -48,6 +49,11 @@ export function EnquiryForm({
       toast.error("Could not send your enquiry. Please call us instead.");
       return;
     }
+    trackEvent("generate_lead", {
+      lead_type: interest,
+      property_id: propertyId ?? "general",
+      page_path: window.location.pathname,
+    });
     setDone(true);
     toast.success("Thank you — an advisor will call you shortly.");
   }

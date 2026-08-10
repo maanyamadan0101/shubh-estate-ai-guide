@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { CONTACT } from "@/data/site";
 import { supabase } from "@/integrations/supabase/client";
+import { trackEvent } from "@/lib/analytics";
 
 const EMPTY = {
   full_name: "",
@@ -144,6 +145,13 @@ function SellerSubmitPage() {
         if (error) warnings.push(`${selected.file.name}: ${error.message}`);
       }
 
+      trackEvent("seller_submission", {
+        seller_type: form.is_nri ? "nri" : "local",
+        project: form.project,
+        sector: form.sector || "not_provided",
+        media_count: files.length,
+        page_path: window.location.pathname,
+      });
       setReference(payload.reference || "received");
       setUploadWarnings(warnings);
       setProgress("");

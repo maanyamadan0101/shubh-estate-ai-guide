@@ -74,6 +74,18 @@ const FAQS = [
     q: "Is a physical visit always required for an NRI buyer?",
     a: "Not for initial shortlisting. Buyers can compare suitable options through detailed information and live video walkthroughs before deciding whether and when to travel to India.",
   },
+  {
+    q: "How can someone returning from abroad shortlist a Gurgaon home after many years away?",
+    a: "We begin with the returning buyer's current budget, work location, family needs, preferred possession timeline and financing position. Gurgaon sectors and projects are then compared on present-day access, occupied surroundings, schools or hospitals where relevant, maintenance, supply and realistic price context rather than relying on an outdated view of the city.",
+  },
+  {
+    q: "Can you help coordinate Power of Attorney documentation for an NRI property transaction?",
+    a: "We can coordinate the property and transaction information with the NRI's appointed lawyer or authorised professional. The form, scope, execution and acceptance of a power of attorney are transaction-specific legal matters and should be confirmed by a qualified lawyer and the relevant registration or lending authority.",
+  },
+  {
+    q: "How is an overseas client's personal and financial information handled?",
+    a: "Only information needed for the agreed enquiry, property search, sale or financing coordination should be collected and shared with relevant parties. Client details and private documents are not intended for unrelated promotion or public listing without permission.",
+  },
 ];
 
 const NRI_ALTERNATES = [
@@ -100,15 +112,13 @@ export const Route = createFileRoute("/nri")({
       { property: "og:title", content: "NRI Property Services in Gurgaon | Buyers & Sellers" },
       {
         property: "og:description",
-        content: "Buy or sell Gurgaon property while living overseas with a local team for property search, resale marketing and transaction coordination.",
+        content:
+          "Buy or sell Gurgaon property while living overseas with a local team for property search, resale marketing and transaction coordination.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: `${SITE_ORIGIN}/nri` },
     ],
-    links: [
-      { rel: "canonical", href: `${SITE_ORIGIN}/nri` },
-      ...NRI_ALTERNATES,
-    ],
+    links: [{ rel: "canonical", href: `${SITE_ORIGIN}/nri` }, ...NRI_ALTERNATES],
     scripts: [
       {
         type: "application/ld+json",
@@ -150,10 +160,14 @@ function NriPage() {
             <p className="mt-4 eyebrow">NRI Buyers</p>
             <h2 className="mt-2 font-display text-2xl">Looking to buy in Gurgaon?</h2>
             <p className="mt-3 text-sm leading-6 text-muted-foreground">
-              Tell us your budget, preferred sectors or projects and objective. We can shortlist properties, arrange live video walkthroughs and coordinate the transaction locally.
+              Tell us your budget, preferred sectors or projects and objective. We can shortlist
+              properties, arrange live video walkthroughs and coordinate the transaction locally.
             </p>
             <div className="mt-5 flex flex-wrap gap-3">
-              <Link to="/properties" className="inline-flex rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground">
+              <Link
+                to="/properties"
+                className="inline-flex rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
+              >
                 View Properties
               </Link>
             </div>
@@ -164,7 +178,8 @@ function NriPage() {
             <p className="mt-4 eyebrow">NRI Property Owners</p>
             <h2 className="mt-2 font-display text-2xl">Own a Gurgaon property you want to sell?</h2>
             <p className="mt-3 text-sm leading-6 text-muted-foreground">
-              We can prepare and market your resale property, source and qualify buyers, coordinate visits, negotiate offers and manage local follow-up while you remain overseas.
+              We can prepare and market your resale property, source and qualify buyers, coordinate
+              visits, negotiate offers and manage local follow-up while you remain overseas.
             </p>
             <div className="mt-5">
               <Link
@@ -183,7 +198,8 @@ function NriPage() {
           <p className="eyebrow">International NRI Buyer Guides</p>
           <h2 className="mt-3 font-display text-2xl">Buying Gurgaon property from overseas?</h2>
           <p className="mt-3 max-w-3xl text-sm text-muted-foreground">
-            Choose your region for a country-focused buying guide with remote viewing and local Gurgaon transaction coordination.
+            Choose your region for a country-focused buying guide with remote viewing and local
+            Gurgaon transaction coordination.
           </p>
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {NRI_MARKETS.map((market) => (
@@ -192,7 +208,9 @@ function NriPage() {
                 href={`/nri/${market.slug}`}
                 className="rounded-xl border border-border p-5 transition-colors hover:border-gold"
               >
-                <span className="text-xs font-medium uppercase tracking-wide text-gold">{market.label}</span>
+                <span className="text-xs font-medium uppercase tracking-wide text-gold">
+                  {market.label}
+                </span>
                 <h3 className="mt-2 font-display text-lg">{market.title}</h3>
                 <p className="mt-2 text-sm text-muted-foreground">{market.body}</p>
               </a>
@@ -226,17 +244,27 @@ function NriPage() {
 
           <p className="mt-8 text-xs text-muted-foreground">{LOAN_DISCLAIMER}</p>
           <p className="mt-4 text-sm text-muted-foreground">
-            Explore <Link to="/luxury" className="text-gold underline-offset-4 hover:underline">the private collection</Link>{" "}
+            Explore{" "}
+            <Link to="/luxury" className="text-gold underline-offset-4 hover:underline">
+              the private collection
+            </Link>{" "}
             or read the{" "}
-            <Link to="/locations/$slug" params={{ slug: "gurgaon" }} className="text-gold underline-offset-4 hover:underline">
+            <Link
+              to="/locations/$slug"
+              params={{ slug: "gurgaon" }}
+              className="text-gold underline-offset-4 hover:underline"
+            >
               Gurgaon location guide
-            </Link>.
+            </Link>
+            .
           </p>
         </div>
 
         <aside className="rounded-xl border border-border bg-card p-6 lg:sticky lg:top-24 lg:self-start">
           <h2 className="font-display text-xl">Talk to the NRI desk</h2>
-          <p className="mt-1 text-xs text-muted-foreground">Buyer or seller — share your country, timezone and requirement.</p>
+          <p className="mt-1 text-xs text-muted-foreground">
+            Buyer or seller — share your country, timezone and requirement.
+          </p>
           <div className="mt-4">
             <EnquiryForm interest="NRI buyer or seller enquiry" compact />
           </div>
