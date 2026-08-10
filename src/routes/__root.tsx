@@ -15,6 +15,7 @@ import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { FloatingActions } from "@/components/site/FloatingActions";
 import { Toaster } from "@/components/ui/sonner";
+import { CONTACT } from "@/data/site";
 
 const GA_MEASUREMENT_ID = "G-8EWLZD8V5H";
 const SITE_ORIGIN = "https://shubhestatebroker.in";
@@ -80,11 +81,31 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
 const localBusinessSchema = {
   "@context": "https://schema.org",
   "@type": "RealEstateAgent",
+  "@id": `${SITE_ORIGIN}/#real-estate-agent`,
   name: "Shubh Estate Brokers",
+  description:
+    "Founder-led Gurugram real estate advisory with former senior-level banking exposure, focused on title and documentation review, mortgage structuring, valuation, investment safety, integrity and fair, transparent transactions.",
   slogan: "Fair & Transparent Real Estate Deals at the Best Price",
-  telephone: "+91-8130785000",
-  email: "sales@shubhestatebroker.in",
+  telephone: [CONTACT.phone, CONTACT.alternatePhone],
+  email: CONTACT.email,
   url: SITE_ORIGIN,
+  sameAs: [CONTACT.googleBusinessProfile],
+  hasMap: CONTACT.googleBusinessProfile,
+  founder: {
+    "@type": "Person",
+    name: "Arun Madan",
+    jobTitle: "Founder & Promoter",
+    description:
+      "Former banking professional with senior-level exposure across mortgage, credit, property valuation, documentation and title assessment.",
+    knowsAbout: [
+      "Real estate advisory",
+      "Property title assessment",
+      "Mortgage lending",
+      "Property valuation",
+      "Investment risk assessment",
+      "Real estate due diligence",
+    ],
+  },
   address: {
     "@type": "PostalAddress",
     streetAddress: "15th Floor, Ocus Quantum Mall, Sector 51",
@@ -113,13 +134,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "Buy, sell or rent property in Gurgaon with Shubh Estate Brokers — apartments, builder floors, villas, plots, commercial property and home loan assistance.",
+          "Buy, sell or invest in Gurgaon property with founder-led advice backed by banking, title assessment, valuation, mortgage and due-diligence experience.",
       },
       { name: "author", content: "Shubh Estate Brokers" },
       { property: "og:title", content: "Shubh Estate Brokers | Property Consultant in Gurgaon" },
       {
         property: "og:description",
-        content: "Fair and transparent real estate advice in Gurugram, backed by banking, mortgage and property due-diligence experience.",
+        content: "Fair and transparent Gurugram real estate advice backed by former banking, mortgage, valuation and title-assessment experience.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: SITE_ORIGIN },
