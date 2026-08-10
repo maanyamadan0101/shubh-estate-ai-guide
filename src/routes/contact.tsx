@@ -8,8 +8,16 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { CONTACT } from "@/data/site";
+import { supabase } from "@/integrations/supabase/client";
+import { trackContact, trackEvent } from "@/lib/analytics";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -23,7 +31,8 @@ export const Route = createFileRoute("/contact")({
       { property: "og:title", content: "Contact Shubh Estate Brokers, Gurugram" },
       {
         property: "og:description",
-        content: "Book a site visit, request a callback or speak with our property and mortgage advisory team.",
+        content:
+          "Book a site visit, request a callback or speak with our property and mortgage advisory team.",
       },
     ],
   }),
@@ -32,7 +41,10 @@ export const Route = createFileRoute("/contact")({
 
 const schema = z.object({
   name: z.string().trim().min(2, "Please enter your name").max(100),
-  phone: z.string().trim().regex(/^[+0-9 -]{8,16}$/, "Enter a valid phone number"),
+  phone: z
+    .string()
+    .trim()
+    .regex(/^[+0-9 -]{8,16}$/, "Enter a valid phone number"),
   email: z.string().trim().email("Enter a valid email").max(255).or(z.literal("")),
   interest: z.string().min(1, "Select what you need"),
   message: z.string().trim().max(1000).optional(),
@@ -41,10 +53,15 @@ const schema = z.object({
 function Contact() {
   const [interest, setInterest] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [sending, setSending] = useState(false);
+  const whatsappMessage = encodeURIComponent(
+    "Hi Shubh Estate Brokers, I would like to discuss a Gurgaon property requirement. Please contact me.",
+  );
 
-  function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const form = new FormData(event.currentTarget);
+    const formElement = event.currentTarget;
+    const form = new FormData(formElement);
     const parsed = schema.safeParse({
       name: String(form.get("name") ?? ""),
       phone: String(form.get("phone") ?? ""),
@@ -61,7 +78,29 @@ function Contact() {
     }
 
     setErrors({});
-    event.currentTarget.reset();
+    setSending(true);
+    const { error } = await supabase.from("enquiries").insert({
+      property_id: null,
+      full_name: parsed.data.name,
+      phone: parsed.data.phone,
+      email: parsed.data.email || null,
+      message: parsed.data.message || null,
+      interest: parsed.data.interest,
+      source: "website",
+    });
+    setSending(false);
+
+    if (error) {
+      toast.error("We could not save your request. Please call or WhatsApp us now.");
+      return;
+    }
+
+    trackEvent("generate_lead", {
+      lead_type: parsed.data.interest,
+      source: "contact_page",
+      page_path: window.location.pathname,
+    });
+    formElement.reset();
     setInterest("");
     toast.success("Request received", {
       description: "Our advisory team will call you back shortly.",
@@ -77,7 +116,11 @@ function Contact() {
       />
 
       <section className="container-page grid gap-12 py-16 lg:grid-cols-[1.1fr_0.9fr]">
-        <form onSubmit={onSubmit} noValidate className="rounded-2xl border border-border bg-card p-7 md:p-9">
+        <form
+          onSubmit={onSubmit}
+          noValidate
+          className="rounded-2xl border border-border bg-card p-7 md:p-9"
+        >
           <h2 className="font-display text-2xl">Request a callback</h2>
           <div className="mt-6 grid gap-5 sm:grid-cols-2">
             <div className="space-y-2">
@@ -88,12 +131,22 @@ function Contact() {
             <div className="space-y-2">
               <Label htmlFor="phone">Phone / WhatsApp</Label>
               <Input id="phone" name="phone" autoComplete="tel" aria-invalid={!!errors["phone"]} />
-              {errors["phone"] ? <p className="text-xs text-destructive">{errors["phone"]}</p> : null}
+              {errors["phone"] ? (
+                <p className="text-xs text-destructive">{errors["phone"]}</p>
+              ) : null}
             </div>
             <div className="space-y-2 sm:col-span-2">
               <Label htmlFor="email">Email (optional)</Label>
-              <Input id="email" name="email" type="email" autoComplete="email" aria-invalid={!!errors["email"]} />
-              {errors["email"] ? <p className="text-xs text-destructive">{errors["email"]}</p> : null}
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                autoComplete="email"
+                aria-invalid={!!errors["email"]}
+              />
+              {errors["email"] ? (
+                <p className="text-xs text-destructive">{errors["email"]}</p>
+              ) : null}
             </div>
             <div className="space-y-2 sm:col-span-2">
               <Label htmlFor="interest">I'm interested in</Label>
@@ -118,15 +171,23 @@ function Contact() {
                   ))}
                 </SelectContent>
               </Select>
-              {errors["interest"] ? <p className="text-xs text-destructive">{errors["interest"]}</p> : null}
+              {errors["interest"] ? (
+                <p className="text-xs text-destructive">{errors["interest"]}</p>
+              ) : null}
             </div>
             <div className="space-y-2 sm:col-span-2">
               <Label htmlFor="message">Requirement details</Label>
               <Textarea id="message" name="message" rows={4} maxLength={1000} />
             </div>
           </div>
-          <Button type="submit" variant="gold" size="lg" className="mt-7 w-full sm:w-auto">
-            Request Callback
+          <Button
+            type="submit"
+            variant="gold"
+            size="lg"
+            className="mt-7 w-full sm:w-auto"
+            disabled={sending}
+          >
+            {sending ? "Sending…" : "Request Callback"}
           </Button>
         </form>
 
@@ -138,11 +199,19 @@ function Contact() {
                 <MapPin className="mt-0.5 size-4 shrink-0 text-gold" aria-hidden="true" />
                 {CONTACT.address}
               </span>
-              <a href={CONTACT.phoneHref} className="flex gap-3 hover:text-gold">
+              <a
+                href={CONTACT.phoneHref}
+                onClick={() => trackContact("phone", "contact_page_primary")}
+                className="flex gap-3 hover:text-gold"
+              >
                 <Phone className="size-4 shrink-0 text-gold" aria-hidden="true" />
                 {CONTACT.phone}
               </a>
-              <a href={CONTACT.alternatePhoneHref} className="flex gap-3 hover:text-gold">
+              <a
+                href={CONTACT.alternatePhoneHref}
+                onClick={() => trackContact("phone", "contact_page_alternate")}
+                className="flex gap-3 hover:text-gold"
+              >
                 <Phone className="size-4 shrink-0 text-gold" aria-hidden="true" />
                 {CONTACT.alternatePhone}
               </a>
@@ -153,12 +222,27 @@ function Contact() {
             </address>
             <div className="mt-7 flex flex-wrap gap-3">
               <Button asChild variant="gold">
-                <a href={CONTACT.whatsapp} target="_blank" rel="noreferrer">
+                <a
+                  href={`${CONTACT.whatsapp}?text=${whatsappMessage}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => trackContact("whatsapp", "contact_page")}
+                >
                   Chat on WhatsApp
                 </a>
               </Button>
               <Button asChild variant="goldOutline">
-                <a href={CONTACT.googleBusinessProfile} target="_blank" rel="noreferrer">
+                <a
+                  href={CONTACT.googleBusinessProfile}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() =>
+                    trackEvent("google_business_profile_click", {
+                      location: "contact_page",
+                      page_path: window.location.pathname,
+                    })
+                  }
+                >
                   <ExternalLink className="size-4" aria-hidden="true" />
                   Google Business Profile
                 </a>
