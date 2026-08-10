@@ -19,6 +19,14 @@ const NRI_MARKET_LINKS = [
   ["europe", "Europe"],
 ] as const;
 
+const POPULAR_SEARCH_LINKS = [
+  ["/desperate-deals-gurgaon", "Urgent Sale Deals"],
+  ["/apartments-for-sale-dlf-phase-1-gurgaon", "DLF Phase 1 Apartments"],
+  ["/higher-floor-apartments-golf-course-extension-road", "Higher-Floor Apartments"],
+  ["/senior-citizen-housing-gurgaon", "Senior Citizen Housing"],
+  ["/best-areas-gurgaon-property-investment", "Property Investment Areas"],
+] as const;
+
 export function SiteFooter() {
   return (
     <footer className="mt-24 surface-navy">
@@ -91,6 +99,15 @@ export function SiteFooter() {
 
       <div className="border-t border-navy-foreground/10">
         <div className="container-page space-y-4 py-8">
+          <p className="text-xs text-navy-foreground/65">
+            Popular property searches:{" "}
+            {POPULAR_SEARCH_LINKS.map(([href, label], index) => (
+              <span key={href}>
+                {index > 0 ? " · " : ""}
+                <a href={href} className="hover:text-gold">{label}</a>
+              </span>
+            ))}
+          </p>
           <p className="text-xs text-navy-foreground/65">
             Overseas NRI buyers:{" "}
             {NRI_MARKET_LINKS.map(([slug, label], index) => (
