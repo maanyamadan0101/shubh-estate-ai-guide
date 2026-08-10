@@ -2,11 +2,11 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SeoIntentLanding } from "@/components/site/SeoIntentLanding";
 import { SITE_ORIGIN } from "@/lib/seo";
 
-const path = "/apartments-for-sale-dlf-phase-1-gurgaon";
 const title = "Apartments & Flats for Sale in DLF Phase 1 Gurgaon";
 const description = "Looking for an apartment or flat for sale in DLF Phase 1, Gurgaon? Compare resale options, title and documentation, pricing, renovation needs, financing and investment suitability with Shubh Estate Brokers.";
+const canonical = `${SITE_ORIGIN}/apartments-for-sale-dlf-phase-1-gurgaon`;
 
-export const Route = createFileRoute(path)({
+export const Route = createFileRoute("/apartments-for-sale-dlf-phase-1-gurgaon")({
   head: () => ({
     meta: [
       { title: `${title} | Shubh Estate Brokers` },
@@ -14,9 +14,9 @@ export const Route = createFileRoute(path)({
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: `${SITE_ORIGIN}${path}` },
+      { property: "og:url", content: canonical },
     ],
-    links: [{ rel: "canonical", href: `${SITE_ORIGIN}${path}` }],
+    links: [{ rel: "canonical", href: canonical }],
   }),
   component: DlfPhaseOnePage,
 });
