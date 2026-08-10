@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { CONTACT, LOAN_DISCLAIMER } from "@/data/site";
+import { trackContact, trackEvent } from "@/lib/analytics";
 
 const LOCATION_LINKS = [
   ["gurgaon", "Property in Gurgaon"],
@@ -41,11 +42,11 @@ export function SiteFooter() {
               <MapPin className="mt-0.5 size-4 shrink-0 text-gold" aria-hidden="true" />
               {CONTACT.address}
             </span>
-            <a href={CONTACT.phoneHref} className="flex gap-3 hover:text-gold">
+            <a href={CONTACT.phoneHref} onClick={() => trackContact("phone", "site_footer_primary")} className="flex gap-3 hover:text-gold">
               <Phone className="size-4 shrink-0 text-gold" aria-hidden="true" />
               {CONTACT.phone}
             </a>
-            <a href={CONTACT.alternatePhoneHref} className="flex gap-3 hover:text-gold">
+            <a href={CONTACT.alternatePhoneHref} onClick={() => trackContact("phone", "site_footer_alternate")} className="flex gap-3 hover:text-gold">
               <Phone className="size-4 shrink-0 text-gold" aria-hidden="true" />
               {CONTACT.alternatePhone}
             </a>
@@ -57,6 +58,7 @@ export function SiteFooter() {
               href={CONTACT.googleBusinessProfile}
               target="_blank"
               rel="noreferrer"
+              onClick={() => trackEvent("google_business_profile_click", { location: "site_footer", page_path: window.location.pathname })}
               className="flex gap-3 hover:text-gold"
             >
               <MapPin className="mt-0.5 size-4 shrink-0 text-gold" aria-hidden="true" />
