@@ -2,11 +2,11 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SeoIntentLanding } from "@/components/site/SeoIntentLanding";
 import { SITE_ORIGIN } from "@/lib/seo";
 
-const path = "/higher-floor-apartments-golf-course-extension-road";
 const title = "Higher Floor Apartments for Sale on Golf Course Extension Road";
 const description = "Search higher-floor apartments for sale on Golf Course Extension Road, Gurgaon. Compare views, ventilation, lift dependence, floor premium, project quality, financing and resale suitability with Shubh Estate Brokers.";
+const canonical = `${SITE_ORIGIN}/higher-floor-apartments-golf-course-extension-road`;
 
-export const Route = createFileRoute(path)({
+export const Route = createFileRoute("/higher-floor-apartments-golf-course-extension-road")({
   head: () => ({
     meta: [
       { title: `${title} | Shubh Estate Brokers` },
@@ -14,9 +14,9 @@ export const Route = createFileRoute(path)({
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: `${SITE_ORIGIN}${path}` },
+      { property: "og:url", content: canonical },
     ],
-    links: [{ rel: "canonical", href: `${SITE_ORIGIN}${path}` }],
+    links: [{ rel: "canonical", href: canonical }],
   }),
   component: HigherFloorPage,
 });
