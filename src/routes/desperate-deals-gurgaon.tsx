@@ -2,11 +2,11 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SeoIntentLanding } from "@/components/site/SeoIntentLanding";
 import { SITE_ORIGIN } from "@/lib/seo";
 
-const path = "/desperate-deals-gurgaon";
 const title = "Desperate Deals in Gurgaon | Urgent Sale Flats & Apartments";
 const description = "Explore urgent-sale and genuine desperate-deal property opportunities in Gurgaon and Gurugram. Shubh Estate Brokers reviews price, seller urgency, documents, financing and exit before presenting a deal.";
+const canonical = `${SITE_ORIGIN}/desperate-deals-gurgaon`;
 
-export const Route = createFileRoute(path)({
+export const Route = createFileRoute("/desperate-deals-gurgaon")({
   head: () => ({
     meta: [
       { title: `${title} | Shubh Estate Brokers` },
@@ -14,9 +14,9 @@ export const Route = createFileRoute(path)({
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: `${SITE_ORIGIN}${path}` },
+      { property: "og:url", content: canonical },
     ],
-    links: [{ rel: "canonical", href: `${SITE_ORIGIN}${path}` }],
+    links: [{ rel: "canonical", href: canonical }],
   }),
   component: DesperateDealsPage,
 });
