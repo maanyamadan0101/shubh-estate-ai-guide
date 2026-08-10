@@ -5,6 +5,7 @@ import { SITE_ORIGIN } from "@/lib/seo";
 const STATIC_PATHS = [
   { path: "/", priority: "1.0" },
   { path: "/properties", priority: "0.9" },
+  { path: "/property-buying-advisory-gurgaon", priority: "0.8" },
   { path: "/godrej-101-sector-79-gurgaon", priority: "0.8" },
   { path: "/property-sector-79-gurgaon", priority: "0.8" },
   { path: "/desperate-deals-gurgaon", priority: "0.8" },
@@ -38,12 +39,14 @@ function escapeXml(value: string) {
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
-    .replace(/\"/g, "&quot;")
+    .replace(/"/g, "&quot;")
     .replace(/'/g, "&apos;");
 }
 
 function absoluteUrl(value: string) {
-  return value.startsWith("http://") || value.startsWith("https://") ? value : `${SITE_ORIGIN}${value.startsWith("/") ? value : `/${value}`}`;
+  return value.startsWith("http://") || value.startsWith("https://")
+    ? value
+    : `${SITE_ORIGIN}${value.startsWith("/") ? value : `/${value}`}`;
 }
 
 export const Route = createFileRoute("/sitemap.xml")({
@@ -53,7 +56,8 @@ export const Route = createFileRoute("/sitemap.xml")({
         const properties = await listSitemapProperties();
         const urls = [
           ...STATIC_PATHS.map(
-            (p) => `  <url>\n    <loc>${escapeXml(`${SITE_ORIGIN}${p.path}`)}</loc>\n    <priority>${p.priority}</priority>\n  </url>`,
+            (p) =>
+              `  <url>\n    <loc>${escapeXml(`${SITE_ORIGIN}${p.path}`)}</loc>\n    <priority>${p.priority}</priority>\n  </url>`,
           ),
           ...properties.map((p) => {
             const image = p.cover_image_url
@@ -65,7 +69,10 @@ export const Route = createFileRoute("/sitemap.xml")({
 
         const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n${urls}\n</urlset>`;
         return new Response(xml, {
-          headers: { "content-type": "application/xml; charset=utf-8", "cache-control": "public, max-age=3600" },
+          headers: {
+            "content-type": "application/xml; charset=utf-8",
+            "cache-control": "public, max-age=3600",
+          },
         });
       },
     },
