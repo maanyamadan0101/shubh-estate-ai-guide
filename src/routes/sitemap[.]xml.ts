@@ -5,6 +5,8 @@ import { SITE_ORIGIN } from "@/lib/seo";
 const STATIC_PATHS = [
   { path: "/", priority: "1.0" },
   { path: "/properties", priority: "0.9" },
+  { path: "/godrej-101-sector-79-gurgaon", priority: "0.8" },
+  { path: "/property-sector-79-gurgaon", priority: "0.8" },
   { path: "/desperate-deals-gurgaon", priority: "0.8" },
   { path: "/best-areas-gurgaon-property-investment", priority: "0.8" },
   { path: "/apartments-for-sale-dlf-phase-1-gurgaon", priority: "0.7" },
