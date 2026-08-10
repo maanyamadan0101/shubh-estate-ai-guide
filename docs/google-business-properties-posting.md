@@ -1,0 +1,1 @@
+For each published website listing, create a Google Business Profile post using an approved property image, concise facts and a Learn more button pointing to the direct property URL. This supports discovery without creating separate Business Profiles for individual units.

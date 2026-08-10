@@ -19,6 +19,14 @@ const NRI_MARKET_LINKS = [
   ["europe", "Europe"],
 ] as const;
 
+const POPULAR_SEARCH_LINKS = [
+  ["/desperate-deals-gurgaon", "Urgent Sale Deals"],
+  ["/apartments-for-sale-dlf-phase-1-gurgaon", "DLF Phase 1 Apartments"],
+  ["/higher-floor-apartments-golf-course-extension-road", "Higher-Floor Apartments"],
+  ["/senior-citizen-housing-gurgaon", "Senior Citizen Housing"],
+  ["/best-areas-gurgaon-property-investment", "Property Investment Areas"],
+] as const;
+
 export function SiteFooter() {
   return (
     <footer className="mt-24 surface-navy">
@@ -35,9 +43,22 @@ export function SiteFooter() {
               <Phone className="size-4 shrink-0 text-gold" aria-hidden="true" />
               {CONTACT.phone}
             </a>
+            <a href={CONTACT.alternatePhoneHref} className="flex gap-3 hover:text-gold">
+              <Phone className="size-4 shrink-0 text-gold" aria-hidden="true" />
+              {CONTACT.alternatePhone}
+            </a>
             <a href={`mailto:${CONTACT.email}`} className="flex gap-3 hover:text-gold">
               <Mail className="size-4 shrink-0 text-gold" aria-hidden="true" />
               {CONTACT.email}
+            </a>
+            <a
+              href={CONTACT.googleBusinessProfile}
+              target="_blank"
+              rel="noreferrer"
+              className="flex gap-3 hover:text-gold"
+            >
+              <MapPin className="mt-0.5 size-4 shrink-0 text-gold" aria-hidden="true" />
+              View our verified Google Business Profile
             </a>
           </address>
         </div>
@@ -78,6 +99,15 @@ export function SiteFooter() {
 
       <div className="border-t border-navy-foreground/10">
         <div className="container-page space-y-4 py-8">
+          <p className="text-xs text-navy-foreground/65">
+            Popular property searches:{" "}
+            {POPULAR_SEARCH_LINKS.map(([href, label], index) => (
+              <span key={href}>
+                {index > 0 ? " · " : ""}
+                <a href={href} className="hover:text-gold">{label}</a>
+              </span>
+            ))}
+          </p>
           <p className="text-xs text-navy-foreground/65">
             Overseas NRI buyers:{" "}
             {NRI_MARKET_LINKS.map(([slug, label], index) => (

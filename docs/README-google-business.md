@@ -1,0 +1,1 @@
+The website now references the verified Google Business Profile from public contact surfaces and structured data. Property marketing on Google Business should use posts that link to the corresponding property page on shubhestatebroker.in.

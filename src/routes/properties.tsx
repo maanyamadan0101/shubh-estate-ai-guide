@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Landmark, MapPin } from "lucide-react";
+import { Landmark, MapPin, Search } from "lucide-react";
 import { PageHero } from "@/components/site/SectionHead";
 import { ListingCard } from "@/components/site/ListingCard";
 import { listPublicProperties, type ListingRow } from "@/lib/properties.functions";
@@ -14,20 +14,28 @@ const CORRIDORS = [
   { slug: "golf-course-road", label: "Golf Course Road" },
 ];
 
+const POPULAR_SEARCHES = [
+  ["/desperate-deals-gurgaon", "Desperate / urgent-sale deals in Gurgaon"],
+  ["/apartments-for-sale-dlf-phase-1-gurgaon", "Apartments for sale in DLF Phase 1"],
+  ["/higher-floor-apartments-golf-course-extension-road", "Higher-floor apartments on Golf Course Extension Road"],
+  ["/senior-citizen-housing-gurgaon", "Housing for senior citizens in Gurgaon"],
+  ["/best-areas-gurgaon-property-investment", "Best Gurgaon areas to evaluate for investment"],
+] as const;
+
 export const Route = createFileRoute("/properties")({
   loader: async () => listPublicProperties({ data: { limit: 60 } }),
   head: () => ({
     meta: [
-      { title: "Properties for Sale in Gurgaon | Shubh Estate Brokers" },
+      { title: "Flats & Apartments for Sale in Gurgaon | Shubh Estate Brokers" },
       {
         name: "description",
         content:
-          "Browse current properties for sale in Gurgaon published by Shubh Estate Brokers across Dwarka Expressway, Golf Course Extension Road, New Gurugram, SPR and Sohna Road. Property details, representative or actual images where available, NRI assistance and home-loan support up to 90% subject to eligibility.",
+          "Browse flats and apartments for sale in Gurgaon (Gurugram), including current resale and residential property listings across Golf Course Road, Golf Course Extension Road, Dwarka Expressway, SPR and New Gurugram.",
       },
-      { property: "og:title", content: "Properties for Sale in Gurgaon | Shubh Estate Brokers" },
+      { property: "og:title", content: "Flats & Apartments for Sale in Gurgaon | Shubh Estate Brokers" },
       {
         property: "og:description",
-        content: "Current Gurugram property listings with buyer guidance, NRI support and home-loan assistance.",
+        content: "Current flats, apartments and residential properties for sale in Gurugram with NRI, financing and transaction support.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: `${SITE_ORIGIN}/properties` },
@@ -50,8 +58,8 @@ function Properties() {
     <>
       <PageHero
         eyebrow="Current Listings"
-        title="Properties for sale in Gurgaon"
-        body="Browse genuine inventory published by Shubh Estate Brokers. Each listing is presented with unit details, project information, enquiry options and buyer support for end-users and NRI clients."
+        title="Flats and apartments for sale in Gurgaon"
+        body="Browse current resale flats, apartments and other residential properties published by Shubh Estate Brokers, with unit details, project context and buyer support for end-users, investors and NRI clients."
       />
 
       <section className="container-page pt-10">
@@ -94,6 +102,27 @@ function Properties() {
             </div>
           </div>
         </div>
+
+        <div className="mt-4 rounded-xl border border-border bg-card p-6">
+          <div className="flex items-start gap-3">
+            <Search className="mt-1 size-5 shrink-0 text-gold" aria-hidden="true" />
+            <div>
+              <p className="text-xs font-medium uppercase tracking-[0.18em] text-gold">Popular Gurgaon Property Searches</p>
+              <h2 className="mt-1 font-display text-2xl">Browse by specific buying requirement</h2>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {POPULAR_SEARCHES.map(([href, label]) => (
+                  <a
+                    key={href}
+                    href={href}
+                    className="rounded-full border border-border bg-background px-3 py-2 text-xs font-medium transition-colors hover:border-gold hover:text-gold"
+                  >
+                    {label}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section className="container-page py-14">
@@ -111,7 +140,7 @@ function Properties() {
                 <p className="text-xs font-medium uppercase tracking-[0.18em] text-gold">Property Catalogue</p>
                 <h2 className="mt-1 font-display text-2xl md:text-3xl">Available properties</h2>
                 <p className="mt-2 max-w-2xl text-sm text-muted-foreground">
-                  No portal-style search clutter—only properties currently published by our team. Open a listing for complete specifications, project context, NRI assistance and enquiry options.
+                  Only properties currently published by our team are shown here. Open a listing for specifications, project context, NRI assistance, home-loan support and enquiry options.
                 </p>
               </div>
               <p className="text-sm text-muted-foreground">
