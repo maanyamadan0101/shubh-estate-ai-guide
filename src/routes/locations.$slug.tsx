@@ -42,11 +42,11 @@ const LOCATIONS: Record<string, Location> = {
     slug: "golf-course-road",
     name: "Golf Course Road",
     localityFilter: "Golf Course Road",
-    title: "Property on Golf Course Road, Gurgaon",
+    title: "Apartments for Sale on Golf Course Road, Gurgaon",
     description:
-      "Apartments and premium residences on Golf Course Road, Gurugram, with resale, location, financing and due-diligence guidance.",
+      "Browse apartments and premium flats for sale on Golf Course Road, Gurugram, with resale, location, financing and title due-diligence guidance from Shubh Estate Brokers.",
     intro:
-      "Golf Course Road is one of Gurugram's most established premium residential and commercial corridors, with mature infrastructure and a deep resale market.",
+      "For buyers searching apartments for sale on Golf Course Road, Gurgaon, this established premium corridor offers a deep completed-home resale market where the actual unit, society, price and documentation can be evaluated before purchase.",
     body: [
       "The corridor is dominated by completed developments, so buyers can compare the actual apartment, society maintenance, traffic pattern and surrounding infrastructure before committing.",
       "For end users and NRI buyers, we focus on liveability, title and approval checks, maintenance quality, rental demand and realistic resale comparables rather than brochure pricing.",
@@ -57,11 +57,11 @@ const LOCATIONS: Record<string, Location> = {
     slug: "golf-course-extension-road",
     name: "Golf Course Extension Road",
     localityFilter: "Golf Course Extension Road",
-    title: "Property on Golf Course Extension Road, Gurgaon | Current Listings",
+    title: "Apartments for Sale on Golf Course Extension Road, Gurgaon",
     description:
-      "Browse current apartments and homes on Golf Course Extension Road, Gurugram, with project, possession, NRI and home-loan guidance from Shubh Estate Brokers.",
+      "Browse apartments and flats for sale on Golf Course Extension Road, Gurugram, with project, possession, NRI, financing and due-diligence guidance from Shubh Estate Brokers.",
     intro:
-      "Golf Course Extension Road connects established Gurugram sectors with newer residential development towards the Southern Peripheral Road and Sohna Road catchment.",
+      "Buyers searching apartments for sale on Golf Course Extension Road can compare completed societies, resale flats, newer launches and under-construction projects across one of Gurugram's major premium residential corridors.",
     body: [
       "The corridor combines completed societies with newer launches and under-construction projects. Buyers should compare actual delivery history, tower density, access roads, maintenance plans and possession timelines before deciding between projects.",
       "For investors, project selection matters more than simply buying the newest launch. We compare developer execution, construction progress and likely end-user demand before recommending an entry point.",
@@ -195,7 +195,7 @@ function LocationPage() {
 
   return (
     <>
-      <PageHero eyebrow="Location Guide" title={location.name} body={location.intro} />
+      <PageHero eyebrow="Location Guide" title={location.title} body={location.intro} />
 
       <section className="container-page grid gap-10 py-12 lg:grid-cols-[1fr_20rem]">
         <div className="space-y-5">
@@ -244,9 +244,11 @@ function LocationPage() {
           </div>
 
           <p className="text-sm text-muted-foreground">
-            Related: <Link to="/properties" className="text-gold underline-offset-4 hover:underline">Current properties in Gurgaon</Link>{" "}
+            Related: <Link to="/properties" className="text-gold underline-offset-4 hover:underline">Flats for sale in Gurgaon</Link>{" "}
             · <Link to="/nri" className="text-gold underline-offset-4 hover:underline">NRI property buying guide</Link>{" "}
-            · <Link to="/home-loans" className="text-gold underline-offset-4 hover:underline">Home loan assistance</Link>
+            · <Link to="/home-loans" className="text-gold underline-offset-4 hover:underline">Home loan assistance</Link>{" "}
+            · <a href="/best-areas-gurgaon-property-investment" className="text-gold underline-offset-4 hover:underline">Investment-area guide</a>
+            {location.slug === "golf-course-extension-road" ? <>{" · "}<a href="/higher-floor-apartments-golf-course-extension-road" className="text-gold underline-offset-4 hover:underline">Higher-floor apartments</a></> : null}
           </p>
         </div>
         <aside className="rounded-xl border border-border bg-card p-6 lg:sticky lg:top-24 lg:self-start">
