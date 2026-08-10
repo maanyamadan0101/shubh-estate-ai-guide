@@ -307,6 +307,46 @@ function Home() {
         </div>
       </section>
 
+      <section className="bg-secondary/60 py-20">
+        <div className="container-page">
+          <SectionHead
+            eyebrow="Buy, Sell & NRI Property Services"
+            title="Choose the right Gurgaon property path"
+            body="Dedicated guidance for buyers, local owners and overseas clients—each with a clear next step and direct access to the relevant team."
+          />
+          <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+            <Link to="/properties" className="rounded-2xl border border-border bg-card p-6 transition-shadow hover:shadow-[var(--shadow-elegant)]">
+              <p className="eyebrow">Buyers</p>
+              <h3 className="mt-3 font-display text-2xl">Browse Gurgaon properties</h3>
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">Current flats and apartments with unit details, financing support and transaction guidance.</p>
+              <span className="mt-5 inline-block text-sm font-medium text-gold">View properties →</span>
+            </Link>
+            <Link to="/sell-property-gurgaon" className="rounded-2xl border border-gold/30 bg-card p-6 transition-shadow hover:shadow-[var(--shadow-elegant)]">
+              <p className="eyebrow">Property Owners</p>
+              <h3 className="mt-3 font-display text-2xl">Sell property in Gurgaon</h3>
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">Price positioning, listing preparation, qualified buyer enquiries and transaction coordination.</p>
+              <span className="mt-5 inline-block text-sm font-medium text-gold">List your property →</span>
+            </Link>
+            <Link to="/nri" className="rounded-2xl border border-border bg-card p-6 transition-shadow hover:shadow-[var(--shadow-elegant)]">
+              <p className="eyebrow">Overseas Buyers</p>
+              <h3 className="mt-3 font-display text-2xl">NRI property services</h3>
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">Remote shortlisting, video walkthroughs, home-loan assistance and local execution.</p>
+              <span className="mt-5 inline-block text-sm font-medium text-gold">Visit the NRI desk →</span>
+            </Link>
+            <Link to="/nri-sell-property-gurgaon" className="rounded-2xl border border-gold/30 bg-card p-6 transition-shadow hover:shadow-[var(--shadow-elegant)]">
+              <p className="eyebrow">Overseas Owners</p>
+              <h3 className="mt-3 font-display text-2xl">Sell from abroad</h3>
+              <p className="mt-3 text-sm leading-6 text-muted-foreground">A Gurgaon-based team for marketing, buyer visits, negotiation and remote follow-up.</p>
+              <span className="mt-5 inline-block text-sm font-medium text-gold">Submit an NRI-owned property →</span>
+            </Link>
+          </div>
+          <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+            <Link to="/godrej-101-sector-79-gurgaon" className="text-gold underline-offset-4 hover:underline">Godrej 101 Sector 79 Gurgaon</Link>
+            <Link to="/property-sector-79-gurgaon" className="text-gold underline-offset-4 hover:underline">Property in Sector 79 Gurgaon</Link>
+          </div>
+        </div>
+      </section>
+
       <section className="container-page pb-24">
         <div className="rounded-2xl surface-navy px-8 py-14 text-center">
           <Building2 className="mx-auto size-8 text-gold" aria-hidden="true" />
