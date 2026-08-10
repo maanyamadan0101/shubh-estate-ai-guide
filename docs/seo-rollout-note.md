@@ -1,0 +1,1 @@
+SEO rollout note: after merge/deploy, verify the new canonical URLs return 200, appear in `/sitemap.xml`, and are internally linked. Submit or inspect the sitemap in Google Search Console and monitor impressions/clicks by query and page before making further title changes.
