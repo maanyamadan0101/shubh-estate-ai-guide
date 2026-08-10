@@ -1,0 +1,1 @@
+Public website surfaces and schema are aligned to the verified Shubh Estate Brokers Google Business Profile. Both public phone numbers are carried on the website, with the Google profile referenced for local business identity.
