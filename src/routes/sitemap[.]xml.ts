@@ -5,6 +5,11 @@ import { SITE_ORIGIN } from "@/lib/seo";
 const STATIC_PATHS = [
   { path: "/", priority: "1.0" },
   { path: "/properties", priority: "0.9" },
+  { path: "/desperate-deals-gurgaon", priority: "0.8" },
+  { path: "/best-areas-gurgaon-property-investment", priority: "0.8" },
+  { path: "/apartments-for-sale-dlf-phase-1-gurgaon", priority: "0.7" },
+  { path: "/higher-floor-apartments-golf-course-extension-road", priority: "0.7" },
+  { path: "/senior-citizen-housing-gurgaon", priority: "0.7" },
   { path: "/sell-property-gurgaon", priority: "0.8" },
   { path: "/nri-sell-property-gurgaon", priority: "0.8" },
   { path: "/nri", priority: "0.8" },
