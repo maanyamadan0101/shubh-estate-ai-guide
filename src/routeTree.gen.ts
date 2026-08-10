@@ -36,7 +36,6 @@ import { Route as SeniorCitizenHousingGurgaonRouteImport } from './routes/senior
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ApiSellerSubmissionRouteImport } from './routes/api/seller-submission'
 import { Route as LocationsSlugRouteImport } from './routes/locations.$slug'
-import { Route as NriMarketRouteImport } from './routes/nri.$market'
 import { Route as NriCountryRouteImport } from './routes/nri_.$country'
 import { Route as PropertySlugRouteImport } from './routes/property.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
@@ -194,11 +193,6 @@ const LocationsSlugRoute = LocationsSlugRouteImport.update({
   path: '/locations/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
-const NriMarketRoute = NriMarketRouteImport.update({
-  id: '/$market',
-  path: '/$market',
-  getParentRoute: () => NriRoute,
-} as any)
 const NriCountryRoute = NriCountryRouteImport.update({
   id: '/nri_/$country',
   path: '/nri/$country',
@@ -302,7 +296,7 @@ export interface FileRoutesByFullPath {
   '/higher-floor-apartments-golf-course-extension-road': typeof HigherFloorApartmentsGolfCourseExtensionRoadRoute
   '/home-loans': typeof HomeLoansRoute
   '/luxury': typeof LuxuryRoute
-  '/nri': typeof NriRouteWithChildren
+  '/nri': typeof NriRoute
   '/nri-sell-property-gurgaon': typeof NriSellPropertyGurgaonRoute
   '/properties': typeof PropertiesRoute
   '/property-buying-advisory-gurgaon': typeof PropertyBuyingAdvisoryGurgaonRoute
@@ -314,7 +308,6 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/seller-submission': typeof ApiSellerSubmissionRoute
   '/locations/$slug': typeof LocationsSlugRoute
-  '/nri/$market': typeof NriMarketRoute
   '/nri/$country': typeof NriCountryRoute
   '/property/$slug': typeof PropertySlugRoute
   '/admin/$id': typeof AuthenticatedAdminIdRoute
@@ -347,7 +340,7 @@ export interface FileRoutesByTo {
   '/higher-floor-apartments-golf-course-extension-road': typeof HigherFloorApartmentsGolfCourseExtensionRoadRoute
   '/home-loans': typeof HomeLoansRoute
   '/luxury': typeof LuxuryRoute
-  '/nri': typeof NriRouteWithChildren
+  '/nri': typeof NriRoute
   '/nri-sell-property-gurgaon': typeof NriSellPropertyGurgaonRoute
   '/properties': typeof PropertiesRoute
   '/property-buying-advisory-gurgaon': typeof PropertyBuyingAdvisoryGurgaonRoute
@@ -359,7 +352,6 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/seller-submission': typeof ApiSellerSubmissionRoute
   '/locations/$slug': typeof LocationsSlugRoute
-  '/nri/$market': typeof NriMarketRoute
   '/nri/$country': typeof NriCountryRoute
   '/property/$slug': typeof PropertySlugRoute
   '/admin/$id': typeof AuthenticatedAdminIdRoute
@@ -394,7 +386,7 @@ export interface FileRoutesById {
   '/higher-floor-apartments-golf-course-extension-road': typeof HigherFloorApartmentsGolfCourseExtensionRoadRoute
   '/home-loans': typeof HomeLoansRoute
   '/luxury': typeof LuxuryRoute
-  '/nri': typeof NriRouteWithChildren
+  '/nri': typeof NriRoute
   '/nri-sell-property-gurgaon': typeof NriSellPropertyGurgaonRoute
   '/properties': typeof PropertiesRoute
   '/property-buying-advisory-gurgaon': typeof PropertyBuyingAdvisoryGurgaonRoute
@@ -406,7 +398,6 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/seller-submission': typeof ApiSellerSubmissionRoute
   '/locations/$slug': typeof LocationsSlugRoute
-  '/nri/$market': typeof NriMarketRoute
   '/nri_/$country': typeof NriCountryRoute
   '/property/$slug': typeof PropertySlugRoute
   '/_authenticated/admin/$id': typeof AuthenticatedAdminIdRoute
@@ -453,7 +444,6 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/api/seller-submission'
     | '/locations/$slug'
-    | '/nri/$market'
     | '/nri/$country'
     | '/property/$slug'
     | '/admin/$id'
@@ -498,7 +488,6 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/api/seller-submission'
     | '/locations/$slug'
-    | '/nri/$market'
     | '/nri/$country'
     | '/property/$slug'
     | '/admin/$id'
@@ -544,7 +533,6 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/api/seller-submission'
     | '/locations/$slug'
-    | '/nri/$market'
     | '/nri_/$country'
     | '/property/$slug'
     | '/_authenticated/admin/$id'
@@ -579,7 +567,7 @@ export interface RootRouteChildren {
   HigherFloorApartmentsGolfCourseExtensionRoadRoute: typeof HigherFloorApartmentsGolfCourseExtensionRoadRoute
   HomeLoansRoute: typeof HomeLoansRoute
   LuxuryRoute: typeof LuxuryRoute
-  NriRoute: typeof NriRouteWithChildren
+  NriRoute: typeof NriRoute
   NriSellPropertyGurgaonRoute: typeof NriSellPropertyGurgaonRoute
   PropertiesRoute: typeof PropertiesRoute
   PropertyBuyingAdvisoryGurgaonRoute: typeof PropertyBuyingAdvisoryGurgaonRoute
@@ -788,13 +776,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LocationsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/nri/$market': {
-      id: '/nri/$market'
-      path: '/$market'
-      fullPath: '/nri/$market'
-      preLoaderRoute: typeof NriMarketRouteImport
-      parentRoute: typeof NriRoute
-    }
     '/nri_/$country': {
       id: '/nri_/$country'
       path: '/nri/$country'
@@ -944,16 +925,6 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
-interface NriRouteChildren {
-  NriMarketRoute: typeof NriMarketRoute
-}
-
-const NriRouteChildren: NriRouteChildren = {
-  NriMarketRoute: NriMarketRoute,
-}
-
-const NriRouteWithChildren = NriRoute._addFileChildren(NriRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
@@ -973,7 +944,7 @@ const rootRouteChildren: RootRouteChildren = {
     HigherFloorApartmentsGolfCourseExtensionRoadRoute,
   HomeLoansRoute: HomeLoansRoute,
   LuxuryRoute: LuxuryRoute,
-  NriRoute: NriRouteWithChildren,
+  NriRoute: NriRoute,
   NriSellPropertyGurgaonRoute: NriSellPropertyGurgaonRoute,
   PropertiesRoute: PropertiesRoute,
   PropertyBuyingAdvisoryGurgaonRoute: PropertyBuyingAdvisoryGurgaonRoute,
