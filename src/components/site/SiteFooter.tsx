@@ -21,6 +21,7 @@ const NRI_MARKET_LINKS = [
 ] as const;
 
 const POPULAR_SEARCH_LINKS = [
+  ["/property-buying-advisory-gurgaon", "Gurgaon Buyer Advisory"],
   ["/desperate-deals-gurgaon", "Urgent Sale Deals"],
   ["/apartments-for-sale-dlf-phase-1-gurgaon", "DLF Phase 1 Apartments"],
   ["/higher-floor-apartments-golf-course-extension-road", "Higher-Floor Apartments"],
@@ -42,11 +43,19 @@ export function SiteFooter() {
               <MapPin className="mt-0.5 size-4 shrink-0 text-gold" aria-hidden="true" />
               {CONTACT.address}
             </span>
-            <a href={CONTACT.phoneHref} onClick={() => trackContact("phone", "site_footer_primary")} className="flex gap-3 hover:text-gold">
+            <a
+              href={CONTACT.phoneHref}
+              onClick={() => trackContact("phone", "site_footer_primary")}
+              className="flex gap-3 hover:text-gold"
+            >
               <Phone className="size-4 shrink-0 text-gold" aria-hidden="true" />
               {CONTACT.phone}
             </a>
-            <a href={CONTACT.alternatePhoneHref} onClick={() => trackContact("phone", "site_footer_alternate")} className="flex gap-3 hover:text-gold">
+            <a
+              href={CONTACT.alternatePhoneHref}
+              onClick={() => trackContact("phone", "site_footer_alternate")}
+              className="flex gap-3 hover:text-gold"
+            >
               <Phone className="size-4 shrink-0 text-gold" aria-hidden="true" />
               {CONTACT.alternatePhone}
             </a>
@@ -58,7 +67,12 @@ export function SiteFooter() {
               href={CONTACT.googleBusinessProfile}
               target="_blank"
               rel="noreferrer"
-              onClick={() => trackEvent("google_business_profile_click", { location: "site_footer", page_path: window.location.pathname })}
+              onClick={() =>
+                trackEvent("google_business_profile_click", {
+                  location: "site_footer",
+                  page_path: window.location.pathname,
+                })
+              }
               className="flex gap-3 hover:text-gold"
             >
               <MapPin className="mt-0.5 size-4 shrink-0 text-gold" aria-hidden="true" />
@@ -70,13 +84,46 @@ export function SiteFooter() {
         <nav aria-label="Services">
           <p className="eyebrow">Services</p>
           <ul className="mt-4 space-y-2 text-sm text-navy-foreground/80">
-            <li><Link to="/properties" className="hover:text-gold">Buy Property in Gurgaon</Link></li>
-            <li><Link to="/properties" className="hover:text-gold">Rent & Lease</Link></li>
-            <li><Link to="/sell-property-gurgaon" className="hover:text-gold">Sell Property in Gurgaon</Link></li>
-            <li><Link to="/nri" className="hover:text-gold">NRI Property Services</Link></li>
-            <li><Link to="/nri-sell-property-gurgaon" className="hover:text-gold">NRI Owners: Sell from Abroad</Link></li>
-            <li><Link to="/home-loans" className="hover:text-gold">Home Loan Assistance</Link></li>
-            <li><Link to="/emi-calculator" className="hover:text-gold">EMI Calculator</Link></li>
+            <li>
+              <Link to="/properties" className="hover:text-gold">
+                Buy Property in Gurgaon
+              </Link>
+            </li>
+            <li>
+              <Link to="/property-buying-advisory-gurgaon" className="hover:text-gold">
+                Property Buying Advisory
+              </Link>
+            </li>
+            <li>
+              <Link to="/properties" className="hover:text-gold">
+                Rent & Lease
+              </Link>
+            </li>
+            <li>
+              <Link to="/sell-property-gurgaon" className="hover:text-gold">
+                Sell Property in Gurgaon
+              </Link>
+            </li>
+            <li>
+              <Link to="/nri" className="hover:text-gold">
+                NRI Property Services
+              </Link>
+            </li>
+            <li>
+              <Link to="/nri-sell-property-gurgaon" className="hover:text-gold">
+                NRI Owners: Sell from Abroad
+              </Link>
+            </li>
+            <li>
+              <Link to="/home-loans" className="hover:text-gold">
+                Home Loan Assistance
+              </Link>
+            </li>
+            <li>
+              <Link to="/emi-calculator" className="hover:text-gold">
+                EMI Calculator
+              </Link>
+            </li>
           </ul>
         </nav>
 
@@ -96,9 +143,21 @@ export function SiteFooter() {
         <nav aria-label="Company">
           <p className="eyebrow">Company</p>
           <ul className="mt-4 space-y-2 text-sm text-navy-foreground/80">
-            <li><Link to="/about" className="hover:text-gold">About & Founder</Link></li>
-            <li><Link to="/gurugram-growth-story" className="hover:text-gold">Gurugram Growth Story</Link></li>
-            <li><Link to="/contact" className="hover:text-gold">Contact</Link></li>
+            <li>
+              <Link to="/about" className="hover:text-gold">
+                About & Founder
+              </Link>
+            </li>
+            <li>
+              <Link to="/gurugram-growth-story" className="hover:text-gold">
+                Gurugram Growth Story
+              </Link>
+            </li>
+            <li>
+              <Link to="/contact" className="hover:text-gold">
+                Contact
+              </Link>
+            </li>
           </ul>
         </nav>
       </div>
@@ -110,7 +169,9 @@ export function SiteFooter() {
             {POPULAR_SEARCH_LINKS.map(([href, label], index) => (
               <span key={href}>
                 {index > 0 ? " · " : ""}
-                <a href={href} className="hover:text-gold">{label}</a>
+                <a href={href} className="hover:text-gold">
+                  {label}
+                </a>
               </span>
             ))}
           </p>
@@ -119,10 +180,15 @@ export function SiteFooter() {
             {NRI_MARKET_LINKS.map(([slug, label], index) => (
               <span key={slug}>
                 {index > 0 ? " · " : ""}
-                <a href={`/nri/${slug}`} className="hover:text-gold">{label}</a>
+                <a href={`/nri/${slug}`} className="hover:text-gold">
+                  {label}
+                </a>
               </span>
             ))}
-            {" · "}<Link to="/nri" className="hover:text-gold">All NRI property services</Link>
+            {" · "}
+            <Link to="/nri" className="hover:text-gold">
+              All NRI property services
+            </Link>
           </p>
           <p className="text-xs leading-relaxed text-navy-foreground/55">{LOAN_DISCLAIMER}</p>
           <p className="text-xs text-navy-foreground/55">
