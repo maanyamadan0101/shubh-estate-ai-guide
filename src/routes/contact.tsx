@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { ExternalLink, Mail, MapPin, Phone } from "lucide-react";
 import { PageHero } from "@/components/site/SectionHead";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -18,12 +18,12 @@ export const Route = createFileRoute("/contact")({
       {
         name: "description",
         content:
-          "Visit our office at Ocus Quantum Mall, Sector 51, Gurugram or call +91 8130785000 for property advisory, site visits, valuation and home loan assistance.",
+          "Visit Shubh Estate Brokers at Ocus Quantum Mall, Sector 51, Gurugram for property advisory, site visits, valuation, title review and home-loan assistance.",
       },
       { property: "og:title", content: "Contact Shubh Estate Brokers, Gurugram" },
       {
         property: "og:description",
-        content: "Book a site visit, request a callback or speak with a mortgage expert.",
+        content: "Book a site visit, request a callback or speak with our property and mortgage advisory team.",
       },
     ],
   }),
@@ -73,7 +73,7 @@ function Contact() {
       <PageHero
         eyebrow="Contact"
         title="Let's talk about your next property decision"
-        body="Book a site visit, request a callback, or arrange a mortgage consultation with our team in Sector 51."
+        body="Book a site visit, request a callback, or arrange a property, title or mortgage consultation with our team in Sector 51."
       />
 
       <section className="container-page grid gap-12 py-16 lg:grid-cols-[1.1fr_0.9fr]">
@@ -108,6 +108,7 @@ function Contact() {
                     "Renting / Leasing",
                     "Home loan assistance",
                     "Property valuation",
+                    "Title / documentation review",
                     "Investment advisory",
                     "NRI services",
                   ].map((option) => (
@@ -141,16 +142,28 @@ function Contact() {
                 <Phone className="size-4 shrink-0 text-gold" aria-hidden="true" />
                 {CONTACT.phone}
               </a>
+              <a href={CONTACT.alternatePhoneHref} className="flex gap-3 hover:text-gold">
+                <Phone className="size-4 shrink-0 text-gold" aria-hidden="true" />
+                {CONTACT.alternatePhone}
+              </a>
               <a href={`mailto:${CONTACT.email}`} className="flex gap-3 hover:text-gold">
                 <Mail className="size-4 shrink-0 text-gold" aria-hidden="true" />
                 {CONTACT.email}
               </a>
             </address>
-            <Button asChild variant="gold" className="mt-7">
-              <a href={CONTACT.whatsapp} target="_blank" rel="noreferrer">
-                Chat on WhatsApp
-              </a>
-            </Button>
+            <div className="mt-7 flex flex-wrap gap-3">
+              <Button asChild variant="gold">
+                <a href={CONTACT.whatsapp} target="_blank" rel="noreferrer">
+                  Chat on WhatsApp
+                </a>
+              </Button>
+              <Button asChild variant="goldOutline">
+                <a href={CONTACT.googleBusinessProfile} target="_blank" rel="noreferrer">
+                  <ExternalLink className="size-4" aria-hidden="true" />
+                  Google Business Profile
+                </a>
+              </Button>
+            </div>
           </div>
 
           <div className="overflow-hidden rounded-2xl border border-border">
