@@ -1,0 +1,1 @@
+Requested search themes covered in this branch: desperate deals in Gurgaon/Gurugram; flat for sale in Gurgaon; apartments for sale on Golf Course Extension Road; apartments for sale on Golf Course Road; apartments for sale in DLF Phase 1; higher-floor apartments on Golf Course Extension Road; housing for senior citizens; and best areas of Gurgaon for property investment.
