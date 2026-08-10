@@ -25,6 +25,8 @@ const POPULAR_SEARCH_LINKS = [
   ["/higher-floor-apartments-golf-course-extension-road", "Higher-Floor Apartments"],
   ["/senior-citizen-housing-gurgaon", "Senior Citizen Housing"],
   ["/best-areas-gurgaon-property-investment", "Property Investment Areas"],
+  ["/godrej-101-sector-79-gurgaon", "Godrej 101 Sector 79"],
+  ["/property-sector-79-gurgaon", "Property in Sector 79"],
 ] as const;
 
 export function SiteFooter() {
@@ -68,7 +70,9 @@ export function SiteFooter() {
           <ul className="mt-4 space-y-2 text-sm text-navy-foreground/80">
             <li><Link to="/properties" className="hover:text-gold">Buy Property in Gurgaon</Link></li>
             <li><Link to="/properties" className="hover:text-gold">Rent & Lease</Link></li>
+            <li><Link to="/sell-property-gurgaon" className="hover:text-gold">Sell Property in Gurgaon</Link></li>
             <li><Link to="/nri" className="hover:text-gold">NRI Property Services</Link></li>
+            <li><Link to="/nri-sell-property-gurgaon" className="hover:text-gold">NRI Owners: Sell from Abroad</Link></li>
             <li><Link to="/home-loans" className="hover:text-gold">Home Loan Assistance</Link></li>
             <li><Link to="/emi-calculator" className="hover:text-gold">EMI Calculator</Link></li>
           </ul>
