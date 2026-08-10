@@ -35,9 +35,22 @@ export function SiteFooter() {
               <Phone className="size-4 shrink-0 text-gold" aria-hidden="true" />
               {CONTACT.phone}
             </a>
+            <a href={CONTACT.alternatePhoneHref} className="flex gap-3 hover:text-gold">
+              <Phone className="size-4 shrink-0 text-gold" aria-hidden="true" />
+              {CONTACT.alternatePhone}
+            </a>
             <a href={`mailto:${CONTACT.email}`} className="flex gap-3 hover:text-gold">
               <Mail className="size-4 shrink-0 text-gold" aria-hidden="true" />
               {CONTACT.email}
+            </a>
+            <a
+              href={CONTACT.googleBusinessProfile}
+              target="_blank"
+              rel="noreferrer"
+              className="flex gap-3 hover:text-gold"
+            >
+              <MapPin className="mt-0.5 size-4 shrink-0 text-gold" aria-hidden="true" />
+              View our verified Google Business Profile
             </a>
           </address>
         </div>
