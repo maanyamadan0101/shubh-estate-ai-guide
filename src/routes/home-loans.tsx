@@ -4,33 +4,99 @@ import { PageHero, SectionHead } from "@/components/site/SectionHead";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { CONTACT, LOAN_DISCLAIMER } from "@/data/site";
+import { SITE_ORIGIN } from "@/lib/seo";
+
+const LOAN_FAQS = [
+  {
+    q: "How much can I borrow against a Gurugram property?",
+    a: "Eligible applicants may be funded up to 90% of the eligible property value, subject to income, existing obligations, credit profile, property approvals, valuation, documentation and lender policy. The purchase price and lender-assessed value can differ.",
+  },
+  {
+    q: "What documents are normally required for a home loan?",
+    a: "Lenders typically request identity and address proof, income documents, bank statements, credit information and property papers. The exact checklist varies by applicant type, lender and property, so it should be confirmed before submission.",
+  },
+  {
+    q: "Can Shubh Estate Brokers coordinate the property search and bank loan together?",
+    a: "Yes. Budget and indicative eligibility can be considered before shortlisting, and we can coordinate property-related lender requirements, valuation access, documentation follow-up and the application process. Final sanction and terms remain entirely with the lender.",
+  },
+  {
+    q: "Can NRIs apply for a Gurgaon home loan?",
+    a: "Eligible NRI and OCI applicants can apply subject to lender policy, income country, documentation, property eligibility and applicable regulations. We can coordinate the property and lender process; transaction-specific legal, tax, power of attorney and repatriation questions should be confirmed with qualified professionals.",
+  },
+  {
+    q: "Do you help with a home-loan balance transfer or top-up?",
+    a: "We can compare the existing facility with available lender options and coordinate a balance-transfer or top-up application where eligible. Savings should be calculated after processing, legal, valuation, foreclosure and other applicable charges.",
+  },
+  {
+    q: "Can you advise on home-loan tax benefits?",
+    a: "We can explain the financing structure and documents commonly provided by lenders, but tax deductions depend on current law, ownership, possession, use of the property and the borrower's circumstances. A chartered accountant or qualified tax professional should confirm the applicable benefit.",
+  },
+] as const;
 
 export const Route = createFileRoute("/home-loans")({
-  head: () => ({
-    meta: [
-      { title: "Home Loan in Gurgaon | Mortgage Consultant — Shubh Estate Brokers" },
-      {
-        name: "description",
-        content:
-          "Home loans up to 90% at the best available interest rates with minimal documentation. Valuation, legal verification, loan structuring and bank coordination in Gurugram.",
-      },
-      { property: "og:title", content: "Home Loan Assistance in Gurgaon | Shubh Estate Brokers" },
-      {
-        property: "og:description",
-        content: "Mortgage structuring by a former banking professional — salaried, self-employed and NRI applicants.",
-      },
-    ],
-  }),
+  head: () => {
+    const canonical = `${SITE_ORIGIN}/home-loans`;
+    const title = "Home Loan Assistance in Gurgaon | Bank & Mortgage Coordination";
+    const description =
+      "Gurgaon home-loan assistance for eligibility review, lender comparison, property valuation, documentation, bank coordination and NRI applicants.";
+
+    return {
+      meta: [
+        { title },
+        { name: "description", content: description },
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
+        { property: "og:url", content: canonical },
+      ],
+      links: [{ rel: "canonical", href: canonical }],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Service",
+            name: "Home Loan and Mortgage Coordination in Gurgaon",
+            provider: {
+              "@type": "RealEstateAgent",
+              "@id": `${SITE_ORIGIN}/#real-estate-agent`,
+              name: "Shubh Estate Brokers",
+              url: SITE_ORIGIN,
+            },
+            areaServed: "Gurugram, Haryana, India",
+            serviceType: "Home-loan eligibility, documentation, valuation and lender coordination",
+            url: canonical,
+          }),
+        },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: LOAN_FAQS.map((faq) => ({
+              "@type": "Question",
+              name: faq.q,
+              acceptedAnswer: { "@type": "Answer", text: faq.a },
+            })),
+          }),
+        },
+      ],
+    };
+  },
   component: HomeLoans,
 });
 
 const SERVICES = [
   "Home Loans up to 90% (subject to lender eligibility)",
-  "Best Available Interest Rates",
-  "Minimal Documentation",
-  "Faster Processing",
+  "Lender and Rate Comparison",
+  "Applicant-Specific Document Checklist",
+  "Application Follow-Up",
   "Property Valuation",
   "Legal Verification",
   "Title Assessment",
@@ -44,9 +110,11 @@ const SERVICES = [
 ];
 
 const inr = (n: number) =>
-  new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 }).format(
-    Math.round(n),
-  );
+  new Intl.NumberFormat("en-IN", {
+    style: "currency",
+    currency: "INR",
+    maximumFractionDigits: 0,
+  }).format(Math.round(n));
 
 function HomeLoans() {
   const [income, setIncome] = useState(150000);
@@ -71,7 +139,7 @@ function HomeLoans() {
       <PageHero
         eyebrow="Home Loan Assistance"
         title="Home loans arranged the way a banker would structure them"
-        body="We arrange home loans at the best available interest rates with minimal documentation through leading banks and financial institutions."
+        body="We coordinate eligibility, lender comparison, property valuation, documentation and application follow-up through suitable banks and financial institutions."
       />
 
       <section className="container-page py-16">
@@ -94,10 +162,28 @@ function HomeLoans() {
               body="An indicative view based on income, obligations, age and property cost. Final sanction rests with the lender."
             />
             <div className="mt-8 space-y-5 rounded-xl border border-border bg-card p-6">
-              <Field id="income" label="Net monthly income (₹)" value={income} onChange={setIncome} step={5000} />
-              <Field id="emi" label="Existing monthly EMIs (₹)" value={existingEmi} onChange={setExistingEmi} step={1000} />
+              <Field
+                id="income"
+                label="Net monthly income (₹)"
+                value={income}
+                onChange={setIncome}
+                step={5000}
+              />
+              <Field
+                id="emi"
+                label="Existing monthly EMIs (₹)"
+                value={existingEmi}
+                onChange={setExistingEmi}
+                step={1000}
+              />
               <Field id="age" label="Age (years)" value={age} onChange={setAge} step={1} />
-              <Field id="cost" label="Property cost (₹)" value={cost} onChange={setCost} step={100000} />
+              <Field
+                id="cost"
+                label="Property cost (₹)"
+                value={cost}
+                onChange={setCost}
+                step={100000}
+              />
             </div>
           </div>
 
@@ -112,7 +198,10 @@ function HomeLoans() {
                 ["Monthly repayment capacity", inr(result.capacity)],
                 ["Recommended LTV", `${result.ltv.toFixed(0)}%`],
               ].map(([k, v]) => (
-                <div key={k} className="flex justify-between border-b border-navy-foreground/15 pb-2">
+                <div
+                  key={k}
+                  className="flex justify-between border-b border-navy-foreground/15 pb-2"
+                >
                   <dt className="text-navy-foreground/70">{k}</dt>
                   <dd className="font-medium">{v}</dd>
                 </div>
@@ -136,24 +225,7 @@ function HomeLoans() {
         <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
           <SectionHead eyebrow="Loan FAQ" title="Before you apply" />
           <Accordion type="single" collapsible>
-            {[
-              {
-                q: "How much can I borrow against a Gurugram property?",
-                a: "Eligible applicants may be funded up to 90% of property value, subject to income eligibility, credit profile, property approvals and lender policy.",
-              },
-              {
-                q: "What documents are required?",
-                a: "Typically KYC, income proof (salary slips or ITRs), bank statements and property documents. We keep documentation minimal and pre-check files before submission.",
-              },
-              {
-                q: "Can NRIs apply?",
-                a: "Yes. We arrange NRI home loans including POA-based documentation, repatriation-compliant structuring and coordination across time zones.",
-              },
-              {
-                q: "Do you help with balance transfer?",
-                a: "Yes — we benchmark your current rate against live offers and manage the switch, including top-up funding where eligible.",
-              },
-            ].map((f) => (
+            {LOAN_FAQS.map((f) => (
               <AccordionItem key={f.q} value={f.q}>
                 <AccordionTrigger className="text-left">{f.q}</AccordionTrigger>
                 <AccordionContent className="text-muted-foreground">{f.a}</AccordionContent>
