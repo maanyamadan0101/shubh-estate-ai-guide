@@ -23,9 +23,9 @@ import { SITE_ORIGIN } from "@/lib/seo";
 
 export const Route = createFileRoute("/")({
   head: () => {
-    const title = "Gurugram Real Estate Advisory | Shubh Estate Brokers";
+    const title = "Property in Gurgaon | Shubh Estate Brokers";
     const description =
-      "Founder-led Gurugram real estate advisory for budget-based shortlisting, realistic pricing, property selling, NRI services, mortgage coordination and due diligence.";
+      "Explore verified property in Gurgaon with founder-led advice for buying, selling, luxury apartments, NRI services, home loans, valuation and due diligence.";
 
     return {
       meta: [
@@ -33,12 +33,12 @@ export const Route = createFileRoute("/")({
         { name: "description", content: description },
         {
           property: "og:title",
-          content: "Shubh Estate Brokers | Founder-led Gurugram Property Advisory",
+          content: "Property in Gurgaon | Founder-led Gurugram Advisory",
         },
         {
           property: "og:description",
           content:
-            "Fair and transparent Gurugram property advice with budget-first shortlisting, price context, mortgage coordination and transaction support.",
+            "Verified Gurgaon properties with budget-first shortlisting, price context, mortgage coordination and transaction support.",
         },
         { property: "og:url", content: SITE_ORIGIN },
       ],
@@ -117,15 +117,15 @@ function Home() {
 
         <div className="container-page py-24 text-navy-foreground md:py-36">
           <div className="max-w-3xl animate-rise">
-            <span className="eyebrow">Founder-led · Gurugram</span>
+            <span className="eyebrow">Verified Gurgaon Property · Founder-led Advice</span>
             <h1 className="mt-4 font-display text-4xl leading-[1.08] sm:text-5xl md:text-6xl">
-              Property advice backed by
+              Property in Gurgaon, backed by
               <span className="text-gradient-gold"> banking-grade judgement</span>
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-7 text-navy-foreground/80 md:text-lg">
-              Shubh Estate Brokers helps buyers, sellers, investors and NRIs make property decisions
-              with financial clarity — combining Gurugram market knowledge with mortgage, valuation
-              and legal due-diligence experience.
+              Explore flats, resale homes and luxury apartments for sale in Gurgaon with financial
+              clarity. Shubh Estate Brokers combines local market knowledge with mortgage, valuation
+              and legal due-diligence experience for buyers, sellers, investors and NRIs.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button asChild variant="gold" size="xl">
@@ -435,7 +435,24 @@ function Home() {
           </div>
           <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm">
             <Link to="/properties" className="text-gold underline-offset-4 hover:underline">
-              Browse current Gurgaon properties
+              Flats for sale in Gurgaon
+            </Link>
+            <Link to="/luxury" className="text-gold underline-offset-4 hover:underline">
+              Luxury apartments in Gurgaon
+            </Link>
+            <Link
+              to="/locations/$slug"
+              params={{ slug: "dwarka-expressway" }}
+              className="text-gold underline-offset-4 hover:underline"
+            >
+              Dwarka Expressway property
+            </Link>
+            <Link
+              to="/locations/$slug"
+              params={{ slug: "new-gurgaon" }}
+              className="text-gold underline-offset-4 hover:underline"
+            >
+              New Gurgaon property
             </Link>
             <Link
               to="/godrej-101-sector-79-gurgaon"
