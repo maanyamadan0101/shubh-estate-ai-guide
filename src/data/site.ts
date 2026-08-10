@@ -7,11 +7,14 @@ export const CONTACT = {
   name: "Shubh Estate Brokers",
   tagline: "Fair & Transparent Real Estate Deals at the Best Price",
   address: "15th Floor, Ocus Quantum Mall, Sector 51, Gurugram – 122003, Haryana",
-  phone: "+91 8130785000",
-  phoneHref: "tel:+918130785000",
-  whatsapp: "https://wa.me/918130785000",
+  phone: "+91 9911050561",
+  phoneHref: "tel:+919911050561",
+  alternatePhone: "+91 8130785000",
+  alternatePhoneHref: "tel:+918130785000",
+  whatsapp: "https://wa.me/919911050561",
   email: "sales@shubhestatebroker.in",
   website: "www.shubhestatebroker.in",
+  googleBusinessProfile: "https://www.google.com/search?q=Shubh+Estate+Brokers&stick=H4sIAAAAAAAA_-NgU1I1qDC2NEgxMjZJSjS1SDNJSjO1AgqlJKYZpBqYpSUlG5qbp5ouYhUJzihNylBwLS5JLElVcCrKz04tKgYAC6kHGEAAAAA&hl=en-GB&mat=CQc4_erXssgBElYBa0lj_ybgmqVIZrB49UjyibAzFmZh9OK8qFLi_nYKDltSnbMrwIBsFTUjH8wfBsu3gyXxLwV5zSI2FA9iRh2qJnxzRfuDGDzpEFaMfMJGQspwRNUuWw",
 };
 
 export const LOAN_DISCLAIMER =
