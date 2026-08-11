@@ -3,23 +3,11 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ChevronLeft,
   ChevronRight,
-  Landmark,
   MapPin,
-  Search,
-  SlidersHorizontal,
-  X,
 } from "lucide-react";
 import { PageHero } from "@/components/site/SectionHead";
 import { ListingCard } from "@/components/site/ListingCard";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { listPublicProperties, type ListingRow } from "@/lib/properties.functions";
 import { SITE_ORIGIN } from "@/lib/seo";
 import {
@@ -37,18 +25,6 @@ const CORRIDORS = [
   { slug: "new-gurgaon", label: "New Gurugram" },
   { slug: "golf-course-road", label: "Golf Course Road" },
 ];
-
-const POPULAR_SEARCHES = [
-  ["/luxury", "Luxury apartments in Gurgaon"],
-  ["/desperate-deals-gurgaon", "Desperate / urgent-sale deals in Gurgaon"],
-  ["/apartments-for-sale-dlf-phase-1-gurgaon", "Apartments for sale in DLF Phase 1"],
-  [
-    "/higher-floor-apartments-golf-course-extension-road",
-    "Higher-floor apartments on Golf Course Extension Road",
-  ],
-  ["/senior-citizen-housing-gurgaon", "Housing for senior citizens in Gurgaon"],
-  ["/best-areas-gurgaon-property-investment", "Best Gurgaon areas to evaluate for investment"],
-] as const;
 
 const PROPERTY_FAQS = [
   {
@@ -287,51 +263,9 @@ function Properties() {
             </div>
           </div>
 
-          <div className="rounded-xl border border-gold/30 bg-gold/5 p-6">
-            <div className="flex items-start gap-3">
-              <Landmark className="mt-1 size-5 shrink-0 text-gold" aria-hidden="true" />
-              <div>
-                <p className="text-xs font-medium uppercase tracking-[0.18em] text-gold">
-                  Financing Support
-                </p>
-                <h2 className="mt-1 font-display text-2xl">Home loan up to 90%*</h2>
-                <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                  We can coordinate home-loan assistance for eligible buyers. Final sanction depends
-                  on buyer eligibility, lender approval and property/document verification.
-                </p>
-                <Link
-                  to="/home-loans"
-                  className="mt-3 inline-block text-sm font-medium text-gold underline-offset-4 hover:underline"
-                >
-                  View home-loan assistance
-                </Link>
-              </div>
-            </div>
-          </div>
+
         </div>
 
-        <div className="mt-4 rounded-xl border border-border bg-card p-6">
-          <div className="flex items-start gap-3">
-            <Search className="mt-1 size-5 shrink-0 text-gold" aria-hidden="true" />
-            <div>
-              <p className="text-xs font-medium uppercase tracking-[0.18em] text-gold">
-                Popular Gurgaon Property Searches
-              </p>
-              <h2 className="mt-1 font-display text-2xl">Browse by specific buying requirement</h2>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {POPULAR_SEARCHES.map(([href, label]) => (
-                  <a
-                    key={href}
-                    href={href}
-                    className="rounded-full border border-border bg-background px-3 py-2 text-xs font-medium transition-colors hover:border-gold hover:text-gold"
-                  >
-                    {label}
-                  </a>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
       </section>
 
       <section className="container-page py-14">
@@ -363,135 +297,7 @@ function Properties() {
               </p>
             </div>
 
-            <div className="mb-8 rounded-2xl border border-border bg-card p-5 shadow-sm md:p-6">
-              <div className="flex flex-wrap items-center justify-between gap-3">
-                <div className="flex items-center gap-2">
-                  <SlidersHorizontal className="size-5 text-gold" aria-hidden="true" />
-                  <h3 className="font-display text-xl">Find the right property</h3>
-                </div>
-                {hasActiveFilters ? (
-                  <Button type="button" variant="ghost" size="sm" onClick={clearFilters}>
-                    <X aria-hidden="true" />
-                    Clear filters
-                  </Button>
-                ) : null}
-              </div>
 
-              <div className="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-6">
-                <label className="relative sm:col-span-2 lg:col-span-2">
-                  <span className="sr-only">Search by project, sector or locality</span>
-                  <Search
-                    className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
-                    aria-hidden="true"
-                  />
-                  <Input
-                    value={query}
-                    onChange={(event) => {
-                      setQuery(event.target.value);
-                      setPage(1);
-                    }}
-                    placeholder="Project, sector or locality"
-                    className="pl-9"
-                  />
-                </label>
-
-                <Select
-                  value={purpose}
-                  onValueChange={(value) => {
-                    setPurpose(value);
-                    setPage(1);
-                  }}
-                >
-                  <SelectTrigger aria-label="Purpose">
-                    <SelectValue placeholder="Purpose" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">Buy or rent</SelectItem>
-                    <SelectItem value="sale">For sale</SelectItem>
-                    <SelectItem value="rent">For rent</SelectItem>
-                  </SelectContent>
-                </Select>
-
-                <Select
-                  value={bhk}
-                  onValueChange={(value) => {
-                    setBhk(value);
-                    setPage(1);
-                  }}
-                >
-                  <SelectTrigger aria-label="Configuration">
-                    <SelectValue placeholder="BHK" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">Any BHK</SelectItem>
-                    {bhkOptions.map((option) => (
-                      <SelectItem key={option} value={option}>
-                        {option}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-
-                <Select
-                  value={budget}
-                  onValueChange={(value) => {
-                    setBudget(value as BudgetFilter);
-                    setPage(1);
-                  }}
-                >
-                  <SelectTrigger aria-label="Budget">
-                    <SelectValue placeholder="Budget" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">Any budget</SelectItem>
-                    <SelectItem value="under-1cr">Under ₹1 Cr</SelectItem>
-                    <SelectItem value="1-2cr">₹1–2 Cr</SelectItem>
-                    <SelectItem value="2-4cr">₹2–4 Cr</SelectItem>
-                    <SelectItem value="4cr-plus">₹4 Cr+</SelectItem>
-                  </SelectContent>
-                </Select>
-
-                <Select
-                  value={status}
-                  onValueChange={(value) => {
-                    setStatus(value);
-                    setPage(1);
-                  }}
-                >
-                  <SelectTrigger aria-label="Possession status">
-                    <SelectValue placeholder="Status" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">Any status</SelectItem>
-                    <SelectItem value="ready_to_move">Ready to move</SelectItem>
-                    <SelectItem value="under_construction">Under construction</SelectItem>
-                    <SelectItem value="new_launch">New launch</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="mt-3 flex justify-end">
-                <div className="w-full sm:w-52">
-                  <Select
-                    value={sort}
-                    onValueChange={(value) => {
-                      setSort(value as SortOption);
-                      setPage(1);
-                    }}
-                  >
-                    <SelectTrigger aria-label="Sort properties">
-                      <SelectValue placeholder="Sort" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="recommended">Newest first</SelectItem>
-                      <SelectItem value="price-low">Price: low to high</SelectItem>
-                      <SelectItem value="price-high">Price: high to low</SelectItem>
-                      <SelectItem value="area-high">Largest area first</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-            </div>
 
             {visibleProperties.length ? (
               <>
