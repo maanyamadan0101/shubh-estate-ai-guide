@@ -4,8 +4,10 @@ import {
   Building2,
   FileCheck2,
   Landmark,
+  MapPin,
   Quote,
   Scale,
+  Search,
   ShieldCheck,
   Sparkles,
   TrendingUp,
@@ -101,6 +103,15 @@ const MARKET_FACTS = [
   ["~US$6.0 bn", "Investment inflows since 2018"],
 ];
 
+const POPULAR_SECTORS = [
+  ["sector-62-gurgaon", "Sector 62"],
+  ["sector-65-gurgaon", "Sector 65"],
+  ["sector-66-gurgaon", "Sector 66"],
+  ["sector-82-gurgaon", "Sector 82"],
+  ["sector-85-gurgaon", "Sector 85"],
+  ["sector-102-gurgaon", "Sector 102"],
+] as const;
+
 function Home() {
   return (
     <>
@@ -140,6 +151,88 @@ function Home() {
               The objective is not to push inventory. It is to help you understand the price, title,
               financing, downside and exit before you commit.
             </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="container-page relative z-10 -mt-10" aria-label="Property finder">
+        <div className="rounded-2xl border border-gold/30 bg-card p-5 shadow-[var(--shadow-elegant)] md:p-6">
+          <div className="flex flex-wrap items-end justify-between gap-3">
+            <div>
+              <p className="eyebrow">Find a Gurgaon property</p>
+              <h2 className="mt-1 font-display text-2xl">Search current flats by requirement</h2>
+            </div>
+            <p className="max-w-md text-sm text-muted-foreground">
+              Start with a project, sector or locality. Refine by buying purpose and budget on the
+              live property catalogue.
+            </p>
+          </div>
+
+          <form
+            action="/properties"
+            method="get"
+            className="mt-5 grid gap-3 md:grid-cols-[1.5fr_0.8fr_0.8fr_auto]"
+          >
+            <label className="relative">
+              <span className="sr-only">Project, sector or locality</span>
+              <Search
+                className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"
+                aria-hidden="true"
+              />
+              <input
+                name="q"
+                type="search"
+                placeholder="Project, sector or locality"
+                className="h-11 w-full rounded-md border border-input bg-background pl-9 pr-3 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-gold focus:ring-2 focus:ring-gold/20"
+              />
+            </label>
+            <label>
+              <span className="sr-only">Property purpose</span>
+              <select
+                name="purpose"
+                defaultValue="sale"
+                className="h-11 w-full rounded-md border border-input bg-background px-3 text-sm outline-none focus:border-gold focus:ring-2 focus:ring-gold/20"
+              >
+                <option value="sale">For sale</option>
+                <option value="rent">For rent</option>
+                <option value="all">Buy or rent</option>
+              </select>
+            </label>
+            <label>
+              <span className="sr-only">Property budget</span>
+              <select
+                name="budget"
+                defaultValue="all"
+                className="h-11 w-full rounded-md border border-input bg-background px-3 text-sm outline-none focus:border-gold focus:ring-2 focus:ring-gold/20"
+              >
+                <option value="all">Any budget</option>
+                <option value="under-1cr">Under ₹1 Cr</option>
+                <option value="1-2cr">₹1–2 Cr</option>
+                <option value="2-4cr">₹2–4 Cr</option>
+                <option value="4cr-plus">₹4 Cr+</option>
+              </select>
+            </label>
+            <Button type="submit" variant="navy" size="lg" className="h-11">
+              <Search aria-hidden="true" />
+              Search properties
+            </Button>
+          </form>
+
+          <div className="mt-4 flex flex-wrap items-center gap-2 text-xs">
+            <span className="flex items-center gap-1.5 font-medium text-muted-foreground">
+              <MapPin className="size-3.5 text-gold" aria-hidden="true" />
+              Popular sectors
+            </span>
+            {POPULAR_SECTORS.map(([slug, label]) => (
+              <Link
+                key={slug}
+                to="/locations/$slug"
+                params={{ slug }}
+                className="rounded-full border border-border px-3 py-1.5 font-medium transition-colors hover:border-gold hover:text-gold"
+              >
+                {label}
+              </Link>
+            ))}
           </div>
         </div>
       </section>

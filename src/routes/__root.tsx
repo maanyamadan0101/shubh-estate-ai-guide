@@ -18,9 +18,9 @@ import { FloatingActions } from "@/components/site/FloatingActions";
 import { Toaster } from "@/components/ui/sonner";
 import { CONTACT } from "@/data/site";
 import { trackEvent } from "@/lib/analytics";
+import { SITE_ORIGIN } from "@/lib/seo";
 
 const GA_MEASUREMENT_ID = "G-8EWLZD8V5H";
-const SITE_ORIGIN = "https://shubhestatebroker.in";
 
 function NotFoundComponent() {
   return (

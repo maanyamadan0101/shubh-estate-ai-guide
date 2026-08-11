@@ -73,6 +73,14 @@ const PAGE_SIZE = 12;
 
 type BudgetFilter = "all" | "under-1cr" | "1-2cr" | "2-4cr" | "4cr-plus";
 type SortOption = "recommended" | "price-low" | "price-high" | "area-high";
+type PropertySearch = {
+  q?: string;
+  purpose?: "all" | "sale" | "rent";
+  budget?: BudgetFilter;
+};
+
+const PURPOSE_VALUES = new Set(["all", "sale", "rent"]);
+const BUDGET_VALUES = new Set<BudgetFilter>(["all", "under-1cr", "1-2cr", "2-4cr", "4cr-plus"]);
 
 function matchesBudget(price: number, budget: BudgetFilter) {
   if (budget === "under-1cr") return price < 10_000_000;
@@ -89,6 +97,17 @@ function absoluteImageUrl(value: string) {
 }
 
 export const Route = createFileRoute("/properties")({
+  validateSearch: (search: Record<string, unknown>): PropertySearch => ({
+    q: typeof search.q === "string" ? search.q.slice(0, 100) : undefined,
+    purpose:
+      typeof search.purpose === "string" && PURPOSE_VALUES.has(search.purpose)
+        ? (search.purpose as PropertySearch["purpose"])
+        : undefined,
+    budget:
+      typeof search.budget === "string" && BUDGET_VALUES.has(search.budget as BudgetFilter)
+        ? (search.budget as BudgetFilter)
+        : undefined,
+  }),
   loader: async () => listPublicProperties({ data: { limit: 60 } }),
   head: ({ loaderData }) => {
     const properties = loaderData?.properties ?? [];
@@ -157,16 +176,17 @@ export const Route = createFileRoute("/properties")({
 });
 
 function Properties() {
+  const search = Route.useSearch();
   const { properties, error } = Route.useLoaderData() as {
     properties: ListingRow[];
     error: string | null;
   };
 
-  const [query, setQuery] = useState("");
-  const [purpose, setPurpose] = useState("all");
+  const [query, setQuery] = useState(search.q ?? "");
+  const [purpose, setPurpose] = useState(search.purpose ?? "all");
   const [bhk, setBhk] = useState("all");
   const [status, setStatus] = useState("all");
-  const [budget, setBudget] = useState<BudgetFilter>("all");
+  const [budget, setBudget] = useState<BudgetFilter>(search.budget ?? "all");
   const [sort, setSort] = useState<SortOption>("recommended");
   const [page, setPage] = useState(1);
 

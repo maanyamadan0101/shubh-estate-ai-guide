@@ -34,6 +34,7 @@ export const listPublicProperties = createServerFn({ method: "GET" })
     z
       .object({
         locality: z.string().optional(),
+        sector: z.string().optional(),
         limit: z.number().int().positive().max(60).optional(),
         excludeSlug: z.string().optional(),
       })
@@ -53,6 +54,7 @@ export const listPublicProperties = createServerFn({ method: "GET" })
       // "New Gurugram / Dwarka Expressway". A contains match keeps those
       // listings discoverable on the relevant corridor landing page.
       if (data.locality) query = query.ilike("locality", `%${data.locality}%`);
+      if (data.sector) query = query.ilike("sector", data.sector);
       if (data.excludeSlug) query = query.neq("slug", data.excludeSlug);
 
       const { data: rows, error } = await query;

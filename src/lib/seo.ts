@@ -1,4 +1,4 @@
-export const SITE_ORIGIN = "https://shubhestatebroker.in";
+export const SITE_ORIGIN = "https://www.shubhestatebroker.in";
 
 export function slugify(input: string): string {
   return input
@@ -85,7 +85,10 @@ export function buildMetaDescription(s: SeoSource): string {
     s.areaSqft ? `${formatArea(s.areaSqft)}` : null,
     s.price ? `${formatINR(s.price)}` : null,
   ].filter(Boolean);
-  return `${bits.join(" · ")}. View property details, location, home-loan assistance and availability from Shubh Estate Brokers, Gurugram.`.slice(0, 160);
+  return `${bits.join(" · ")}. View property details, location, home-loan assistance and availability from Shubh Estate Brokers, Gurugram.`.slice(
+    0,
+    160,
+  );
 }
 
 export function buildOgTitle(s: SeoSource): string {
@@ -106,7 +109,14 @@ export function buildImageAlt(s: SeoSource, index: number): string {
     .filter(Boolean)
     .join(" ")
     .replace(/\s+/g, " ");
-  const views = ["property exterior", "living room", "bedroom", "kitchen", "balcony view", "interior view"];
+  const views = [
+    "property exterior",
+    "living room",
+    "bedroom",
+    "kitchen",
+    "balcony view",
+    "interior view",
+  ];
   return `${base} — ${views[index % views.length]}`;
 }
 
