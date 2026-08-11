@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHero } from "@/components/site/SectionHead";
 import { Button } from "@/components/ui/button";
 import { LOCALITIES } from "@/data/site";
+import { SITE_ORIGIN } from "@/lib/seo";
 
 export const Route = createFileRoute("/gurugram-growth-story")({
   head: () => ({
@@ -18,6 +19,9 @@ export const Route = createFileRoute("/gurugram-growth-story")({
         content: "A deep dive into Gurugram's infrastructure, corridors, luxury housing and investment potential.",
       },
       { property: "og:type", content: "article" },
+      { property: "og:url", content: `${SITE_ORIGIN}/gurugram-growth-story` },
+    ],
+    links: [{ rel: "canonical", href: `${SITE_ORIGIN}/gurugram-growth-story` }],
     ],
   }),
   component: GrowthStory,
