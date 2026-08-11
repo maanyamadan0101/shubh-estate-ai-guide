@@ -7,4 +7,4 @@ Disallow: /reset-password
 Disallow: /seller-submit
 Disallow: /api/seller-submission
 
-Sitemap: https://shubhestatebroker.in/sitemap.xml
+Sitemap: https://www.shubhestatebroker.in/sitemap.xml

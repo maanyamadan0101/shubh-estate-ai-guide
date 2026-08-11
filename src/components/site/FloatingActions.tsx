@@ -6,7 +6,7 @@ import { trackContact } from "@/lib/analytics";
 export function FloatingActions() {
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const whatsappMessage = encodeURIComponent(
-    `Hi Shubh Estate Brokers, I am interested in property advice related to https://shubhestatebroker.in${pathname}. Please contact me.`,
+    `Hi Shubh Estate Brokers, I am interested in property advice related to https://www.shubhestatebroker.in${pathname}. Please contact me.`,
   );
 
   return (
