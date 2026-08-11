@@ -16,6 +16,10 @@ import { SITE_ORIGIN } from "@/lib/seo";
 
 const LOAN_FAQS = [
   {
+    q: "Can I buy a Gurugram property with a small down payment?",
+    a: "Possibly, if your income, credit profile, existing obligations and the property support the required loan-to-value. We first review the applicant profile and property documentation, then compare indicative eligibility through suitable authorised lender channels. Final approval, loan amount and terms remain with the lender.",
+  },
+  {
     q: "How much can I borrow against a Gurugram property?",
     a: "Eligible applicants may be funded up to 90% of the eligible property value, subject to income, existing obligations, credit profile, property approvals, valuation, documentation and lender policy. The purchase price and lender-assessed value can differ.",
   },
@@ -54,7 +58,7 @@ export const Route = createFileRoute("/home-loans")({
     const canonical = `${SITE_ORIGIN}/home-loans`;
     const title = "Home Loan Assistance in Gurgaon | Bank & Mortgage Coordination";
     const description =
-      "Gurgaon home-loan assistance for eligibility review, lender comparison, property valuation, documentation, bank coordination and NRI applicants.";
+      "Home Loan Gurugram support for low-down-payment property purchase, eligibility analysis, balance transfer, takeover, smart overdraft options, valuation and documentation.";
 
     return {
       meta: [
@@ -102,6 +106,8 @@ export const Route = createFileRoute("/home-loans")({
 });
 
 const SERVICES = [
+  "Low-Down-Payment Purchase Planning",
+  "Maximum Eligible Loan Assessment",
   "Home Loans up to 90% (subject to lender eligibility)",
   "Lender and Rate Comparison",
   "Applicant-Specific Document Checklist",
@@ -111,6 +117,7 @@ const SERVICES = [
   "Title Assessment",
   "Loan Structuring",
   "Documentation Support",
+  "Gurugram Lender-Channel Coordination",
   "Bank Coordination",
   "Balance Transfer / Takeover Review",
   "Overdraft-Linked Home Loan Options",
@@ -149,8 +156,48 @@ function HomeLoans() {
       <PageHero
         eyebrow="Home Loan Assistance"
         title="Home loans arranged the way a banker would structure them"
-        body="We coordinate eligibility, lender comparison, property valuation, documentation and application follow-up through suitable banks and financial institutions."
+        body="For buyers with a small down payment and existing borrowers seeking savings, we coordinate profile analysis, eligibility, valuation, documentation and lender follow-up through suitable authorised channels."
       />
+
+      <section className="container-page py-16">
+        <div className="rounded-2xl border border-gold/30 bg-gold/5 p-7 md:p-10">
+          <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+            <div>
+              <p className="eyebrow">Mortgage Structuring Expert · Gurugram</p>
+              <h2 className="mt-3 font-display text-3xl md:text-4xl">
+                A stronger financing plan for the property you actually want
+              </h2>
+              <p className="mt-4 max-w-3xl leading-7 text-muted-foreground">
+                Shubh Estate Brokers is led by an Ex-Banker and Law Graduate with practical
+                experience in mortgages, legal documentation, property valuation and banking
+                procedures. We look at the applicant profile and the property together before
+                recommending a financing route.
+              </p>
+            </div>
+            <div className="grid gap-3 text-sm">
+              <div className="rounded-xl border border-border bg-card p-4">
+                <p className="font-semibold">Small down payment buyers</p>
+                <p className="mt-1 text-muted-foreground">
+                  Review income, credit, obligations and property value to estimate practical
+                  maximum eligibility before shortlisting a Gurugram home.
+                </p>
+              </div>
+              <div className="rounded-xl border border-border bg-card p-4">
+                <p className="font-semibold">Existing home-loan holders</p>
+                <p className="mt-1 text-muted-foreground">
+                  Compare balance transfer, takeover, top-up and smart overdraft-linked options
+                  using net savings and break-even—not only a lower advertised rate.
+                </p>
+              </div>
+            </div>
+          </div>
+          <p className="mt-6 border-t border-gold/20 pt-5 text-xs leading-5 text-muted-foreground">
+            We can help evaluate options through available authorised lender channels, which may
+            include public-sector and private lenders where applicable. Current empanelment,
+            eligibility, property approval and lender policy determine the final route.
+          </p>
+        </div>
+      </section>
 
       <section className="container-page py-16">
         <SectionHead eyebrow="What we handle" title="End-to-end mortgage support" />
