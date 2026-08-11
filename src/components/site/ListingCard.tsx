@@ -7,10 +7,14 @@ import type { ListingRow } from "@/lib/properties.functions";
 
 export function ListingCard({ property }: { property: ListingRow }) {
   const place = [property.sector, property.locality].filter(Boolean).join(", ");
-  const fallbackProjectImage = property.cover_image_url ? null : representativeProjectImageFor(property.title);
+  const fallbackProjectImage = property.cover_image_url
+    ? null
+    : representativeProjectImageFor(property.title);
   const visualUrl = property.cover_image_url || fallbackProjectImage?.url || null;
   const representativeImage = Boolean(
-    fallbackProjectImage || property.cover_image_url?.startsWith("https://") || property.cover_image_url?.startsWith("http://"),
+    fallbackProjectImage ||
+    property.cover_image_url?.startsWith("https://") ||
+    property.cover_image_url?.startsWith("http://"),
   );
   const forSale = property.listing_type !== "rent";
 
@@ -21,8 +25,15 @@ export function ListingCard({ property }: { property: ListingRow }) {
           {visualUrl ? (
             <img
               src={visualUrl}
-              alt={fallbackProjectImage?.altText ?? `${property.bhk ?? ""} ${PROPERTY_TYPE_LABEL[property.property_type] ?? "Property"} in ${place || property.city}`.trim()}
+              alt={
+                fallbackProjectImage?.altText ??
+                `${property.bhk ?? ""} ${PROPERTY_TYPE_LABEL[property.property_type] ?? "Property"} in ${place || property.city}`.trim()
+              }
               loading="lazy"
+              decoding="async"
+              width={800}
+              height={600}
+              sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
               className="size-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
           ) : (
@@ -40,11 +51,17 @@ export function ListingCard({ property }: { property: ListingRow }) {
             {STATUS_LABEL[property.status]}
           </Badge>
           {representativeImage ? (
-            <Badge variant="secondary" className="absolute bottom-3 left-3 bg-background/90 text-[10px] font-medium uppercase tracking-[0.12em] backdrop-blur">
+            <Badge
+              variant="secondary"
+              className="absolute bottom-3 left-3 bg-background/90 text-[10px] font-medium uppercase tracking-[0.12em] backdrop-blur"
+            >
               Project image
             </Badge>
           ) : !visualUrl ? (
-            <Badge variant="secondary" className="absolute bottom-3 left-3 bg-background/90 text-[10px] font-medium uppercase tracking-[0.12em] backdrop-blur">
+            <Badge
+              variant="secondary"
+              className="absolute bottom-3 left-3 bg-background/90 text-[10px] font-medium uppercase tracking-[0.12em] backdrop-blur"
+            >
               Photo on request
             </Badge>
           ) : null}
@@ -54,7 +71,8 @@ export function ListingCard({ property }: { property: ListingRow }) {
       <div className="space-y-4 p-5">
         <div>
           <p className="text-xs uppercase tracking-[0.16em] text-muted-foreground">
-            {PROPERTY_TYPE_LABEL[property.property_type] ?? "Property"} · {property.listing_type === "rent" ? "For Rent" : "For Sale"}
+            {PROPERTY_TYPE_LABEL[property.property_type] ?? "Property"} ·{" "}
+            {property.listing_type === "rent" ? "For Rent" : "For Sale"}
           </p>
           <h3 className="mt-1 font-display text-xl">
             <Link to="/property/$slug" params={{ slug: property.slug }} className="hover:text-gold">
@@ -86,12 +104,9 @@ export function ListingCard({ property }: { property: ListingRow }) {
 
         {forSale ? (
           <div className="rounded-lg border border-gold/25 bg-gold/5 px-3 py-2.5">
-            <p className="flex items-center gap-2 text-xs font-semibold text-foreground">
+            <p className="flex items-center gap-2 text-xs font-medium text-foreground">
               <Landmark className="size-4 shrink-0 text-gold" aria-hidden="true" />
-              Home loan up to 90%*
-            </p>
-            <p className="mt-1 pl-6 text-[10px] leading-4 text-muted-foreground">
-              Subject to buyer eligibility, lender approval and property/document verification.
+              Home-loan assistance available*
             </p>
           </div>
         ) : null}
