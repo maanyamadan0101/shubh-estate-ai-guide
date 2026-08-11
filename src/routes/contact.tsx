@@ -16,6 +16,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { CONTACT } from "@/data/site";
+import { supabase } from "@/integrations/supabase/client";
+import { trackContact, trackEvent } from "@/lib/analytics";
 import { SITE_ORIGIN } from "@/lib/seo";
 
 export const Route = createFileRoute("/contact")({
@@ -54,10 +56,15 @@ const schema = z.object({
 function Contact() {
   const [interest, setInterest] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [sending, setSending] = useState(false);
+  const whatsappMessage = encodeURIComponent(
+    "Hi Shubh Estate Brokers, I would like to discuss a Gurgaon property requirement. Please contact me.",
+  );
 
-  function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const form = new FormData(event.currentTarget);
+    const formElement = event.currentTarget;
+    const form = new FormData(formElement);
     const parsed = schema.safeParse({
       name: String(form.get("name") ?? ""),
       phone: String(form.get("phone") ?? ""),
@@ -74,7 +81,29 @@ function Contact() {
     }
 
     setErrors({});
-    event.currentTarget.reset();
+    setSending(true);
+    const { error } = await supabase.from("enquiries").insert({
+      property_id: null,
+      full_name: parsed.data.name,
+      phone: parsed.data.phone,
+      email: parsed.data.email || null,
+      message: parsed.data.message || null,
+      interest: parsed.data.interest,
+      source: "website",
+    });
+    setSending(false);
+
+    if (error) {
+      toast.error("We could not save your request. Please call or WhatsApp us now.");
+      return;
+    }
+
+    trackEvent("generate_lead", {
+      lead_type: parsed.data.interest,
+      source: "contact_page",
+      page_path: window.location.pathname,
+    });
+    formElement.reset();
     setInterest("");
     toast.success("Request received", {
       description: "Our advisory team will call you back shortly.",
@@ -154,8 +183,14 @@ function Contact() {
               <Textarea id="message" name="message" rows={4} maxLength={1000} />
             </div>
           </div>
-          <Button type="submit" variant="gold" size="lg" className="mt-7 w-full sm:w-auto">
-            Request Callback
+          <Button
+            type="submit"
+            variant="gold"
+            size="lg"
+            className="mt-7 w-full sm:w-auto"
+            disabled={sending}
+          >
+            {sending ? "Sending…" : "Request Callback"}
           </Button>
         </form>
 
@@ -167,11 +202,19 @@ function Contact() {
                 <MapPin className="mt-0.5 size-4 shrink-0 text-gold" aria-hidden="true" />
                 {CONTACT.address}
               </span>
-              <a href={CONTACT.phoneHref} className="flex gap-3 hover:text-gold">
+              <a
+                href={CONTACT.phoneHref}
+                onClick={() => trackContact("phone", "contact_page_primary")}
+                className="flex gap-3 hover:text-gold"
+              >
                 <Phone className="size-4 shrink-0 text-gold" aria-hidden="true" />
                 {CONTACT.phone}
               </a>
-              <a href={CONTACT.alternatePhoneHref} className="flex gap-3 hover:text-gold">
+              <a
+                href={CONTACT.alternatePhoneHref}
+                onClick={() => trackContact("phone", "contact_page_alternate")}
+                className="flex gap-3 hover:text-gold"
+              >
                 <Phone className="size-4 shrink-0 text-gold" aria-hidden="true" />
                 {CONTACT.alternatePhone}
               </a>
@@ -182,12 +225,27 @@ function Contact() {
             </address>
             <div className="mt-7 flex flex-wrap gap-3">
               <Button asChild variant="gold">
-                <a href={CONTACT.whatsapp} target="_blank" rel="noreferrer">
+                <a
+                  href={`${CONTACT.whatsapp}?text=${whatsappMessage}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => trackContact("whatsapp", "contact_page")}
+                >
                   Chat on WhatsApp
                 </a>
               </Button>
               <Button asChild variant="goldOutline">
-                <a href={CONTACT.googleBusinessProfile} target="_blank" rel="noreferrer">
+                <a
+                  href={CONTACT.googleBusinessProfile}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() =>
+                    trackEvent("google_business_profile_click", {
+                      location: "contact_page",
+                      page_path: window.location.pathname,
+                    })
+                  }
+                >
                   <ExternalLink className="size-4" aria-hidden="true" />
                   Google Business Profile
                 </a>

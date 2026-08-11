@@ -1,9 +1,14 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { CalendarCheck, MessageCircle, Phone } from "lucide-react";
 import { CONTACT } from "@/data/site";
 import { trackContact } from "@/lib/analytics";
 
 export function FloatingActions() {
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const whatsappMessage = encodeURIComponent(
+    `Hi Shubh Estate Brokers, I am interested in property advice related to https://shubhestatebroker.in${pathname}. Please contact me.`,
+  );
+
   return (
     <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background/95 backdrop-blur md:inset-x-auto md:right-6 md:bottom-6 md:rounded-full md:border md:shadow-[var(--shadow-elegant)]">
       <div className="mx-auto flex max-w-md items-center justify-around gap-1 px-2 py-2 md:max-w-none md:gap-2 md:px-3">
@@ -16,7 +21,7 @@ export function FloatingActions() {
           Call Now
         </a>
         <a
-          href={CONTACT.whatsapp}
+          href={`${CONTACT.whatsapp}?text=${whatsappMessage}`}
           target="_blank"
           rel="noreferrer"
           onClick={() => trackContact("whatsapp", "floating_actions")}

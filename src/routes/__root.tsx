@@ -54,7 +54,9 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">This page didn't load</h1>
+        <h1 className="text-xl font-semibold tracking-tight text-foreground">
+          This page didn't load
+        </h1>
         <p className="mt-2 text-sm text-muted-foreground">
           Something went wrong on our end. You can try refreshing or head back home.
         </p>
@@ -91,8 +93,15 @@ const localBusinessSchema = {
   telephone: [CONTACT.phone, CONTACT.alternatePhone],
   email: CONTACT.email,
   url: SITE_ORIGIN,
-  sameAs: [CONTACT.googleBusinessProfile],
+  sameAs: [CONTACT.googleBusinessProfile, CONTACT.instagram, CONTACT.youtube],
   hasMap: CONTACT.googleBusinessProfile,
+  contactPoint: {
+    "@type": "ContactPoint",
+    telephone: CONTACT.phone,
+    contactType: "sales",
+    areaServed: "IN",
+    availableLanguage: ["English", "Hindi"],
+  },
   founder: {
     "@type": "Person",
     name: "Arun Madan",
@@ -117,6 +126,20 @@ const localBusinessSchema = {
     addressCountry: "IN",
   },
   areaServed: "Gurugram, Haryana, India",
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Sunday"],
+      opens: "10:00",
+      closes: "20:00",
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: "Saturday",
+      opens: "10:00",
+      closes: "19:30",
+    },
+  ],
 };
 
 const websiteSchema = {
@@ -142,7 +165,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:title", content: "Shubh Estate Brokers | Property Consultant in Gurgaon" },
       {
         property: "og:description",
-        content: "Fair and transparent Gurugram real estate advice backed by former banking, mortgage, valuation and title-assessment experience.",
+        content:
+          "Fair and transparent Gurugram real estate advice backed by former banking, mortgage, valuation and title-assessment experience.",
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: SITE_ORIGIN },

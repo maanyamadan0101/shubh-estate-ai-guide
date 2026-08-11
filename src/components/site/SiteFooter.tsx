@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin, Phone, Star } from "lucide-react";
 import { CONTACT, LOAN_DISCLAIMER } from "@/data/site";
 import { trackContact, trackEvent } from "@/lib/analytics";
 
@@ -77,6 +77,21 @@ export function SiteFooter() {
             >
               <MapPin className="mt-0.5 size-4 shrink-0 text-gold" aria-hidden="true" />
               View our verified Google Business Profile
+            </a>
+            <a
+              href={CONTACT.googleReview}
+              target="_blank"
+              rel="noreferrer"
+              onClick={() =>
+                trackEvent("google_review_click", {
+                  location: "site_footer",
+                  page_path: window.location.pathname,
+                })
+              }
+              className="flex gap-3 hover:text-gold"
+            >
+              <Star className="mt-0.5 size-4 shrink-0 text-gold" aria-hidden="true" />
+              Read or leave a genuine Google review
             </a>
           </address>
         </div>
