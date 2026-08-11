@@ -22,7 +22,6 @@ export const Route = createFileRoute("/gurugram-growth-story")({
       { property: "og:url", content: `${SITE_ORIGIN}/gurugram-growth-story` },
     ],
     links: [{ rel: "canonical", href: `${SITE_ORIGIN}/gurugram-growth-story` }],
-    ],
   }),
   component: GrowthStory,
 });
