@@ -52,7 +52,11 @@ export const Route = createFileRoute("/")({
           content:
             "Verified Gurgaon properties with budget-first shortlisting, price context, mortgage coordination and transaction support.",
         },
-        { property: "og:url", content: SITE_ORIGIN },\n        { property: "og:image", content: `${SITE_ORIGIN}${heroImage}` },\n        { name: "twitter:card", content: "summary_large_image" },\n        { name: "twitter:title", content: title },\n        { name: "twitter:description", content: description },
+        { property: "og:url", content: SITE_ORIGIN },
+        { property: "og:image", content: `${SITE_ORIGIN}${heroImage}` },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: description },
       ],
       links: [{ rel: "canonical", href: SITE_ORIGIN }],
       scripts: [
