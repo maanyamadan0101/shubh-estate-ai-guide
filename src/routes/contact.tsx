@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -18,6 +18,7 @@ import {
 import { CONTACT } from "@/data/site";
 import { supabase } from "@/integrations/supabase/client";
 import { trackContact, trackEvent } from "@/lib/analytics";
+import { SITE_ORIGIN } from "@/lib/seo";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -34,7 +35,9 @@ export const Route = createFileRoute("/contact")({
         content:
           "Book a site visit, request a callback or speak with our property and mortgage advisory team.",
       },
+      { property: "og:url", content: `${SITE_ORIGIN}/contact` },
     ],
+    links: [{ rel: "canonical", href: `${SITE_ORIGIN}/contact` }],
   }),
   component: Contact,
 });
@@ -258,6 +261,32 @@ function Contact() {
               className="h-72 w-full border-0"
               referrerPolicy="no-referrer-when-downgrade"
             />
+          </div>
+        </div>
+      </section>
+
+      <section className="container-page pb-16">
+        <div className="rounded-2xl border border-border bg-secondary/50 p-7 md:p-9">
+          <h2 className="font-display text-2xl">Help us prepare useful options before we call</h2>
+          <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
+            For a buying enquiry, share your usable property budget, preferred Gurgaon corridors,
+            configuration, possession timeline and whether a home loan is required. Property owners
+            can share the project, unit size, floor, condition, expected price and preferred sale
+            timeline. NRI clients may also include their country and convenient call window.
+          </p>
+          <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm">
+            <Link to="/properties" className="text-gold hover:underline">
+              Browse Gurgaon properties
+            </Link>
+            <Link to="/sell-property-gurgaon" className="text-gold hover:underline">
+              Submit a property to sell
+            </Link>
+            <Link to="/nri" className="text-gold hover:underline">
+              Contact the NRI property desk
+            </Link>
+            <Link to="/home-loans" className="text-gold hover:underline">
+              Home-loan assistance
+            </Link>
           </div>
         </div>
       </section>

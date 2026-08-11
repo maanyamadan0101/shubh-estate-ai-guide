@@ -12,7 +12,9 @@ export const Route = createFileRoute("/property/$slug")({
     if (!data) throw notFound();
 
     const fallbackProjectImage =
-      data.images.length || data.property.cover_image_url ? null : representativeProjectImageFor(data.property.title);
+      data.images.length || data.property.cover_image_url
+        ? null
+        : representativeProjectImageFor(data.property.title);
     const images = fallbackProjectImage
       ? [
           {
@@ -24,17 +26,32 @@ export const Route = createFileRoute("/property/$slug")({
         ]
       : data.images;
 
-    const related = await listPublicProperties({
+    const localRelated = await listPublicProperties({
       data: { locality: data.property.locality ?? undefined, limit: 4, excludeSlug: params.slug },
     });
-    return { ...data, images, fallbackProjectImage, related: related.properties };
+    let related = localRelated.properties;
+
+    // Keep every live listing connected to the wider catalogue, even when it
+    // is the only published property in its micro-market.
+    if (related.length < 3) {
+      const catalogueRelated = await listPublicProperties({
+        data: { limit: 6, excludeSlug: params.slug },
+      });
+      related = [...related, ...catalogueRelated.properties].filter(
+        (item, index, rows) => rows.findIndex((candidate) => candidate.id === item.id) === index,
+      );
+    }
+
+    return { ...data, images, fallbackProjectImage, related };
   },
   head: ({ loaderData, params }) => {
     if (!loaderData) {
       return { meta: [{ title: "Property unavailable" }, { name: "robots", content: "noindex" }] };
     }
     const p = loaderData.property;
-    const title = p.meta_title || `${p.bhk ?? ""} ${PROPERTY_TYPE_LABEL[p.property_type] ?? "Property"} in ${p.sector ?? p.city}`;
+    const title =
+      p.meta_title ||
+      `${p.bhk ?? ""} ${PROPERTY_TYPE_LABEL[p.property_type] ?? "Property"} in ${p.sector ?? p.city}`;
     const description =
       p.meta_description ||
       `${p.title} — ${formatArea(p.area_sqft)} at ${formatINR(p.price)} in ${[p.sector, p.locality, p.city].filter(Boolean).join(", ")}.`;
@@ -44,11 +61,12 @@ export const Route = createFileRoute("/property/$slug")({
       ? p.cover_image_url
       : p.cover_image_url
         ? `${SITE_ORIGIN}${p.cover_image_url}`
-        : fallback?.url ?? null;
+        : (fallback?.url ?? null);
 
     const schema = {
       "@context": "https://schema.org",
       "@type": "Residence",
+      "@id": `${canonical}#property`,
       name: p.title,
       description,
       url: canonical,
@@ -60,15 +78,26 @@ export const Route = createFileRoute("/property/$slug")({
         addressRegion: "Haryana",
         addressCountry: "IN",
       },
-      ...(p.area_sqft ? { floorSize: { "@type": "QuantitativeValue", value: p.area_sqft, unitCode: "FTK" } } : {}),
+      ...(p.area_sqft
+        ? { floorSize: { "@type": "QuantitativeValue", value: p.area_sqft, unitCode: "FTK" } }
+        : {}),
       ...(p.bathrooms ? { numberOfBathroomsTotal: p.bathrooms } : {}),
+      ...(p.bhk ? { numberOfRooms: Number.parseFloat(p.bhk) || undefined } : {}),
+      ...(p.floor_number ? { floorLevel: String(p.floor_number) } : {}),
+      mainEntityOfPage: {
+        "@type": "WebPage",
+        "@id": canonical,
+      },
       ...(p.price
         ? {
             offers: {
               "@type": "Offer",
               price: p.price,
               priceCurrency: "INR",
-              availability: p.status === "sold_out" ? "https://schema.org/SoldOut" : "https://schema.org/InStock",
+              availability:
+                p.status === "sold_out"
+                  ? "https://schema.org/SoldOut"
+                  : "https://schema.org/InStock",
               url: canonical,
             },
           }
@@ -83,7 +112,12 @@ export const Route = createFileRoute("/property/$slug")({
         { property: "og:description", content: p.og_description || description },
         { property: "og:type", content: "article" },
         { property: "og:url", content: canonical },
-        ...(image ? [{ property: "og:image", content: image }, { name: "twitter:image", content: image }] : []),
+        ...(image
+          ? [
+              { property: "og:image", content: image },
+              { name: "twitter:image", content: image },
+            ]
+          : []),
       ],
       links: [{ rel: "canonical", href: canonical }],
       scripts: [{ type: "application/ld+json", children: JSON.stringify(schema) }],
@@ -99,7 +133,9 @@ export const Route = createFileRoute("/property/$slug")({
   notFoundComponent: () => (
     <div className="container-page py-24 text-center">
       <h1 className="font-display text-3xl">Property not found</h1>
-      <p className="mt-2 text-muted-foreground">It may have been sold or withdrawn from the market.</p>
+      <p className="mt-2 text-muted-foreground">
+        It may have been sold or withdrawn from the market.
+      </p>
     </div>
   ),
 });

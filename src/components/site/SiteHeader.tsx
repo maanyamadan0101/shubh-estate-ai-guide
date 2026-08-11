@@ -9,6 +9,7 @@ import { trackContact } from "@/lib/analytics";
 const NAV = [
   { to: "/", label: "Home" },
   { to: "/properties", label: "Properties" },
+  { to: "/luxury", label: "Luxury" },
   { to: "/sell-property-gurgaon", label: "Sell Property" },
   { to: "/nri", label: "NRI" },
   { to: "/home-loans", label: "Home Loans" },
@@ -56,7 +57,12 @@ export function SiteHeader() {
           </Button>
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
-              <Button variant="outline" size="icon" className="min-h-11 min-w-11 lg:hidden" aria-label="Open menu">
+              <Button
+                variant="outline"
+                size="icon"
+                className="min-h-11 min-w-11 lg:hidden"
+                aria-label="Open menu"
+              >
                 <Menu aria-hidden="true" />
               </Button>
             </SheetTrigger>
