@@ -3,6 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ChevronLeft,
   ChevronRight,
+  Landmark,
   MapPin,
 } from "lucide-react";
 import { PageHero } from "@/components/site/SectionHead";
@@ -263,7 +264,29 @@ function Properties() {
             </div>
           </div>
 
-
+          <div className="rounded-xl border border-gold/30 bg-gold/5 p-6">
+            <div className="flex items-start gap-3">
+              <Landmark className="mt-1 size-5 shrink-0 text-gold" aria-hidden="true" />
+              <div>
+                <p className="text-xs font-medium uppercase tracking-[0.18em] text-gold">
+                  Financing Support
+                </p>
+                <h2 className="mt-1 font-display text-2xl">Home loan assistance for eligible buyers</h2>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                  Review eligibility, property valuation, documentation and lender coordination. Final
+                  sanction and loan-to-value depend on the applicant, lender and property verification.
+                </p>
+                <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-sm font-medium">
+                  <Link to="/home-loans" className="text-gold underline-offset-4 hover:underline">
+                    View home-loan details
+                  </Link>
+                  <Link to="/emi-calculator" className="text-gold underline-offset-4 hover:underline">
+                    Calculate EMI
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
       </section>
