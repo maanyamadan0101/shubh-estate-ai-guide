@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
+import { ArrowRightLeft, Landmark, PiggyBank, WalletCards } from "lucide-react";
 import { PageHero, SectionHead } from "@/components/site/SectionHead";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -33,6 +34,14 @@ const LOAN_FAQS = [
   {
     q: "Do you help with a home-loan balance transfer or top-up?",
     a: "We can compare the existing facility with available lender options and coordinate a balance-transfer or top-up application where eligible. Savings should be calculated after processing, legal, valuation, foreclosure and other applicable charges.",
+  },
+  {
+    q: "What is an overdraft-linked or smart home loan?",
+    a: "Eligible products may link a savings or overdraft account to the home loan. Under the lender's rules, eligible daily credit can reduce the balance used for interest calculation while preserving access to liquidity. Availability, pricing, withdrawal rules and fees vary by lender and borrower profile.",
+  },
+  {
+    q: "Will a home-loan takeover always reduce my total cost?",
+    a: "No. A lower quoted rate can still produce weak savings after the new tenure, processing fee, valuation, legal, insurance, documentation and closure costs are considered. The comparison should use the expected net saving and break-even period, not only the new EMI.",
   },
   {
     q: "Can you advise on home-loan tax benefits?",
@@ -103,7 +112,8 @@ const SERVICES = [
   "Loan Structuring",
   "Documentation Support",
   "Bank Coordination",
-  "Balance Transfer",
+  "Balance Transfer / Takeover Review",
+  "Overdraft-Linked Home Loan Options",
   "Top-Up Loans",
   "NRI Home Loans",
   "Salaried & Self-Employed Solutions",
@@ -151,6 +161,80 @@ function HomeLoans() {
             </li>
           ))}
         </ul>
+      </section>
+
+      <section className="border-y border-border bg-secondary/60 py-16">
+        <div className="container-page">
+          <SectionHead
+            eyebrow="Existing Home-Loan Borrowers"
+            title="Takeover, top-up and smart overdraft-linked options"
+            body="A useful review compares the complete cost, remaining tenure, liquidity value and break-even period—not only the advertised rate or a lower EMI."
+          />
+
+          <div className="mt-10 grid gap-5 lg:grid-cols-3">
+            {[
+              {
+                icon: ArrowRightLeft,
+                title: "Balance transfer / takeover",
+                body: "Compare the current outstanding, rate, residual tenure and charges with eligible lender offers to estimate net savings.",
+                points: [
+                  "Current sanction and repayment review",
+                  "Net-savings and break-even comparison",
+                  "Closure and new-lender coordination",
+                ],
+              },
+              {
+                icon: PiggyBank,
+                title: "Overdraft-linked home loan",
+                body: "For eligible products, surplus funds kept in the linked account may reduce the daily balance used for interest calculation.",
+                points: [
+                  "Liquidity-versus-prepayment comparison",
+                  "Product rate and fee review",
+                  "Withdrawal and account-rule explanation",
+                ],
+              },
+              {
+                icon: WalletCards,
+                title: "Top-up and cash-flow review",
+                body: "Assess whether an eligible top-up, shorter tenure, higher EMI or periodic prepayment better supports the borrower's objective.",
+                points: [
+                  "Use-of-funds and eligibility context",
+                  "EMI and tenure scenarios",
+                  "Property-document coordination",
+                ],
+              },
+            ].map(({ icon: Icon, title, body, points }) => (
+              <article key={title} className="rounded-2xl border border-border bg-card p-6">
+                <span className="flex size-11 items-center justify-center rounded-xl bg-navy text-gold">
+                  <Icon className="size-5" aria-hidden="true" />
+                </span>
+                <h2 className="mt-5 font-display text-2xl">{title}</h2>
+                <p className="mt-3 text-sm leading-6 text-muted-foreground">{body}</p>
+                <ul className="mt-5 space-y-2 border-t border-border pt-5 text-sm text-muted-foreground">
+                  {points.map((point) => (
+                    <li key={point} className="flex items-start gap-2">
+                      <Landmark className="mt-0.5 size-4 shrink-0 text-gold" aria-hidden="true" />
+                      {point}
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+
+          <div className="mt-8 rounded-2xl surface-navy p-7 md:flex md:items-center md:justify-between md:gap-8">
+            <div>
+              <h2 className="font-display text-2xl">Request a home-loan health check</h2>
+              <p className="mt-2 max-w-3xl text-sm leading-6 text-navy-foreground/70">
+                Keep your latest loan statement, sanction terms, current rate, outstanding balance,
+                remaining tenure and property details ready for a meaningful comparison.
+              </p>
+            </div>
+            <Button asChild variant="gold" size="lg" className="mt-5 shrink-0 md:mt-0">
+              <Link to="/contact">Request a takeover review</Link>
+            </Button>
+          </div>
+        </div>
       </section>
 
       <section className="bg-secondary/60 py-16">

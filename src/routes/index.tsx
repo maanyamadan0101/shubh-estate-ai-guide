@@ -1,16 +1,23 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
+  BadgeIndianRupee,
   Banknote,
   Building2,
   FileCheck2,
+  FileSearch,
+  Handshake,
+  KeyRound,
   Landmark,
+  PlayCircle,
   Quote,
   Scale,
   ShieldCheck,
-  Sparkles,
   TrendingUp,
+  Wrench,
 } from "lucide-react";
 import heroImage from "@/assets/hero-gurugram.jpg";
+import { HomeActionPanel } from "@/components/site/HomeActionPanel";
+import { ListingCard } from "@/components/site/ListingCard";
 import { Button } from "@/components/ui/button";
 import {
   Accordion,
@@ -19,9 +26,14 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { CONTACT, FAQS } from "@/data/site";
+import { listPublicProperties, type ListingRow } from "@/lib/properties.functions";
 import { SITE_ORIGIN } from "@/lib/seo";
 
 export const Route = createFileRoute("/")({
+  loader: async () =>
+    listPublicProperties({
+      data: { limit: 6, statuses: ["under_construction", "new_launch"] },
+    }),
   head: () => {
     const title = "Property in Gurgaon | Shubh Estate Brokers";
     const description =
@@ -101,7 +113,58 @@ const MARKET_FACTS = [
   ["~US$6.0 bn", "Investment inflows since 2018"],
 ];
 
+const PROPERTY_SERVICES = [
+  {
+    icon: Wrench,
+    label: "Remote Owners",
+    title: "Property Management",
+    body: "Inspection, maintenance, tenant and renewal coordination for NRI and outstation owners.",
+    to: "/property-services-gurgaon",
+  },
+  {
+    icon: BadgeIndianRupee,
+    label: "Reliable Price Context",
+    title: "Property Valuation",
+    body: "Sale or rental price positioning based on the exact unit and available market evidence.",
+    to: "/property-services-gurgaon",
+  },
+  {
+    icon: FileSearch,
+    label: "Document Confidence",
+    title: "Due-Diligence Coordination",
+    body: "Document checklist, RERA context and coordination with qualified legal and lending professionals.",
+    to: "/property-services-gurgaon",
+  },
+  {
+    icon: Landmark,
+    label: "Existing Borrowers",
+    title: "Loan Takeover & Smart OD",
+    body: "Compare balance transfer, top-up and eligible overdraft-linked home-loan structures.",
+    to: "/home-loans",
+  },
+  {
+    icon: KeyRound,
+    label: "Tenants",
+    title: "Find a Rental Home",
+    body: "Requirement-based rental shortlisting, planned visits and lease-process coordination.",
+    to: "/properties",
+    search: { purpose: "rent" },
+  },
+  {
+    icon: Handshake,
+    label: "Property Owners",
+    title: "Sell or Rent Out",
+    body: "Pricing, media, qualified enquiries, negotiation and local transaction follow-up.",
+    to: "/sell-property-gurgaon",
+  },
+] as const;
+
 function Home() {
+  const { properties: newProjects = [] } = Route.useLoaderData() as {
+    properties: ListingRow[];
+    error: string | null;
+  };
+
   return (
     <>
       <section className="relative isolate overflow-hidden">
@@ -113,34 +176,135 @@ function Home() {
           fetchPriority="high"
           className="absolute inset-0 -z-10 size-full object-cover"
         />
-        <div className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,oklch(0.21_0.042_248/0.94),oklch(0.21_0.042_248/0.76))]" />
+        <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,oklch(0.18_0.044_248/0.98)_0%,oklch(0.2_0.045_248/0.9)_48%,oklch(0.2_0.045_248/0.72)_100%)]" />
 
-        <div className="container-page py-24 text-navy-foreground md:py-36">
-          <div className="max-w-3xl animate-rise">
-            <span className="eyebrow">Verified Gurgaon Property · Founder-led Advice</span>
-            <h1 className="mt-4 font-display text-4xl leading-[1.08] sm:text-5xl md:text-6xl">
-              Property in Gurgaon, backed by
-              <span className="text-gradient-gold"> banking-grade judgement</span>
-            </h1>
-            <p className="mt-6 max-w-2xl text-base leading-7 text-navy-foreground/80 md:text-lg">
-              Explore flats, resale homes and luxury apartments for sale in Gurgaon with financial
-              clarity. Shubh Estate Brokers combines local market knowledge with mortgage, valuation
-              and legal due-diligence experience for buyers, sellers, investors and NRIs.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Button asChild variant="gold" size="xl">
-                <Link to="/properties">View Verified Properties</Link>
-              </Button>
-              <Button asChild variant="goldOutline" size="xl">
-                <a href={CONTACT.phoneHref}>Speak with Arun Madan</a>
-              </Button>
+        <div className="container-page py-14 text-navy-foreground md:py-20 lg:py-24">
+          <div className="grid gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
+            <div className="max-w-3xl animate-rise">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="rounded-full border border-gold/40 bg-gold/10 px-3 py-1.5 text-xs font-medium text-gold">
+                  Founder-led Gurgaon advisory
+                </span>
+                <a
+                  href={CONTACT.googleBusinessProfile}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="rounded-full border border-white/20 bg-white/5 px-3 py-1.5 text-xs text-white/85 hover:border-gold/50 hover:text-gold"
+                >
+                  View Google Business Profile
+                </a>
+              </div>
+              <h1 className="mt-5 font-display text-4xl leading-[1.06] text-white sm:text-5xl md:text-6xl">
+                Gurgaon property decisions, backed by
+                <span className="text-gradient-gold"> banking-grade judgement</span>
+              </h1>
+              <p className="mt-6 max-w-2xl text-base leading-7 text-white/85 md:text-lg">
+                Buy, rent, sell, manage or finance property with one Gurgaon team for price context,
+                due-diligence coordination, loan structuring and local execution.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Button asChild variant="gold" size="xl">
+                  <Link to="/properties" search={{ purpose: "sale" }}>
+                    Explore Current Properties
+                  </Link>
+                </Button>
+                <Button asChild variant="goldOutline" size="xl">
+                  <a href={CONTACT.phoneHref}>Speak with Arun Madan</a>
+                </Button>
+              </div>
+              <ul className="mt-7 grid max-w-2xl gap-2 text-sm text-white/80 sm:grid-cols-2">
+                {[
+                  "Current resale and rental inventory",
+                  "New and under-construction projects",
+                  "NRI and remote-owner coordination",
+                  "Home loans, takeover and smart OD options",
+                ].map((item) => (
+                  <li key={item} className="flex items-start gap-2">
+                    <ShieldCheck className="mt-0.5 size-4 shrink-0 text-gold" aria-hidden="true" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
             </div>
-            <p className="mt-5 flex max-w-2xl items-start gap-2 text-xs leading-5 text-navy-foreground/65">
-              <Sparkles className="mt-0.5 size-3.5 shrink-0 text-gold" aria-hidden="true" />
-              The objective is not to push inventory. It is to help you understand the price, title,
-              financing, downside and exit before you commit.
-            </p>
+
+            <HomeActionPanel />
           </div>
+
+          <div className="mt-12 grid gap-3 border-t border-white/15 pt-6 text-xs uppercase tracking-[0.14em] text-white/65 sm:grid-cols-2 lg:grid-cols-4">
+            <span>Gurgaon-focused advice</span>
+            <span>Mortgage & banking experience</span>
+            <span>Remote support for owners & NRIs</span>
+            <span>Call, WhatsApp or video consultation</span>
+          </div>
+        </div>
+      </section>
+
+      <section className="container-page py-16 md:py-20">
+        <div className="flex flex-wrap items-end justify-between gap-5">
+          <SectionHead
+            eyebrow="What can we solve for you?"
+            title="Property services designed around real client situations"
+            body="Choose the outcome you need instead of navigating a long portal menu. Each service leads to a clear next step."
+          />
+          <Button asChild variant="outline">
+            <Link to="/property-services-gurgaon">View all property services</Link>
+          </Button>
+        </div>
+        <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {PROPERTY_SERVICES.map(({ icon: Icon, label, title, body, to, ...service }) => (
+            <Link
+              key={title}
+              to={to}
+              {...("search" in service ? { search: service.search } : {})}
+              className="group rounded-2xl border border-border bg-card p-6 transition-all hover:-translate-y-1 hover:border-gold/50 hover:shadow-[var(--shadow-elegant)]"
+            >
+              <div className="flex items-start justify-between gap-4">
+                <span className="flex size-11 items-center justify-center rounded-xl bg-navy text-gold">
+                  <Icon className="size-5" aria-hidden="true" />
+                </span>
+                <span className="text-xs font-medium uppercase tracking-[0.14em] text-gold">
+                  {label}
+                </span>
+              </div>
+              <h2 className="mt-5 font-display text-2xl group-hover:text-gold">{title}</h2>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">{body}</p>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="bg-secondary/60 py-16 md:py-20">
+        <div className="container-page">
+          <div className="flex flex-wrap items-end justify-between gap-5">
+            <SectionHead
+              eyebrow="New project discovery"
+              title="Under-construction and new-launch opportunities"
+              body="Compare live inventory with construction-stage, RERA, payment-plan, financing and exit-risk context. Official project videos can be added to each listing when available."
+            />
+            <Button asChild variant="navy">
+              <Link to="/under-construction-projects-gurgaon">
+                <PlayCircle aria-hidden="true" />
+                View New Projects
+              </Link>
+            </Button>
+          </div>
+
+          {newProjects.length ? (
+            <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {newProjects.slice(0, 6).map((property) => (
+                <ListingCard key={property.id} property={property} />
+              ))}
+            </div>
+          ) : (
+            <div className="mt-10 rounded-2xl border border-dashed border-border bg-card p-8 text-center">
+              <Building2 className="mx-auto size-7 text-gold" aria-hidden="true" />
+              <h2 className="mt-4 font-display text-2xl">Ask for the latest project shortlist</h2>
+              <p className="mx-auto mt-2 max-w-xl text-sm text-muted-foreground">
+                The advisory team can share current new-launch and under-construction options by
+                budget and corridor.
+              </p>
+            </div>
+          )}
         </div>
       </section>
 

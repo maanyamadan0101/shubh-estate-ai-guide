@@ -190,10 +190,18 @@ export function PropertyForm({
 
     const slug = merged.id && merged.slug.trim() ? merged.slug.trim() : buildSlug(seoSource);
     const publishing = merged.is_published;
-    const metaTitle = publishing ? buildSeoTitle(seoSource) : merged.meta_title || buildSeoTitle(seoSource);
-    const metaDescription = publishing ? buildMetaDescription(seoSource) : merged.meta_description || buildMetaDescription(seoSource);
-    const ogTitle = publishing ? buildOgTitle(seoSource) : merged.og_title || buildOgTitle(seoSource);
-    const ogDescription = publishing ? buildMetaDescription(seoSource) : merged.og_description || buildMetaDescription(seoSource);
+    const metaTitle = publishing
+      ? buildSeoTitle(seoSource)
+      : merged.meta_title || buildSeoTitle(seoSource);
+    const metaDescription = publishing
+      ? buildMetaDescription(seoSource)
+      : merged.meta_description || buildMetaDescription(seoSource);
+    const ogTitle = publishing
+      ? buildOgTitle(seoSource)
+      : merged.og_title || buildOgTitle(seoSource);
+    const ogDescription = publishing
+      ? buildMetaDescription(seoSource)
+      : merged.og_description || buildMetaDescription(seoSource);
     const canonicalUrl = buildCanonical(slug);
     const imagesWithAlt = merged.images.map((image, index) => ({
       ...image,
@@ -238,7 +246,10 @@ export function PropertyForm({
           og_title: ogTitle,
           og_description: ogDescription,
           canonical_url: canonicalUrl,
-          cover_image_url: imagesWithAlt.find((i) => i.is_primary)?.image_url ?? imagesWithAlt[0]?.image_url ?? null,
+          cover_image_url:
+            imagesWithAlt.find((i) => i.is_primary)?.image_url ??
+            imagesWithAlt[0]?.image_url ??
+            null,
           amenities: merged.amenities,
           features: merged.features,
           videos: merged.videos,
@@ -280,7 +291,9 @@ export function PropertyForm({
               type="button"
               onClick={() => setStep(i)}
               className={`rounded-full border px-4 py-1.5 text-xs uppercase tracking-[0.14em] transition-colors ${
-                step === i ? "border-gold bg-gold text-gold-foreground" : "border-border text-muted-foreground hover:text-foreground"
+                step === i
+                  ? "border-gold bg-gold text-gold-foreground"
+                  : "border-border text-muted-foreground hover:text-foreground"
               }`}
             >
               {i + 1}. {label}
@@ -293,60 +306,216 @@ export function PropertyForm({
         {step === 0 ? (
           <div className="grid gap-5 md:grid-cols-2">
             <Field label="Property title" className="md:col-span-2">
-              <Input value={values.title} onChange={(e) => set("title", e.target.value)} placeholder="3 BHK + Servant at Conscient Heritage One, Sector 62" />
+              <Input
+                value={values.title}
+                onChange={(e) => set("title", e.target.value)}
+                placeholder="3 BHK + Servant at Conscient Heritage One, Sector 62"
+              />
             </Field>
             <Field label="Sale or rent">
-              <Select value={values.listing_type} onChange={(v) => set("listing_type", v as "sale" | "rent")} options={[["sale", "For Sale"], ["rent", "For Rent"]]} />
+              <Select
+                value={values.listing_type}
+                onChange={(v) => set("listing_type", v as "sale" | "rent")}
+                options={[
+                  ["sale", "For Sale"],
+                  ["rent", "For Rent"],
+                ]}
+              />
             </Field>
             <Field label="Property type">
-              <Select value={values.property_type} onChange={(v) => set("property_type", v as PropertyFormValues["property_type"])} options={Object.entries(PROPERTY_TYPE_LABEL)} />
+              <Select
+                value={values.property_type}
+                onChange={(v) => set("property_type", v as PropertyFormValues["property_type"])}
+                options={Object.entries(PROPERTY_TYPE_LABEL)}
+              />
             </Field>
             <Field label="Configuration (BHK)">
-              <Input value={values.bhk} onChange={(e) => set("bhk", e.target.value)} placeholder="3 BHK + Servant" />
+              <Input
+                value={values.bhk}
+                onChange={(e) => set("bhk", e.target.value)}
+                placeholder="3 BHK + Servant"
+              />
             </Field>
             <Field label="Project">
-              <Select value={values.project_id ?? ""} onChange={(v) => set("project_id", v || null)} options={[["", "Not linked"], ...projects.map((p) => [p.id, p.name] as [string, string])]} />
+              <Select
+                value={values.project_id ?? ""}
+                onChange={(v) => set("project_id", v || null)}
+                options={[
+                  ["", "Not linked"],
+                  ...projects.map((p) => [p.id, p.name] as [string, string]),
+                ]}
+              />
             </Field>
             <Field label="Builder">
-              <Select value={values.builder_id ?? ""} onChange={(v) => set("builder_id", v || null)} options={[["", "Not linked"], ...builders.map((b) => [b.id, b.name] as [string, string])]} />
+              <Select
+                value={values.builder_id ?? ""}
+                onChange={(v) => set("builder_id", v || null)}
+                options={[
+                  ["", "Not linked"],
+                  ...builders.map((b) => [b.id, b.name] as [string, string]),
+                ]}
+              />
             </Field>
-            <Field label="Sector"><Input value={values.sector} onChange={(e) => set("sector", e.target.value)} placeholder="Sector 62" /></Field>
-            <Field label="Locality"><Input value={values.locality} onChange={(e) => set("locality", e.target.value)} placeholder="Golf Course Extension Road" /></Field>
-            <Field label="City"><Input value={values.city} onChange={(e) => set("city", e.target.value)} /></Field>
-            <Field label="Price (₹)"><Input inputMode="numeric" value={values.price} onChange={(e) => set("price", e.target.value)} placeholder="40000000" /></Field>
-            <Field label="Built-up area (sq.ft.)"><Input inputMode="numeric" value={values.area_sqft} onChange={(e) => set("area_sqft", e.target.value)} /></Field>
-            <Field label="Carpet area (sq.ft.)"><Input inputMode="numeric" value={values.carpet_area_sqft} onChange={(e) => set("carpet_area_sqft", e.target.value)} /></Field>
+            <Field label="Sector">
+              <Input
+                value={values.sector}
+                onChange={(e) => set("sector", e.target.value)}
+                placeholder="Sector 62"
+              />
+            </Field>
+            <Field label="Locality">
+              <Input
+                value={values.locality}
+                onChange={(e) => set("locality", e.target.value)}
+                placeholder="Golf Course Extension Road"
+              />
+            </Field>
+            <Field label="City">
+              <Input value={values.city} onChange={(e) => set("city", e.target.value)} />
+            </Field>
+            <Field label="Price (₹)">
+              <Input
+                inputMode="numeric"
+                value={values.price}
+                onChange={(e) => set("price", e.target.value)}
+                placeholder="40000000"
+              />
+            </Field>
+            <Field label="Built-up area (sq.ft.)">
+              <Input
+                inputMode="numeric"
+                value={values.area_sqft}
+                onChange={(e) => set("area_sqft", e.target.value)}
+              />
+            </Field>
+            <Field label="Carpet area (sq.ft.)">
+              <Input
+                inputMode="numeric"
+                value={values.carpet_area_sqft}
+                onChange={(e) => set("carpet_area_sqft", e.target.value)}
+              />
+            </Field>
           </div>
         ) : null}
 
         {step === 1 ? (
           <div className="space-y-6">
             <div className="grid gap-5 md:grid-cols-3">
-              <Field label="Bathrooms"><Input inputMode="numeric" value={values.bathrooms} onChange={(e) => set("bathrooms", e.target.value)} /></Field>
-              <Field label="Balconies"><Input inputMode="numeric" value={values.balconies} onChange={(e) => set("balconies", e.target.value)} /></Field>
-              <Field label="Parking spaces"><Input inputMode="numeric" value={values.parking} onChange={(e) => set("parking", e.target.value)} /></Field>
-              <Field label="Floor"><Input inputMode="numeric" value={values.floor_number} onChange={(e) => set("floor_number", e.target.value)} /></Field>
-              <Field label="Total floors"><Input inputMode="numeric" value={values.total_floors} onChange={(e) => set("total_floors", e.target.value)} /></Field>
+              <Field label="Bathrooms">
+                <Input
+                  inputMode="numeric"
+                  value={values.bathrooms}
+                  onChange={(e) => set("bathrooms", e.target.value)}
+                />
+              </Field>
+              <Field label="Balconies">
+                <Input
+                  inputMode="numeric"
+                  value={values.balconies}
+                  onChange={(e) => set("balconies", e.target.value)}
+                />
+              </Field>
+              <Field label="Parking spaces">
+                <Input
+                  inputMode="numeric"
+                  value={values.parking}
+                  onChange={(e) => set("parking", e.target.value)}
+                />
+              </Field>
+              <Field label="Floor">
+                <Input
+                  inputMode="numeric"
+                  value={values.floor_number}
+                  onChange={(e) => set("floor_number", e.target.value)}
+                />
+              </Field>
+              <Field label="Total floors">
+                <Input
+                  inputMode="numeric"
+                  value={values.total_floors}
+                  onChange={(e) => set("total_floors", e.target.value)}
+                />
+              </Field>
               <Field label="Facing">
-                <Select value={values.facing} onChange={(v) => set("facing", v)} options={[["", "Not specified"], ...["East", "West", "North", "South", "North-East", "North-West", "South-East", "South-West"].map((f) => [f, f] as [string, string])]} />
+                <Select
+                  value={values.facing}
+                  onChange={(v) => set("facing", v)}
+                  options={[
+                    ["", "Not specified"],
+                    ...[
+                      "East",
+                      "West",
+                      "North",
+                      "South",
+                      "North-East",
+                      "North-West",
+                      "South-East",
+                      "South-West",
+                    ].map((f) => [f, f] as [string, string]),
+                  ]}
+                />
               </Field>
               <Field label="Furnishing">
-                <Select value={values.furnishing} onChange={(v) => set("furnishing", v)} options={[["Unfurnished", "Unfurnished"], ["Semi-Furnished", "Semi-Furnished"], ["Fully Furnished", "Fully Furnished"]]} />
+                <Select
+                  value={values.furnishing}
+                  onChange={(v) => set("furnishing", v)}
+                  options={[
+                    ["Unfurnished", "Unfurnished"],
+                    ["Semi-Furnished", "Semi-Furnished"],
+                    ["Fully Furnished", "Fully Furnished"],
+                  ]}
+                />
               </Field>
               <Field label="Possession status">
-                <Select value={values.status} onChange={(v) => set("status", v as PropertyFormValues["status"])} options={[["ready_to_move", "Ready to Move"], ["under_construction", "Under Construction"], ["new_launch", "New Launch"], ["sold_out", "Sold / Rented"]]} />
+                <Select
+                  value={values.status}
+                  onChange={(v) => set("status", v as PropertyFormValues["status"])}
+                  options={[
+                    ["ready_to_move", "Ready to Move"],
+                    ["under_construction", "Under Construction"],
+                    ["new_launch", "New Launch"],
+                    ["sold_out", "Sold / Rented"],
+                  ]}
+                />
               </Field>
-              <Field label="RERA number"><Input value={values.rera_number} onChange={(e) => set("rera_number", e.target.value)} /></Field>
+              <Field label="RERA number">
+                <Input
+                  value={values.rera_number}
+                  onChange={(e) => set("rera_number", e.target.value)}
+                />
+              </Field>
             </div>
 
             <div className="flex flex-wrap gap-6">
-              <Toggle label="Servant room" checked={values.servant_room} onChange={(v) => set("servant_room", v)} />
-              <Toggle label="Study room" checked={values.study_room} onChange={(v) => set("study_room", v)} />
-              <Toggle label="Featured" checked={values.is_featured} onChange={(v) => set("is_featured", v)} />
+              <Toggle
+                label="Servant room"
+                checked={values.servant_room}
+                onChange={(v) => set("servant_room", v)}
+              />
+              <Toggle
+                label="Study room"
+                checked={values.study_room}
+                onChange={(v) => set("study_room", v)}
+              />
+              <Toggle
+                label="Featured"
+                checked={values.is_featured}
+                onChange={(v) => set("is_featured", v)}
+              />
             </div>
 
-            <TagPicker label="Amenities" presets={AMENITY_PRESETS} value={values.amenities} onChange={(v) => set("amenities", v)} />
-            <TagPicker label="Features" presets={FEATURE_PRESETS} value={values.features} onChange={(v) => set("features", v)} />
+            <TagPicker
+              label="Amenities"
+              presets={AMENITY_PRESETS}
+              value={values.amenities}
+              onChange={(v) => set("amenities", v)}
+            />
+            <TagPicker
+              label="Features"
+              presets={FEATURE_PRESETS}
+              value={values.features}
+              onChange={(v) => set("features", v)}
+            />
           </div>
         ) : null}
 
@@ -354,14 +523,25 @@ export function PropertyForm({
           <div className="space-y-10">
             <section>
               <h2 className="font-display text-xl">Property photos</h2>
-              <p className="mt-1 text-sm text-muted-foreground">Upload multiple actual photos, choose the strongest cover image, drag to reorder, and keep the image descriptions accurate.</p>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Upload multiple actual photos, choose the strongest cover image, drag to reorder,
+                and keep the image descriptions accurate.
+              </p>
               <div className="mt-5">
-                <ImageManager images={values.images} onChange={(next) => set("images", next)} altFor={(index) => buildImageAlt(seoSource, index)} />
+                <ImageManager
+                  images={values.images}
+                  onChange={(next) => set("images", next)}
+                  altFor={(index) => buildImageAlt(seoSource, index)}
+                />
               </div>
             </section>
             <section className="border-t border-border pt-8">
               <h2 className="font-display text-xl">Property videos</h2>
-              <p className="mt-1 text-sm text-muted-foreground">Upload MP4/WebM videos or paste a YouTube/video link. A real walkthrough can improve buyer engagement.</p>
+              <p className="mt-1 text-sm text-muted-foreground">
+                Upload an original MP4/WebM walkthrough or paste an official developer/builder
+                YouTube link with embedding enabled. Keep third-party videos on their original
+                channel.
+              </p>
               <div className="mt-5">
                 <VideoManager videos={values.videos} onChange={(next) => set("videos", next)} />
               </div>
@@ -372,36 +552,101 @@ export function PropertyForm({
         {step === 3 ? (
           <div className="space-y-5">
             <div className="rounded-xl border border-gold/30 bg-gold/5 p-4">
-              <p className="text-xs font-medium uppercase tracking-[0.16em] text-gold">SEO before you publish</p>
+              <p className="text-xs font-medium uppercase tracking-[0.16em] text-gold">
+                SEO before you publish
+              </p>
               <ul className="mt-3 grid gap-2 text-sm leading-6 text-muted-foreground sm:grid-cols-2">
                 <li>• Use a specific title with project + configuration + sector.</li>
                 <li>• Enter exact price, area, floor, facing and possession details.</li>
                 <li>• Use several sharp, actual property photos with a strong cover image.</li>
-                <li>• Write unique natural text for this exact unit; do not copy another listing.</li>
+                <li>
+                  • Write unique natural text for this exact unit; do not copy another listing.
+                </li>
                 <li>• Mention genuine view, condition, amenities and connectivity advantages.</li>
                 <li>• Avoid keyword stuffing, ALL CAPS and Markdown symbols such as ** or ###.</li>
               </ul>
-              <p className="mt-3 text-xs text-muted-foreground">SEO title, search description, URL, canonical URL and missing image ALT text are generated automatically when you publish.</p>
+              <p className="mt-3 text-xs text-muted-foreground">
+                SEO title, search description, URL, canonical URL and missing image ALT text are
+                generated automatically when you publish.
+              </p>
             </div>
             <Label htmlFor="description">Property description</Label>
-            <Textarea id="description" rows={14} value={values.description} onChange={(e) => set("description", e.target.value)} placeholder="Describe this exact home, project and location in clear natural language." />
+            <Textarea
+              id="description"
+              rows={14}
+              value={values.description}
+              onChange={(e) => set("description", e.target.value)}
+              placeholder="Describe this exact home, project and location in clear natural language."
+            />
           </div>
         ) : null}
       </div>
 
       <div className="sticky bottom-0 flex flex-wrap items-center gap-2 border-t border-border bg-background/95 py-4 backdrop-blur">
-        <Button type="button" variant="outline" disabled={step === 0} onClick={() => setStep((s) => Math.max(0, s - 1))}>Back</Button>
-        <Button type="button" variant="outline" disabled={step === STEPS.length - 1} onClick={() => setStep((s) => Math.min(STEPS.length - 1, s + 1))}>Next</Button>
+        <Button
+          type="button"
+          variant="outline"
+          disabled={step === 0}
+          onClick={() => setStep((s) => Math.max(0, s - 1))}
+        >
+          Back
+        </Button>
+        <Button
+          type="button"
+          variant="outline"
+          disabled={step === STEPS.length - 1}
+          onClick={() => setStep((s) => Math.min(STEPS.length - 1, s + 1))}
+        >
+          Next
+        </Button>
         <div className="ml-auto flex flex-wrap gap-2">
-          <Button type="button" variant="outline" disabled={saving} onClick={() => void persist({ is_published: false }).then((r) => r && toast.success("Draft saved"))}>
+          <Button
+            type="button"
+            variant="outline"
+            disabled={saving}
+            onClick={() =>
+              void persist({ is_published: false }).then((r) => r && toast.success("Draft saved"))
+            }
+          >
             {saving ? <Loader2 className="size-4 animate-spin" aria-hidden="true" /> : null}
             Save draft
           </Button>
-          <Button type="button" variant="outline" disabled={saving} onClick={() => void persist().then((r) => { if (r) void navigate({ to: "/admin/preview/$id", params: { id: r.id } }); })}>Preview</Button>
+          <Button
+            type="button"
+            variant="outline"
+            disabled={saving}
+            onClick={() =>
+              void persist().then((r) => {
+                if (r) void navigate({ to: "/admin/preview/$id", params: { id: r.id } });
+              })
+            }
+          >
+            Preview
+          </Button>
           {values.is_published ? (
-            <Button type="button" variant="outline" disabled={saving} onClick={() => void persist({ is_published: false }).then((r) => r && toast.success("Unpublished"))}>Unpublish</Button>
+            <Button
+              type="button"
+              variant="outline"
+              disabled={saving}
+              onClick={() =>
+                void persist({ is_published: false }).then((r) => r && toast.success("Unpublished"))
+              }
+            >
+              Unpublish
+            </Button>
           ) : null}
-          <Button type="button" variant="outline" disabled={saving} onClick={() => void persist({ status: "sold_out" }).then((r) => r && toast.success("Marked sold / rented"))}>Mark sold</Button>
+          <Button
+            type="button"
+            variant="outline"
+            disabled={saving}
+            onClick={() =>
+              void persist({ status: "sold_out" }).then(
+                (r) => r && toast.success("Marked sold / rented"),
+              )
+            }
+          >
+            Mark sold
+          </Button>
           <Button
             type="button"
             variant="gold"
@@ -423,7 +668,15 @@ export function PropertyForm({
   );
 }
 
-function Field({ label, children, className }: { label: string; children: React.ReactNode; className?: string }) {
+function Field({
+  label,
+  children,
+  className,
+}: {
+  label: string;
+  children: React.ReactNode;
+  className?: string;
+}) {
   return (
     <label className={`block space-y-2 ${className ?? ""}`}>
       <span className="text-xs uppercase tracking-[0.14em] text-muted-foreground">{label}</span>
@@ -432,15 +685,39 @@ function Field({ label, children, className }: { label: string; children: React.
   );
 }
 
-function Select({ value, onChange, options }: { value: string; onChange: (value: string) => void; options: Array<[string, string]> }) {
+function Select({
+  value,
+  onChange,
+  options,
+}: {
+  value: string;
+  onChange: (value: string) => void;
+  options: Array<[string, string]>;
+}) {
   return (
-    <select value={value} onChange={(e) => onChange(e.target.value)} className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm text-foreground">
-      {options.map(([v, label]) => <option key={v} value={v}>{label}</option>)}
+    <select
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm text-foreground"
+    >
+      {options.map(([v, label]) => (
+        <option key={v} value={v}>
+          {label}
+        </option>
+      ))}
     </select>
   );
 }
 
-function Toggle({ label, checked, onChange }: { label: string; checked: boolean; onChange: (v: boolean) => void }) {
+function Toggle({
+  label,
+  checked,
+  onChange,
+}: {
+  label: string;
+  checked: boolean;
+  onChange: (v: boolean) => void;
+}) {
   return (
     <label className="flex items-center gap-3 text-sm">
       <Switch checked={checked} onCheckedChange={onChange} />
@@ -449,9 +726,20 @@ function Toggle({ label, checked, onChange }: { label: string; checked: boolean;
   );
 }
 
-function TagPicker({ label, presets, value, onChange }: { label: string; presets: string[]; value: string[]; onChange: (next: string[]) => void }) {
+function TagPicker({
+  label,
+  presets,
+  value,
+  onChange,
+}: {
+  label: string;
+  presets: string[];
+  value: string[];
+  onChange: (next: string[]) => void;
+}) {
   const [custom, setCustom] = useState("");
-  const toggle = (tag: string) => onChange(value.includes(tag) ? value.filter((t) => t !== tag) : [...value, tag]);
+  const toggle = (tag: string) =>
+    onChange(value.includes(tag) ? value.filter((t) => t !== tag) : [...value, tag]);
 
   return (
     <div className="space-y-3">
@@ -459,7 +747,12 @@ function TagPicker({ label, presets, value, onChange }: { label: string; presets
       <div className="flex flex-wrap gap-2">
         {[...presets, ...value.filter((v) => !presets.includes(v))].map((tag) => (
           <button key={tag} type="button" onClick={() => toggle(tag)}>
-            <Badge variant={value.includes(tag) ? "default" : "secondary"} className="cursor-pointer font-normal">{tag}</Badge>
+            <Badge
+              variant={value.includes(tag) ? "default" : "secondary"}
+              className="cursor-pointer font-normal"
+            >
+              {tag}
+            </Badge>
           </button>
         ))}
       </div>
@@ -472,12 +765,24 @@ function TagPicker({ label, presets, value, onChange }: { label: string; presets
           onKeyDown={(e) => {
             if (e.key === "Enter") {
               e.preventDefault();
-              if (custom.trim() && !value.includes(custom.trim())) onChange([...value, custom.trim()]);
+              if (custom.trim() && !value.includes(custom.trim()))
+                onChange([...value, custom.trim()]);
               setCustom("");
             }
           }}
         />
-        <Button type="button" size="sm" variant="outline" onClick={() => { if (custom.trim() && !value.includes(custom.trim())) onChange([...value, custom.trim()]); setCustom(""); }}>Add</Button>
+        <Button
+          type="button"
+          size="sm"
+          variant="outline"
+          onClick={() => {
+            if (custom.trim() && !value.includes(custom.trim()))
+              onChange([...value, custom.trim()]);
+            setCustom("");
+          }}
+        >
+          Add
+        </Button>
       </div>
     </div>
   );

@@ -87,13 +87,18 @@ function youtubeEmbed(url: string): string | null {
     const parsed = new URL(url);
     if (parsed.hostname.includes("youtu.be")) {
       const id = parsed.pathname.replace(/^\//, "").split("/")[0];
-      return id ? `https://www.youtube.com/embed/${id}` : null;
+      return id ? `https://www.youtube-nocookie.com/embed/${id}` : null;
     }
-    if (parsed.hostname.includes("youtube.com")) {
+    if (
+      parsed.hostname.includes("youtube.com") ||
+      parsed.hostname.includes("youtube-nocookie.com")
+    ) {
       const id =
         parsed.searchParams.get("v") ??
-        (parsed.pathname.startsWith("/shorts/") ? parsed.pathname.split("/")[2] : null);
-      return id ? `https://www.youtube.com/embed/${id}` : null;
+        (parsed.pathname.startsWith("/shorts/") || parsed.pathname.startsWith("/embed/")
+          ? parsed.pathname.split("/")[2]
+          : null);
+      return id ? `https://www.youtube-nocookie.com/embed/${id}` : null;
     }
   } catch {
     return null;
@@ -267,32 +272,58 @@ export function PropertyView({
 
       {videos.length ? (
         <section className="container-page mt-8">
-          <h2 className="font-display text-2xl">Property videos</h2>
+          <h2 className="font-display text-2xl">Project videos & walkthroughs</h2>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground">
+            YouTube videos remain hosted by the original publisher. Uploaded walkthroughs are
+            provided by Shubh Estate Brokers. Treat developer visuals as representative and confirm
+            current RERA disclosures, plans, specifications and construction status.
+          </p>
           <div className="mt-4 grid gap-5 md:grid-cols-2">
             {videos.map((url, index) => {
               const embed = youtubeEmbed(url);
               return (
-                <div
+                <figure
                   key={`${url}-${index}`}
-                  className="overflow-hidden rounded-xl border border-border bg-black"
+                  className="overflow-hidden rounded-xl border border-border bg-card"
                 >
-                  {embed ? (
-                    <iframe
-                      title={`${property.title} video ${index + 1}`}
-                      src={embed}
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                      allowFullScreen
-                      className="aspect-video w-full border-0"
-                    />
-                  ) : (
-                    <video
-                      src={url}
-                      controls
-                      preload="metadata"
-                      className="aspect-video w-full object-contain"
-                    />
-                  )}
-                </div>
+                  <div className="bg-black">
+                    {embed ? (
+                      <iframe
+                        title={`${property.title} video ${index + 1}`}
+                        src={embed}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowFullScreen
+                        loading="lazy"
+                        referrerPolicy="strict-origin-when-cross-origin"
+                        className="aspect-video w-full border-0"
+                      />
+                    ) : (
+                      <video
+                        src={url}
+                        controls
+                        preload="metadata"
+                        className="aspect-video w-full object-contain"
+                      />
+                    )}
+                  </div>
+                  <figcaption className="flex items-center justify-between gap-3 px-4 py-3 text-xs text-muted-foreground">
+                    <span>
+                      {embed
+                        ? "Embedded from the original YouTube publisher"
+                        : "Property walkthrough"}
+                    </span>
+                    {embed ? (
+                      <a
+                        href={url}
+                        target="_blank"
+                        rel="noreferrer nofollow"
+                        className="shrink-0 font-medium text-gold hover:underline"
+                      >
+                        View source
+                      </a>
+                    ) : null}
+                  </figcaption>
+                </figure>
               );
             })}
           </div>
