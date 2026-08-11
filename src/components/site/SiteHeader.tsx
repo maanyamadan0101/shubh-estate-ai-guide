@@ -9,13 +9,11 @@ import { trackContact } from "@/lib/analytics";
 const NAV = [
   { to: "/", label: "Home" },
   { to: "/properties", label: "Properties" },
-  { to: "/luxury", label: "Luxury" },
-  { to: "/sell-property-gurgaon", label: "Sell Property" },
+  { to: "/under-construction-projects-gurgaon", label: "New Projects" },
+  { to: "/property-services-gurgaon", label: "Services" },
+  { to: "/sell-property-gurgaon", label: "Sell / Rent" },
   { to: "/nri", label: "NRI" },
-  { to: "/home-loans", label: "Home Loans" },
-  { to: "/emi-calculator", label: "EMI Calculator" },
   { to: "/about", label: "About" },
-  { to: "/contact", label: "Contact" },
 ] as const;
 
 export function SiteHeader() {
@@ -36,7 +34,7 @@ export function SiteHeader() {
           </span>
         </Link>
 
-        <nav className="hidden items-center gap-6 lg:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-5 lg:flex" aria-label="Primary">
           {NAV.map((item) => (
             <Link
               key={item.to}

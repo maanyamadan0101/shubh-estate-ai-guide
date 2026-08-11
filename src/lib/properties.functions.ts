@@ -36,6 +36,10 @@ export const listPublicProperties = createServerFn({ method: "GET" })
         locality: z.string().optional(),
         limit: z.number().int().positive().max(60).optional(),
         excludeSlug: z.string().optional(),
+        statuses: z
+          .array(z.enum(["ready_to_move", "under_construction", "new_launch", "sold_out"]))
+          .max(4)
+          .optional(),
       })
       .parse(input ?? {}),
   )
@@ -54,6 +58,7 @@ export const listPublicProperties = createServerFn({ method: "GET" })
       // listings discoverable on the relevant corridor landing page.
       if (data.locality) query = query.ilike("locality", `%${data.locality}%`);
       if (data.excludeSlug) query = query.neq("slug", data.excludeSlug);
+      if (data.statuses?.length) query = query.in("status", data.statuses);
 
       const { data: rows, error } = await query;
       if (error) {

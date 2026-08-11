@@ -6,13 +6,35 @@ import { Input } from "@/components/ui/input";
 import { supabase } from "@/integrations/supabase/client";
 import { requestMediaUpload } from "@/lib/media-upload";
 
-export function VideoManager({ videos, onChange }: { videos: string[]; onChange: (next: string[]) => void }) {
+function supportedVideoLink(value: string) {
+  const url = new URL(value);
+  if (url.protocol !== "https:") return false;
+  const host = url.hostname.toLowerCase().replace(/^www\./, "");
+  const youtube =
+    host === "youtu.be" ||
+    host === "youtube.com" ||
+    host.endsWith(".youtube.com") ||
+    host === "youtube-nocookie.com" ||
+    host.endsWith(".youtube-nocookie.com");
+  const directVideo = /\.(mp4|webm)$/i.test(url.pathname);
+  return youtube || directVideo;
+}
+
+export function VideoManager({
+  videos,
+  onChange,
+}: {
+  videos: string[];
+  onChange: (next: string[]) => void;
+}) {
   const [uploading, setUploading] = useState(false);
   const [link, setLink] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
   async function upload(files: FileList | File[]) {
-    const list = Array.from(files).filter((file) => file.type === "video/mp4" || file.type === "video/webm");
+    const list = Array.from(files).filter(
+      (file) => file.type === "video/mp4" || file.type === "video/webm",
+    );
     if (!list.length) {
       toast.error("Please choose an MP4 or WebM video.");
       return;
@@ -73,10 +95,9 @@ export function VideoManager({ videos, onChange }: { videos: string[]; onChange:
     const value = link.trim();
     if (!value) return;
     try {
-      const url = new URL(value);
-      if (url.protocol !== "https:" && url.protocol !== "http:") throw new Error("Invalid protocol");
+      if (!supportedVideoLink(value)) throw new Error("Unsupported video URL");
     } catch {
-      toast.error("Please enter a valid video or YouTube URL.");
+      toast.error("Use an HTTPS YouTube link or a direct MP4/WebM video URL.");
       return;
     }
     if (videos.includes(value)) {
@@ -95,8 +116,17 @@ export function VideoManager({ videos, onChange }: { videos: string[]; onChange:
     <div className="space-y-4">
       <div className="rounded-xl border border-border bg-background p-5">
         <div className="flex flex-wrap items-center gap-3">
-          <Button type="button" variant="outline" onClick={() => inputRef.current?.click()} disabled={uploading || videos.length >= 4}>
-            {uploading ? <Loader2 className="size-4 animate-spin" aria-hidden="true" /> : <Upload className="size-4" aria-hidden="true" />}
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => inputRef.current?.click()}
+            disabled={uploading || videos.length >= 4}
+          >
+            {uploading ? (
+              <Loader2 className="size-4 animate-spin" aria-hidden="true" />
+            ) : (
+              <Upload className="size-4" aria-hidden="true" />
+            )}
             {uploading ? "Uploading…" : "Upload MP4 / WebM"}
           </Button>
           <input
@@ -110,8 +140,16 @@ export function VideoManager({ videos, onChange }: { videos: string[]; onChange:
               event.target.value = "";
             }}
           />
-          <span className="text-xs text-muted-foreground">Up to 100 MB each · maximum 4 videos</span>
+          <span className="text-xs text-muted-foreground">
+            Up to 100 MB each · maximum 4 videos
+          </span>
         </div>
+
+        <p className="mt-3 text-xs leading-5 text-muted-foreground">
+          Use only original Shubh Estate Brokers media or an official developer/builder video with
+          embedding enabled. Keep the original YouTube link—do not download and re-upload
+          third-party videos. Verify the channel and project before publishing.
+        </p>
 
         <div className="mt-4 flex flex-col gap-2 sm:flex-row">
           <Input
@@ -135,10 +173,19 @@ export function VideoManager({ videos, onChange }: { videos: string[]; onChange:
         <ul className="grid gap-4 md:grid-cols-2">
           {videos.map((videoUrl, index) => {
             const isUploaded = videoUrl.startsWith("/api/public/img/");
+            const isYouTube = /(?:youtu\.be|youtube(?:-nocookie)?\.com)/i.test(videoUrl);
             return (
-              <li key={`${videoUrl}-${index}`} className="overflow-hidden rounded-xl border border-border bg-card">
+              <li
+                key={`${videoUrl}-${index}`}
+                className="overflow-hidden rounded-xl border border-border bg-card"
+              >
                 {isUploaded ? (
-                  <video src={videoUrl} controls preload="metadata" className="aspect-video w-full bg-black object-contain" />
+                  <video
+                    src={videoUrl}
+                    controls
+                    preload="metadata"
+                    className="aspect-video w-full bg-black object-contain"
+                  />
                 ) : (
                   <div className="flex aspect-video items-center justify-center bg-muted p-6 text-center">
                     <div>
@@ -148,8 +195,19 @@ export function VideoManager({ videos, onChange }: { videos: string[]; onChange:
                   </div>
                 )}
                 <div className="flex items-center justify-between gap-3 p-3">
-                  <span className="text-xs text-muted-foreground">Video {index + 1}</span>
-                  <Button type="button" size="sm" variant="outline" onClick={() => onChange(videos.filter((_, i) => i !== index))}>
+                  <span className="text-xs text-muted-foreground">
+                    {isUploaded
+                      ? `Original walkthrough ${index + 1}`
+                      : isYouTube
+                        ? `YouTube source ${index + 1}`
+                        : `Hosted video ${index + 1}`}
+                  </span>
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="outline"
+                    onClick={() => onChange(videos.filter((_, i) => i !== index))}
+                  >
                     <Trash2 className="size-3.5" aria-hidden="true" />
                     Remove
                   </Button>

@@ -29,11 +29,13 @@ import { Route as NriSellPropertyGurgaonRouteImport } from './routes/nri-sell-pr
 import { Route as PropertiesRouteImport } from './routes/properties'
 import { Route as PropertyBuyingAdvisoryGurgaonRouteImport } from './routes/property-buying-advisory-gurgaon'
 import { Route as PropertySector79GurgaonRouteImport } from './routes/property-sector-79-gurgaon'
+import { Route as PropertyServicesGurgaonRouteImport } from './routes/property-services-gurgaon'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
 import { Route as SellPropertyGurgaonRouteImport } from './routes/sell-property-gurgaon'
 import { Route as SellerSubmitRouteImport } from './routes/seller-submit'
 import { Route as SeniorCitizenHousingGurgaonRouteImport } from './routes/senior-citizen-housing-gurgaon'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as UnderConstructionProjectsGurgaonRouteImport } from './routes/under-construction-projects-gurgaon'
 import { Route as ApiSellerSubmissionRouteImport } from './routes/api/seller-submission'
 import { Route as LocationsSlugRouteImport } from './routes/locations.$slug'
 import { Route as NriCountryRouteImport } from './routes/nri_.$country'
@@ -157,6 +159,11 @@ const PropertySector79GurgaonRoute = PropertySector79GurgaonRouteImport.update({
   path: '/property-sector-79-gurgaon',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PropertyServicesGurgaonRoute = PropertyServicesGurgaonRouteImport.update({
+  id: '/property-services-gurgaon',
+  path: '/property-services-gurgaon',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
   id: '/reset-password',
   path: '/reset-password',
@@ -183,6 +190,12 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
+const UnderConstructionProjectsGurgaonRoute =
+  UnderConstructionProjectsGurgaonRouteImport.update({
+    id: '/under-construction-projects-gurgaon',
+    path: '/under-construction-projects-gurgaon',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiSellerSubmissionRoute = ApiSellerSubmissionRouteImport.update({
   id: '/api/seller-submission',
   path: '/api/seller-submission',
@@ -301,11 +314,13 @@ export interface FileRoutesByFullPath {
   '/properties': typeof PropertiesRoute
   '/property-buying-advisory-gurgaon': typeof PropertyBuyingAdvisoryGurgaonRoute
   '/property-sector-79-gurgaon': typeof PropertySector79GurgaonRoute
+  '/property-services-gurgaon': typeof PropertyServicesGurgaonRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sell-property-gurgaon': typeof SellPropertyGurgaonRoute
   '/seller-submit': typeof SellerSubmitRoute
   '/senior-citizen-housing-gurgaon': typeof SeniorCitizenHousingGurgaonRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/under-construction-projects-gurgaon': typeof UnderConstructionProjectsGurgaonRoute
   '/api/seller-submission': typeof ApiSellerSubmissionRoute
   '/locations/$slug': typeof LocationsSlugRoute
   '/nri/$country': typeof NriCountryRoute
@@ -345,11 +360,13 @@ export interface FileRoutesByTo {
   '/properties': typeof PropertiesRoute
   '/property-buying-advisory-gurgaon': typeof PropertyBuyingAdvisoryGurgaonRoute
   '/property-sector-79-gurgaon': typeof PropertySector79GurgaonRoute
+  '/property-services-gurgaon': typeof PropertyServicesGurgaonRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sell-property-gurgaon': typeof SellPropertyGurgaonRoute
   '/seller-submit': typeof SellerSubmitRoute
   '/senior-citizen-housing-gurgaon': typeof SeniorCitizenHousingGurgaonRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/under-construction-projects-gurgaon': typeof UnderConstructionProjectsGurgaonRoute
   '/api/seller-submission': typeof ApiSellerSubmissionRoute
   '/locations/$slug': typeof LocationsSlugRoute
   '/nri/$country': typeof NriCountryRoute
@@ -391,11 +408,13 @@ export interface FileRoutesById {
   '/properties': typeof PropertiesRoute
   '/property-buying-advisory-gurgaon': typeof PropertyBuyingAdvisoryGurgaonRoute
   '/property-sector-79-gurgaon': typeof PropertySector79GurgaonRoute
+  '/property-services-gurgaon': typeof PropertyServicesGurgaonRoute
   '/reset-password': typeof ResetPasswordRoute
   '/sell-property-gurgaon': typeof SellPropertyGurgaonRoute
   '/seller-submit': typeof SellerSubmitRoute
   '/senior-citizen-housing-gurgaon': typeof SeniorCitizenHousingGurgaonRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/under-construction-projects-gurgaon': typeof UnderConstructionProjectsGurgaonRoute
   '/api/seller-submission': typeof ApiSellerSubmissionRoute
   '/locations/$slug': typeof LocationsSlugRoute
   '/nri_/$country': typeof NriCountryRoute
@@ -437,11 +456,13 @@ export interface FileRouteTypes {
     | '/properties'
     | '/property-buying-advisory-gurgaon'
     | '/property-sector-79-gurgaon'
+    | '/property-services-gurgaon'
     | '/reset-password'
     | '/sell-property-gurgaon'
     | '/seller-submit'
     | '/senior-citizen-housing-gurgaon'
     | '/sitemap.xml'
+    | '/under-construction-projects-gurgaon'
     | '/api/seller-submission'
     | '/locations/$slug'
     | '/nri/$country'
@@ -481,11 +502,13 @@ export interface FileRouteTypes {
     | '/properties'
     | '/property-buying-advisory-gurgaon'
     | '/property-sector-79-gurgaon'
+    | '/property-services-gurgaon'
     | '/reset-password'
     | '/sell-property-gurgaon'
     | '/seller-submit'
     | '/senior-citizen-housing-gurgaon'
     | '/sitemap.xml'
+    | '/under-construction-projects-gurgaon'
     | '/api/seller-submission'
     | '/locations/$slug'
     | '/nri/$country'
@@ -526,11 +549,13 @@ export interface FileRouteTypes {
     | '/properties'
     | '/property-buying-advisory-gurgaon'
     | '/property-sector-79-gurgaon'
+    | '/property-services-gurgaon'
     | '/reset-password'
     | '/sell-property-gurgaon'
     | '/seller-submit'
     | '/senior-citizen-housing-gurgaon'
     | '/sitemap.xml'
+    | '/under-construction-projects-gurgaon'
     | '/api/seller-submission'
     | '/locations/$slug'
     | '/nri_/$country'
@@ -572,11 +597,13 @@ export interface RootRouteChildren {
   PropertiesRoute: typeof PropertiesRoute
   PropertyBuyingAdvisoryGurgaonRoute: typeof PropertyBuyingAdvisoryGurgaonRoute
   PropertySector79GurgaonRoute: typeof PropertySector79GurgaonRoute
+  PropertyServicesGurgaonRoute: typeof PropertyServicesGurgaonRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
   SellPropertyGurgaonRoute: typeof SellPropertyGurgaonRoute
   SellerSubmitRoute: typeof SellerSubmitRoute
   SeniorCitizenHousingGurgaonRoute: typeof SeniorCitizenHousingGurgaonRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  UnderConstructionProjectsGurgaonRoute: typeof UnderConstructionProjectsGurgaonRoute
   ApiSellerSubmissionRoute: typeof ApiSellerSubmissionRoute
   LocationsSlugRoute: typeof LocationsSlugRoute
   NriCountryRoute: typeof NriCountryRoute
@@ -727,6 +754,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PropertySector79GurgaonRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/property-services-gurgaon': {
+      id: '/property-services-gurgaon'
+      path: '/property-services-gurgaon'
+      fullPath: '/property-services-gurgaon'
+      preLoaderRoute: typeof PropertyServicesGurgaonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/reset-password': {
       id: '/reset-password'
       path: '/reset-password'
@@ -760,6 +794,13 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/under-construction-projects-gurgaon': {
+      id: '/under-construction-projects-gurgaon'
+      path: '/under-construction-projects-gurgaon'
+      fullPath: '/under-construction-projects-gurgaon'
+      preLoaderRoute: typeof UnderConstructionProjectsGurgaonRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/seller-submission': {
@@ -949,11 +990,13 @@ const rootRouteChildren: RootRouteChildren = {
   PropertiesRoute: PropertiesRoute,
   PropertyBuyingAdvisoryGurgaonRoute: PropertyBuyingAdvisoryGurgaonRoute,
   PropertySector79GurgaonRoute: PropertySector79GurgaonRoute,
+  PropertyServicesGurgaonRoute: PropertyServicesGurgaonRoute,
   ResetPasswordRoute: ResetPasswordRoute,
   SellPropertyGurgaonRoute: SellPropertyGurgaonRoute,
   SellerSubmitRoute: SellerSubmitRoute,
   SeniorCitizenHousingGurgaonRoute: SeniorCitizenHousingGurgaonRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  UnderConstructionProjectsGurgaonRoute: UnderConstructionProjectsGurgaonRoute,
   ApiSellerSubmissionRoute: ApiSellerSubmissionRoute,
   LocationsSlugRoute: LocationsSlugRoute,
   NriCountryRoute: NriCountryRoute,

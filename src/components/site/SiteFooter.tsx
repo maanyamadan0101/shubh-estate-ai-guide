@@ -105,6 +105,11 @@ export function SiteFooter() {
               </Link>
             </li>
             <li>
+              <Link to="/under-construction-projects-gurgaon" className="hover:text-gold">
+                New & Under-Construction Projects
+              </Link>
+            </li>
+            <li>
               <Link to="/luxury" className="hover:text-gold">
                 Luxury Apartments in Gurgaon
               </Link>
@@ -136,7 +141,17 @@ export function SiteFooter() {
             </li>
             <li>
               <Link to="/home-loans" className="hover:text-gold">
-                Home Loan Assistance
+                Home Loan Takeover & Assistance
+              </Link>
+            </li>
+            <li>
+              <Link to="/property-services-gurgaon" className="hover:text-gold">
+                Property Management & Valuation
+              </Link>
+            </li>
+            <li>
+              <Link to="/property-services-gurgaon" className="hover:text-gold">
+                Due Diligence & Tenant Support
               </Link>
             </li>
             <li>
