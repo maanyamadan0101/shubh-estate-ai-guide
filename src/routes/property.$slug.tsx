@@ -66,6 +66,7 @@ export const Route = createFileRoute("/property/$slug")({
     const schema = {
       "@context": "https://schema.org",
       "@type": "Residence",
+      "@id": `${canonical}#property`,
       name: p.title,
       description,
       url: canonical,
@@ -81,6 +82,12 @@ export const Route = createFileRoute("/property/$slug")({
         ? { floorSize: { "@type": "QuantitativeValue", value: p.area_sqft, unitCode: "FTK" } }
         : {}),
       ...(p.bathrooms ? { numberOfBathroomsTotal: p.bathrooms } : {}),
+      ...(p.bhk ? { numberOfRooms: Number.parseFloat(p.bhk) || undefined } : {}),
+      ...(p.floor_number ? { floorLevel: String(p.floor_number) } : {}),
+      mainEntityOfPage: {
+        "@type": "WebPage",
+        "@id": canonical,
+      },
       ...(p.price
         ? {
             offers: {
