@@ -10,7 +10,7 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
-import appCss from "../styles.css?url";
+import appCss from "../styles.css?url";\nimport heroImage from "@/assets/hero-gurugram.jpg";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
@@ -20,7 +20,7 @@ import { CONTACT } from "@/data/site";
 import { trackEvent } from "@/lib/analytics";
 
 const GA_MEASUREMENT_ID = "G-8EWLZD8V5H";
-const SITE_ORIGIN = "https://shubhestatebroker.in";
+const SITE_ORIGIN = "https://www.shubhestatebroker.in";
 
 function NotFoundComponent() {
   return (
