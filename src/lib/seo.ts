@@ -1,4 +1,5 @@
-// Use the canonical production host everywhere. The apex domain redirects to www, so emitting www URLs avoids redirect hops and duplicate URL signals.\nexport const SITE_ORIGIN = "https://www.shubhestatebroker.in";
+// Use the canonical production host everywhere. The apex domain redirects to www, so emitting www URLs avoids redirect hops and duplicate URL signals.
+export const SITE_ORIGIN = "https://www.shubhestatebroker.in";
 
 export function slugify(input: string): string {
   return input
