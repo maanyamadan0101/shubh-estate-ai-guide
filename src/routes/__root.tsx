@@ -15,6 +15,7 @@ import heroImage from "@/assets/hero-gurugram.jpg";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
+import { FloatingActions } from "@/components/site/FloatingActions";
 import { Toaster } from "@/components/ui/sonner";
 import { CONTACT } from "@/data/site";
 import { trackEvent } from "@/lib/analytics";
@@ -226,10 +227,11 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <SiteHeader />
-      <main className="pb-0">
+      <main className="pb-24 md:pb-0">
         <Outlet />
       </main>
       <SiteFooter />
+      <FloatingActions />
       <Toaster />
     </QueryClientProvider>
   );
