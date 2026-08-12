@@ -2,7 +2,13 @@ import { createFileRoute } from "@tanstack/react-router";
 import { listSitemapProperties } from "@/lib/properties.functions";
 import { SITE_ORIGIN } from "@/lib/seo";
 
-const STATIC_PATHS = [
+type StaticPath = {
+  path: string;
+  priority: string;
+  lastmod?: string;
+};
+
+const STATIC_PATHS: StaticPath[] = [
   { path: "/", priority: "1.0" },
   { path: "/properties", priority: "0.9" },
   { path: "/under-construction-projects-gurgaon", priority: "0.9" },
@@ -30,10 +36,10 @@ const STATIC_PATHS = [
   { path: "/locations/southern-peripheral-road", priority: "0.7" },
   { path: "/locations/sohna-road", priority: "0.7" },
   { path: "/locations/new-gurgaon", priority: "0.7" },
-  { path: "/home-loans", priority: "0.7" },
+  { path: "/home-loans", priority: "0.7", lastmod: "2026-08-11" },
   { path: "/emi-calculator", priority: "0.6" },
-  { path: "/gurugram-growth-story", priority: "0.6" },
-  { path: "/about", priority: "0.5" },
+  { path: "/gurugram-growth-story", priority: "0.6", lastmod: "2026-08-12" },
+  { path: "/about", priority: "0.5", lastmod: "2026-08-12" },
   { path: "/contact", priority: "0.5" },
 ];
 
@@ -67,7 +73,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         const urls = [
           ...STATIC_PATHS.map(
             (p) =>
-              `  <url>\n    <loc>${escapeXml(`${SITE_ORIGIN}${p.path}`)}</loc>\n    <priority>${p.priority}</priority>\n  </url>`,
+              `  <url>\n    <loc>${escapeXml(`${SITE_ORIGIN}${p.path}`)}</loc>${safeLastmod(p.lastmod)}\n    <priority>${p.priority}</priority>\n  </url>`,
           ),
           ...properties
             .filter((p) => Boolean(p.slug?.trim()))
