@@ -67,7 +67,10 @@ function publicHtmlCacheTtl(pathname: string): number | null {
 function applyPublicHtmlCache(request: Request, response: Response): Response {
   if (request.method !== "GET" && request.method !== "HEAD") return response;
   if (response.status !== 200) return response;
-  if (request.headers.has("authorization") || request.headers.has("cookie")) return response;
+  // Supabase auth is attached to server functions as a bearer token. Do not let
+  // an authenticated request populate a shared edge cache. Harmless analytics
+  // cookies are deliberately not treated as authentication.
+  if (request.headers.has("authorization")) return response;
   if (response.headers.has("set-cookie")) return response;
 
   const contentType = response.headers.get("content-type") ?? "";
