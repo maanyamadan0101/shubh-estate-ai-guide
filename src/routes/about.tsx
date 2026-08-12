@@ -2,23 +2,65 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { PageHero, SectionHead } from "@/components/site/SectionHead";
 import { Button } from "@/components/ui/button";
 import { CONTACT } from "@/data/site";
+import { SITE_ORIGIN } from "@/lib/seo";
 
 export const Route = createFileRoute("/about")({
-  head: () => ({
-    meta: [
-      { title: "About Shubh Estate Brokers | Arun Madan, Ex-Banker — Gurugram" },
-      {
-        name: "description",
-        content:
-          "Founder-led Gurugram property advisory by Arun Madan, MBA, LLB and former senior banking professional. Expertise in mortgages, valuation, title assessment, investment safety and transparent transactions.",
-      },
-      { property: "og:title", content: "About Shubh Estate Brokers | Founder Arun Madan" },
-      {
-        property: "og:description",
-        content: "Banking-led property advice focused on title clarity, investment safety, integrity and fair, transparent deals.",
-      },
-    ],
-  }),
+  head: () => {
+    const canonical = `${SITE_ORIGIN}/about`;
+    const title = "About Shubh Estate Brokers | Arun Madan, Ex-Banker — Gurugram";
+    const description =
+      "Founder-led Gurugram property advisory by Arun Madan, MBA, LLB and former senior banking professional. Expertise in mortgages, valuation, title assessment, investment safety and transparent transactions.";
+
+    return {
+      meta: [
+        { title },
+        { name: "description", content: description },
+        { property: "og:title", content: "About Shubh Estate Brokers | Founder Arun Madan" },
+        {
+          property: "og:description",
+          content: "Banking-led property advice focused on title clarity, investment safety, integrity and fair, transparent deals.",
+        },
+        { property: "og:type", content: "profile" },
+        { property: "og:url", content: canonical },
+      ],
+      links: [{ rel: "canonical", href: canonical }],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ProfilePage",
+            "@id": `${canonical}#profile-page`,
+            url: canonical,
+            name: "About Shubh Estate Brokers and Founder Arun Madan",
+            description,
+            dateModified: "2026-08-12",
+            mainEntity: {
+              "@type": "Person",
+              "@id": `${canonical}#arun-madan`,
+              name: "Arun Madan",
+              jobTitle: "Founder & Promoter",
+              description:
+                "MBA, LLB and former senior banking professional with practical exposure to mortgages, credit, property valuation, documentation and title assessment.",
+              worksFor: {
+                "@type": "RealEstateAgent",
+                "@id": `${SITE_ORIGIN}/#real-estate-agent`,
+                name: "Shubh Estate Brokers",
+              },
+              knowsAbout: [
+                "Real estate advisory",
+                "Mortgage lending",
+                "Property valuation",
+                "Property title assessment",
+                "Banking documentation",
+                "Real estate due diligence",
+              ],
+            },
+          }),
+        },
+      ],
+    };
+  },
   component: About,
 });
 
@@ -141,6 +183,21 @@ function About() {
                 </Button>
               </div>
             </div>
+          </div>
+
+          <div className="mt-10 grid gap-4 md:grid-cols-3">
+            <Link to="/property-buying-advisory-gurgaon" className="rounded-xl border border-border bg-card p-5 hover:border-gold/50">
+              <p className="font-display text-xl">Buyer advisory</p>
+              <p className="mt-2 text-sm text-muted-foreground">See how we shortlist, compare and review Gurgaon property before a commitment.</p>
+            </Link>
+            <Link to="/home-loans" className="rounded-xl border border-border bg-card p-5 hover:border-gold/50">
+              <p className="font-display text-xl">Mortgage coordination</p>
+              <p className="mt-2 text-sm text-muted-foreground">Understand eligibility, valuation, documentation, balance transfer and lender coordination.</p>
+            </Link>
+            <Link to="/properties" className="rounded-xl border border-border bg-card p-5 hover:border-gold/50">
+              <p className="font-display text-xl">Current properties</p>
+              <p className="mt-2 text-sm text-muted-foreground">Browse current resale, rental and under-construction inventory across Gurugram.</p>
+            </Link>
           </div>
         </div>
       </section>
