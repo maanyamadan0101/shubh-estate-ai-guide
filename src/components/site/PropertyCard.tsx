@@ -2,6 +2,7 @@ import { MapPin, Maximize, BedDouble } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { CONTACT, type Property } from "@/data/site";
+import { vercelSrcSet } from "@/lib/image-optimization";
 
 export function PropertyCard({ property }: { property: Property }) {
   return (
@@ -9,10 +10,13 @@ export function PropertyCard({ property }: { property: Property }) {
       <div className="relative aspect-[4/3] overflow-hidden">
         <img
           src={property.image}
+          srcSet={vercelSrcSet(property.image, [320, 480, 640, 768])}
           alt={`${property.title} — ${property.bhk} ${property.type} in ${property.sector}, Gurugram`}
           loading="lazy"
+          decoding="async"
           width={1024}
           height={768}
+          sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
           className="size-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
         <Badge className="absolute left-3 top-3 bg-gold text-gold-foreground hover:bg-gold">
