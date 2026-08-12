@@ -89,7 +89,9 @@ export const Route = createFileRoute("/sitemap.xml")({
         return new Response(xml, {
           headers: {
             "content-type": "application/xml; charset=utf-8",
-            "cache-control": "public, max-age=3600, stale-while-revalidate=86400",
+            "cache-control": "public, max-age=300, must-revalidate",
+            "vercel-cdn-cache-control":
+              "public, s-maxage=3600, stale-while-revalidate=86400, stale-if-error=86400",
           },
         });
       },
