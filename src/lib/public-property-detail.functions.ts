@@ -22,7 +22,10 @@ export const getPublicPropertyDetail = createServerFn({ method: "GET" })
 
     if (propertyError) {
       console.error(`[Public property detail] Could not load ${data.slug}:`, propertyError.message);
-      return null;
+      // Do not convert a temporary database/authentication failure into a 404.
+      // Search engines should retry a server error; a false 404 can cause a live
+      // property URL to be removed from the index.
+      throw new Error(`Could not load published property ${data.slug}: ${propertyError.message}`);
     }
     if (!property) {
       console.warn(`[Public property detail] No published property found for slug ${data.slug}`);
