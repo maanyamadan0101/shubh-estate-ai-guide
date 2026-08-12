@@ -3,6 +3,7 @@ import { BedDouble, Building2, Landmark, MapPin, Maximize } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { formatArea, formatINR, PROPERTY_TYPE_LABEL, STATUS_LABEL } from "@/lib/seo";
 import { representativeProjectImageFor } from "@/lib/project-image-catalog";
+import { vercelSrcSet } from "@/lib/image-optimization";
 import type { ListingRow } from "@/lib/properties.functions";
 
 export function ListingCard({ property }: { property: ListingRow }) {
@@ -17,6 +18,7 @@ export function ListingCard({ property }: { property: ListingRow }) {
     property.cover_image_url?.startsWith("http://"),
   );
   const forSale = property.listing_type !== "rent";
+  const responsiveSrcSet = visualUrl ? vercelSrcSet(visualUrl, [320, 480, 640, 768]) : undefined;
 
   return (
     <article className="group overflow-hidden rounded-xl border border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]">
@@ -25,6 +27,7 @@ export function ListingCard({ property }: { property: ListingRow }) {
           {visualUrl ? (
             <img
               src={visualUrl}
+              srcSet={responsiveSrcSet}
               alt={
                 fallbackProjectImage?.altText ??
                 `${property.bhk ?? ""} ${PROPERTY_TYPE_LABEL[property.property_type] ?? "Property"} in ${place || property.city}`.trim()

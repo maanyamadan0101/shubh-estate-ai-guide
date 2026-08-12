@@ -11,14 +11,13 @@ import {
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
-import heroImage from "@/assets/hero-gurugram.jpg";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { FloatingActions } from "@/components/site/FloatingActions";
 import { Toaster } from "@/components/ui/sonner";
 import { CONTACT } from "@/data/site";
-import { trackEvent } from "@/lib/analytics";
+import { initWebVitals, trackEvent } from "@/lib/analytics";
 
 const GA_MEASUREMENT_ID = "G-8EWLZD8V5H";
 const SITE_ORIGIN = "https://www.shubhestatebroker.in";
@@ -179,7 +178,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Marcellus&family=Inter:wght@300;400;500;600&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Marcellus&family=Inter:wght@400;500;600&display=swap",
       },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
@@ -215,6 +214,10 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
   const pathname = useRouterState({ select: (state) => state.location.pathname });
+
+  useEffect(() => {
+    initWebVitals();
+  }, []);
 
   useEffect(() => {
     trackEvent("page_view", {

@@ -26,6 +26,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { CONTACT, FAQS } from "@/data/site";
+import { vercelSrcSet } from "@/lib/image-optimization";
 import { listPublicProperties, type ListingRow } from "@/lib/properties.functions";
 import { SITE_ORIGIN } from "@/lib/seo";
 
@@ -174,10 +175,13 @@ function Home() {
       <section className="relative isolate overflow-hidden">
         <img
           src={heroImage}
+          srcSet={vercelSrcSet(heroImage, [640, 960, 1200, 1600, 1920])}
+          sizes="100vw"
           alt="Gurugram skyline at twilight"
           width={1920}
           height={1088}
           fetchPriority="high"
+          decoding="async"
           className="absolute inset-0 -z-10 size-full object-cover"
         />
         <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,oklch(0.18_0.044_248/0.98)_0%,oklch(0.2_0.045_248/0.9)_48%,oklch(0.2_0.045_248/0.72)_100%)]" />
