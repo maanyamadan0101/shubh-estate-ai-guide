@@ -1,15 +1,11 @@
-import { useMemo, useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
-import {
-  ChevronLeft,
-  ChevronRight,
-  Landmark,
-  MapPin,
-} from "lucide-react";
+import { ChevronLeft, ChevronRight, Landmark, MapPin } from "lucide-react";
 import { PageHero } from "@/components/site/SectionHead";
 import { ListingCard } from "@/components/site/ListingCard";
-import { Button } from "@/components/ui/button";
-import { listPublicProperties, type ListingRow } from "@/lib/properties.functions";
+import {
+  listPublicCataloguePage,
+  type ListingRow,
+} from "@/lib/properties.functions";
 import { SITE_ORIGIN } from "@/lib/seo";
 import {
   Accordion,
@@ -48,21 +44,12 @@ const PROPERTY_FAQS = [
 
 const PAGE_SIZE = 12;
 
-type BudgetFilter = "all" | "under-1cr" | "1-2cr" | "2-4cr" | "4cr-plus";
-type SortOption = "recommended" | "price-low" | "price-high" | "area-high";
 type PropertySearch = {
   q?: string;
   purpose?: "sale" | "rent";
   status?: "ready_to_move" | "under_construction" | "new_launch";
+  page?: number;
 };
-
-function matchesBudget(price: number, budget: BudgetFilter) {
-  if (budget === "under-1cr") return price < 10_000_000;
-  if (budget === "1-2cr") return price >= 10_000_000 && price < 20_000_000;
-  if (budget === "2-4cr") return price >= 20_000_000 && price < 40_000_000;
-  if (budget === "4cr-plus") return price >= 40_000_000;
-  return true;
-}
 
 function absoluteImageUrl(value: string) {
   return value.startsWith("http://") || value.startsWith("https://")
@@ -70,10 +57,17 @@ function absoluteImageUrl(value: string) {
     : `${SITE_ORIGIN}${value.startsWith("/") ? value : `/${value}`}`;
 }
 
+function normalizedPage(value: unknown) {
+  const page = Number(value);
+  return Number.isInteger(page) && page > 1 && page <= 100 ? page : undefined;
+}
+
 export const Route = createFileRoute("/properties")({
   validateSearch: (search: Record<string, unknown>): PropertySearch => {
     const result: PropertySearch = {};
-    if (typeof search["q"] === "string") result.q = search["q"].slice(0, 100);
+    if (typeof search["q"] === "string" && search["q"].trim()) {
+      result.q = search["q"].trim().slice(0, 100);
+    }
     if (search["purpose"] === "sale" || search["purpose"] === "rent") {
       result.purpose = search["purpose"];
     }
@@ -84,14 +78,47 @@ export const Route = createFileRoute("/properties")({
     ) {
       result.status = search["status"];
     }
+    result.page = normalizedPage(search["page"]);
     return result;
   },
-  loader: async () => listPublicProperties({ data: { limit: 60 } }),
+  loaderDeps: ({ search }) => ({
+    q: search.q,
+    purpose: search.purpose,
+    status: search.status,
+    page: search.page ?? 1,
+  }),
+  loader: async ({ deps }) => {
+    const result = await listPublicCataloguePage({
+      data: {
+        page: deps.page,
+        pageSize: PAGE_SIZE,
+        q: deps.q,
+        purpose: deps.purpose,
+        status: deps.status,
+      },
+    });
+    return { ...result, appliedSearch: deps };
+  },
   head: ({ loaderData }) => {
     const properties = loaderData?.properties ?? [];
+    const page = loaderData?.page ?? 1;
+    const pageSize = loaderData?.pageSize ?? PAGE_SIZE;
+    const total = loaderData?.total ?? properties.length;
+    const appliedSearch = loaderData?.appliedSearch;
+    const hasFacet = Boolean(appliedSearch?.q || appliedSearch?.purpose || appliedSearch?.status);
+    const canonical =
+      !hasFacet && page > 1
+        ? `${SITE_ORIGIN}/properties?page=${page}`
+        : `${SITE_ORIGIN}/properties`;
+
     return {
       meta: [
-        { title: "Flats & Apartments for Sale in Gurgaon | Shubh Estate Brokers" },
+        {
+          title:
+            page > 1 && !hasFacet
+              ? `Flats & Apartments for Sale in Gurgaon – Page ${page} | Shubh Estate Brokers`
+              : "Flats & Apartments for Sale in Gurgaon | Shubh Estate Brokers",
+        },
         {
           name: "description",
           content:
@@ -107,9 +134,10 @@ export const Route = createFileRoute("/properties")({
             "Current flats, apartments and residential properties for sale in Gurugram with NRI, financing and transaction support.",
         },
         { property: "og:type", content: "website" },
-        { property: "og:url", content: `${SITE_ORIGIN}/properties` },
+        { property: "og:url", content: canonical },
+        ...(hasFacet ? [{ name: "robots", content: "noindex,follow" }] : []),
       ],
-      links: [{ rel: "canonical", href: `${SITE_ORIGIN}/properties` }],
+      links: [{ rel: "canonical", href: canonical }],
       scripts: [
         {
           type: "application/ld+json",
@@ -117,10 +145,10 @@ export const Route = createFileRoute("/properties")({
             "@context": "https://schema.org",
             "@type": "ItemList",
             name: "Current Gurgaon properties",
-            numberOfItems: properties.length,
+            numberOfItems: total,
             itemListElement: properties.map((property, index) => ({
               "@type": "ListItem",
-              position: index + 1,
+              position: (page - 1) * pageSize + index + 1,
               name: property.title,
               url: `${SITE_ORIGIN}/property/${property.slug}`,
               ...(property.cover_image_url
@@ -153,82 +181,25 @@ export const Route = createFileRoute("/properties")({
   ),
 });
 
+function pageSearch(search: PropertySearch, page: number): PropertySearch {
+  return {
+    ...search,
+    page: page > 1 ? page : undefined,
+  };
+}
+
 function Properties() {
   const search = Route.useSearch();
-  const { properties, error } = Route.useLoaderData() as {
+  const { properties, total, page, pageSize, error } = Route.useLoaderData() as {
     properties: ListingRow[];
+    total: number;
+    page: number;
+    pageSize: number;
     error: string | null;
   };
 
-  const [query, setQuery] = useState(search.q ?? "");
-  const [purpose, setPurpose] = useState(search.purpose ?? "all");
-  const [bhk, setBhk] = useState("all");
-  const [status, setStatus] = useState(search.status ?? "all");
-  const [budget, setBudget] = useState<BudgetFilter>("all");
-  const [sort, setSort] = useState<SortOption>("recommended");
-  const [page, setPage] = useState(1);
-
-  const bhkOptions = useMemo(
-    () =>
-      [...new Set(properties.map((property) => property.bhk).filter(Boolean) as string[])].sort(
-        (a, b) => Number.parseFloat(a) - Number.parseFloat(b),
-      ),
-    [properties],
-  );
-
-  const filteredProperties = useMemo(() => {
-    const normalizedQuery = query.trim().toLocaleLowerCase("en-IN");
-    const rows = properties.filter((property) => {
-      const searchable = [
-        property.title,
-        property.sector,
-        property.locality,
-        property.city,
-        property.bhk,
-      ]
-        .filter(Boolean)
-        .join(" ")
-        .toLocaleLowerCase("en-IN");
-
-      return (
-        (!normalizedQuery || searchable.includes(normalizedQuery)) &&
-        (purpose === "all" || property.listing_type === purpose) &&
-        (bhk === "all" || property.bhk === bhk) &&
-        (status === "all" || property.status === status) &&
-        matchesBudget(property.price, budget)
-      );
-    });
-
-    if (sort === "price-low") return [...rows].sort((a, b) => a.price - b.price);
-    if (sort === "price-high") return [...rows].sort((a, b) => b.price - a.price);
-    if (sort === "area-high")
-      return [...rows].sort((a, b) => (b.area_sqft ?? 0) - (a.area_sqft ?? 0));
-    return rows;
-  }, [properties, query, purpose, bhk, status, budget, sort]);
-
-  const totalPages = Math.max(1, Math.ceil(filteredProperties.length / PAGE_SIZE));
-  const currentPage = Math.min(page, totalPages);
-  const visibleProperties = filteredProperties.slice(
-    (currentPage - 1) * PAGE_SIZE,
-    currentPage * PAGE_SIZE,
-  );
-  const hasActiveFilters =
-    query !== "" ||
-    purpose !== "all" ||
-    bhk !== "all" ||
-    status !== "all" ||
-    budget !== "all" ||
-    sort !== "recommended";
-
-  function clearFilters() {
-    setQuery("");
-    setPurpose("all");
-    setBhk("all");
-    setStatus("all");
-    setBudget("all");
-    setSort("recommended");
-    setPage(1);
-  }
+  const totalPages = Math.max(1, Math.ceil(total / pageSize));
+  const hasActiveFacet = Boolean(search.q || search.purpose || search.status);
 
   return (
     <>
@@ -288,10 +259,22 @@ function Properties() {
             </div>
           </div>
         </div>
-
       </section>
 
       <section className="container-page py-14">
+        {hasActiveFacet ? (
+          <div className="mb-6 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-gold/25 bg-gold/5 px-5 py-4 text-sm">
+            <span>Showing the properties matching the selected requirement.</span>
+            <Link
+              to="/properties"
+              search={{}}
+              className="font-medium text-gold underline-offset-4 hover:underline"
+            >
+              Show all properties
+            </Link>
+          </div>
+        ) : null}
+
         {error ? (
           <div className="rounded-xl border border-destructive/30 bg-destructive/5 p-6">
             <p className="font-medium">Published properties could not be loaded.</p>
@@ -315,83 +298,85 @@ function Properties() {
                 </p>
               </div>
               <p className="text-sm text-muted-foreground">
-                {filteredProperties.length}{" "}
-                {filteredProperties.length === 1 ? "matching property" : "matching properties"}
+                {total} {total === 1 ? "matching property" : "matching properties"}
               </p>
             </div>
 
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {properties.map((property) => (
+                <ListingCard key={property.id} property={property} />
+              ))}
+            </div>
 
-
-            {visibleProperties.length ? (
-              <>
-                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                  {visibleProperties.map((property) => (
-                    <ListingCard key={property.id} property={property} />
-                  ))}
-                </div>
-
-                {totalPages > 1 ? (
-                  <nav
-                    aria-label="Property catalogue pages"
-                    className="mt-10 flex flex-wrap items-center justify-center gap-2"
+            {totalPages > 1 ? (
+              <nav
+                aria-label="Property catalogue pages"
+                className="mt-10 flex flex-wrap items-center justify-center gap-2"
+              >
+                {page > 1 ? (
+                  <Link
+                    to="/properties"
+                    search={pageSearch(search, page - 1)}
+                    className="inline-flex min-h-9 items-center gap-2 rounded-md border border-input bg-background px-3 text-sm font-medium shadow-sm transition-colors hover:bg-accent"
                   >
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      disabled={currentPage === 1}
-                      onClick={() => setPage((value) => Math.max(1, value - 1))}
-                    >
-                      <ChevronLeft aria-hidden="true" />
-                      Previous
-                    </Button>
-                    {Array.from({ length: totalPages }, (_, index) => index + 1).map(
-                      (pageNumber) => (
-                        <Button
-                          key={pageNumber}
-                          type="button"
-                          variant={pageNumber === currentPage ? "gold" : "outline"}
-                          size="icon"
-                          aria-label={`Show property page ${pageNumber}`}
-                          aria-current={pageNumber === currentPage ? "page" : undefined}
-                          onClick={() => setPage(pageNumber)}
-                        >
-                          {pageNumber}
-                        </Button>
-                      ),
-                    )}
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      disabled={currentPage === totalPages}
-                      onClick={() => setPage((value) => Math.min(totalPages, value + 1))}
-                    >
-                      Next
-                      <ChevronRight aria-hidden="true" />
-                    </Button>
-                  </nav>
-                ) : null}
-              </>
-            ) : (
-              <div className="rounded-xl border border-dashed border-border p-10 text-center">
-                <h3 className="font-display text-2xl">No properties match these filters</h3>
-                <p className="mx-auto mt-2 max-w-xl text-sm text-muted-foreground">
-                  Try a wider budget, another configuration or a different project or sector.
-                </p>
-                <Button type="button" variant="goldOutline" className="mt-5" onClick={clearFilters}>
-                  Clear filters
-                </Button>
-              </div>
-            )}
+                    <ChevronLeft className="size-4" aria-hidden="true" />
+                    Previous
+                  </Link>
+                ) : (
+                  <span className="inline-flex min-h-9 items-center gap-2 rounded-md border border-input px-3 text-sm font-medium opacity-45">
+                    <ChevronLeft className="size-4" aria-hidden="true" />
+                    Previous
+                  </span>
+                )}
+
+                {Array.from({ length: totalPages }, (_, index) => index + 1).map((pageNumber) => (
+                  <Link
+                    key={pageNumber}
+                    to="/properties"
+                    search={pageSearch(search, pageNumber)}
+                    aria-label={`Open property page ${pageNumber}`}
+                    aria-current={pageNumber === page ? "page" : undefined}
+                    className={`inline-flex size-9 items-center justify-center rounded-md border text-sm font-medium transition-colors ${
+                      pageNumber === page
+                        ? "border-gold bg-gold text-gold-foreground"
+                        : "border-input bg-background hover:bg-accent"
+                    }`}
+                  >
+                    {pageNumber}
+                  </Link>
+                ))}
+
+                {page < totalPages ? (
+                  <Link
+                    to="/properties"
+                    search={pageSearch(search, page + 1)}
+                    className="inline-flex min-h-9 items-center gap-2 rounded-md border border-input bg-background px-3 text-sm font-medium shadow-sm transition-colors hover:bg-accent"
+                  >
+                    Next
+                    <ChevronRight className="size-4" aria-hidden="true" />
+                  </Link>
+                ) : (
+                  <span className="inline-flex min-h-9 items-center gap-2 rounded-md border border-input px-3 text-sm font-medium opacity-45">
+                    Next
+                    <ChevronRight className="size-4" aria-hidden="true" />
+                  </span>
+                )}
+              </nav>
+            ) : null}
           </>
         ) : (
           <div className="rounded-xl border border-dashed border-border p-10 text-center">
-            <h2 className="font-display text-2xl">No published properties are visible yet</h2>
+            <h2 className="font-display text-2xl">No published properties match this requirement</h2>
             <p className="mx-auto mt-2 max-w-xl text-sm text-muted-foreground">
-              Once a property is published from the Shubh Estate Brokers admin dashboard, it will
-              appear here automatically.
+              Try viewing the complete catalogue or contact us with the property requirement.
             </p>
+            <Link
+              to="/properties"
+              search={{}}
+              className="mt-5 inline-flex min-h-10 items-center rounded-md border border-gold px-4 text-sm font-medium text-gold hover:bg-gold/10"
+            >
+              View all properties
+            </Link>
           </div>
         )}
       </section>
