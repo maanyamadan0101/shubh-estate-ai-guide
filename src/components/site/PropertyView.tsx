@@ -19,6 +19,7 @@ import { EnquiryForm } from "@/components/site/EnquiryForm";
 import { ListingCard } from "@/components/site/ListingCard";
 import { CONTACT } from "@/data/site";
 import { trackContact } from "@/lib/analytics";
+import { vercelSrcSet } from "@/lib/image-optimization";
 import { formatArea, formatINR, PROPERTY_TYPE_LABEL, STATUS_LABEL } from "@/lib/seo";
 import type { ListingRow } from "@/lib/properties.functions";
 
@@ -234,6 +235,7 @@ export function PropertyView({
           <div className="overflow-hidden rounded-xl border border-border bg-muted">
             <img
               src={gallery[active]!.image_url}
+              srcSet={vercelSrcSet(gallery[active]!.image_url, [640, 960, 1216, 1600])}
               alt={gallery[active]!.alt_text ?? property.title}
               className="aspect-[16/10] w-full object-cover"
               width={1600}
@@ -255,6 +257,8 @@ export function PropertyView({
                   >
                     <img
                       src={image.image_url}
+                      srcSet={vercelSrcSet(image.image_url, [80, 160], 60)}
+                      sizes="80px"
                       alt={image.alt_text ?? ""}
                       loading="lazy"
                       decoding="async"
