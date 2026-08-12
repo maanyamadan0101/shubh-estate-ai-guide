@@ -6,11 +6,12 @@ async function publishedClient() {
   return supabaseAdmin;
 }
 
-// Public cards only receive the compact ListingRow shape below. The additional
-// identity fields are selected server-side so exact duplicate imports can be
-// suppressed before they reach SSR, structured data, internal links or sitemap.
+// Keep public property queries deliberately limited to columns already proven
+// against the production database. This prevents a stale generated type from
+// turning one missing optional column into an empty public catalogue.
 const LIST_COLUMNS =
-  "id,title,slug,bhk,property_type,listing_type,status,price,area_sqft,sector,locality,city,cover_image_url,is_luxury,updated_at,project_id,floor_number,total_floors,facing,furnishing,bedrooms,bathrooms,balconies,parking,servant_room,study_room";
+  "id,title,slug,bhk,property_type,listing_type,status,price,area_sqft,sector,locality,city,cover_image_url,is_luxury";
+const SITEMAP_COLUMNS = `${LIST_COLUMNS},updated_at`;
 
 export type ListingRow = {
   id: string;
@@ -29,30 +30,19 @@ export type ListingRow = {
   is_luxury: boolean;
 };
 
-type ListingIdentityRow = ListingRow & {
-  updated_at: string;
-  project_id: string | null;
-  floor_number: number | null;
-  total_floors: number | null;
-  facing: string | null;
-  furnishing: string | null;
-  bedrooms: number | null;
-  bathrooms: number | null;
-  balconies: number | null;
-  parking: number | null;
-  servant_room: boolean | null;
-  study_room: boolean | null;
-};
+type SitemapIdentityRow = ListingRow & { updated_at: string };
 
 function normalized(value: unknown) {
   if (typeof value === "string") return value.trim().toLocaleLowerCase("en-IN");
   return value ?? null;
 }
 
-function listingFingerprint(row: ListingIdentityRow) {
+// This intentionally uses only stable, verified public fields. If two imported
+// rows have the same market-facing identity, only the newest one is exposed in
+// catalogue feeds and the sitemap. No database row is deleted here.
+function listingFingerprint(row: ListingRow) {
   return JSON.stringify([
     normalized(row.title),
-    normalized(row.project_id),
     normalized(row.bhk),
     normalized(row.property_type),
     normalized(row.listing_type),
@@ -62,20 +52,10 @@ function listingFingerprint(row: ListingIdentityRow) {
     normalized(row.sector),
     normalized(row.locality),
     normalized(row.city),
-    row.floor_number,
-    row.total_floors,
-    normalized(row.facing),
-    normalized(row.furnishing),
-    row.bedrooms,
-    row.bathrooms,
-    row.balconies,
-    row.parking,
-    row.servant_room,
-    row.study_room,
   ]);
 }
 
-function dedupeListings(rows: ListingIdentityRow[]) {
+function dedupeListings<T extends ListingRow>(rows: T[]) {
   const seen = new Set<string>();
   return rows.filter((row) => {
     const fingerprint = listingFingerprint(row);
@@ -83,25 +63,6 @@ function dedupeListings(rows: ListingIdentityRow[]) {
     seen.add(fingerprint);
     return true;
   });
-}
-
-function toListingRow(row: ListingIdentityRow): ListingRow {
-  return {
-    id: row.id,
-    title: row.title,
-    slug: row.slug,
-    bhk: row.bhk,
-    property_type: row.property_type,
-    listing_type: row.listing_type,
-    status: row.status,
-    price: row.price,
-    area_sqft: row.area_sqft,
-    sector: row.sector,
-    locality: row.locality,
-    city: row.city,
-    cover_image_url: row.cover_image_url,
-    is_luxury: row.is_luxury,
-  };
 }
 
 export const listPublicProperties = createServerFn({ method: "GET" })
@@ -122,8 +83,8 @@ export const listPublicProperties = createServerFn({ method: "GET" })
     try {
       const supabase = await publishedClient();
       const requestedLimit = data.limit ?? 60;
-      // Fetch a small buffer because duplicate suppression can otherwise make a
-      // six-card homepage section unexpectedly return fewer than six cards.
+      // Fetch a modest buffer because duplicate suppression can otherwise make
+      // small homepage/related-property sections unexpectedly return fewer rows.
       const queryLimit = Math.min(Math.max(requestedLimit * 3, requestedLimit), 180);
       let query = supabase
         .from("properties")
@@ -152,11 +113,11 @@ export const listPublicProperties = createServerFn({ method: "GET" })
         };
       }
 
-      const deduped = dedupeListings((rows ?? []) as unknown as ListingIdentityRow[])
-        .slice(0, requestedLimit)
-        .map(toListingRow);
-
-      return { properties: deduped, error: null };
+      const properties = dedupeListings((rows ?? []) as unknown as ListingRow[]).slice(
+        0,
+        requestedLimit,
+      );
+      return { properties, error: null };
     } catch (error) {
       const message =
         error instanceof Error
@@ -206,22 +167,20 @@ export const listPublicCataloguePage = createServerFn({ method: "GET" })
       }
 
       const queryText = data.q?.trim().toLocaleLowerCase("en-IN") ?? "";
-      const deduped = dedupeListings((rows ?? []) as unknown as ListingIdentityRow[]).filter(
-        (row) => {
-          if (!queryText) return true;
-          return [row.title, row.sector, row.locality, row.city, row.bhk]
-            .filter(Boolean)
-            .join(" ")
-            .toLocaleLowerCase("en-IN")
-            .includes(queryText);
-        },
-      );
+      const deduped = dedupeListings((rows ?? []) as unknown as ListingRow[]).filter((row) => {
+        if (!queryText) return true;
+        return [row.title, row.sector, row.locality, row.city, row.bhk]
+          .filter(Boolean)
+          .join(" ")
+          .toLocaleLowerCase("en-IN")
+          .includes(queryText);
+      });
 
       const total = deduped.length;
       const totalPages = Math.max(1, Math.ceil(total / data.pageSize));
       const page = Math.min(data.page, totalPages);
       const start = (page - 1) * data.pageSize;
-      const properties = deduped.slice(start, start + data.pageSize).map(toListingRow);
+      const properties = deduped.slice(start, start + data.pageSize);
 
       return { properties, total, page, pageSize: data.pageSize, error: null };
     } catch (error) {
@@ -312,7 +271,7 @@ export const listSitemapProperties = createServerFn({ method: "GET" }).handler(a
     const supabase = await publishedClient();
     const { data, error } = await supabase
       .from("properties")
-      .select(LIST_COLUMNS)
+      .select(SITEMAP_COLUMNS)
       .eq("is_published", true)
       .neq("status", "sold_out")
       .order("updated_at", { ascending: false })
@@ -322,7 +281,7 @@ export const listSitemapProperties = createServerFn({ method: "GET" }).handler(a
       return [] as SitemapRow[];
     }
 
-    return dedupeListings((data ?? []) as unknown as ListingIdentityRow[]).map((row) => ({
+    return dedupeListings((data ?? []) as unknown as SitemapIdentityRow[]).map((row) => ({
       slug: row.slug,
       updated_at: row.updated_at,
       status: row.status,
