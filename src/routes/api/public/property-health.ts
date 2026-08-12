@@ -1,5 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 
+const VERIFIED_PUBLIC_COLUMNS =
+  "id,title,slug,bhk,property_type,listing_type,status,price,area_sqft,sector,locality,city,cover_image_url,is_luxury";
+
 export const Route = createFileRoute("/api/public/property-health")({
   server: {
     handlers: {
@@ -20,34 +23,43 @@ export const Route = createFileRoute("/api/public/property-health")({
             .eq("is_published", true)
             .limit(5);
 
-          const full = await supabaseAdmin
+          const publicShape = await supabaseAdmin
             .from("properties")
-            .select("id,title,slug,bhk,property_type,listing_type,status,price,area_sqft,sector,locality,city,cover_image_url,tags,is_featured,is_luxury,updated_at")
+            .select(VERIFIED_PUBLIC_COLUMNS)
             .eq("is_published", true)
             .limit(5);
 
-          return Response.json({
-            env,
-            adminClient: "ok",
-            basic: {
-              ok: !basic.error,
-              count: basic.count ?? basic.data?.length ?? 0,
-              errorCode: basic.error?.code ?? null,
-              errorMessage: basic.error?.message ?? null,
+          const healthy = !basic.error && !publicShape.error;
+          return Response.json(
+            {
+              ok: healthy,
+              env,
+              adminClient: "ok",
+              publishedProperties: basic.count ?? basic.data?.length ?? 0,
+              basic: {
+                ok: !basic.error,
+                errorCode: basic.error?.code ?? null,
+                errorMessage: basic.error?.message ?? null,
+              },
+              publicShape: {
+                ok: !publicShape.error,
+                sampleCount: publicShape.data?.length ?? 0,
+                errorCode: publicShape.error?.code ?? null,
+                errorMessage: publicShape.error?.message ?? null,
+              },
             },
-            full: {
-              ok: !full.error,
-              count: full.data?.length ?? 0,
-              errorCode: full.error?.code ?? null,
-              errorMessage: full.error?.message ?? null,
-            },
-          });
+            { status: healthy ? 200 : 503 },
+          );
         } catch (error) {
-          return Response.json({
-            env,
-            adminClient: "error",
-            errorMessage: error instanceof Error ? error.message : "Unknown server database error",
-          });
+          return Response.json(
+            {
+              ok: false,
+              env,
+              adminClient: "error",
+              errorMessage: error instanceof Error ? error.message : "Unknown server database error",
+            },
+            { status: 503 },
+          );
         }
       },
     },
