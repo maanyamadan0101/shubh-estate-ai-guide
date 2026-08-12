@@ -6,6 +6,28 @@ import { listPublicProperties } from "@/lib/properties.functions";
 import { representativeProjectImageFor } from "@/lib/project-image-catalog";
 import { buildCanonical, formatArea, formatINR, PROPERTY_TYPE_LABEL, SITE_ORIGIN } from "@/lib/seo";
 
+function wordSafeMetaDescription(value: string, maxLength = 158) {
+  const compact = value.replace(/\s+/g, " ").trim();
+  if (compact.length <= maxLength) return compact;
+
+  const candidate = compact.slice(0, maxLength - 1);
+  const lastSpace = candidate.lastIndexOf(" ");
+  const safe = lastSpace > 100 ? candidate.slice(0, lastSpace) : candidate;
+  return `${safe.replace(/[,:;\-–—]+$/g, "")}…`;
+}
+
+function storedDescriptionLooksUsable(value: string | null | undefined) {
+  if (!value?.trim()) return false;
+  const compact = value.trim();
+
+  // Imported descriptions that were previously cut at a fixed character count
+  // often end mid-word (for example "Shubh Estate B"). Prefer a fresh,
+  // sentence-complete description in that case rather than exposing the broken
+  // text to search engines and social previews.
+  if (compact.length >= 150 && !/[.!?…]$/.test(compact)) return false;
+  return true;
+}
+
 export const Route = createFileRoute("/property/$slug")({
   loader: async ({ params }) => {
     const data = await getPublicPropertyDetail({ data: { slug: params.slug } });
@@ -49,12 +71,30 @@ export const Route = createFileRoute("/property/$slug")({
       return { meta: [{ title: "Property unavailable" }, { name: "robots", content: "noindex" }] };
     }
     const p = loaderData.property;
+    const typeLabel = PROPERTY_TYPE_LABEL[p.property_type] ?? "Property";
     const title =
       p.meta_title ||
-      `${p.bhk ?? ""} ${PROPERTY_TYPE_LABEL[p.property_type] ?? "Property"} in ${p.sector ?? p.city}`;
-    const description =
-      p.meta_description ||
-      `${p.title} — ${formatArea(p.area_sqft)} at ${formatINR(p.price)} in ${[p.sector, p.locality, p.city].filter(Boolean).join(", ")}.`;
+      `${p.bhk ?? ""} ${typeLabel} in ${p.sector ?? p.city}`;
+    const listingIntent = p.listing_type === "rent" ? "for rent" : "for sale";
+    const locationLabel = [p.sector, p.city].filter(Boolean).join(", ");
+    const generatedDescription = wordSafeMetaDescription(
+      [
+        p.bhk ? `${p.bhk} ${typeLabel}` : typeLabel,
+        listingIntent,
+        locationLabel ? `in ${locationLabel}` : null,
+        p.area_sqft ? formatArea(p.area_sqft) : null,
+        p.price ? formatINR(p.price) : null,
+      ]
+        .filter(Boolean)
+        .join(" · ") +
+        ". View photos, specifications, home-loan assistance and current availability.",
+    );
+    const description = storedDescriptionLooksUsable(p.meta_description)
+      ? wordSafeMetaDescription(p.meta_description!)
+      : generatedDescription;
+    const ogDescription = storedDescriptionLooksUsable(p.og_description)
+      ? wordSafeMetaDescription(p.og_description!)
+      : description;
 
     // Property detail pages are the canonical URL for their own listing.
     // Keeping this aligned with the sitemap avoids conflicting canonical signals
@@ -113,7 +153,7 @@ export const Route = createFileRoute("/property/$slug")({
         { title },
         { name: "description", content: description },
         { property: "og:title", content: p.og_title || title },
-        { property: "og:description", content: p.og_description || description },
+        { property: "og:description", content: ogDescription },
         { property: "og:type", content: "article" },
         { property: "og:url", content: canonical },
         ...(image
