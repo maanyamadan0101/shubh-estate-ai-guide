@@ -52,6 +52,13 @@ function absoluteUrl(value: string) {
     : `${SITE_ORIGIN}${value.startsWith("/") ? value : `/${value}`}`;
 }
 
+function safeLastmod(value: string | null | undefined) {
+  if (!value) return "";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
+  return `\n    <lastmod>${date.toISOString().slice(0, 10)}</lastmod>`;
+}
+
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
@@ -62,19 +69,21 @@ export const Route = createFileRoute("/sitemap.xml")({
             (p) =>
               `  <url>\n    <loc>${escapeXml(`${SITE_ORIGIN}${p.path}`)}</loc>\n    <priority>${p.priority}</priority>\n  </url>`,
           ),
-          ...properties.map((p) => {
-            const image = p.cover_image_url
-              ? `\n    <image:image>\n      <image:loc>${escapeXml(absoluteUrl(p.cover_image_url))}</image:loc>\n    </image:image>`
-              : "";
-            return `  <url>\n    <loc>${escapeXml(`${SITE_ORIGIN}/property/${p.slug}`)}</loc>\n    <lastmod>${new Date(p.updated_at).toISOString().slice(0, 10)}</lastmod>\n    <priority>0.8</priority>${image}\n  </url>`;
-          }),
+          ...properties
+            .filter((p) => Boolean(p.slug?.trim()))
+            .map((p) => {
+              const image = p.cover_image_url
+                ? `\n    <image:image>\n      <image:loc>${escapeXml(absoluteUrl(p.cover_image_url))}</image:loc>\n    </image:image>`
+                : "";
+              return `  <url>\n    <loc>${escapeXml(`${SITE_ORIGIN}/property/${p.slug}`)}</loc>${safeLastmod(p.updated_at)}\n    <priority>0.8</priority>${image}\n  </url>`;
+            }),
         ].join("\n");
 
         const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n${urls}\n</urlset>`;
         return new Response(xml, {
           headers: {
             "content-type": "application/xml; charset=utf-8",
-            "cache-control": "public, max-age=3600",
+            "cache-control": "public, max-age=3600, stale-while-revalidate=86400",
           },
         });
       },
