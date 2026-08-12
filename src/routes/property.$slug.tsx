@@ -55,7 +55,11 @@ export const Route = createFileRoute("/property/$slug")({
     const description =
       p.meta_description ||
       `${p.title} — ${formatArea(p.area_sqft)} at ${formatINR(p.price)} in ${[p.sector, p.locality, p.city].filter(Boolean).join(", ")}.`;
-    const canonical = p.canonical_url || buildCanonical(params.slug);
+
+    // Property detail pages are the canonical URL for their own listing.
+    // Keeping this aligned with the sitemap avoids conflicting canonical signals
+    // from stale or manually-entered database values.
+    const canonical = buildCanonical(params.slug);
     const fallback = representativeProjectImageFor(p.title);
     const image = p.cover_image_url?.startsWith("http")
       ? p.cover_image_url
