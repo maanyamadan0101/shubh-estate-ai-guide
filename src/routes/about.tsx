@@ -34,7 +34,7 @@ export const Route = createFileRoute("/about")({
             url: canonical,
             name: "About Shubh Estate Brokers and Founder Arun Madan",
             description,
-            dateModified: "2026-08-12",
+            dateModified: "2026-08-12T12:00:00+05:30",
             mainEntity: {
               "@type": "Person",
               "@id": `${canonical}#arun-madan`,
