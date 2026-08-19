@@ -17,6 +17,7 @@ const ACTIONS = [
     icon: Search,
     to: "/properties",
     search: { purpose: "sale" },
+    featured: false,
   },
   {
     label: "Post Property for Sale",
@@ -24,6 +25,7 @@ const ACTIONS = [
     eyebrow: "OWNER",
     icon: Home,
     to: "/seller-submit",
+    featured: false,
   },
   {
     label: "Post Property for Rent",
@@ -31,6 +33,7 @@ const ACTIONS = [
     eyebrow: "OWNER",
     icon: KeyRound,
     to: "/seller-submit",
+    featured: false,
   },
 ] as const;
 
@@ -62,11 +65,7 @@ export function HomeActionPanel() {
             }`}
           >
             <div className="flex items-start justify-between gap-4">
-              <span
-                className={`flex size-10 items-center justify-center rounded-xl ${
-                  featured ? "bg-navy text-gold" : "bg-navy text-gold"
-                }`}
-              >
+              <span className="flex size-10 items-center justify-center rounded-xl bg-navy text-gold">
                 <Icon className="size-5" aria-hidden="true" />
               </span>
               <ArrowUpRight
