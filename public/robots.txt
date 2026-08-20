@@ -1,6 +1,9 @@
 User-agent: *
 Allow: /
 Disallow: /admin
-Disallow: /api/seller-submission
+Disallow: /auth
+Disallow: /forgot-password
+Disallow: /reset-password
+Disallow: /api/
 
 Sitemap: https://www.shubhestatebroker.in/sitemap.xml

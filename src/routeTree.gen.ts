@@ -15,6 +15,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as ApartmentsForSaleDlfPhase1GurgaonRouteImport } from './routes/apartments-for-sale-dlf-phase-1-gurgaon'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as BestAreasGurgaonPropertyInvestmentRouteImport } from './routes/best-areas-gurgaon-property-investment'
+import { Route as BlogRouteImport } from './routes/blog'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DesperateDealsGurgaonRouteImport } from './routes/desperate-deals-gurgaon'
 import { Route as EmiCalculatorRouteImport } from './routes/emi-calculator'
@@ -37,6 +38,8 @@ import { Route as SeniorCitizenHousingGurgaonRouteImport } from './routes/senior
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as UnderConstructionProjectsGurgaonRouteImport } from './routes/under-construction-projects-gurgaon'
 import { Route as ApiSellerSubmissionRouteImport } from './routes/api/seller-submission'
+import { Route as BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026RouteImport } from './routes/blog.buy-property-gurgaon-small-down-payment-home-loan-guide-2026'
+import { Route as BlogGurgaonPropertyDueDiligenceChecklist2026RouteImport } from './routes/blog.gurgaon-property-due-diligence-checklist-2026'
 import { Route as LocationsSlugRouteImport } from './routes/locations.$slug'
 import { Route as NriCountryRouteImport } from './routes/nri_.$country'
 import { Route as PropertySlugRouteImport } from './routes/property.$slug'
@@ -86,6 +89,11 @@ const BestAreasGurgaonPropertyInvestmentRoute =
     path: '/best-areas-gurgaon-property-investment',
     getParentRoute: () => rootRouteImport,
   } as any)
+const BlogRoute = BlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
@@ -201,6 +209,18 @@ const ApiSellerSubmissionRoute = ApiSellerSubmissionRouteImport.update({
   path: '/api/seller-submission',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route =
+  BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026RouteImport.update({
+    id: '/buy-property-gurgaon-small-down-payment-home-loan-guide-2026',
+    path: '/buy-property-gurgaon-small-down-payment-home-loan-guide-2026',
+    getParentRoute: () => BlogRoute,
+  } as any)
+const BlogGurgaonPropertyDueDiligenceChecklist2026Route =
+  BlogGurgaonPropertyDueDiligenceChecklist2026RouteImport.update({
+    id: '/gurgaon-property-due-diligence-checklist-2026',
+    path: '/gurgaon-property-due-diligence-checklist-2026',
+    getParentRoute: () => BlogRoute,
+  } as any)
 const LocationsSlugRoute = LocationsSlugRouteImport.update({
   id: '/locations/$slug',
   path: '/locations/$slug',
@@ -300,6 +320,7 @@ export interface FileRoutesByFullPath {
   '/apartments-for-sale-dlf-phase-1-gurgaon': typeof ApartmentsForSaleDlfPhase1GurgaonRoute
   '/auth': typeof AuthRoute
   '/best-areas-gurgaon-property-investment': typeof BestAreasGurgaonPropertyInvestmentRoute
+  '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
   '/desperate-deals-gurgaon': typeof DesperateDealsGurgaonRoute
   '/emi-calculator': typeof EmiCalculatorRoute
@@ -322,6 +343,8 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/under-construction-projects-gurgaon': typeof UnderConstructionProjectsGurgaonRoute
   '/api/seller-submission': typeof ApiSellerSubmissionRoute
+  '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026': typeof BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route
+  '/blog/gurgaon-property-due-diligence-checklist-2026': typeof BlogGurgaonPropertyDueDiligenceChecklist2026Route
   '/locations/$slug': typeof LocationsSlugRoute
   '/nri/$country': typeof NriCountryRoute
   '/property/$slug': typeof PropertySlugRoute
@@ -346,6 +369,7 @@ export interface FileRoutesByTo {
   '/apartments-for-sale-dlf-phase-1-gurgaon': typeof ApartmentsForSaleDlfPhase1GurgaonRoute
   '/auth': typeof AuthRoute
   '/best-areas-gurgaon-property-investment': typeof BestAreasGurgaonPropertyInvestmentRoute
+  '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
   '/desperate-deals-gurgaon': typeof DesperateDealsGurgaonRoute
   '/emi-calculator': typeof EmiCalculatorRoute
@@ -368,6 +392,8 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/under-construction-projects-gurgaon': typeof UnderConstructionProjectsGurgaonRoute
   '/api/seller-submission': typeof ApiSellerSubmissionRoute
+  '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026': typeof BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route
+  '/blog/gurgaon-property-due-diligence-checklist-2026': typeof BlogGurgaonPropertyDueDiligenceChecklist2026Route
   '/locations/$slug': typeof LocationsSlugRoute
   '/nri/$country': typeof NriCountryRoute
   '/property/$slug': typeof PropertySlugRoute
@@ -394,6 +420,7 @@ export interface FileRoutesById {
   '/apartments-for-sale-dlf-phase-1-gurgaon': typeof ApartmentsForSaleDlfPhase1GurgaonRoute
   '/auth': typeof AuthRoute
   '/best-areas-gurgaon-property-investment': typeof BestAreasGurgaonPropertyInvestmentRoute
+  '/blog': typeof BlogRouteWithChildren
   '/contact': typeof ContactRoute
   '/desperate-deals-gurgaon': typeof DesperateDealsGurgaonRoute
   '/emi-calculator': typeof EmiCalculatorRoute
@@ -416,6 +443,8 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/under-construction-projects-gurgaon': typeof UnderConstructionProjectsGurgaonRoute
   '/api/seller-submission': typeof ApiSellerSubmissionRoute
+  '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026': typeof BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route
+  '/blog/gurgaon-property-due-diligence-checklist-2026': typeof BlogGurgaonPropertyDueDiligenceChecklist2026Route
   '/locations/$slug': typeof LocationsSlugRoute
   '/nri_/$country': typeof NriCountryRoute
   '/property/$slug': typeof PropertySlugRoute
@@ -442,6 +471,7 @@ export interface FileRouteTypes {
     | '/apartments-for-sale-dlf-phase-1-gurgaon'
     | '/auth'
     | '/best-areas-gurgaon-property-investment'
+    | '/blog'
     | '/contact'
     | '/desperate-deals-gurgaon'
     | '/emi-calculator'
@@ -464,6 +494,8 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/under-construction-projects-gurgaon'
     | '/api/seller-submission'
+    | '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026'
+    | '/blog/gurgaon-property-due-diligence-checklist-2026'
     | '/locations/$slug'
     | '/nri/$country'
     | '/property/$slug'
@@ -488,6 +520,7 @@ export interface FileRouteTypes {
     | '/apartments-for-sale-dlf-phase-1-gurgaon'
     | '/auth'
     | '/best-areas-gurgaon-property-investment'
+    | '/blog'
     | '/contact'
     | '/desperate-deals-gurgaon'
     | '/emi-calculator'
@@ -510,6 +543,8 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/under-construction-projects-gurgaon'
     | '/api/seller-submission'
+    | '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026'
+    | '/blog/gurgaon-property-due-diligence-checklist-2026'
     | '/locations/$slug'
     | '/nri/$country'
     | '/property/$slug'
@@ -535,6 +570,7 @@ export interface FileRouteTypes {
     | '/apartments-for-sale-dlf-phase-1-gurgaon'
     | '/auth'
     | '/best-areas-gurgaon-property-investment'
+    | '/blog'
     | '/contact'
     | '/desperate-deals-gurgaon'
     | '/emi-calculator'
@@ -557,6 +593,8 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/under-construction-projects-gurgaon'
     | '/api/seller-submission'
+    | '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026'
+    | '/blog/gurgaon-property-due-diligence-checklist-2026'
     | '/locations/$slug'
     | '/nri_/$country'
     | '/property/$slug'
@@ -583,6 +621,7 @@ export interface RootRouteChildren {
   ApartmentsForSaleDlfPhase1GurgaonRoute: typeof ApartmentsForSaleDlfPhase1GurgaonRoute
   AuthRoute: typeof AuthRoute
   BestAreasGurgaonPropertyInvestmentRoute: typeof BestAreasGurgaonPropertyInvestmentRoute
+  BlogRoute: typeof BlogRouteWithChildren
   ContactRoute: typeof ContactRoute
   DesperateDealsGurgaonRoute: typeof DesperateDealsGurgaonRoute
   EmiCalculatorRoute: typeof EmiCalculatorRoute
@@ -654,6 +693,13 @@ declare module '@tanstack/react-router' {
       path: '/best-areas-gurgaon-property-investment'
       fullPath: '/best-areas-gurgaon-property-investment'
       preLoaderRoute: typeof BestAreasGurgaonPropertyInvestmentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog': {
+      id: '/blog'
+      path: '/blog'
+      fullPath: '/blog'
+      preLoaderRoute: typeof BlogRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -809,6 +855,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/api/seller-submission'
       preLoaderRoute: typeof ApiSellerSubmissionRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026': {
+      id: '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026'
+      path: '/buy-property-gurgaon-small-down-payment-home-loan-guide-2026'
+      fullPath: '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026'
+      preLoaderRoute: typeof BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026RouteImport
+      parentRoute: typeof BlogRoute
+    }
+    '/blog/gurgaon-property-due-diligence-checklist-2026': {
+      id: '/blog/gurgaon-property-due-diligence-checklist-2026'
+      path: '/gurgaon-property-due-diligence-checklist-2026'
+      fullPath: '/blog/gurgaon-property-due-diligence-checklist-2026'
+      preLoaderRoute: typeof BlogGurgaonPropertyDueDiligenceChecklist2026RouteImport
+      parentRoute: typeof BlogRoute
     }
     '/locations/$slug': {
       id: '/locations/$slug'
@@ -966,6 +1026,20 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
+interface BlogRouteChildren {
+  BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route: typeof BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route
+  BlogGurgaonPropertyDueDiligenceChecklist2026Route: typeof BlogGurgaonPropertyDueDiligenceChecklist2026Route
+}
+
+const BlogRouteChildren: BlogRouteChildren = {
+  BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route:
+    BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route,
+  BlogGurgaonPropertyDueDiligenceChecklist2026Route:
+    BlogGurgaonPropertyDueDiligenceChecklist2026Route,
+}
+
+const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
@@ -975,6 +1049,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   BestAreasGurgaonPropertyInvestmentRoute:
     BestAreasGurgaonPropertyInvestmentRoute,
+  BlogRoute: BlogRouteWithChildren,
   ContactRoute: ContactRoute,
   DesperateDealsGurgaonRoute: DesperateDealsGurgaonRoute,
   EmiCalculatorRoute: EmiCalculatorRoute,

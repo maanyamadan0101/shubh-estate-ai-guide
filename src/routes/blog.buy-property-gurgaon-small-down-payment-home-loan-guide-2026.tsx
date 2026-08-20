@@ -6,24 +6,71 @@ import { SITE_ORIGIN } from "@/lib/seo";
 export const Route = createFileRoute(
   "/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026",
 )({
-  head: () => ({
-    meta: [
-      {
-        title: "Buy Property in Gurgaon With a Small Down Payment | Home Loan Guide 2026",
-      },
-      {
-        name: "description",
-        content:
-          "Learn how Gurgaon home buyers can plan a smaller upfront contribution through realistic property selection, loan eligibility, valuation and documentation. Practical 2026 buyer guide from Shubh Estate Brokers.",
-      },
-    ],
-    links: [
-      {
-        rel: "canonical",
-        href: `${SITE_ORIGIN}/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026`,
-      },
-    ],
-  }),
+  head: () => {
+    const canonical = `${SITE_ORIGIN}/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026`;
+    const title = "Buy Property in Gurgaon With a Small Down Payment | Home Loan Guide 2026";
+    const description =
+      "Learn how Gurgaon home buyers can plan a smaller upfront contribution through realistic property selection, loan eligibility, valuation and documentation.";
+
+    return {
+      meta: [
+        { title },
+        { name: "description", content: description },
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
+        { property: "og:type", content: "article" },
+        { property: "og:url", content: canonical },
+        { property: "article:published_time", content: "2026-08-20" },
+        { property: "article:modified_time", content: "2026-08-20" },
+        { name: "twitter:card", content: "summary" },
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: description },
+      ],
+      links: [{ rel: "canonical", href: canonical }],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: title,
+            description,
+            datePublished: "2026-08-20",
+            dateModified: "2026-08-20",
+            mainEntityOfPage: canonical,
+            author: { "@type": "Person", name: "Arun Madan" },
+            publisher: {
+              "@type": "RealEstateAgent",
+              "@id": `${SITE_ORIGIN}/#real-estate-agent`,
+              name: "Shubh Estate Brokers",
+            },
+          }),
+        },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: SITE_ORIGIN },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Property Guides",
+                item: `${SITE_ORIGIN}/blog`,
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "Small Down-Payment Guide",
+                item: canonical,
+              },
+            ],
+          }),
+        },
+      ],
+    };
+  },
   component: Article,
 });
 
@@ -61,7 +108,10 @@ function Article() {
               How to Buy Property in Gurgaon With a Small Down Payment
             </h1>
             <p className="mt-6 max-w-3xl text-base leading-8 text-navy-foreground/75 md:text-lg">
-              A smaller upfront contribution is sometimes achievable, but it depends on the buyer's eligibility, the property's bank valuation, lender policy and the quality of the transaction documents. The right approach is to structure the financing before finalising the property.
+              A smaller upfront contribution is sometimes achievable, but it depends on the buyer's
+              eligibility, the property's bank valuation, lender policy and the quality of the
+              transaction documents. The right approach is to structure the financing before
+              finalising the property.
             </p>
           </div>
         </header>
@@ -69,19 +119,30 @@ function Article() {
         <div className="container-page grid gap-10 py-14 lg:grid-cols-[minmax(0,1fr)_320px] lg:py-20">
           <div className="max-w-3xl space-y-10">
             <section>
-              <h2 className="font-display text-3xl">Can you really buy a Gurgaon property with a small down payment?</h2>
+              <h2 className="font-display text-3xl">
+                Can you really buy a Gurgaon property with a small down payment?
+              </h2>
               <div className="mt-4 space-y-4 text-base leading-8 text-muted-foreground">
                 <p>
-                  Potentially, yes. But the correct question is not simply, “What percentage will the bank finance?” The final cash requirement depends on several moving parts: your sanctioned loan amount, the lender's assessed property value, the agreed purchase price, stamp duty and registration costs, and any other transaction expenses.
+                  Potentially, yes. But the correct question is not simply, “What percentage will
+                  the bank finance?” The final cash requirement depends on several moving parts:
+                  your sanctioned loan amount, the lender's assessed property value, the agreed
+                  purchase price, stamp duty and registration costs, and any other transaction
+                  expenses.
                 </p>
                 <p>
-                  In some eligible cases, lenders may finance a high proportion of the acceptable property value, subject to their prevailing policy. This does not mean every buyer or every resale property will qualify for the same percentage. A strong financing plan starts with the borrower profile and then matches it to a bankable property.
+                  In some eligible cases, lenders may finance a high proportion of the acceptable
+                  property value, subject to their prevailing policy. This does not mean every buyer
+                  or every resale property will qualify for the same percentage. A strong financing
+                  plan starts with the borrower profile and then matches it to a bankable property.
                 </p>
               </div>
             </section>
 
             <section>
-              <h2 className="font-display text-3xl">Four things that determine your actual upfront contribution</h2>
+              <h2 className="font-display text-3xl">
+                Four things that determine your actual upfront contribution
+              </h2>
               <div className="mt-6 grid gap-5">
                 {steps.map(({ icon: Icon, title, text }) => (
                   <div key={title} className="rounded-2xl border border-border bg-card p-6">
@@ -101,10 +162,17 @@ function Article() {
               <h2 className="font-display text-3xl">A practical example</h2>
               <div className="mt-4 space-y-4 text-base leading-8 text-muted-foreground">
                 <p>
-                  Suppose you shortlist a Gurgaon resale apartment at ₹2.50 crore. The most useful first step is to estimate how much the lender may sanction against your income and how the selected bank is likely to view the property. If the lender's acceptable valuation is close to the negotiated purchase price and your eligibility is strong, your required purchase contribution can be materially lower than in a case where the property is over-priced or your eligibility is constrained.
+                  Suppose you shortlist a Gurgaon resale apartment at ₹2.50 crore. The most useful
+                  first step is to estimate how much the lender may sanction against your income and
+                  how the selected bank is likely to view the property. If the lender's acceptable
+                  valuation is close to the negotiated purchase price and your eligibility is
+                  strong, your required purchase contribution can be materially lower than in a case
+                  where the property is over-priced or your eligibility is constrained.
                 </p>
                 <p>
-                  This is why property negotiation and home-loan planning should happen together. A lower purchase price can reduce both your funding gap and your borrowing requirement.
+                  This is why property negotiation and home-loan planning should happen together. A
+                  lower purchase price can reduce both your funding gap and your borrowing
+                  requirement.
                 </p>
               </div>
             </section>
@@ -113,10 +181,16 @@ function Article() {
               <h2 className="font-display text-3xl">What buyers often miss</h2>
               <div className="mt-4 space-y-4 text-base leading-8 text-muted-foreground">
                 <p>
-                  Buyers sometimes focus only on the loan-to-value percentage and ignore stamp duty, registration, brokerage, maintenance or transfer-related expenses. These costs may need to be funded separately and should be included in the cash-flow plan from day one.
+                  Buyers sometimes focus only on the loan-to-value percentage and ignore stamp duty,
+                  registration, brokerage, maintenance or transfer-related expenses. These costs may
+                  need to be funded separately and should be included in the cash-flow plan from day
+                  one.
                 </p>
                 <p>
-                  Another common mistake is paying a large token amount before confirming whether the property documents and the buyer's financing structure are acceptable. Where financing is important to the transaction, document review and lender discussions should start before the commitment becomes difficult to reverse.
+                  Another common mistake is paying a large token amount before confirming whether
+                  the property documents and the buyer's financing structure are acceptable. Where
+                  financing is important to the transaction, document review and lender discussions
+                  should start before the commitment becomes difficult to reverse.
                 </p>
               </div>
             </section>
@@ -124,7 +198,11 @@ function Article() {
             <section>
               <h2 className="font-display text-3xl">The Shubh Estate Brokers approach</h2>
               <p className="mt-4 text-base leading-8 text-muted-foreground">
-                We treat the property decision, valuation, documentation and mortgage structure as one connected transaction. The objective is not to promise a fixed loan percentage; it is to identify a suitable property, negotiate realistically, assess the borrower profile and coordinate the financing so the buyer knows the likely funding requirement before closing.
+                We treat the property decision, valuation, documentation and mortgage structure as
+                one connected transaction. The objective is not to promise a fixed loan percentage;
+                it is to identify a suitable property, negotiate realistically, assess the borrower
+                profile and coordinate the financing so the buyer knows the likely funding
+                requirement before closing.
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
                 <Button asChild variant="navy">
@@ -138,15 +216,22 @@ function Article() {
 
             <section className="rounded-2xl border border-gold/30 bg-card p-6 md:p-8">
               <p className="eyebrow">Next step</p>
-              <h2 className="mt-2 font-display text-3xl">Know your workable property budget first</h2>
+              <h2 className="mt-2 font-display text-3xl">
+                Know your workable property budget first
+              </h2>
               <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                If you already have an approximate income profile and purchase budget, we can help you understand the likely financing range and then shortlist Gurgaon properties that fit it.
+                If you already have an approximate income profile and purchase budget, we can help
+                you understand the likely financing range and then shortlist Gurgaon properties that
+                fit it.
               </p>
               <div className="mt-5 flex flex-wrap gap-3">
                 <Button asChild variant="gold">
                   <Link to="/contact">Discuss your requirement</Link>
                 </Button>
-                <Link to="/emi-calculator" className="inline-flex items-center gap-2 text-sm font-medium hover:text-gold">
+                <Link
+                  to="/emi-calculator"
+                  className="inline-flex items-center gap-2 text-sm font-medium hover:text-gold"
+                >
                   Use EMI calculator <ArrowRight className="size-4" aria-hidden="true" />
                 </Link>
               </div>
@@ -156,14 +241,32 @@ function Article() {
           <aside className="h-fit rounded-2xl border border-border bg-card p-6 lg:sticky lg:top-28">
             <p className="eyebrow">Related Gurgaon guides</p>
             <nav className="mt-4 grid gap-3 text-sm">
-              <Link to="/property-buying-advisory-gurgaon" className="hover:text-gold">Property Buying Advisory</Link>
-              <Link to="/best-areas-gurgaon-property-investment" className="hover:text-gold">Best Areas for Property Investment</Link>
-              <Link to="/property-services-gurgaon" className="hover:text-gold">Legal Due Diligence & Valuation</Link>
-              <Link to="/nri" className="hover:text-gold">NRI Property Services</Link>
-              <Link to="/blog" className="hover:text-gold">All Property Guides</Link>
+              <Link to="/property-buying-advisory-gurgaon" className="hover:text-gold">
+                Property Buying Advisory
+              </Link>
+              <Link to="/best-areas-gurgaon-property-investment" className="hover:text-gold">
+                Best Areas for Property Investment
+              </Link>
+              <Link to="/property-services-gurgaon" className="hover:text-gold">
+                Legal Due Diligence & Valuation
+              </Link>
+              <Link
+                to="/blog/gurgaon-property-due-diligence-checklist-2026"
+                className="hover:text-gold"
+              >
+                12-Point Property Due-Diligence Checklist
+              </Link>
+              <Link to="/nri" className="hover:text-gold">
+                NRI Property Services
+              </Link>
+              <Link to="/blog" className="hover:text-gold">
+                All Property Guides
+              </Link>
             </nav>
             <p className="mt-6 text-xs leading-5 text-muted-foreground">
-              Home-loan eligibility, valuation and loan-to-value are subject to lender policy, borrower eligibility and property/document verification. Nothing on this page constitutes a sanction or lending commitment.
+              Home-loan eligibility, valuation and loan-to-value are subject to lender policy,
+              borrower eligibility and property/document verification. Nothing on this page
+              constitutes a sanction or lending commitment.
             </p>
           </aside>
         </div>

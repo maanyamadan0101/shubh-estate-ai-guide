@@ -13,6 +13,11 @@ const STATIC_PATHS: StaticPath[] = [
   { path: "/properties", priority: "0.9" },
   { path: "/blog", priority: "0.9", lastmod: "2026-08-20" },
   {
+    path: "/blog/gurgaon-property-due-diligence-checklist-2026",
+    priority: "0.9",
+    lastmod: "2026-08-20",
+  },
+  {
     path: "/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026",
     priority: "0.9",
     lastmod: "2026-08-20",
