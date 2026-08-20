@@ -77,10 +77,10 @@
   --popover-foreground: oklch(0.24 0.04 245);
 
   --navy: oklch(0.28 0.049 246);
-  --navy-deep: oklch(0.21 0.042 248);
+  --navy-deep: #0a1128;
   --navy-foreground: oklch(0.98 0.006 95);
 
-  --gold: oklch(0.72 0.106 81);
+  --gold: #c59b27;
   --gold-soft: oklch(0.93 0.038 88);
   --gold-foreground: oklch(0.21 0.042 248);
 
@@ -97,9 +97,9 @@
   --destructive-foreground: oklch(0.99 0.004 95);
   --border: oklch(0.9 0.01 250);
   --input: oklch(0.9 0.01 250);
-  --ring: oklch(0.72 0.106 81);
+  --ring: #c59b27;
 
-  --chart-1: oklch(0.72 0.106 81);
+  --chart-1: #c59b27;
   --chart-2: oklch(0.28 0.049 246);
   --chart-3: oklch(0.6 0.06 230);
   --chart-4: oklch(0.83 0.06 85);
