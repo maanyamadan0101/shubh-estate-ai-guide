@@ -6,6 +6,22 @@ const canonical = `${SITE_ORIGIN}/puri-emerald-bay-3-bhk-for-sale-sector-104-gur
 const title = "3 BHK for Sale in Puri Emerald Bay Sector 104 Gurgaon";
 const description =
   "3 BHK plus servant room for sale in Puri Emerald Bay, Sector 104 Gurgaon. 2450 sq ft, Tower A3, 15th floor, north-east facing. Asking ₹3.25 crore.";
+const mediaPath = "/properties/puri-emerald-bay-2450";
+const coverImage = `${SITE_ORIGIN}${mediaPath}/05-puri-emerald-bay-3bhk-living-room.jpg`;
+const videoUrl = `${SITE_ORIGIN}${mediaPath}/puri-emerald-bay-3bhk-walkthrough.mp4`;
+
+const GALLERY = [
+  ["01-puri-emerald-bay-3bhk-entrance-hallway.jpg", "Entrance hallway and dining area"],
+  ["02-puri-emerald-bay-3bhk-bedroom.jpg", "Bedroom with balcony access"],
+  ["03-puri-emerald-bay-3bhk-bathroom.jpg", "Apartment bathroom"],
+  ["04-puri-emerald-bay-3bhk-dining-area.jpg", "Dining area"],
+  ["05-puri-emerald-bay-3bhk-living-room.jpg", "Living room"],
+  ["06-puri-emerald-bay-3bhk-modular-kitchen.jpg", "Modular kitchen"],
+  ["07-puri-emerald-bay-3bhk-kitchen-counter.jpg", "Kitchen counter and utility area"],
+  ["08-puri-emerald-bay-3bhk-balcony-green-view.jpg", "Balcony and green view"],
+  ["09-puri-emerald-bay-3bhk-master-bedroom.jpg", "Master bedroom"],
+  ["10-puri-emerald-bay-3bhk-second-bedroom.jpg", "Second bedroom"],
+] as const;
 
 const FAQS = [
   {
@@ -37,6 +53,10 @@ export const Route = createFileRoute(
       { property: "og:description", content: description },
       { property: "og:type", content: "product" },
       { property: "og:url", content: canonical },
+      { property: "og:image", content: coverImage },
+      { property: "og:image:alt", content: "Living room in the Puri Emerald Bay 3 BHK apartment for sale" },
+      { property: "og:video", content: videoUrl },
+      { property: "og:video:type", content: "video/mp4" },
     ],
     links: [{ rel: "canonical", href: canonical }],
     scripts: [
@@ -70,6 +90,7 @@ export const Route = createFileRoute(
           name: title,
           description,
           url: canonical,
+          image: GALLERY.map(([file]) => `${SITE_ORIGIN}${mediaPath}/${file}`),
           numberOfRooms: 3,
           floorSize: {
             "@type": "QuantitativeValue",
@@ -92,6 +113,20 @@ export const Route = createFileRoute(
             availability: "https://schema.org/InStock",
             url: canonical,
           },
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "VideoObject",
+          name: "Puri Emerald Bay 3 BHK Apartment Walkthrough",
+          description:
+            "Walkthrough of the 2,450 sq ft 3 BHK plus servant room apartment for sale in Tower A3, Puri Emerald Bay, Sector 104 Gurgaon.",
+          thumbnailUrl: coverImage,
+          contentUrl: videoUrl,
+          uploadDate: "2026-08-20",
+          duration: "PT55S",
         }),
       },
       {
@@ -121,6 +156,7 @@ function PuriEmeraldBayListingPage() {
       interest="Puri Emerald Bay 3 BHK Sector 104 Gurgaon"
       ctaTitle="Request the property video or a private site visit"
       ctaBody="Contact Shubh Estate Brokers to reconfirm availability, receive the video walkthrough, discuss the asking price and arrange a visit to the actual apartment."
+      media={<PropertyMedia />}
       sections={[
         {
           title: "Property specifications",
@@ -184,5 +220,55 @@ function PuriEmeraldBayListingPage() {
         { href: "/home-loans", label: "Home-loan assistance in Gurgaon" },
       ]}
     />
+  );
+}
+
+function PropertyMedia() {
+  return (
+    <section aria-labelledby="property-walkthrough">
+      <h2 id="property-walkthrough" className="font-display text-2xl md:text-3xl">
+        Video walkthrough and actual property photographs
+      </h2>
+      <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
+        View the actual interiors and outlook of this Tower A3 apartment. Images were
+        extracted from the property walkthrough video and have not been digitally staged.
+      </p>
+
+      <div className="mt-6 overflow-hidden rounded-2xl border border-border bg-black">
+        <video
+          className="mx-auto max-h-[44rem] w-full object-contain"
+          controls
+          playsInline
+          preload="metadata"
+          poster={`${mediaPath}/05-puri-emerald-bay-3bhk-living-room.jpg`}
+          aria-label="Video walkthrough of Puri Emerald Bay 3 BHK apartment"
+        >
+          <source src={`${mediaPath}/puri-emerald-bay-3bhk-walkthrough.mp4`} type="video/mp4" />
+          Your browser does not support embedded video.
+        </video>
+      </div>
+
+      <div className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-3">
+        {GALLERY.map(([file, label], index) => (
+          <figure
+            key={file}
+            className={`overflow-hidden rounded-xl border border-border bg-card ${
+              index === 4 ? "col-span-2 md:col-span-1" : ""
+            }`}
+          >
+            <img
+              src={`${mediaPath}/${file}`}
+              alt={`${label} in the 3 BHK apartment for sale at Puri Emerald Bay Sector 104 Gurgaon`}
+              className="aspect-[3/4] h-full w-full object-cover"
+              loading={index < 2 ? "eager" : "lazy"}
+              decoding="async"
+            />
+            <figcaption className="border-t border-border px-3 py-2 text-xs text-muted-foreground">
+              {label}
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
   );
 }

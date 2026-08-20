@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { ShieldCheck } from "lucide-react";
+import type { ReactNode } from "react";
 import { PageHero } from "@/components/site/SectionHead";
 import { EnquiryForm } from "@/components/site/EnquiryForm";
 
@@ -24,6 +25,7 @@ type Props = {
   ctaTitle?: string;
   ctaBody?: string;
   related?: RelatedLink[];
+  media?: ReactNode;
 };
 
 export function SeoIntentLanding({
@@ -36,6 +38,7 @@ export function SeoIntentLanding({
   ctaTitle = "Tell us what you are looking for",
   ctaBody = "Share your budget, preferred location, configuration and timing. We will shortlist suitable options from the inventory available to us and explain the trade-offs before you visit.",
   related = [],
+  media,
 }: Props) {
   return (
     <>
@@ -49,6 +52,8 @@ export function SeoIntentLanding({
               <p className="max-w-3xl text-sm leading-7 text-muted-foreground">{intro}</p>
             </div>
           </div>
+
+          {media ? <div className="mt-10">{media}</div> : null}
 
           <div className="mt-10 space-y-10">
             {sections.map((section) => (
