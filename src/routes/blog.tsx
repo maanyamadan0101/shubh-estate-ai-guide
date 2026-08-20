@@ -44,24 +44,29 @@ const TOPICS = [
 
 const FEATURED = [
   {
+    title: "How to Buy Property in Gurgaon With a Small Down Payment",
+    description:
+      "A practical 2026 guide to loan eligibility, bank valuation, property selection and planning your actual upfront contribution.",
+    to: "/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026",
+    label: "New · Home Loan Guide",
+  },
+  {
     title: "Best Areas in Gurgaon for Property Investment",
     description: "Compare established and emerging Gurgaon corridors through an end-user and investment lens.",
     to: "/best-areas-gurgaon-property-investment",
+    label: "Investment Guide",
   },
   {
     title: "Gurgaon Property Buying Advisory",
     description: "A practical framework for selecting, financing and checking a resale or new property before purchase.",
     to: "/property-buying-advisory-gurgaon",
-  },
-  {
-    title: "Gurugram Growth Story",
-    description: "Understand the infrastructure and economic factors shaping Gurugram's residential property market.",
-    to: "/gurugram-growth-story",
+    label: "Buyer Guide",
   },
   {
     title: "NRI Property Services in Gurgaon",
     description: "Guidance for overseas Indians buying, selling or managing Gurgaon property from abroad.",
     to: "/nri",
+    label: "NRI Guide",
   },
 ] as const;
 
@@ -119,7 +124,8 @@ function BlogPage() {
         <div className="mt-8 grid gap-5 md:grid-cols-2">
           {FEATURED.map((article) => (
             <article key={article.title} className="rounded-2xl border border-border p-6 md:p-7">
-              <h3 className="font-display text-2xl">{article.title}</h3>
+              <p className="eyebrow">{article.label}</p>
+              <h3 className="mt-2 font-display text-2xl">{article.title}</h3>
               <p className="mt-3 text-sm leading-6 text-muted-foreground">{article.description}</p>
               <Link to={article.to} className="mt-5 inline-flex items-center gap-2 text-sm font-medium hover:text-gold">
                 Read guide <ArrowRight className="size-4" aria-hidden="true" />
