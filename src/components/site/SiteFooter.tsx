@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Mail, MapPin, Phone, Star } from "lucide-react";
+import { CalendarClock, Laptop, Mail, MapPin, MessageCircle, Phone, Star } from "lucide-react";
 import { CONTACT, LOAN_DISCLAIMER } from "@/data/site";
 import { trackContact, trackEvent } from "@/lib/analytics";
 
@@ -59,10 +59,32 @@ export function SiteFooter() {
               <Phone className="size-4 shrink-0 text-gold" aria-hidden="true" />
               {CONTACT.alternatePhone}
             </a>
+            <a
+              href={CONTACT.whatsapp}
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => trackContact("whatsapp", "site_footer")}
+              className="flex gap-3 hover:text-gold"
+            >
+              <MessageCircle className="size-4 shrink-0 text-gold" aria-hidden="true" />
+              WhatsApp Arun Madan
+            </a>
             <a href={`mailto:${CONTACT.email}`} className="flex gap-3 hover:text-gold">
               <Mail className="size-4 shrink-0 text-gold" aria-hidden="true" />
               {CONTACT.email}
             </a>
+            <span className="flex gap-3">
+              <CalendarClock className="mt-0.5 size-4 shrink-0 text-gold" aria-hidden="true" />
+              <span>
+                {CONTACT.weekdayHours}
+                <br />
+                {CONTACT.saturdayHours}
+              </span>
+            </span>
+            <span className="flex gap-3">
+              <Laptop className="mt-0.5 size-4 shrink-0 text-gold" aria-hidden="true" />
+              {CONTACT.serviceModes}
+            </span>
             <a
               href={CONTACT.googleBusinessProfile}
               target="_blank"
