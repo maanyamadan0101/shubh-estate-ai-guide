@@ -3,9 +3,9 @@ import { ArrowRight, Calculator, FileCheck2, Landmark, ShieldCheck } from "lucid
 import { Button } from "@/components/ui/button";
 import { SITE_ORIGIN } from "@/lib/seo";
 
-const SLUG = "/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026";
-
-export const Route = createFileRoute(SLUG)({
+export const Route = createFileRoute(
+  "/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026",
+)({
   head: () => ({
     meta: [
       {
@@ -17,7 +17,12 @@ export const Route = createFileRoute(SLUG)({
           "Learn how Gurgaon home buyers can plan a smaller upfront contribution through realistic property selection, loan eligibility, valuation and documentation. Practical 2026 buyer guide from Shubh Estate Brokers.",
       },
     ],
-    links: [{ rel: "canonical", href: `${SITE_ORIGIN}${SLUG}` }],
+    links: [
+      {
+        rel: "canonical",
+        href: `${SITE_ORIGIN}/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026`,
+      },
+    ],
   }),
   component: Article,
 });
