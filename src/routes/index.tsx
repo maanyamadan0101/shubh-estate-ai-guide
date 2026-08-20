@@ -184,14 +184,14 @@ function Home() {
           decoding="async"
           className="absolute inset-0 -z-10 size-full object-cover"
         />
-        <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,oklch(0.18_0.044_248/0.98)_0%,oklch(0.2_0.045_248/0.9)_48%,oklch(0.2_0.045_248/0.72)_100%)]" />
+        <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(10,17,40,0.98)_0%,rgba(10,17,40,0.92)_48%,rgba(10,17,40,0.74)_100%)]" />
 
         <div className="container-page py-14 text-navy-foreground md:py-20 lg:py-24">
           <div className="grid gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
             <div className="max-w-3xl animate-rise">
               <div className="flex flex-wrap items-center gap-2">
                 <span className="rounded-full border border-gold/40 bg-gold/10 px-3 py-1.5 text-xs font-medium text-gold">
-                  Founder-led Gurgaon advisory
+                  Banking-grade real estate advisory
                 </span>
                 <a
                   href={CONTACT.googleBusinessProfile}
@@ -204,12 +204,23 @@ function Home() {
               </div>
               <h1 className="mt-5 font-display text-4xl leading-[1.06] text-white sm:text-5xl md:text-6xl">
                 Gurgaon property decisions, backed by
-                <span className="text-gradient-gold"> banking-grade judgement</span>
+                <span className="text-gradient-gold"> banking-grade judgement.</span>
               </h1>
-              <p className="mt-6 max-w-2xl text-base leading-7 text-white/85 md:text-lg">
-                Buy, rent, sell, manage or finance property with one Gurgaon team for price context,
-                due-diligence coordination, loan structuring and local execution.
-              </p>
+              <h2 className="mt-6 max-w-3xl font-sans text-base font-normal leading-7 tracking-normal text-white/85 md:text-lg md:leading-8">
+                Moving away from commission-driven sales tactics, Shubh Estate Brokers focuses on
+                risk mitigation, objective property valuation, title review, and custom mortgage
+                structuring to ensure transparent and safe property transactions for buyers,
+                sellers, and NRI clients. Whether you are a financially focused buyer needing
+                integrated home loan coordination, or an NRI requiring remote transaction execution
+                and legal vetting, our Gurugram-based real estate advisory firm provides verified
+                information and personalised advice to help you make confident real estate
+                decisions.
+              </h2>
+              <div className="mt-6 max-w-3xl rounded-xl border border-gold/35 bg-gold/10 px-4 py-3 text-sm leading-6 text-white/90 backdrop-blur-sm">
+                <span className="font-semibold text-gold">Founder trust:</span> Founded by Arun
+                Madan, a former senior banking professional with deep expertise in mortgages, credit
+                evaluation, and legal title assessment.
+              </div>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Button asChild variant="gold" size="xl">
                   <Link to="/properties" search={{ purpose: "sale" }}>

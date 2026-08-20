@@ -1,37 +1,37 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowUpRight, Home, KeyRound, Search, Send } from "lucide-react";
+import { ArrowUpRight, Building2, Globe2, Landmark, Upload } from "lucide-react";
 
 const ACTIONS = [
   {
-    label: "Share Your Requirement",
-    body: "Tell us your budget, preferred location and property type.",
-    eyebrow: "BUYER",
-    icon: Send,
-    to: "/contact",
+    label: "Budget-Conscious & Luxury Homebuyers",
+    body: "Discover verified residential properties without aggressive sales pressure or inflated price tags.",
+    eyebrow: "PREMIUM BUYERS",
+    icon: Building2,
+    to: "/properties",
+    search: { purpose: "sale" },
     featured: true,
   },
   {
-    label: "Browse Properties for Sale",
-    body: "Explore current resale and sale opportunities across Gurgaon.",
-    eyebrow: "EXPLORE",
-    icon: Search,
-    to: "/properties",
-    search: { purpose: "sale" },
+    label: "NRI Property Services",
+    body: "Remote transaction execution, legal vetting, tenant coordination, and property resale support for investors living abroad.",
+    eyebrow: "REMOTE INVESTORS",
+    icon: Globe2,
+    to: "/nri",
     featured: false,
   },
   {
-    label: "Post Property for Sale",
-    body: "Share your available property privately with our team.",
-    eyebrow: "OWNER",
-    icon: Home,
-    to: "/seller-submit",
+    label: "Home Loan & Mortgage Coordination",
+    body: "Integrated home loan coordination, valuation analysis, property debt takeover, or overdraft structuring alongside property purchases.",
+    eyebrow: "FINANCIAL STRUCTURING",
+    icon: Landmark,
+    to: "/home-loans",
     featured: false,
   },
   {
-    label: "Post Property for Rent",
-    body: "Send rental availability for tenant matching and coordination.",
-    eyebrow: "OWNER",
-    icon: KeyRound,
+    label: "Post Your Property",
+    body: "Access practical property assessment, documentation support and transaction due diligence to secure the best price.",
+    eyebrow: "SELLER SUPPORT",
+    icon: Upload,
     to: "/seller-submit",
     featured: false,
   },
@@ -48,7 +48,9 @@ export function HomeActionPanel() {
           </h2>
         </div>
         <span className="hidden text-right text-xs leading-5 text-white/55 sm:block">
-          Direct access.<br />No portal clutter.
+          Direct access.
+          <br />
+          No portal clutter.
         </span>
       </div>
 
@@ -58,7 +60,7 @@ export function HomeActionPanel() {
             key={label}
             to={to}
             {...("search" in action ? { search: action.search } : {})}
-            className={`group relative min-h-[148px] overflow-hidden rounded-2xl p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_22px_50px_-24px_rgba(0,0,0,0.75)] ${
+            className={`group relative min-h-[184px] overflow-hidden rounded-2xl p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_22px_50px_-24px_rgba(0,0,0,0.75)] ${
               featured
                 ? "bg-gold text-navy"
                 : "bg-white/95 text-navy backdrop-blur-sm hover:bg-white"
@@ -74,17 +76,21 @@ export function HomeActionPanel() {
               />
             </div>
 
-            <p className={`mt-5 text-[0.65rem] font-bold tracking-[0.16em] ${featured ? "text-navy/65" : "text-gold"}`}>
+            <p
+              className={`mt-5 text-[0.65rem] font-bold tracking-[0.18em] ${featured ? "text-navy/65" : "text-gold"}`}
+            >
               {eyebrow}
             </p>
             <h3 className="mt-1 font-display text-xl leading-tight">{label}</h3>
-            <p className={`mt-2 text-xs leading-5 ${featured ? "text-navy/75" : "text-navy/65"}`}>{body}</p>
+            <p className={`mt-2 text-xs leading-5 ${featured ? "text-navy/75" : "text-navy/65"}`}>
+              {body}
+            </p>
           </Link>
         ))}
       </div>
 
       <p className="mt-4 text-xs leading-5 text-white/55">
-        Owner submissions remain private until reviewed by Shubh Estate Brokers.
+        Property submissions remain private until reviewed by Shubh Estate Brokers.
       </p>
     </div>
   );
