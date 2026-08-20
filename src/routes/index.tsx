@@ -1,19 +1,18 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
-  BadgeIndianRupee,
   Banknote,
   Building2,
   FileCheck2,
   FileSearch,
-  Handshake,
-  KeyRound,
+  Globe2,
   Landmark,
+  MessageCircle,
+  Phone,
   PlayCircle,
   Quote,
   Scale,
   ShieldCheck,
   TrendingUp,
-  Wrench,
 } from "lucide-react";
 import heroImage from "@/assets/hero-gurugram.jpg";
 import { HomeActionPanel } from "@/components/site/HomeActionPanel";
@@ -26,6 +25,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { CONTACT, FAQS } from "@/data/site";
+import { trackContact } from "@/lib/analytics";
 import { vercelSrcSet } from "@/lib/image-optimization";
 import { listPublicProperties, type ListingRow } from "@/lib/properties.functions";
 import { SITE_ORIGIN } from "@/lib/seo";
@@ -38,7 +38,7 @@ export const Route = createFileRoute("/")({
   head: () => {
     const title = "Property in Gurgaon | Shubh Estate Brokers";
     const description =
-      "Explore verified property in Gurgaon with founder-led advice for buying, selling, luxury apartments, NRI services, home loans, valuation and due diligence.";
+      "Make safer Gurgaon property decisions with founder-led, banking-grade advice covering verified listings, price context, title assessment, due diligence and mortgage structuring.";
 
     return {
       meta: [
@@ -51,7 +51,7 @@ export const Route = createFileRoute("/")({
         {
           property: "og:description",
           content:
-            "Verified Gurgaon properties with budget-first shortlisting, price context, mortgage coordination and transaction support.",
+            "Verified Gurgaon properties with objective valuation, title assessment, mortgage structuring and transaction-risk guidance.",
         },
         { property: "og:url", content: SITE_ORIGIN },
         { property: "og:image", content: `${SITE_ORIGIN}${heroImage}` },
@@ -118,49 +118,45 @@ const MARKET_FACTS = [
   ["~US$6.0 bn", "Investment inflows since 2018"],
 ];
 
-const PROPERTY_SERVICES = [
+const CORE_SERVICES = [
   {
-    icon: Wrench,
-    label: "Remote Owners",
-    title: "Property Management",
-    body: "Inspection, maintenance, tenant and renewal coordination for NRI and outstation owners.",
-    to: "/property-services-gurgaon",
-  },
-  {
-    icon: BadgeIndianRupee,
-    label: "Reliable Price Context",
-    title: "Property Valuation",
-    body: "Sale or rental price positioning based on the exact unit and available market evidence.",
-    to: "/property-services-gurgaon",
-  },
-  {
-    icon: FileSearch,
-    label: "Document Confidence",
-    title: "Due-Diligence Coordination",
-    body: "Document checklist, RERA context and coordination with qualified legal and lending professionals.",
-    to: "/property-services-gurgaon",
+    icon: Globe2,
+    label: "NRI & Remote Owners",
+    title: "NRI Property Selling Support",
+    body: "A local Gurugram execution desk for overseas and outstation owners who need visibility, control and documented follow-through.",
+    points: [
+      "POA and documentation coordination",
+      "Tenant, inspection and maintenance follow-up",
+      "Remote marketing, buyer visits and resale execution",
+    ],
+    to: "/nri-sell-property-gurgaon",
+    cta: "Explore NRI seller support",
   },
   {
     icon: Landmark,
-    label: "Existing Borrowers",
-    title: "Loan Takeover & Smart OD",
-    body: "Compare balance transfer, top-up and eligible overdraft-linked home-loan structures.",
+    label: "Financially Focused Buyers",
+    title: "Home Loan & Mortgage Structuring",
+    body: "Financing is reviewed alongside the property so eligibility, valuation, cash contribution and repayment structure work together.",
+    points: [
+      "Eligibility and lender-policy coordination",
+      "Balance transfer, takeover and top-up analysis",
+      "Eligible overdraft-linked home-loan structuring",
+    ],
     to: "/home-loans",
+    cta: "Review mortgage options",
   },
   {
-    icon: KeyRound,
-    label: "Tenants",
-    title: "Find a Rental Home",
-    body: "Requirement-based rental shortlisting, planned visits and lease-process coordination.",
-    to: "/properties",
-    search: { purpose: "rent" },
-  },
-  {
-    icon: Handshake,
-    label: "Property Owners",
-    title: "Sell or Rent Out",
-    body: "Pricing, media, qualified enquiries, negotiation and local transaction follow-up.",
-    to: "/sell-property-gurgaon",
+    icon: FileSearch,
+    label: "Transaction Risk Control",
+    title: "Documentation & Due Diligence",
+    body: "Practical property assessment supported by title assessment, available approval records, price context and qualified professional coordination.",
+    points: [
+      "Ownership and title-document assessment",
+      "RERA, approval and property-eligibility context",
+      "Valuation and due-diligence coordination",
+    ],
+    to: "/property-services-gurgaon",
+    cta: "Understand due diligence",
   },
 ] as const;
 
@@ -169,6 +165,9 @@ function Home() {
     properties: ListingRow[];
     error: string | null;
   };
+  const founderWhatsappMessage = encodeURIComponent(
+    "Hello Mr Arun Madan, I would like to discuss a Gurugram property decision with Shubh Estate Brokers.",
+  );
 
   return (
     <>
@@ -186,67 +185,69 @@ function Home() {
         />
         <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(10,17,40,0.98)_0%,rgba(10,17,40,0.92)_48%,rgba(10,17,40,0.74)_100%)]" />
 
-        <div className="container-page py-14 text-navy-foreground md:py-20 lg:py-24">
-          <div className="grid gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
-            <div className="max-w-3xl animate-rise">
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="rounded-full border border-gold/40 bg-gold/10 px-3 py-1.5 text-xs font-medium text-gold">
-                  Banking-grade real estate advisory
-                </span>
+        <div className="container-page py-16 text-navy-foreground md:py-24 lg:py-28">
+          <div className="max-w-4xl animate-rise">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="rounded-full border border-gold/40 bg-gold/10 px-3 py-1.5 text-xs font-medium text-gold">
+                Banking-grade real estate advisory
+              </span>
+              <a
+                href={CONTACT.googleBusinessProfile}
+                target="_blank"
+                rel="noreferrer"
+                className="rounded-full border border-white/20 bg-white/5 px-3 py-1.5 text-xs text-white/85 hover:border-gold/50 hover:text-gold"
+              >
+                View Google Business Profile
+              </a>
+            </div>
+            <h1 className="mt-6 max-w-4xl font-display text-4xl leading-[1.06] text-white sm:text-5xl md:text-6xl lg:text-7xl">
+              Gurgaon property decisions, backed by
+              <span className="text-gradient-gold"> banking-grade judgement.</span>
+            </h1>
+            <h2 className="mt-7 max-w-3xl font-sans text-sm font-semibold uppercase leading-7 tracking-[0.14em] text-gold md:text-base">
+              Objective valuation · Title assessment · Mortgage structuring · Due-diligence
+              coordination
+            </h2>
+            <p className="mt-5 max-w-3xl text-base leading-7 text-white/85 md:text-lg md:leading-8">
+              Shubh Estate Brokers helps buyers, sellers and NRI owners understand a property's
+              price, paperwork, financing and transaction risks before booking funds are committed.
+              Advice is personalised, evidence-led and free from aggressive sales pressure.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Button asChild variant="gold" size="xl">
                 <a
-                  href={CONTACT.googleBusinessProfile}
+                  href={`${CONTACT.whatsapp}?text=${founderWhatsappMessage}`}
                   target="_blank"
                   rel="noreferrer"
-                  className="rounded-full border border-white/20 bg-white/5 px-3 py-1.5 text-xs text-white/85 hover:border-gold/50 hover:text-gold"
+                  onClick={() => trackContact("whatsapp", "homepage_hero_founder")}
                 >
-                  View Google Business Profile
+                  <MessageCircle aria-hidden="true" />
+                  WhatsApp Founder Arun Madan
                 </a>
-              </div>
-              <h1 className="mt-5 font-display text-4xl leading-[1.06] text-white sm:text-5xl md:text-6xl">
-                Gurgaon property decisions, backed by
-                <span className="text-gradient-gold"> banking-grade judgement.</span>
-              </h1>
-              <h2 className="mt-6 max-w-3xl font-sans text-base font-normal leading-7 tracking-normal text-white/85 md:text-lg md:leading-8">
-                Moving away from commission-driven sales tactics, Shubh Estate Brokers focuses on
-                risk mitigation, objective property valuation, title review, and custom mortgage
-                structuring to ensure transparent and safe property transactions for buyers,
-                sellers, and NRI clients. Whether you are a financially focused buyer needing
-                integrated home loan coordination, or an NRI requiring remote transaction execution
-                and legal vetting, our Gurugram-based real estate advisory firm provides verified
-                information and personalised advice to help you make confident real estate
-                decisions.
-              </h2>
-              <div className="mt-6 max-w-3xl rounded-xl border border-gold/35 bg-gold/10 px-4 py-3 text-sm leading-6 text-white/90 backdrop-blur-sm">
-                <span className="font-semibold text-gold">Founder trust:</span> Founded by Arun
-                Madan, a former senior banking professional with deep expertise in mortgages, credit
-                evaluation, and legal title assessment.
-              </div>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Button asChild variant="gold" size="xl">
-                  <Link to="/properties" search={{ purpose: "sale" }}>
-                    Explore Current Properties
-                  </Link>
-                </Button>
-                <Button asChild variant="goldOutline" size="xl">
-                  <a href={CONTACT.phoneHref}>Speak with Arun Madan</a>
-                </Button>
-              </div>
-              <ul className="mt-7 grid max-w-2xl gap-2 text-sm text-white/80 sm:grid-cols-2">
-                {[
-                  "Current resale and rental inventory",
-                  "New and under-construction projects",
-                  "NRI and remote-owner coordination",
-                  "Home loans, takeover and smart OD options",
-                ].map((item) => (
-                  <li key={item} className="flex items-start gap-2">
-                    <ShieldCheck className="mt-0.5 size-4 shrink-0 text-gold" aria-hidden="true" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
+              </Button>
+              <Button asChild variant="goldOutline" size="xl">
+                <a
+                  href={CONTACT.phoneHref}
+                  onClick={() => trackContact("phone", "homepage_hero_founder")}
+                >
+                  <Phone aria-hidden="true" />
+                  Call {CONTACT.phone}
+                </a>
+              </Button>
             </div>
-
-            <HomeActionPanel />
+            <ul className="mt-7 grid max-w-2xl gap-2 text-sm text-white/80 sm:grid-cols-2">
+              {[
+                "Current resale and rental inventory",
+                "New and under-construction projects",
+                "NRI and remote-owner coordination",
+                "Home loans, takeover and smart OD options",
+              ].map((item) => (
+                <li key={item} className="flex items-start gap-2">
+                  <ShieldCheck className="mt-0.5 size-4 shrink-0 text-gold" aria-hidden="true" />
+                  {item}
+                </li>
+              ))}
+            </ul>
           </div>
 
           <div className="mt-12 grid gap-3 border-t border-white/15 pt-6 text-xs uppercase tracking-[0.14em] text-white/65 sm:grid-cols-2 lg:grid-cols-4">
@@ -258,42 +259,126 @@ function Home() {
         </div>
       </section>
 
+      <HomeActionPanel />
+
       <section className="container-page py-16 md:py-20">
-        <div className="flex flex-wrap items-end justify-between gap-5">
-          <SectionHead
-            eyebrow="What can we solve for you?"
-            title="Property services designed around real client situations"
-            body="Choose the outcome you need instead of navigating a long portal menu. Each service leads to a clear next step."
-          />
-          <Button asChild variant="outline">
-            <Link to="/property-services-gurgaon">View all property services</Link>
-          </Button>
-        </div>
-        <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {PROPERTY_SERVICES.map(({ icon: Icon, label, title, body, to, ...service }) => (
-            <Link
-              key={title}
-              to={to}
-              {...("search" in service ? { search: service.search } : {})}
-              className="group rounded-2xl border border-border bg-card p-6 transition-all hover:-translate-y-1 hover:border-gold/50 hover:shadow-[var(--shadow-elegant)]"
-            >
-              <div className="flex items-start justify-between gap-4">
-                <span className="flex size-11 items-center justify-center rounded-xl bg-navy text-gold">
-                  <Icon className="size-5" aria-hidden="true" />
+        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+          <div className="rounded-2xl surface-navy p-8 md:p-10">
+            <p className="eyebrow">Founder-led advice</p>
+            <h2 className="mt-4 font-display text-3xl text-navy-foreground">Arun Madan</h2>
+            <p className="mt-2 text-sm text-navy-foreground/70">
+              Founder & Promoter · MBA · LLB · Former Senior Banking Professional
+            </p>
+
+            <div className="mt-7 grid gap-3 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
+              {["Mortgage Structuring", "Property Valuation", "Legal Title Assessment"].map(
+                (item) => (
+                  <div
+                    key={item}
+                    className="rounded-xl border border-navy-foreground/15 bg-white/5 p-4 text-sm text-navy-foreground/85"
+                  >
+                    {item}
+                  </div>
+                ),
+              )}
+            </div>
+
+            <p className="mt-8 text-xs uppercase tracking-[0.18em] text-navy-foreground/55">
+              Professional experience includes
+            </p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {["HDFC Bank", "ICICI Bank", "Citigroup", "IndusInd Bank"].map((bank) => (
+                <span
+                  key={bank}
+                  className="rounded-full border border-gold/50 px-4 py-1.5 text-xs text-gold"
+                >
+                  {bank}
                 </span>
-                <span className="text-xs font-medium uppercase tracking-[0.14em] text-gold">
-                  {label}
-                </span>
-              </div>
-              <h2 className="mt-5 font-display text-2xl group-hover:text-gold">{title}</h2>
-              <p className="mt-2 text-sm leading-6 text-muted-foreground">{body}</p>
-            </Link>
-          ))}
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <SectionHead
+              eyebrow="Trust before transaction"
+              title="Know the advantages, disadvantages and risks before you commit"
+              body="Banking, mortgage, credit-evaluation and legal-title experience shapes every recommendation—not only brokerage considerations."
+            />
+            <div className="mt-7 space-y-5 text-muted-foreground">
+              <p>
+                A property decision is reviewed like a major financial decision. We assess the
+                asking price, available ownership and approval records, financing fit, cash-flow
+                impact and realistic resale or rental exit before recommending the next step.
+              </p>
+              <p>
+                We clearly explain a property's advantages, disadvantages, financial implications
+                and transaction risks before you commit any token or booking amount. When the
+                valuation, documentation, financing or risk-reward does not stand up to scrutiny, we
+                are prepared to advise you not to proceed.
+              </p>
+            </div>
+
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Button asChild variant="navy" size="lg">
+                <Link to="/about">Read Arun's Full Profile</Link>
+              </Button>
+              <Button asChild variant="outline" size="lg">
+                <Link to="/contact">Request a Consultation</Link>
+              </Button>
+            </div>
+          </div>
         </div>
       </section>
 
       <section className="bg-secondary/60 py-16 md:py-20">
         <div className="container-page">
+          <div className="flex flex-wrap items-end justify-between gap-5">
+            <SectionHead
+              eyebrow="Integrated advisory services"
+              title="Three safeguards around a property transaction"
+              body="Property selection, documentation and financing are evaluated together so a weakness in one area is not hidden by strength in another."
+            />
+            <Button asChild variant="outline">
+              <Link to="/property-services-gurgaon">View all property services</Link>
+            </Button>
+          </div>
+          <div className="mt-10 grid gap-5 lg:grid-cols-3">
+            {CORE_SERVICES.map(({ icon: Icon, label, title, body, points, to, cta }) => (
+              <Link
+                key={title}
+                to={to}
+                className="group flex h-full flex-col rounded-2xl border border-border bg-card p-7 transition-all hover:-translate-y-1 hover:border-gold/50 hover:shadow-[var(--shadow-elegant)]"
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <span className="flex size-11 items-center justify-center rounded-xl bg-navy text-gold">
+                    <Icon className="size-5" aria-hidden="true" />
+                  </span>
+                  <span className="text-xs font-medium uppercase tracking-[0.14em] text-gold">
+                    {label}
+                  </span>
+                </div>
+                <h2 className="mt-5 font-display text-2xl group-hover:text-gold">{title}</h2>
+                <p className="mt-2 text-sm leading-6 text-muted-foreground">{body}</p>
+                <ul className="mt-5 space-y-3">
+                  {points.map((point) => (
+                    <li key={point} className="flex items-start gap-2 text-sm leading-5">
+                      <ShieldCheck
+                        className="mt-0.5 size-4 shrink-0 text-gold"
+                        aria-hidden="true"
+                      />
+                      {point}
+                    </li>
+                  ))}
+                </ul>
+                <span className="mt-auto pt-7 text-sm font-semibold text-gold">{cta} →</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="container-page py-16 md:py-20">
+        <div>
           <div className="flex flex-wrap items-end justify-between gap-5">
             <SectionHead
               eyebrow="New project discovery"
@@ -324,77 +409,6 @@ function Home() {
               </p>
             </div>
           )}
-        </div>
-      </section>
-
-      <section className="container-page py-20">
-        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-          <div className="rounded-2xl surface-navy p-8 md:p-10">
-            <p className="eyebrow">Founder Profile</p>
-            <h2 className="mt-4 font-display text-3xl text-navy-foreground">Arun Madan</h2>
-            <p className="mt-2 text-sm text-navy-foreground/70">
-              Founder & Promoter · MBA · LLB · Former Banking Professional
-            </p>
-
-            <div className="mt-7 grid gap-3 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
-              {["Mortgage Expert", "Property Valuation Specialist", "Legal Title Assessment"].map(
-                (item) => (
-                  <div
-                    key={item}
-                    className="rounded-xl border border-navy-foreground/15 bg-white/5 p-4 text-sm text-navy-foreground/85"
-                  >
-                    {item}
-                  </div>
-                ),
-              )}
-            </div>
-
-            <p className="mt-8 text-xs uppercase tracking-[0.18em] text-navy-foreground/55">
-              Professional experience includes
-            </p>
-            <div className="mt-3 flex flex-wrap gap-2">
-              {["HDFC Bank", "ICICI Bank", "Citigroup", "IndusInd Bank"].map((bank) => (
-                <span
-                  key={bank}
-                  className="rounded-full border border-gold/50 px-4 py-1.5 text-xs text-gold"
-                >
-                  {bank}
-                </span>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <SectionHead
-              eyebrow="Why clients can trust the advice"
-              title="A property decision reviewed like a financial decision"
-              body="Years spent around banking credit, mortgages, collateral valuation and documentation shape how Shubh Estate Brokers approaches a transaction today."
-            />
-            <div className="mt-7 space-y-5 text-muted-foreground">
-              <p>
-                A home or investment property is often one of the largest financial commitments a
-                family makes. Our role is therefore wider than finding an attractive unit. We
-                examine whether the asking price is sensible, whether the title and approvals
-                deserve confidence, how the loan should be structured and whether the asset still
-                makes sense when you think about resale or rental exit.
-              </p>
-              <p>
-                That is why recommendations are stress-tested before a token amount is paid. If
-                valuation, documentation, financing or exit assumptions do not work, we say so. The
-                relationship is designed around protecting the client's capital first and completing
-                a transaction second.
-              </p>
-            </div>
-
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Button asChild variant="navy" size="lg">
-                <Link to="/about">Read Arun's Full Profile</Link>
-              </Button>
-              <Button asChild variant="outline" size="lg">
-                <Link to="/contact">Book a Consultation</Link>
-              </Button>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -665,10 +679,24 @@ function Home() {
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Button asChild variant="gold" size="lg">
-              <a href={CONTACT.phoneHref}>Call {CONTACT.phone}</a>
+              <a
+                href={`${CONTACT.whatsapp}?text=${founderWhatsappMessage}`}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => trackContact("whatsapp", "homepage_final_cta")}
+              >
+                <MessageCircle aria-hidden="true" />
+                WhatsApp Arun Madan
+              </a>
             </Button>
             <Button asChild variant="goldOutline" size="lg">
-              <Link to="/contact">Request a Callback</Link>
+              <a
+                href={CONTACT.phoneHref}
+                onClick={() => trackContact("phone", "homepage_final_cta")}
+              >
+                <Phone aria-hidden="true" />
+                Call {CONTACT.phone}
+              </a>
             </Button>
           </div>
         </div>
