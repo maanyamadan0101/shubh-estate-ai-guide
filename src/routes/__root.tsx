@@ -90,14 +90,15 @@ const localBusinessSchema = {
   description:
     "Founder-led Gurugram real estate advisory with former senior-level banking exposure, focused on title and documentation review, mortgage structuring, valuation, investment safety, integrity and fair, transparent transactions.",
   slogan: "Fair & Transparent Real Estate Deals at the Best Price",
-  telephone: [CONTACT.phone, CONTACT.alternatePhone],
+  priceRange: "₹₹₹",
+  telephone: ["+919911050561", "+918130785000"],
   email: CONTACT.email,
   url: SITE_ORIGIN,
   sameAs: [CONTACT.googleBusinessProfile, CONTACT.instagram, CONTACT.youtube],
   hasMap: CONTACT.googleBusinessProfile,
   contactPoint: {
     "@type": "ContactPoint",
-    telephone: CONTACT.phone,
+    telephone: "+919911050561",
     contactType: "sales",
     areaServed: "IN",
     availableLanguage: ["English", "Hindi"],
@@ -126,6 +127,22 @@ const localBusinessSchema = {
     addressCountry: "IN",
   },
   areaServed: "Gurugram, Haryana, India",
+  knowsLanguage: ["English", "Hindi"],
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Gurugram property advisory services",
+    itemListElement: [
+      "Property buying advisory",
+      "Property selling support",
+      "NRI property services",
+      "Property due-diligence coordination",
+      "Property valuation coordination",
+      "Home-loan and mortgage coordination",
+    ].map((name) => ({
+      "@type": "Offer",
+      itemOffered: { "@type": "Service", name },
+    })),
+  },
   openingHoursSpecification: [
     {
       "@type": "OpeningHoursSpecification",
@@ -162,6 +179,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "Buy, sell or invest in Gurgaon property with founder-led advice backed by banking, title assessment, valuation, mortgage and due-diligence experience.",
       },
       { name: "author", content: "Shubh Estate Brokers" },
+      {
+        name: "robots",
+        content: "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1",
+      },
+      {
+        name: "googlebot",
+        content: "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1",
+      },
       { property: "og:title", content: "Shubh Estate Brokers | Property Consultant in Gurgaon" },
       {
         property: "og:description",
@@ -170,7 +195,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: SITE_ORIGIN },
+      { property: "og:site_name", content: "Shubh Estate Brokers" },
+      { property: "og:locale", content: "en_IN" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "theme-color", content: "#0A1128" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },

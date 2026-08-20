@@ -4,17 +4,21 @@ import { Button } from "@/components/ui/button";
 import { SITE_ORIGIN } from "@/lib/seo";
 
 export const Route = createFileRoute("/blog")({
-  head: () => ({
-    meta: [
-      { title: "Gurgaon Property Blog | Real Estate, Home Loans & Legal Guides" },
-      {
-        name: "description",
-        content:
-          "Practical Gurgaon property guides from Shubh Estate Brokers covering resale homes, investment, home loans, legal due diligence and NRI property decisions.",
-      },
-    ],
-    links: [{ rel: "canonical", href: `${SITE_ORIGIN}/blog` }],
-  }),
+  head: ({ matches }) => {
+    const isBlogIndex = matches.at(-1)?.routeId === "/blog";
+
+    return {
+      meta: [
+        { title: "Gurgaon Property Blog | Real Estate, Home Loans & Legal Guides" },
+        {
+          name: "description",
+          content:
+            "Practical Gurgaon property guides from Shubh Estate Brokers covering resale homes, investment, home loans, legal due diligence and NRI property decisions.",
+        },
+      ],
+      links: isBlogIndex ? [{ rel: "canonical", href: `${SITE_ORIGIN}/blog` }] : [],
+    };
+  },
   component: BlogPage,
 });
 
@@ -37,12 +41,19 @@ const TOPICS = [
     icon: Scale,
     title: "Legal & Property Due Diligence",
     text: "Buyer-focused guidance on title, documentation, valuation and checks that can reduce transaction risk.",
-    to: "/property-services-gurgaon",
-    cta: "Explore due-diligence services",
+    to: "/blog/gurgaon-property-due-diligence-checklist-2026",
+    cta: "Use the 12-point checklist",
   },
 ] as const;
 
 const FEATURED = [
+  {
+    title: "Gurgaon Property Due Diligence Checklist: 12 Essential Checks",
+    description:
+      "A buyer-first sequence for checking seller authority, title records, approvals, dues, valuation, financing and token terms before committing funds.",
+    to: "/blog/gurgaon-property-due-diligence-checklist-2026",
+    label: "New · Due Diligence Guide",
+  },
   {
     title: "How to Buy Property in Gurgaon With a Small Down Payment",
     description:
@@ -52,19 +63,22 @@ const FEATURED = [
   },
   {
     title: "Best Areas in Gurgaon for Property Investment",
-    description: "Compare established and emerging Gurgaon corridors through an end-user and investment lens.",
+    description:
+      "Compare established and emerging Gurgaon corridors through an end-user and investment lens.",
     to: "/best-areas-gurgaon-property-investment",
     label: "Investment Guide",
   },
   {
     title: "Gurgaon Property Buying Advisory",
-    description: "A practical framework for selecting, financing and checking a resale or new property before purchase.",
+    description:
+      "A practical framework for selecting, financing and checking a resale or new property before purchase.",
     to: "/property-buying-advisory-gurgaon",
     label: "Buyer Guide",
   },
   {
     title: "NRI Property Services in Gurgaon",
-    description: "Guidance for overseas Indians buying, selling or managing Gurgaon property from abroad.",
+    description:
+      "Guidance for overseas Indians buying, selling or managing Gurgaon property from abroad.",
     to: "/nri",
     label: "NRI Guide",
   },
@@ -82,14 +96,17 @@ function BlogPage() {
                 Gurgaon Property Blog & Buyer Guides
               </h1>
               <p className="mt-5 max-w-3xl text-base leading-7 text-navy-foreground/75 md:text-lg">
-                Practical insights on Gurgaon real estate, resale opportunities, home loans, legal checks and NRI property decisions — with an advisory-first approach rather than generic property news.
+                Practical insights on Gurgaon real estate, resale opportunities, home loans, legal
+                checks and NRI property decisions — with an advisory-first approach rather than
+                generic property news.
               </p>
             </div>
             <div className="rounded-2xl border border-gold/25 bg-white/5 p-6">
               <BookOpen className="size-7 text-gold" aria-hidden="true" />
               <p className="mt-4 font-display text-xl">Looking for an actual property?</p>
               <p className="mt-2 text-sm leading-6 text-navy-foreground/70">
-                Move from research to current Gurgaon inventory and discuss financing or due diligence alongside the property search.
+                Move from research to current Gurgaon inventory and discuss financing or due
+                diligence alongside the property search.
               </p>
               <Button asChild variant="gold" className="mt-5">
                 <Link to="/properties">View current properties</Link>
@@ -106,7 +123,10 @@ function BlogPage() {
               <Icon className="size-6 text-gold" aria-hidden="true" />
               <h2 className="mt-5 font-display text-2xl">{title}</h2>
               <p className="mt-3 text-sm leading-6 text-muted-foreground">{text}</p>
-              <Link to={to} className="mt-5 inline-flex items-center gap-2 text-sm font-medium hover:text-gold">
+              <Link
+                to={to}
+                className="mt-5 inline-flex items-center gap-2 text-sm font-medium hover:text-gold"
+              >
                 {cta} <ArrowRight className="size-4" aria-hidden="true" />
               </Link>
             </article>
@@ -118,7 +138,9 @@ function BlogPage() {
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="eyebrow">Featured reading</p>
-            <h2 className="mt-2 font-display text-3xl md:text-4xl">Start with these Gurgaon property guides</h2>
+            <h2 className="mt-2 font-display text-3xl md:text-4xl">
+              Start with these Gurgaon property guides
+            </h2>
           </div>
         </div>
         <div className="mt-8 grid gap-5 md:grid-cols-2">
@@ -127,7 +149,10 @@ function BlogPage() {
               <p className="eyebrow">{article.label}</p>
               <h3 className="mt-2 font-display text-2xl">{article.title}</h3>
               <p className="mt-3 text-sm leading-6 text-muted-foreground">{article.description}</p>
-              <Link to={article.to} className="mt-5 inline-flex items-center gap-2 text-sm font-medium hover:text-gold">
+              <Link
+                to={article.to}
+                className="mt-5 inline-flex items-center gap-2 text-sm font-medium hover:text-gold"
+              >
                 Read guide <ArrowRight className="size-4" aria-hidden="true" />
               </Link>
             </article>

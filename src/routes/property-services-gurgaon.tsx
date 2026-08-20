@@ -142,6 +142,22 @@ export const Route = createFileRoute("/property-services-gurgaon")({
             url: canonical,
           }),
         },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: SITE_ORIGIN },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Property Services in Gurgaon",
+                item: canonical,
+              },
+            ],
+          }),
+        },
       ],
     };
   },
@@ -244,6 +260,12 @@ function PropertyServices() {
               </Link>
               <Link to="/home-loans" className="inline-flex items-center gap-1.5 hover:text-gold">
                 Loan takeover review <ArrowRight className="size-3.5" aria-hidden="true" />
+              </Link>
+              <Link
+                to="/blog/gurgaon-property-due-diligence-checklist-2026"
+                className="inline-flex items-center gap-1.5 hover:text-gold"
+              >
+                Buyer due-diligence checklist <ArrowRight className="size-3.5" aria-hidden="true" />
               </Link>
               <Link
                 to="/sell-property-gurgaon"

@@ -259,6 +259,11 @@ function PropertyBuyingAdvisoryPage() {
               <Button asChild variant="goldOutline">
                 <Link to="/properties">View Current Properties</Link>
               </Button>
+              <Button asChild variant="goldOutline">
+                <Link to="/blog/gurgaon-property-due-diligence-checklist-2026">
+                  Use the 12-Point Checklist
+                </Link>
+              </Button>
             </div>
           </div>
         </div>

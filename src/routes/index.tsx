@@ -155,8 +155,8 @@ const CORE_SERVICES = [
       "RERA, approval and property-eligibility context",
       "Valuation and due-diligence coordination",
     ],
-    to: "/property-services-gurgaon",
-    cta: "Understand due diligence",
+    to: "/blog/gurgaon-property-due-diligence-checklist-2026",
+    cta: "Use the due-diligence checklist",
   },
 ] as const;
 
