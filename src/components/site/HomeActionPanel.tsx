@@ -55,6 +55,28 @@ export function HomeActionPanel() {
           </span>
         </div>
 
+        <Link
+          to="/dwarka-expressway-flats-for-sale-gurgaon"
+          className="group mt-8 flex flex-col gap-4 rounded-2xl border border-gold/35 bg-card p-6 shadow-sm transition-all hover:-translate-y-0.5 hover:border-gold/70 hover:shadow-[var(--shadow-elegant)] md:flex-row md:items-center md:justify-between"
+        >
+          <div>
+            <p className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-gold">
+              LIVE DWARKA EXPRESSWAY INVENTORY
+            </p>
+            <h3 className="mt-2 font-display text-2xl text-foreground">
+              37 flats for sale across 13 Dwarka Expressway project groups
+            </h3>
+            <p className="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground">
+              Compare current resale and selected under-construction options in Sectors 99–111,
+              including Puri Emerald Bay, ATS Triumph, Godrej Meridien, Sobha City, Hero Homes and more.
+            </p>
+          </div>
+          <span className="inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-gold">
+            View current inventory
+            <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
+          </span>
+        </Link>
+
         <div className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {ACTIONS.map(({ label, body, eyebrow, icon: Icon, to, ...action }) => (
             <Link
