@@ -1,6 +1,7 @@
-import { createFileRoute, notFound } from "@tanstack/react-router";
+import { createFileRoute, notFound, redirect } from "@tanstack/react-router";
 import { PropertyView } from "@/components/site/PropertyView";
 import { ProjectImageDisclosure } from "@/components/site/ProjectImageDisclosure";
+import { DWARKA_CATALOGUE_LISTINGS } from "@/data/dwarka-catalogue-listings";
 import { getPublicPropertyDetail } from "@/lib/public-property-detail.functions";
 import { listPublicProperties } from "@/lib/properties.functions";
 import { representativeProjectImageFor } from "@/lib/project-image-catalog";
@@ -30,6 +31,11 @@ function storedDescriptionLooksUsable(value: string | null | undefined) {
 
 export const Route = createFileRoute("/property/$slug")({
   loader: async ({ params }) => {
+    const curatedListing = DWARKA_CATALOGUE_LISTINGS.find((item) => item.slug === params.slug);
+    if (curatedListing) {
+      throw redirect({ href: curatedListing.detail_href, statusCode: 301 });
+    }
+
     const data = await getPublicPropertyDetail({ data: { slug: params.slug } });
     if (!data) throw notFound();
 
