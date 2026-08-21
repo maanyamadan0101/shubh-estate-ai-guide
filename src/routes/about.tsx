@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { CONTACT } from "@/data/site";
 import { SITE_ORIGIN } from "@/lib/seo";
 
+const ARUN_LINKEDIN = "https://in.linkedin.com/in/arun-madan-94ab4224";
+
 export const Route = createFileRoute("/about")({
   head: () => {
     const canonical = `${SITE_ORIGIN}/about`;
@@ -34,7 +36,7 @@ export const Route = createFileRoute("/about")({
             url: canonical,
             name: "Arun Madan — Founder of Shubh Estate Brokers, Gurugram",
             description,
-            dateModified: "2026-08-21T10:56:00+05:30",
+            dateModified: "2026-08-21T11:08:00+05:30",
             mainEntity: {
               "@type": "Person",
               "@id": `${canonical}#arun-madan`,
@@ -43,6 +45,7 @@ export const Route = createFileRoute("/about")({
               description:
                 "Gurugram real estate and mortgage advisor, MBA and LLB, and former senior banking professional with practical experience in mortgages, credit, property valuation, documentation, title assessment and investment risk review.",
               url: canonical,
+              sameAs: [ARUN_LINKEDIN],
               worksFor: {
                 "@type": "RealEstateAgent",
                 "@id": `${SITE_ORIGIN}/#real-estate-agent`,
@@ -154,6 +157,7 @@ function About() {
               <div className="mt-8 flex flex-wrap gap-3">
                 <Button asChild variant="navy"><a href={CONTACT.phoneHref}>Speak with Arun Madan</a></Button>
                 <Button asChild variant="outline"><a href={CONTACT.googleBusinessProfile} target="_blank" rel="noreferrer">View Shubh Estate Brokers on Google</a></Button>
+                <Button asChild variant="outline"><a href={ARUN_LINKEDIN} target="_blank" rel="noreferrer">Arun Madan on LinkedIn</a></Button>
               </div>
             </div>
           </div>
