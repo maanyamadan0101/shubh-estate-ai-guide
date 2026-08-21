@@ -199,7 +199,7 @@ const itemListSchema = {
   ).map((item, index) => ({ ...item, position: index + 1 })),
 };
 
-export const Route = createFileRoute(PAGE_PATH)({
+export const Route = createFileRoute("/dwarka-expressway-flats-for-sale-gurgaon")({
   head: () => ({
     meta: [
       {
