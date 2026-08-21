@@ -28,7 +28,11 @@ export function trackEvent(eventName: string, params: AnalyticsParams = {}) {
   window.gtag("event", eventName, params);
 }
 
-export function trackContact(method: ContactMethod, location: string) {
+export function trackContact(
+  method: ContactMethod,
+  location: string,
+  extraParams: AnalyticsParams = {},
+) {
   if (typeof window === "undefined") return;
 
   const params = {
@@ -36,6 +40,7 @@ export function trackContact(method: ContactMethod, location: string) {
     location,
     page_path: window.location.pathname,
     page_location: window.location.href,
+    ...extraParams,
   };
 
   // Keep the broad contact event for historical reporting while also sending
@@ -45,6 +50,7 @@ export function trackContact(method: ContactMethod, location: string) {
     location,
     page_path: params.page_path,
     page_location: params.page_location,
+    ...extraParams,
   });
 }
 
