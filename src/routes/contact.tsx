@@ -16,7 +16,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { CONTACT } from "@/data/site";
-import { supabase } from "@/integrations/supabase/client";
 import { trackContact, trackEvent } from "@/lib/analytics";
 import { SITE_ORIGIN } from "@/lib/seo";
 
@@ -82,41 +81,49 @@ function Contact() {
 
     setErrors({});
     setSending(true);
-    const { error } = await supabase.from("enquiries").insert({
-      property_id: null,
-      full_name: parsed.data.name,
-      phone: parsed.data.phone,
-      email: parsed.data.email || null,
-      message: parsed.data.message || null,
-      interest: parsed.data.interest,
-      source: "website",
-    });
-    setSending(false);
+    try {
+      const response = await fetch("/api/enquiry", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          full_name: parsed.data.name,
+          phone: parsed.data.phone,
+          email: parsed.data.email,
+          message: parsed.data.message || "",
+          interest: parsed.data.interest,
+          source: "contact_page",
+          property_id: null,
+        }),
+      });
+      const payload = (await response.json()) as { ok?: boolean; error?: string };
+      if (!response.ok || !payload.ok) {
+        throw new Error(payload.error || "We could not save your request.");
+      }
 
-    if (error) {
-      toast.error("We could not save your request. Please call or WhatsApp us now.");
-      return;
-    }
-
-    trackEvent("generate_lead", {
-      lead_type: parsed.data.interest,
-      source: "contact_page",
-      page_path: window.location.pathname,
-    });
-    trackContact("form", "contact_page");
-
-    if (parsed.data.interest === "Book a site visit") {
-      trackEvent("book_site_visit", {
-        source: "contact_form",
+      trackEvent("generate_lead", {
+        lead_type: parsed.data.interest,
+        source: "contact_page",
         page_path: window.location.pathname,
       });
-    }
+      trackContact("form", "contact_page");
 
-    formElement.reset();
-    setInterest("");
-    toast.success("Request received", {
-      description: "Our advisory team will call you back shortly.",
-    });
+      if (parsed.data.interest === "Book a site visit") {
+        trackEvent("book_site_visit", {
+          source: "contact_form",
+          page_path: window.location.pathname,
+        });
+      }
+
+      formElement.reset();
+      setInterest("");
+      toast.success("Request received", {
+        description: "Our advisory team will call you back shortly.",
+      });
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "We could not save your request. Please call or WhatsApp us now.");
+    } finally {
+      setSending(false);
+    }
   }
 
   return (

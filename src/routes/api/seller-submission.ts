@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
+import { sendEnquiryNotification } from "@/lib/enquiry-email.server";
 
 const BUCKET = "seller-submissions";
 const MAX_IMAGE_BYTES = 10 * 1024 * 1024;
@@ -136,6 +137,10 @@ export const Route = createFileRoute("/api/seller-submission")({
             private_media_paths: mediaRows.map(({ path, kind, name }) => ({ path, kind, name })),
           };
 
+          const interest = input.is_nri
+            ? "Private NRI seller property submission"
+            : "Private seller property submission";
+
           const { data: enquiry, error: insertError } = await supabaseAdmin
             .from("enquiries")
             .insert({
@@ -144,13 +149,40 @@ export const Route = createFileRoute("/api/seller-submission")({
               phone: input.phone,
               email: input.email || null,
               message: JSON.stringify(privateDetails),
-              interest: input.is_nri ? "Private NRI seller property submission" : "Private seller property submission",
+              interest,
               source: "seller_private_link",
             })
             .select("id")
             .single();
 
           if (insertError) throw new Error(`Could not save your property: ${insertError.message}`);
+
+          await sendEnquiryNotification({
+            enquiryId: enquiry.id,
+            reference,
+            category: "seller_submission",
+            fullName: input.full_name,
+            phone: input.phone,
+            email: input.email || null,
+            interest,
+            source: "seller_private_link",
+            project: input.project,
+            sector: input.sector || null,
+            expectedPrice: input.expected_price || null,
+            message: [
+              input.configuration ? `Configuration: ${input.configuration}` : "",
+              input.area_sqft ? `Area: ${input.area_sqft} sq.ft.` : "",
+              input.floor ? `Floor: ${input.floor}` : "",
+              input.facing ? `Facing / view: ${input.facing}` : "",
+              input.occupancy ? `Occupancy: ${input.occupancy}` : "",
+              input.availability ? `Visit / possession availability: ${input.availability}` : "",
+              input.country ? `Owner country: ${input.country}` : "",
+              input.media_link ? `Media link: ${input.media_link}` : "",
+              input.notes || "",
+            ]
+              .filter(Boolean)
+              .join("\n"),
+          });
 
           const uploads: Array<{ index: number; path: string; token: string }> = [];
           for (const item of mediaRows) {

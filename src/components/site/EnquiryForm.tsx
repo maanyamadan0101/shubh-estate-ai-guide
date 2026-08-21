@@ -4,7 +4,6 @@ import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { supabase } from "@/integrations/supabase/client";
 import { trackEvent } from "@/lib/analytics";
 
 const schema = z.object({
@@ -34,34 +33,44 @@ export function EnquiryForm({
       toast.error(parsed.error.issues[0]?.message ?? "Please check the form");
       return;
     }
+
     setSending(true);
-    const { error } = await supabase.from("enquiries").insert({
-      property_id: propertyId ?? null,
-      full_name: parsed.data.full_name,
-      phone: parsed.data.phone,
-      email: parsed.data.email || null,
-      message: parsed.data.message || null,
-      interest,
-      source: "website",
-    });
-    setSending(false);
-    if (error) {
-      toast.error("Could not send your enquiry. Please call us instead.");
-      return;
+    try {
+      const response = await fetch("/api/enquiry", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          full_name: parsed.data.full_name,
+          phone: parsed.data.phone,
+          email: parsed.data.email,
+          message: parsed.data.message,
+          interest,
+          property_id: propertyId ?? null,
+          source: propertyId ? "property_enquiry" : "general_enquiry",
+        }),
+      });
+      const payload = (await response.json()) as { ok?: boolean; error?: string };
+      if (!response.ok || !payload.ok) {
+        throw new Error(payload.error || "Could not send your enquiry.");
+      }
+
+      const commonParams = {
+        lead_type: interest,
+        property_id: propertyId ?? "general",
+        form_location: propertyId ? "property_enquiry_form" : "general_enquiry_form",
+        page_path: window.location.pathname,
+      };
+
+      trackEvent("generate_lead", commonParams);
+      trackEvent(propertyId ? "property_enquiry" : "contact_form_submit", commonParams);
+
+      setDone(true);
+      toast.success("Thank you — an advisor will call you shortly.");
+    } catch (error) {
+      toast.error(error instanceof Error ? error.message : "Could not send your enquiry. Please call us instead.");
+    } finally {
+      setSending(false);
     }
-
-    const commonParams = {
-      lead_type: interest,
-      property_id: propertyId ?? "general",
-      form_location: propertyId ? "property_enquiry_form" : "general_enquiry_form",
-      page_path: window.location.pathname,
-    };
-
-    trackEvent("generate_lead", commonParams);
-    trackEvent(propertyId ? "property_enquiry" : "contact_form_submit", commonParams);
-
-    setDone(true);
-    toast.success("Thank you — an advisor will call you shortly.");
   }
 
   if (done) {
