@@ -8,6 +8,7 @@ declare global {
 type AnalyticsParams = Record<string, string | number | boolean | null | undefined>;
 type VitalName = "TTFB" | "FCP" | "LCP" | "CLS" | "INP";
 type VitalRating = "good" | "needs_improvement" | "poor";
+type ContactMethod = "phone" | "whatsapp" | "form" | "site_visit";
 
 type ExtendedPerformanceEntry = PerformanceEntry & {
   value?: number;
@@ -15,16 +16,41 @@ type ExtendedPerformanceEntry = PerformanceEntry & {
   interactionId?: number;
 };
 
+const CONTACT_EVENT_NAME: Record<ContactMethod, string> = {
+  phone: "click_phone",
+  whatsapp: "click_whatsapp",
+  form: "contact_form_submit",
+  site_visit: "click_site_visit_cta",
+};
+
 export function trackEvent(eventName: string, params: AnalyticsParams = {}) {
   if (typeof window === "undefined" || typeof window.gtag !== "function") return;
   window.gtag("event", eventName, params);
 }
 
-export function trackContact(method: "phone" | "whatsapp" | "form" | "site_visit", location: string) {
-  trackEvent("contact", {
+export function trackContact(
+  method: ContactMethod,
+  location: string,
+  extraParams: AnalyticsParams = {},
+) {
+  if (typeof window === "undefined") return;
+
+  const params = {
     method,
     location,
     page_path: window.location.pathname,
+    page_location: window.location.href,
+    ...extraParams,
+  };
+
+  // Keep the broad contact event for historical reporting while also sending
+  // a dedicated event that can be marked as a GA4 key event independently.
+  trackEvent("contact", params);
+  trackEvent(CONTACT_EVENT_NAME[method], {
+    location,
+    page_path: params.page_path,
+    page_location: params.page_location,
+    ...extraParams,
   });
 }
 
