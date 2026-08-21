@@ -39,14 +39,17 @@ function categoryLabel(category: EnquiryEmailInput["category"]) {
 
 export async function sendEnquiryNotification(input: EnquiryEmailInput) {
   const apiKey = process.env["RESEND_API_KEY"];
-  const fromEmail = process.env["ENQUIRY_FROM_EMAIL"];
+  const resendDomain = process.env["RESEND_EMAIL_DOMAIN"]?.trim();
+  const fromEmail =
+    process.env["ENQUIRY_FROM_EMAIL"] ??
+    (resendDomain ? `Shubh Estate Brokers <sales@${resendDomain}>` : undefined);
 
   // Email delivery is intentionally non-blocking for website leads. A missing or
   // temporarily unavailable email provider must never prevent the enquiry itself
   // from being saved in Supabase.
   if (!apiKey || !fromEmail) {
     console.warn(
-      "[Enquiry email] Notification skipped: RESEND_API_KEY or ENQUIRY_FROM_EMAIL is not configured.",
+      "[Enquiry email] Notification skipped: RESEND_API_KEY and a sender domain/email are not configured.",
     );
     return { sent: false as const, reason: "not_configured" as const };
   }
