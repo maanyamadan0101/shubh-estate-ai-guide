@@ -103,6 +103,15 @@ function Contact() {
       source: "contact_page",
       page_path: window.location.pathname,
     });
+    trackContact("form", "contact_page");
+
+    if (parsed.data.interest === "Book a site visit") {
+      trackEvent("book_site_visit", {
+        source: "contact_form",
+        page_path: window.location.pathname,
+      });
+    }
+
     formElement.reset();
     setInterest("");
     toast.success("Request received", {
@@ -159,6 +168,7 @@ function Contact() {
                 </SelectTrigger>
                 <SelectContent>
                   {[
+                    "Book a site visit",
                     "Buying a property",
                     "Selling a property",
                     "Renting / Leasing",
