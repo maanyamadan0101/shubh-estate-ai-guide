@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import { DWARKA_CATALOGUE_LISTINGS } from "@/data/dwarka-catalogue-listings";
 
 async function publishedClient() {
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
@@ -41,6 +42,11 @@ function normalized(value: unknown) {
 // rows have the same market-facing identity, only the newest one is exposed in
 // catalogue feeds and the sitemap. No database row is deleted here.
 function listingFingerprint(row: ListingRow) {
+  // The curated Dwarka feed contains legitimate same-project/same-size units
+  // that differ by floor, view or asking price. Keep those individual options
+  // distinct instead of collapsing them through the generic DB dedupe rule.
+  if (row.id.startsWith("dwarka-")) return `static:${row.id}`;
+
   return JSON.stringify([
     normalized(row.title),
     normalized(row.bhk),
@@ -166,8 +172,19 @@ export const listPublicCataloguePage = createServerFn({ method: "GET" })
         };
       }
 
+      const curatedDwarkaRows = (DWARKA_CATALOGUE_LISTINGS as unknown as ListingRow[]).filter(
+        (row) => {
+          if (data.purpose && row.listing_type !== data.purpose) return false;
+          if (data.status && row.status !== data.status) return false;
+          return true;
+        },
+      );
+
       const queryText = data.q?.trim().toLocaleLowerCase("en-IN") ?? "";
-      const deduped = dedupeListings((rows ?? []) as unknown as ListingRow[]).filter((row) => {
+      const deduped = dedupeListings([
+        ...curatedDwarkaRows,
+        ...((rows ?? []) as unknown as ListingRow[]),
+      ]).filter((row) => {
         if (!queryText) return true;
         return [row.title, row.sector, row.locality, row.city, row.bhk]
           .filter(Boolean)
