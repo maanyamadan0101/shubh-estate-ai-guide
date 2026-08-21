@@ -21,6 +21,7 @@ import { initWebVitals, trackEvent } from "@/lib/analytics";
 
 const GA_MEASUREMENT_ID = "G-8EWLZD8V5H";
 const SITE_ORIGIN = "https://www.shubhestatebroker.in";
+const ARUN_LINKEDIN = "https://in.linkedin.com/in/arun-madan-94ab4224";
 
 function NotFoundComponent() {
   return (
@@ -105,14 +106,19 @@ const localBusinessSchema = {
   },
   founder: {
     "@type": "Person",
+    "@id": `${SITE_ORIGIN}/about#arun-madan`,
     name: "Arun Madan",
-    jobTitle: "Founder & Promoter",
+    url: `${SITE_ORIGIN}/about`,
+    sameAs: [ARUN_LINKEDIN],
+    jobTitle: "Founder & Promoter, Shubh Estate Brokers",
     description:
-      "Former banking professional with senior-level exposure across mortgage, credit, property valuation, documentation and title assessment.",
+      "Gurugram real estate and mortgage advisor with senior-level banking exposure across mortgage, credit, property valuation, documentation and title assessment.",
     knowsAbout: [
-      "Real estate advisory",
+      "Gurugram real estate advisory",
+      "Gurgaon property consulting",
       "Property title assessment",
       "Mortgage lending",
+      "Home loan structuring",
       "Property valuation",
       "Investment risk assessment",
       "Real estate due diligence",
