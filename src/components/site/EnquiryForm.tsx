@@ -49,11 +49,17 @@ export function EnquiryForm({
       toast.error("Could not send your enquiry. Please call us instead.");
       return;
     }
-    trackEvent("generate_lead", {
+
+    const commonParams = {
       lead_type: interest,
       property_id: propertyId ?? "general",
+      form_location: propertyId ? "property_enquiry_form" : "general_enquiry_form",
       page_path: window.location.pathname,
-    });
+    };
+
+    trackEvent("generate_lead", commonParams);
+    trackEvent(propertyId ? "property_enquiry" : "contact_form_submit", commonParams);
+
     setDone(true);
     toast.success("Thank you — an advisor will call you shortly.");
   }
