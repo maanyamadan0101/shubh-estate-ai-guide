@@ -23,6 +23,7 @@ const NRI_MARKET_LINKS = [
 const POPULAR_SEARCH_LINKS = [
   ["/blog/gurgaon-property-due-diligence-checklist-2026", "Property Due Diligence Checklist"],
   ["/property-buying-advisory-gurgaon", "Gurgaon Buyer Advisory"],
+  ["/dwarka-expressway-flats-for-sale-gurgaon", "Dwarka Expressway Flats for Sale"],
   ["/desperate-deals-gurgaon", "Urgent Sale Deals"],
   ["/apartments-for-sale-dlf-phase-1-gurgaon", "DLF Phase 1 Apartments"],
   ["/higher-floor-apartments-golf-course-extension-road", "Higher-Floor Apartments"],

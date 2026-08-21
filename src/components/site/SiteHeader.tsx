@@ -9,6 +9,7 @@ import { trackContact } from "@/lib/analytics";
 const NAV = [
   { to: "/", label: "Home" },
   { to: "/properties", label: "Properties" },
+  { to: "/dwarka-expressway-flats-for-sale-gurgaon", label: "Dwarka Expressway" },
   { to: "/under-construction-projects-gurgaon", label: "New Projects" },
   { to: "/property-services-gurgaon", label: "Services" },
   { to: "/sell-property-gurgaon", label: "Sell / Rent" },
