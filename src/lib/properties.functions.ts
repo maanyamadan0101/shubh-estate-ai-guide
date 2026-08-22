@@ -33,44 +33,10 @@ export type ListingRow = {
 
 type SitemapIdentityRow = ListingRow & { updated_at: string };
 
-function normalized(value: unknown) {
-  if (typeof value === "string") return value.trim().toLocaleLowerCase("en-IN");
-  return value ?? null;
-}
-
-// This intentionally uses only stable, verified public fields. If two imported
-// rows have the same market-facing identity, only the newest one is exposed in
-// catalogue feeds and the sitemap. No database row is deleted here.
-function listingFingerprint(row: ListingRow) {
-  // The curated Dwarka feed contains legitimate same-project/same-size units
-  // that differ by floor, view or asking price. Keep those individual options
-  // distinct instead of collapsing them through the generic DB dedupe rule.
-  if (row.id.startsWith("dwarka-")) return `static:${row.id}`;
-
-  return JSON.stringify([
-    normalized(row.title),
-    normalized(row.bhk),
-    normalized(row.property_type),
-    normalized(row.listing_type),
-    normalized(row.status),
-    row.price,
-    row.area_sqft,
-    normalized(row.sector),
-    normalized(row.locality),
-    normalized(row.city),
-  ]);
-}
-
-function dedupeListings<T extends ListingRow>(rows: T[]) {
-  const seen = new Set<string>();
-  return rows.filter((row) => {
-    const fingerprint = listingFingerprint(row);
-    if (seen.has(fingerprint)) return false;
-    seen.add(fingerprint);
-    return true;
-  });
-}
-
+// Every published property row represents a genuine, independently marketable
+// inventory unit. Two flats in the same society can legitimately have the same
+// size, price and configuration, so never collapse listings by a market-facing
+// fingerprint. The database row id and slug are the inventory identity.
 export const listPublicProperties = createServerFn({ method: "GET" })
   .inputValidator((input: unknown) =>
     z
@@ -89,15 +55,12 @@ export const listPublicProperties = createServerFn({ method: "GET" })
     try {
       const supabase = await publishedClient();
       const requestedLimit = data.limit ?? 60;
-      // Fetch a modest buffer because duplicate suppression can otherwise make
-      // small homepage/related-property sections unexpectedly return fewer rows.
-      const queryLimit = Math.min(Math.max(requestedLimit * 3, requestedLimit), 180);
       let query = supabase
         .from("properties")
         .select(LIST_COLUMNS)
         .eq("is_published", true)
         .order("updated_at", { ascending: false })
-        .limit(queryLimit);
+        .limit(requestedLimit);
 
       // Imported listings often contain combined locality labels such as
       // "New Gurugram / Dwarka Expressway". A contains match keeps those
@@ -119,11 +82,7 @@ export const listPublicProperties = createServerFn({ method: "GET" })
         };
       }
 
-      const properties = dedupeListings((rows ?? []) as unknown as ListingRow[]).slice(
-        0,
-        requestedLimit,
-      );
-      return { properties, error: null };
+      return { properties: (rows ?? []) as unknown as ListingRow[], error: null };
     } catch (error) {
       const message =
         error instanceof Error
@@ -181,10 +140,10 @@ export const listPublicCataloguePage = createServerFn({ method: "GET" })
       );
 
       const queryText = data.q?.trim().toLocaleLowerCase("en-IN") ?? "";
-      const deduped = dedupeListings([
+      const catalogueRows = [
         ...curatedDwarkaRows,
         ...((rows ?? []) as unknown as ListingRow[]),
-      ]).filter((row) => {
+      ].filter((row) => {
         if (!queryText) return true;
         return [row.title, row.sector, row.locality, row.city, row.bhk]
           .filter(Boolean)
@@ -193,11 +152,11 @@ export const listPublicCataloguePage = createServerFn({ method: "GET" })
           .includes(queryText);
       });
 
-      const total = deduped.length;
+      const total = catalogueRows.length;
       const totalPages = Math.max(1, Math.ceil(total / data.pageSize));
       const page = Math.min(data.page, totalPages);
       const start = (page - 1) * data.pageSize;
-      const properties = deduped.slice(start, start + data.pageSize);
+      const properties = catalogueRows.slice(start, start + data.pageSize);
 
       return { properties, total, page, pageSize: data.pageSize, error: null };
     } catch (error) {
@@ -298,7 +257,10 @@ export const listSitemapProperties = createServerFn({ method: "GET" }).handler(a
       return [] as SitemapRow[];
     }
 
-    return dedupeListings((data ?? []) as unknown as SitemapIdentityRow[]).map((row) => ({
+    // Include every genuine published inventory unit. Search engines can then
+    // discover each self-canonical property URL even when multiple flats share
+    // the same society, size, configuration or asking price.
+    return ((data ?? []) as unknown as SitemapIdentityRow[]).map((row) => ({
       slug: row.slug,
       updated_at: row.updated_at,
       status: row.status,
