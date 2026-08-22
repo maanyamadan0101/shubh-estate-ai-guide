@@ -29,6 +29,35 @@ function storedDescriptionLooksUsable(value: string | null | undefined) {
   return true;
 }
 
+function listingReference(id: string) {
+  const compact = id.replace(/-/g, "").toUpperCase();
+  return `SEB-${compact.slice(0, 8)}`;
+}
+
+function titleWithListingReference(base: string, reference: string, maxLength = 70) {
+  const compact = base.replace(/\s+/g, " ").trim();
+  const suffix = ` | ${reference}`;
+  if (`${compact}${suffix}`.length <= maxLength) return `${compact}${suffix}`;
+
+  const available = Math.max(20, maxLength - suffix.length);
+  const candidate = compact.slice(0, available);
+  const lastSpace = candidate.lastIndexOf(" ");
+  const safe = lastSpace > 20 ? candidate.slice(0, lastSpace) : candidate;
+  return `${safe.replace(/[,:;\-–—|]+$/g, "").trim()}${suffix}`;
+}
+
+function descriptionWithListingReference(base: string, reference: string, maxLength = 158) {
+  const compact = base.replace(/\s+/g, " ").trim();
+  const suffix = ` Ref ${reference}.`;
+  if (`${compact}${suffix}`.length <= maxLength) return `${compact}${suffix}`;
+
+  const available = Math.max(90, maxLength - suffix.length);
+  const candidate = compact.slice(0, available);
+  const lastSpace = candidate.lastIndexOf(" ");
+  const safe = lastSpace > 80 ? candidate.slice(0, lastSpace) : candidate;
+  return `${safe.replace(/[,:;\-–—.]+$/g, "").trim()}.${suffix}`.replace("..", ".");
+}
+
 export const Route = createFileRoute("/property/$slug")({
   loader: async ({ params }) => {
     const curatedListing = DWARKA_CATALOGUE_LISTINGS.find((item) => item.slug === params.slug);
@@ -78,28 +107,32 @@ export const Route = createFileRoute("/property/$slug")({
     }
     const p = loaderData.property;
     const typeLabel = PROPERTY_TYPE_LABEL[p.property_type] ?? "Property";
-    const title =
-      p.meta_title ||
-      `${p.bhk ?? ""} ${typeLabel} in ${p.sector ?? p.city}`;
+    const listingRef = listingReference(String(p.id));
+    const titleBase = p.meta_title || `${p.bhk ?? ""} ${typeLabel} in ${p.sector ?? p.city}`;
+    const title = titleWithListingReference(titleBase, listingRef);
     const listingIntent = p.listing_type === "rent" ? "for rent" : "for sale";
     const locationLabel = [p.sector, p.city].filter(Boolean).join(", ");
     const generatedDescription = wordSafeMetaDescription(
       [
         p.bhk ? `${p.bhk} ${typeLabel}` : typeLabel,
         listingIntent,
+        p.title ? `at ${p.title}` : null,
         locationLabel ? `in ${locationLabel}` : null,
         p.area_sqft ? formatArea(p.area_sqft) : null,
+        p.floor_number !== null && p.floor_number !== undefined ? `floor ${p.floor_number}` : null,
+        p.facing ? `${p.facing} facing` : null,
         p.price ? formatINR(p.price) : null,
       ]
         .filter(Boolean)
         .join(" · ") +
         ". View photos, specifications, home-loan assistance and current availability.",
     );
-    const description = storedDescriptionLooksUsable(p.meta_description)
+    const descriptionBase = storedDescriptionLooksUsable(p.meta_description)
       ? wordSafeMetaDescription(p.meta_description!)
       : generatedDescription;
+    const description = descriptionWithListingReference(descriptionBase, listingRef);
     const ogDescription = storedDescriptionLooksUsable(p.og_description)
-      ? wordSafeMetaDescription(p.og_description!)
+      ? descriptionWithListingReference(wordSafeMetaDescription(p.og_description!), listingRef)
       : description;
 
     // Property detail pages are the canonical URL for their own listing.
@@ -117,6 +150,7 @@ export const Route = createFileRoute("/property/$slug")({
       "@context": "https://schema.org",
       "@type": "Residence",
       "@id": `${canonical}#property`,
+      identifier: listingRef,
       name: p.title,
       description,
       url: canonical,
@@ -133,7 +167,9 @@ export const Route = createFileRoute("/property/$slug")({
         : {}),
       ...(p.bathrooms ? { numberOfBathroomsTotal: p.bathrooms } : {}),
       ...(p.bhk ? { numberOfRooms: Number.parseFloat(p.bhk) || undefined } : {}),
-      ...(p.floor_number ? { floorLevel: String(p.floor_number) } : {}),
+      ...(p.floor_number !== null && p.floor_number !== undefined
+        ? { floorLevel: String(p.floor_number) }
+        : {}),
       mainEntityOfPage: {
         "@type": "WebPage",
         "@id": canonical,
@@ -158,7 +194,8 @@ export const Route = createFileRoute("/property/$slug")({
       meta: [
         { title },
         { name: "description", content: description },
-        { property: "og:title", content: p.og_title || title },
+        { name: "robots", content: "index,follow,max-image-preview:large" },
+        { property: "og:title", content: titleWithListingReference(p.og_title || titleBase, listingRef) },
         { property: "og:description", content: ogDescription },
         { property: "og:type", content: "article" },
         { property: "og:url", content: canonical },
