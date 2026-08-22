@@ -131,10 +131,9 @@ export const Route = createFileRoute("/property/$slug")({
       ? wordSafeMetaDescription(p.meta_description!)
       : generatedDescription;
     const description = descriptionWithListingReference(descriptionBase, listingRef);
-    const ogDescriptionBase = storedDescriptionLooksUsable(p.og_description)
-      ? wordSafeMetaDescription(p.og_description!)
+    const ogDescription = storedDescriptionLooksUsable(p.og_description)
+      ? descriptionWithListingReference(wordSafeMetaDescription(p.og_description!), listingRef)
       : description;
-    const ogDescription = descriptionWithListingReference(ogDescriptionBase, listingRef);
 
     // Property detail pages are the canonical URL for their own listing.
     // Keeping this aligned with the sitemap avoids conflicting canonical signals
