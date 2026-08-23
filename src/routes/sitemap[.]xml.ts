@@ -28,6 +28,11 @@ const STATIC_PATHS: StaticPath[] = [
   { path: "/property-buying-advisory-gurgaon", priority: "0.8" },
   { path: "/godrej-101-sector-79-gurgaon", priority: "0.8" },
   {
+    path: "/dlf-skycourt-sector-86-gurgaon",
+    priority: "0.9",
+    lastmod: "2026-08-23",
+  },
+  {
     path: "/puri-emerald-bay-3-bhk-for-sale-sector-104-gurgaon",
     priority: "0.9",
     lastmod: "2026-08-20",
@@ -74,7 +79,7 @@ function escapeXml(value: string) {
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
+    .replace(/\"/g, "&quot;")
     .replace(/'/g, "&apos;");
 }
 
