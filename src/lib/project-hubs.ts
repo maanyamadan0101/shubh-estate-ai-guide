@@ -10,6 +10,16 @@ export type ProjectIdentity = {
   sector: string | null;
 };
 
+const KNOWN_PROJECT_NAMES: Array<{ patterns: string[]; name: string }> = [
+  { patterns: ["conscient heritage one", "heritage one conscient"], name: "Conscient Heritage One" },
+  { patterns: ["ireo skyon"], name: "Ireo Skyon" },
+  { patterns: ["emaar urban oasis"], name: "Emaar Urban Oasis" },
+  {
+    patterns: ["tata raisina residency", "tata raisena residency", "raisina residency"],
+    name: "Tata Raisina Residency",
+  },
+];
+
 export function slugifyProject(value: string) {
   return value
     .toLocaleLowerCase("en-IN")
@@ -26,6 +36,11 @@ function cleanProjectName(value: string) {
     .replace(/\s+/g, " ")
     .replace(/[,:;|\-–—]+$/g, "")
     .trim();
+}
+
+function inferKnownProjectName(title: string) {
+  const normalized = title.toLocaleLowerCase("en-IN").replace(/\s+/g, " ");
+  return KNOWN_PROJECT_NAMES.find((item) => item.patterns.some((pattern) => normalized.includes(pattern)))?.name ?? null;
 }
 
 function inferNameFromTitle(title: string) {
@@ -51,7 +66,7 @@ export function projectIdentityFor(input: ProjectIdentityInput): ProjectIdentity
   const sector = input.sector?.trim() || null;
   const explicitName = input.project?.name?.trim() || null;
   const explicitSlug = input.project?.slug?.trim() || null;
-  const inferredName = explicitName ?? inferNameFromTitle(input.title);
+  const inferredName = explicitName ?? inferKnownProjectName(input.title) ?? inferNameFromTitle(input.title);
 
   if (!inferredName || inferredName.length < 3) return null;
 
