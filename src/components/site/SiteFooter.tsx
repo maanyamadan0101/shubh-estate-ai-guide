@@ -26,6 +26,7 @@ const POPULAR_SEARCH_LINKS = [
   ["/dwarka-expressway-flats-for-sale-gurgaon", "Dwarka Expressway Flats for Sale"],
   ["/desperate-deals-gurgaon", "Urgent Sale Deals"],
   ["/apartments-for-sale-dlf-phase-1-gurgaon", "DLF Phase 1 Apartments"],
+  ["/dlf-skycourt-sector-86-gurgaon", "DLF Skycourt Sector 86"],
   ["/higher-floor-apartments-golf-course-extension-road", "Higher-Floor Apartments"],
   ["/senior-citizen-housing-gurgaon", "Senior Citizen Housing"],
   ["/best-areas-gurgaon-property-investment", "Property Investment Areas"],
