@@ -21,6 +21,7 @@ const NRI_MARKET_LINKS = [
 ] as const;
 
 const POPULAR_SEARCH_LINKS = [
+  ["/projects", "Gurgaon Project Guides"],
   ["/blog/gurgaon-property-due-diligence-checklist-2026", "Property Due Diligence Checklist"],
   ["/property-buying-advisory-gurgaon", "Gurgaon Buyer Advisory"],
   ["/dwarka-expressway-flats-for-sale-gurgaon", "Dwarka Expressway Flats for Sale"],
@@ -127,6 +128,11 @@ export function SiteFooter() {
             <li>
               <Link to="/properties" className="hover:text-gold">
                 Buy Property in Gurgaon
+              </Link>
+            </li>
+            <li>
+              <Link to="/projects" className="hover:text-gold">
+                Gurgaon Project Guides
               </Link>
             </li>
             <li>
