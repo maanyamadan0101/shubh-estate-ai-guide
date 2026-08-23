@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { listProjectHubSitemapEntries } from "@/lib/project-hub.functions";
 import { listSitemapProperties } from "@/lib/properties.functions";
 import { SITE_ORIGIN } from "@/lib/seo";
 
@@ -11,6 +12,7 @@ type StaticPath = {
 const STATIC_PATHS: StaticPath[] = [
   { path: "/", priority: "1.0" },
   { path: "/properties", priority: "0.9" },
+  { path: "/projects", priority: "0.9", lastmod: "2026-08-23" },
   { path: "/blog", priority: "0.9", lastmod: "2026-08-20" },
   {
     path: "/blog/gurgaon-property-due-diligence-checklist-2026",
@@ -74,6 +76,13 @@ const STATIC_PATHS: StaticPath[] = [
   { path: "/contact", priority: "0.5" },
 ];
 
+const PROJECT_HUB_REDIRECTS = new Set([
+  "dlf-skycourt",
+  "dlf-skycourt-sector-86",
+  "godrej-101",
+  "godrej-101-sector-79",
+]);
+
 function escapeXml(value: string) {
   return value
     .replace(/&/g, "&amp;")
@@ -100,12 +109,21 @@ export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: async () => {
-        const properties = await listSitemapProperties();
+        const [properties, projectHubs] = await Promise.all([
+          listSitemapProperties(),
+          listProjectHubSitemapEntries(),
+        ]);
         const urls = [
           ...STATIC_PATHS.map(
             (p) =>
               `  <url>\n    <loc>${escapeXml(`${SITE_ORIGIN}${p.path}`)}</loc>${safeLastmod(p.lastmod)}\n    <priority>${p.priority}</priority>\n  </url>`,
           ),
+          ...projectHubs
+            .filter((hub) => Boolean(hub.slug?.trim()) && !PROJECT_HUB_REDIRECTS.has(hub.slug))
+            .map(
+              (hub) =>
+                `  <url>\n    <loc>${escapeXml(`${SITE_ORIGIN}/projects/${hub.slug}`)}</loc>${safeLastmod(hub.updated_at)}\n    <priority>0.8</priority>\n  </url>`,
+            ),
           ...properties
             .filter((p) => Boolean(p.slug?.trim()))
             .map((p) => {
