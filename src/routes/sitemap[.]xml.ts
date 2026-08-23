@@ -79,6 +79,7 @@ const STATIC_PATHS: StaticPath[] = [
 const PROJECT_HUB_REDIRECTS = new Set([
   "dlf-skycourt",
   "dlf-skycourt-sector-86",
+  "dlf-the-skycourt-sector-86",
   "godrej-101",
   "godrej-101-sector-79",
 ]);
