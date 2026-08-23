@@ -50,6 +50,10 @@ const STATIC_PATHS: StaticPath[] = [
     lastmod: "2026-08-21",
   },
   { path: "/property-sector-79-gurgaon", priority: "0.8" },
+  { path: "/property-sector-62-gurgaon", priority: "0.8", lastmod: "2026-08-23" },
+  { path: "/property-sector-60-gurgaon", priority: "0.8", lastmod: "2026-08-23" },
+  { path: "/property-sector-59-gurgaon", priority: "0.8", lastmod: "2026-08-23" },
+  { path: "/projects/tata-raisina-residency-sector-59", priority: "0.8", lastmod: "2026-08-23" },
   { path: "/desperate-deals-gurgaon", priority: "0.8" },
   { path: "/best-areas-gurgaon-property-investment", priority: "0.8" },
   { path: "/apartments-for-sale-dlf-phase-1-gurgaon", priority: "0.7" },
@@ -64,7 +68,7 @@ const STATIC_PATHS: StaticPath[] = [
   { path: "/nri/europe", priority: "0.8" },
   { path: "/locations/gurgaon", priority: "0.8" },
   { path: "/locations/golf-course-road", priority: "0.7" },
-  { path: "/locations/golf-course-extension-road", priority: "0.7" },
+  { path: "/locations/golf-course-extension-road", priority: "0.8", lastmod: "2026-08-23" },
   { path: "/locations/dwarka-expressway", priority: "0.7" },
   { path: "/locations/southern-peripheral-road", priority: "0.7" },
   { path: "/locations/sohna-road", priority: "0.7" },
@@ -76,12 +80,13 @@ const STATIC_PATHS: StaticPath[] = [
   { path: "/contact", priority: "0.5" },
 ];
 
-const PROJECT_HUB_REDIRECTS = new Set([
+const PROJECT_HUB_SITEMAP_EXCLUSIONS = new Set([
   "dlf-skycourt",
   "dlf-skycourt-sector-86",
   "dlf-the-skycourt-sector-86",
   "godrej-101",
   "godrej-101-sector-79",
+  "tata-raisina-residency-sector-59",
 ]);
 
 function escapeXml(value: string) {
@@ -120,7 +125,7 @@ export const Route = createFileRoute("/sitemap.xml")({
               `  <url>\n    <loc>${escapeXml(`${SITE_ORIGIN}${p.path}`)}</loc>${safeLastmod(p.lastmod)}\n    <priority>${p.priority}</priority>\n  </url>`,
           ),
           ...projectHubs
-            .filter((hub) => Boolean(hub.slug?.trim()) && !PROJECT_HUB_REDIRECTS.has(hub.slug))
+            .filter((hub) => Boolean(hub.slug?.trim()) && !PROJECT_HUB_SITEMAP_EXCLUSIONS.has(hub.slug))
             .map(
               (hub) =>
                 `  <url>\n    <loc>${escapeXml(`${SITE_ORIGIN}/projects/${hub.slug}`)}</loc>${safeLastmod(hub.updated_at)}\n    <priority>0.8</priority>\n  </url>`,
