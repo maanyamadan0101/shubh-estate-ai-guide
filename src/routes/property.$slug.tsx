@@ -1,11 +1,20 @@
-import { createFileRoute, notFound, redirect } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-router";
+import { Building2 } from "lucide-react";
 import { PropertyView } from "@/components/site/PropertyView";
 import { ProjectImageDisclosure } from "@/components/site/ProjectImageDisclosure";
 import { DWARKA_CATALOGUE_LISTINGS } from "@/data/dwarka-catalogue-listings";
+import { projectIdentityFor } from "@/lib/project-hubs";
 import { getPublicPropertyDetail } from "@/lib/public-property-detail.functions";
 import { listPublicProperties } from "@/lib/properties.functions";
 import { representativeProjectImageFor } from "@/lib/project-image-catalog";
 import { buildCanonical, formatArea, formatINR, PROPERTY_TYPE_LABEL, SITE_ORIGIN } from "@/lib/seo";
+
+const DEDICATED_PROJECT_GUIDES: Record<string, string> = {
+  "dlf-skycourt": "/dlf-skycourt-sector-86-gurgaon",
+  "dlf-skycourt-sector-86": "/dlf-skycourt-sector-86-gurgaon",
+  "godrej-101": "/godrej-101-sector-79-gurgaon",
+  "godrej-101-sector-79": "/godrej-101-sector-79-gurgaon",
+};
 
 function wordSafeMetaDescription(value: string, maxLength = 158) {
   const compact = value.replace(/\s+/g, " ").trim();
@@ -229,9 +238,44 @@ export const Route = createFileRoute("/property/$slug")({
 
 function PropertyPage() {
   const data = Route.useLoaderData();
+  const projectIdentity = projectIdentityFor({
+    title: data.property.title,
+    sector: data.property.project?.sector ?? data.property.sector,
+    project: data.property.project
+      ? { name: data.property.project.name, slug: data.property.project.slug }
+      : null,
+  });
+  const projectGuideHref = projectIdentity
+    ? DEDICATED_PROJECT_GUIDES[projectIdentity.slug] ?? `/projects/${projectIdentity.slug}`
+    : null;
+
   return (
     <>
       <ProjectImageDisclosure coverImageUrl={data.property.cover_image_url} images={data.images} />
+      {projectIdentity && projectGuideHref ? (
+        <section className="container-page pt-6">
+          <div className="flex flex-col gap-4 rounded-xl border border-gold/30 bg-gold/5 p-5 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex gap-3">
+              <Building2 className="mt-0.5 size-5 shrink-0 text-gold" aria-hidden="true" />
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gold">
+                  Project guide & current inventory
+                </p>
+                <p className="mt-1 font-display text-xl">{projectIdentity.name}</p>
+                <p className="mt-1 text-sm text-muted-foreground">
+                  Compare this unit with other published options, size and asking-price context before shortlisting.
+                </p>
+              </div>
+            </div>
+            <a
+              href={projectGuideHref}
+              className="shrink-0 text-sm font-semibold text-gold underline-offset-4 hover:underline"
+            >
+              View {projectIdentity.name} guide
+            </a>
+          </div>
+        </section>
+      ) : null}
       <PropertyView
         data={{
           property: data.property,
