@@ -109,8 +109,18 @@ export const Route = createFileRoute("/projects/m3m-golf-hills-sector-79-gurgaon
               "@type": "BreadcrumbList",
               itemListElement: [
                 { "@type": "ListItem", position: 1, name: "Home", item: SITE_ORIGIN },
-                { "@type": "ListItem", position: 2, name: "Gurgaon Project Guides", item: `${SITE_ORIGIN}/projects` },
-                { "@type": "ListItem", position: 3, name: "M3M Golf Hills Sector 79", item: canonical },
+                {
+                  "@type": "ListItem",
+                  position: 2,
+                  name: "Gurgaon Project Guides",
+                  item: `${SITE_ORIGIN}/projects`,
+                },
+                {
+                  "@type": "ListItem",
+                  position: 3,
+                  name: "M3M Golf Hills Sector 79",
+                  item: canonical,
+                },
               ],
             },
             {
@@ -127,7 +137,11 @@ export const Route = createFileRoute("/projects/m3m-golf-hills-sector-79-gurgaon
                 addressCountry: "IN",
               },
               additionalProperty: [
-                { "@type": "PropertyValue", name: "Promoter", value: "Loon Land Development Limited" },
+                {
+                  "@type": "PropertyValue",
+                  name: "Promoter",
+                  value: "Loon Land Development Limited",
+                },
                 { "@type": "PropertyValue", name: "Phase 1 RERA", value: "RERA-GRG-1331-2023" },
                 { "@type": "PropertyValue", name: "Phase 2 RERA", value: "RERA-GRG-1578-2024" },
                 { "@type": "PropertyValue", name: "Status", value: "Under construction" },
@@ -160,9 +174,13 @@ function M3MGolfHillsPage() {
         <div className="pointer-events-none absolute inset-0 opacity-20 [background-image:radial-gradient(circle_at_75%_20%,hsl(var(--gold))_0,transparent_34%)]" />
         <div className="container-page relative py-14 md:py-20">
           <nav aria-label="Breadcrumb" className="text-xs text-navy-foreground/65">
-            <a href="/" className="hover:text-gold">Home</a>
+            <a href="/" className="hover:text-gold">
+              Home
+            </a>
             <span className="px-2">/</span>
-            <a href="/projects" className="hover:text-gold">Projects</a>
+            <a href="/projects" className="hover:text-gold">
+              Projects
+            </a>
             <span className="px-2">/</span>
             <span className="text-navy-foreground">M3M Golf Hills Sector 79</span>
           </nav>
@@ -170,7 +188,9 @@ function M3MGolfHillsPage() {
           <div className="mt-7 grid items-end gap-10 lg:grid-cols-[minmax(0,1fr)_22rem]">
             <div>
               <div className="flex flex-wrap gap-2">
-                <Badge className="border-gold/30 bg-gold/10 text-gold hover:bg-gold/10">NRI investment portal</Badge>
+                <Badge className="border-gold/30 bg-gold/10 text-gold hover:bg-gold/10">
+                  NRI investment portal
+                </Badge>
                 <Badge variant="secondary">Under construction</Badge>
                 <Badge variant="secondary">RERA registered in 2 phases</Badge>
               </div>
@@ -181,7 +201,9 @@ function M3MGolfHillsPage() {
                 M3M Golf Hills Sector 79: select investor units from ₹13,000/sq. ft.*
               </h1>
               <p className="mt-5 max-w-3xl text-base leading-7 text-navy-foreground/75 md:text-lg">
-                Compare seller-held allotments, phase-specific RERA information and the complete acquisition cost with Shubh Estate Brokers&apos; Gurgaon NRI Desk before committing funds.
+                Compare seller-held allotments, phase-specific RERA information and the complete
+                acquisition cost with Shubh Estate Brokers&apos; Gurgaon NRI Desk before committing
+                funds.
               </p>
               <div className="mt-7 flex flex-wrap gap-3">
                 <Button asChild variant="gold" size="lg">
@@ -202,11 +224,18 @@ function M3MGolfHillsPage() {
             </div>
 
             <aside className="rounded-2xl border border-gold/30 bg-background/10 p-6 backdrop-blur-sm">
-              <p className="text-xs uppercase tracking-[0.16em] text-navy-foreground/60">Indicative entry rate</p>
+              <p className="text-xs uppercase tracking-[0.16em] text-navy-foreground/60">
+                Indicative entry rate
+              </p>
               <p className="mt-2 font-display text-4xl text-gold">₹13,000</p>
-              <p className="text-sm text-navy-foreground/70">per sq. ft.* on select seller-held inventory</p>
+              <p className="text-sm text-navy-foreground/70">
+                per sq. ft.* on select seller-held inventory
+              </p>
               <div className="mt-5 border-t border-navy-foreground/15 pt-4 text-xs leading-5 text-navy-foreground/60">
-                <p>*Subject to exact unit, phase, transfer eligibility, seller terms, outstanding demands and continuing availability.</p>
+                <p>
+                  *Subject to exact unit, phase, transfer eligibility, seller terms, outstanding
+                  demands and continuing availability.
+                </p>
                 <p className="mt-2">Page reviewed: {LAST_REVIEWED}</p>
               </div>
             </aside>
@@ -224,9 +253,14 @@ function M3MGolfHillsPage() {
           ].map(([Icon, label, value]) => {
             const Component = Icon as typeof MapPin;
             return (
-              <div key={label as string} className="border-b border-border px-5 py-5 sm:border-r lg:border-b-0 last:border-r-0">
+              <div
+                key={label as string}
+                className="border-b border-border px-5 py-5 sm:border-r lg:border-b-0 last:border-r-0"
+              >
                 <Component className="size-4 text-gold" aria-hidden="true" />
-                <p className="mt-3 text-xs uppercase tracking-[0.14em] text-muted-foreground">{label as string}</p>
+                <p className="mt-3 text-xs uppercase tracking-[0.14em] text-muted-foreground">
+                  {label as string}
+                </p>
                 <p className="mt-1 font-display text-xl">{value as string}</p>
               </div>
             );
@@ -238,24 +272,51 @@ function M3MGolfHillsPage() {
         <main className="space-y-14">
           <section>
             <p className="eyebrow">Project overview</p>
-            <h2 className="mt-2 font-display text-3xl">Golf-themed residences near the Aravalli foothills</h2>
+            <h2 className="mt-2 font-display text-3xl">
+              Golf-themed residences near the Aravalli foothills
+            </h2>
             <p className="mt-4 leading-7 text-muted-foreground">
-              M3M Golf Hills is a golf-inspired residential development in Sector 79 and 79B, Gurugram. The official project page highlights a central golf landscape, Aravalli-facing balconies, sports facilities, a large clubhouse, rooftop dining and wellness spaces. The residential formats are marketed as 2.5, 3.5 and 4.5 BHK homes.
+              M3M Golf Hills is a golf-inspired residential development in Sector 79 and 79B,
+              Gurugram. The official project page highlights a central golf landscape,
+              Aravalli-facing balconies, sports facilities, a large clubhouse, rooftop dining and
+              wellness spaces. The residential formats are marketed as 2.5, 3.5 and 4.5 BHK homes.
             </p>
             <p className="mt-4 leading-7 text-muted-foreground">
-              For investment analysis, the project name is only the starting point. Phase, tower, floor, view, apartment plan, construction-linked payment status and the seller&apos;s transfer eligibility can materially change both the entry cost and the future resale case.
+              For investment analysis, the project name is only the starting point. Phase, tower,
+              floor, view, apartment plan, construction-linked payment status and the seller&apos;s
+              transfer eligibility can materially change both the entry cost and the future resale
+              case.
             </p>
 
             <div className="mt-7 grid gap-4 sm:grid-cols-2">
               {[
-                [Trees, "Lifestyle proposition", "Golf greens, sports, clubhouse, rooftop and wellness amenities form the project's core lifestyle positioning."],
-                [MapPin, "New Gurugram location", "Access towards NH-48, SPR, Dwarka Expressway and employment districts should be checked by route and travel time."],
-                [Globe2, "Remote NRI shortlisting", "Compare unit videos, payment ledgers, written cost sheets and documents before scheduling travel to India."],
-                [Landmark, "Finance-led comparison", "Test affordability using the total acquisition cost, payment timeline, lender valuation and currency movement—not only the headline rate."],
+                [
+                  Trees,
+                  "Lifestyle proposition",
+                  "Golf greens, sports, clubhouse, rooftop and wellness amenities form the project's core lifestyle positioning.",
+                ],
+                [
+                  MapPin,
+                  "New Gurugram location",
+                  "Access towards NH-48, SPR, Dwarka Expressway and employment districts should be checked by route and travel time.",
+                ],
+                [
+                  Globe2,
+                  "Remote NRI shortlisting",
+                  "Compare unit videos, payment ledgers, written cost sheets and documents before scheduling travel to India.",
+                ],
+                [
+                  Landmark,
+                  "Finance-led comparison",
+                  "Test affordability using the total acquisition cost, payment timeline, lender valuation and currency movement—not only the headline rate.",
+                ],
               ].map(([Icon, heading, text]) => {
                 const Component = Icon as typeof Trees;
                 return (
-                  <article key={heading as string} className="rounded-xl border border-border bg-card p-5">
+                  <article
+                    key={heading as string}
+                    className="rounded-xl border border-border bg-card p-5"
+                  >
                     <Component className="size-5 text-gold" aria-hidden="true" />
                     <h3 className="mt-3 font-display text-xl">{heading as string}</h3>
                     <p className="mt-2 text-sm leading-6 text-muted-foreground">{text as string}</p>
@@ -267,14 +328,20 @@ function M3MGolfHillsPage() {
 
           <section id="price-table" className="scroll-mt-28">
             <p className="eyebrow">Price and layout illustration</p>
-            <h2 className="mt-2 font-display text-3xl">What ₹13,000/sq. ft. means by apartment size</h2>
+            <h2 className="mt-2 font-display text-3xl">
+              What ₹13,000/sq. ft. means by apartment size
+            </h2>
             <p className="mt-4 leading-7 text-muted-foreground">
-              The calculations below illustrate only the area multiplied by the indicative entry rate. They are not an all-inclusive quotation and do not represent every layout or available unit.
+              The calculations below illustrate only the area multiplied by the indicative entry
+              rate. They are not an all-inclusive quotation and do not represent every layout or
+              available unit.
             </p>
 
             <div className="mt-6 overflow-x-auto rounded-xl border border-border bg-card">
               <table className="w-full min-w-[42rem] text-left text-sm">
-                <caption className="sr-only">M3M Golf Hills price illustration at ₹13,000 per square foot</caption>
+                <caption className="sr-only">
+                  M3M Golf Hills price illustration at ₹13,000 per square foot
+                </caption>
                 <thead className="border-b border-border bg-muted/50">
                   <tr>
                     <th className="px-5 py-4 font-medium">Configuration</th>
@@ -285,11 +352,18 @@ function M3MGolfHillsPage() {
                 </thead>
                 <tbody>
                   {PRICE_EXAMPLES.map((unit) => (
-                    <tr key={`${unit.configuration}-${unit.area}`} className="border-b border-border last:border-b-0">
+                    <tr
+                      key={`${unit.configuration}-${unit.area}`}
+                      className="border-b border-border last:border-b-0"
+                    >
                       <td className="px-5 py-4 font-medium">{unit.configuration}</td>
                       <td className="px-5 py-4">{unit.area.toLocaleString("en-IN")} sq. ft.</td>
-                      <td className="px-5 py-4">₹{INDICATIVE_RATE.toLocaleString("en-IN")}/sq. ft.</td>
-                      <td className="px-5 py-4 font-display text-lg text-gold">{formatCrore(unit.area * INDICATIVE_RATE)}</td>
+                      <td className="px-5 py-4">
+                        ₹{INDICATIVE_RATE.toLocaleString("en-IN")}/sq. ft.
+                      </td>
+                      <td className="px-5 py-4 font-display text-lg text-gold">
+                        {formatCrore(unit.area * INDICATIVE_RATE)}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -297,20 +371,32 @@ function M3MGolfHillsPage() {
             </div>
 
             <div className="mt-5 rounded-xl border border-gold/30 bg-gold/5 p-5 text-sm leading-6 text-muted-foreground">
-              <strong className="text-foreground">Request the complete cost sheet.</strong> Add seller consideration, outstanding builder demands, preferential location charges, parking, club or IFMS charges, applicable tax, promoter transfer expenses, brokerage if applicable, stamp duty and registration. A lower per-square-foot rate does not automatically mean a lower all-in acquisition cost.
+              <strong className="text-foreground">Request the complete cost sheet.</strong> Add
+              seller consideration, outstanding builder demands, preferential location charges,
+              parking, club or IFMS charges, applicable tax, promoter transfer expenses, brokerage
+              if applicable, stamp duty and registration. A lower per-square-foot rate does not
+              automatically mean a lower all-in acquisition cost.
             </div>
           </section>
 
           <section>
             <p className="eyebrow">Current price context</p>
-            <h2 className="mt-2 font-display text-3xl">Compare written, dated offers—not an old price list</h2>
+            <h2 className="mt-2 font-display text-3xl">
+              Compare written, dated offers—not an old price list
+            </h2>
             <p className="mt-4 leading-7 text-muted-foreground">
-              At the time this guide was reviewed, M3M&apos;s public enquiry page displayed an indicative promotional rate of ₹13,600 per sq. ft. for the Sector 79 Golf Hills Road offering. Shubh Estate Brokers may have select seller-held units indicated from ₹13,000 per sq. ft. Because public schemes and owner expectations can change, no blanket savings percentage is promised. We calculate the gap only after matching the same phase, comparable apartment and total payable cost.
+              At the time this guide was reviewed, M3M&apos;s public enquiry page displayed an
+              indicative promotional rate of ₹13,600 per sq. ft. for the Sector 79 Golf Hills Road
+              offering. Shubh Estate Brokers may have select seller-held units indicated from
+              ₹13,000 per sq. ft. Because public schemes and owner expectations can change, no
+              blanket savings percentage is promised. We calculate the gap only after matching the
+              same phase, comparable apartment and total payable cost.
             </p>
             <div className="mt-5 flex flex-wrap gap-3">
               <Button asChild variant="goldOutline">
                 <a href={M3M_PUBLIC_ENQUIRY_PAGE} target="_blank" rel="noopener noreferrer">
-                  View M3M public price context <ExternalLink className="size-4" aria-hidden="true" />
+                  View M3M public price context{" "}
+                  <ExternalLink className="size-4" aria-hidden="true" />
                 </a>
               </Button>
               <Button asChild variant="goldOutline">
@@ -325,7 +411,9 @@ function M3MGolfHillsPage() {
             <p className="eyebrow">RERA and promoter check</p>
             <h2 className="mt-2 font-display text-3xl">M3M Golf Hills has two registered phases</h2>
             <p className="mt-4 leading-7 text-muted-foreground">
-              Haryana RERA records Loon Land Development Limited as promoter. Match the exact allotment to its phase before relying on a possession date, plan, payment schedule or transfer process.
+              Haryana RERA records Loon Land Development Limited as promoter. Match the exact
+              allotment to its phase before relying on a possession date, plan, payment schedule or
+              transfer process.
             </p>
             <div className="mt-6 grid gap-5 sm:grid-cols-2">
               {[
@@ -344,13 +432,23 @@ function M3MGolfHillsPage() {
                   href: RERA_PHASE_2,
                 },
               ].map((phase) => (
-                <article key={phase.registration} className="rounded-xl border border-border bg-card p-6">
+                <article
+                  key={phase.registration}
+                  className="rounded-xl border border-border bg-card p-6"
+                >
                   <FileCheck2 className="size-5 text-gold" aria-hidden="true" />
                   <h3 className="mt-3 font-display text-xl">{phase.name}</h3>
                   <p className="mt-3 font-medium">{phase.registration}</p>
-                  <p className="mt-2 text-sm leading-6 text-muted-foreground">{phase.certificate}</p>
+                  <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                    {phase.certificate}
+                  </p>
                   <p className="text-sm leading-6 text-muted-foreground">{phase.completion}</p>
-                  <a href={phase.href} target="_blank" rel="noopener noreferrer" className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-gold hover:underline">
+                  <a
+                    href={phase.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-gold hover:underline"
+                  >
                     Verify on Haryana RERA <ExternalLink className="size-3.5" aria-hidden="true" />
                   </a>
                 </article>
@@ -360,16 +458,23 @@ function M3MGolfHillsPage() {
 
           <section>
             <p className="eyebrow">Project videos</p>
-            <h2 className="mt-2 font-display text-3xl">Concept walkthrough and construction footage</h2>
+            <h2 className="mt-2 font-display text-3xl">
+              Concept walkthrough and construction footage
+            </h2>
             <p className="mt-4 leading-7 text-muted-foreground">
-              Use videos for early remote screening only. Marketing visuals may be artistic representations, while construction footage can age quickly. Confirm current site progress and specifications independently.
+              Use videos for early remote screening only. Marketing visuals may be artistic
+              representations, while construction footage can age quickly. Confirm current site
+              progress and specifications independently.
             </p>
             <div className="mt-6 grid gap-6 md:grid-cols-2">
               {[
                 { id: "4Vk46XV6jtM", title: "M3M Golf Hills concept and lifestyle walkthrough" },
                 { id: "yOHfIcR5UVI", title: "M3M Golf Hills public construction update" },
               ].map((video) => (
-                <article key={video.id} className="overflow-hidden rounded-xl border border-border bg-card">
+                <article
+                  key={video.id}
+                  className="overflow-hidden rounded-xl border border-border bg-card"
+                >
                   <div className="aspect-video bg-muted">
                     <iframe
                       className="h-full w-full"
@@ -391,17 +496,38 @@ function M3MGolfHillsPage() {
 
           <section>
             <p className="eyebrow">NRI transaction support</p>
-            <h2 className="mt-2 font-display text-3xl">A remote-first process with unit-level controls</h2>
+            <h2 className="mt-2 font-display text-3xl">
+              A remote-first process with unit-level controls
+            </h2>
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
               {[
-                [Globe2, "Live remote review", "Video calls for the project, surroundings and shortlisted unit details, scheduled for your timezone."],
-                [FileCheck2, "Seller document pack", "Collection of the allotment chain, payment receipts, builder ledger and current demand position."],
-                [Scale, "Legal and tax coordination", "Coordinate with qualified professionals for FEMA, payment route, TDS, power of attorney and repatriation questions."],
-                [Landmark, "NRI home-loan support", "Eligibility, lender-document and property-approval coordination, subject to the bank's final policy and sanction."],
+                [
+                  Globe2,
+                  "Live remote review",
+                  "Video calls for the project, surroundings and shortlisted unit details, scheduled for your timezone.",
+                ],
+                [
+                  FileCheck2,
+                  "Seller document pack",
+                  "Collection of the allotment chain, payment receipts, builder ledger and current demand position.",
+                ],
+                [
+                  Scale,
+                  "Legal and tax coordination",
+                  "Coordinate with qualified professionals for FEMA, payment route, TDS, power of attorney and repatriation questions.",
+                ],
+                [
+                  Landmark,
+                  "NRI home-loan support",
+                  "Eligibility, lender-document and property-approval coordination, subject to the bank's final policy and sanction.",
+                ],
               ].map(([Icon, heading, text]) => {
                 const Component = Icon as typeof Globe2;
                 return (
-                  <article key={heading as string} className="rounded-xl border border-border bg-card p-5">
+                  <article
+                    key={heading as string}
+                    className="rounded-xl border border-border bg-card p-5"
+                  >
                     <Component className="size-5 text-gold" aria-hidden="true" />
                     <h3 className="mt-3 font-display text-xl">{heading as string}</h3>
                     <p className="mt-2 text-sm leading-6 text-muted-foreground">{text as string}</p>
@@ -413,10 +539,15 @@ function M3MGolfHillsPage() {
 
           <section>
             <p className="eyebrow">Before paying a token</p>
-            <h2 className="mt-2 font-display text-3xl">Six checks for an investor-assignment purchase</h2>
+            <h2 className="mt-2 font-display text-3xl">
+              Six checks for an investor-assignment purchase
+            </h2>
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
               {BUYER_CHECKS.map((item) => (
-                <div key={item} className="flex gap-3 rounded-xl border border-border bg-card p-4 text-sm leading-6 text-muted-foreground">
+                <div
+                  key={item}
+                  className="flex gap-3 rounded-xl border border-border bg-card p-4 text-sm leading-6 text-muted-foreground"
+                >
                   <CheckCircle2 className="mt-0.5 size-4 shrink-0 text-gold" aria-hidden="true" />
                   <p>{item}</p>
                 </div>
@@ -445,10 +576,17 @@ function M3MGolfHillsPage() {
                 ["/under-construction-projects-gurgaon", "Under-construction projects in Gurgaon"],
                 ["/nri", "NRI property services in Gurgaon"],
                 ["/home-loans", "NRI and resident home-loan assistance"],
-                ["/blog/gurgaon-property-due-diligence-checklist-2026", "Gurgaon property due-diligence checklist"],
+                [
+                  "/blog/gurgaon-property-due-diligence-checklist-2026",
+                  "Gurgaon property due-diligence checklist",
+                ],
                 ["/projects", "All Gurgaon project guides"],
               ].map(([href, label]) => (
-                <a key={href} href={href} className="inline-flex items-center gap-2 text-gold hover:underline">
+                <a
+                  key={href}
+                  href={href}
+                  className="inline-flex items-center gap-2 text-gold hover:underline"
+                >
                   {label} <ArrowRight className="size-3.5" aria-hidden="true" />
                 </a>
               ))}
@@ -458,10 +596,13 @@ function M3MGolfHillsPage() {
 
         <aside className="lg:sticky lg:top-28 lg:self-start">
           <div className="rounded-xl border border-border bg-card p-6">
-            <p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">M3M Golf Hills enquiry</p>
+            <p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">
+              M3M Golf Hills enquiry
+            </p>
             <h2 className="mt-2 font-display text-2xl">Request the current inventory sheet</h2>
             <p className="mt-2 text-sm leading-6 text-muted-foreground">
-              Share your preferred configuration, budget, country and buying timeline. Ask for phase, tower, floor, view, payment ledger and total cost.
+              Share your preferred configuration, budget, country and buying timeline. Ask for
+              phase, tower, floor, view, payment ledger and total cost.
             </p>
             <div className="mt-5">
               <EnquiryForm interest="M3M Golf Hills Sector 79 NRI or investor enquiry" compact />
@@ -470,9 +611,12 @@ function M3MGolfHillsPage() {
 
           <div className="mt-5 rounded-xl border border-gold/30 bg-gold/5 p-5">
             <ShieldCheck className="size-5 text-gold" aria-hidden="true" />
-            <h2 className="mt-3 font-display text-xl">No inventory is treated as confirmed until checked</h2>
+            <h2 className="mt-3 font-display text-xl">
+              No inventory is treated as confirmed until checked
+            </h2>
             <p className="mt-2 text-sm leading-6 text-muted-foreground">
-              Availability and price can change without notice. A seller&apos;s allotment, ledger and transfer eligibility should be reconfirmed before a visit or payment.
+              Availability and price can change without notice. A seller&apos;s allotment, ledger
+              and transfer eligibility should be reconfirmed before a visit or payment.
             </p>
           </div>
 
@@ -496,7 +640,11 @@ function M3MGolfHillsPage() {
       <section className="border-t border-border bg-muted/30">
         <div className="container-page py-8 text-xs leading-5 text-muted-foreground">
           <p>
-            Independent advisory page by Shubh Estate Brokers. Shubh Estate Brokers is not the promoter and this is not an official M3M website. Project names and trademarks belong to their respective owners. Price examples are indicative, not a legal offer, and must be verified against the exact apartment, promoter records and transaction documents. RERA dates and public price context were reviewed on {LAST_REVIEWED}.
+            Independent advisory page by Shubh Estate Brokers. Shubh Estate Brokers is not the
+            promoter and this is not an official M3M website. Project names and trademarks belong to
+            their respective owners. Price examples are indicative, not a legal offer, and must be
+            verified against the exact apartment, promoter records and transaction documents. RERA
+            dates and public price context were reviewed on {LAST_REVIEWED}.
           </p>
         </div>
       </section>
