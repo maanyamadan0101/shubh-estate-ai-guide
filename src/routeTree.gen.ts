@@ -56,6 +56,7 @@ import { Route as ProjectsIndexRouteImport } from './routes/projects.index'
 import { Route as ProjectsSlugRouteImport } from './routes/projects.$slug'
 import { Route as ProjectsAiplRivieraResaleSector103GurgaonRouteImport } from './routes/projects.aipl-riviera-resale-sector-103-gurgaon'
 import { Route as ProjectsAnsalsHighlandParkSector103GurgaonRouteImport } from './routes/projects.ansals-highland-park-sector-103-gurgaon'
+import { Route as ProjectsDlfTheArbourSector63GurgaonRouteImport } from './routes/projects.dlf-the-arbour-sector-63-gurgaon'
 import { Route as ProjectsDlfThePrimusSector82aGurgaonRouteImport } from './routes/projects.dlf-the-primus-sector-82a-gurgaon'
 import { Route as ProjectsDlfTheSkycourtSector86RouteImport } from './routes/projects.dlf-the-skycourt-sector-86'
 import { Route as ProjectsEmaarUrbanOasisSector62RouteImport } from './routes/projects.emaar-urban-oasis-sector-62'
@@ -328,6 +329,12 @@ const ProjectsAnsalsHighlandParkSector103GurgaonRoute =
     path: '/ansals-highland-park-sector-103-gurgaon',
     getParentRoute: () => ProjectsRoute,
   } as any)
+const ProjectsDlfTheArbourSector63GurgaonRoute =
+  ProjectsDlfTheArbourSector63GurgaonRouteImport.update({
+    id: '/dlf-the-arbour-sector-63-gurgaon',
+    path: '/dlf-the-arbour-sector-63-gurgaon',
+    getParentRoute: () => ProjectsRoute,
+  } as any)
 const ProjectsDlfThePrimusSector82aGurgaonRoute =
   ProjectsDlfThePrimusSector82aGurgaonRouteImport.update({
     id: '/dlf-the-primus-sector-82a-gurgaon',
@@ -493,6 +500,7 @@ export interface FileRoutesByFullPath {
   '/projects/$slug': typeof ProjectsSlugRoute
   '/projects/aipl-riviera-resale-sector-103-gurgaon': typeof ProjectsAiplRivieraResaleSector103GurgaonRoute
   '/projects/ansals-highland-park-sector-103-gurgaon': typeof ProjectsAnsalsHighlandParkSector103GurgaonRoute
+  '/projects/dlf-the-arbour-sector-63-gurgaon': typeof ProjectsDlfTheArbourSector63GurgaonRoute
   '/projects/dlf-the-primus-sector-82a-gurgaon': typeof ProjectsDlfThePrimusSector82aGurgaonRoute
   '/projects/dlf-the-skycourt-sector-86': typeof ProjectsDlfTheSkycourtSector86Route
   '/projects/emaar-urban-oasis-sector-62': typeof ProjectsEmaarUrbanOasisSector62Route
@@ -561,6 +569,7 @@ export interface FileRoutesByTo {
   '/projects/$slug': typeof ProjectsSlugRoute
   '/projects/aipl-riviera-resale-sector-103-gurgaon': typeof ProjectsAiplRivieraResaleSector103GurgaonRoute
   '/projects/ansals-highland-park-sector-103-gurgaon': typeof ProjectsAnsalsHighlandParkSector103GurgaonRoute
+  '/projects/dlf-the-arbour-sector-63-gurgaon': typeof ProjectsDlfTheArbourSector63GurgaonRoute
   '/projects/dlf-the-primus-sector-82a-gurgaon': typeof ProjectsDlfThePrimusSector82aGurgaonRoute
   '/projects/dlf-the-skycourt-sector-86': typeof ProjectsDlfTheSkycourtSector86Route
   '/projects/emaar-urban-oasis-sector-62': typeof ProjectsEmaarUrbanOasisSector62Route
@@ -632,6 +641,7 @@ export interface FileRoutesById {
   '/projects/$slug': typeof ProjectsSlugRoute
   '/projects/aipl-riviera-resale-sector-103-gurgaon': typeof ProjectsAiplRivieraResaleSector103GurgaonRoute
   '/projects/ansals-highland-park-sector-103-gurgaon': typeof ProjectsAnsalsHighlandParkSector103GurgaonRoute
+  '/projects/dlf-the-arbour-sector-63-gurgaon': typeof ProjectsDlfTheArbourSector63GurgaonRoute
   '/projects/dlf-the-primus-sector-82a-gurgaon': typeof ProjectsDlfThePrimusSector82aGurgaonRoute
   '/projects/dlf-the-skycourt-sector-86': typeof ProjectsDlfTheSkycourtSector86Route
   '/projects/emaar-urban-oasis-sector-62': typeof ProjectsEmaarUrbanOasisSector62Route
@@ -703,6 +713,7 @@ export interface FileRouteTypes {
     | '/projects/$slug'
     | '/projects/aipl-riviera-resale-sector-103-gurgaon'
     | '/projects/ansals-highland-park-sector-103-gurgaon'
+    | '/projects/dlf-the-arbour-sector-63-gurgaon'
     | '/projects/dlf-the-primus-sector-82a-gurgaon'
     | '/projects/dlf-the-skycourt-sector-86'
     | '/projects/emaar-urban-oasis-sector-62'
@@ -771,6 +782,7 @@ export interface FileRouteTypes {
     | '/projects/$slug'
     | '/projects/aipl-riviera-resale-sector-103-gurgaon'
     | '/projects/ansals-highland-park-sector-103-gurgaon'
+    | '/projects/dlf-the-arbour-sector-63-gurgaon'
     | '/projects/dlf-the-primus-sector-82a-gurgaon'
     | '/projects/dlf-the-skycourt-sector-86'
     | '/projects/emaar-urban-oasis-sector-62'
@@ -841,6 +853,7 @@ export interface FileRouteTypes {
     | '/projects/$slug'
     | '/projects/aipl-riviera-resale-sector-103-gurgaon'
     | '/projects/ansals-highland-park-sector-103-gurgaon'
+    | '/projects/dlf-the-arbour-sector-63-gurgaon'
     | '/projects/dlf-the-primus-sector-82a-gurgaon'
     | '/projects/dlf-the-skycourt-sector-86'
     | '/projects/emaar-urban-oasis-sector-62'
@@ -1244,6 +1257,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsAnsalsHighlandParkSector103GurgaonRouteImport
       parentRoute: typeof ProjectsRoute
     }
+    '/projects/dlf-the-arbour-sector-63-gurgaon': {
+      id: '/projects/dlf-the-arbour-sector-63-gurgaon'
+      path: '/dlf-the-arbour-sector-63-gurgaon'
+      fullPath: '/projects/dlf-the-arbour-sector-63-gurgaon'
+      preLoaderRoute: typeof ProjectsDlfTheArbourSector63GurgaonRouteImport
+      parentRoute: typeof ProjectsRoute
+    }
     '/projects/dlf-the-primus-sector-82a-gurgaon': {
       id: '/projects/dlf-the-primus-sector-82a-gurgaon'
       path: '/dlf-the-primus-sector-82a-gurgaon'
@@ -1446,6 +1466,7 @@ interface ProjectsRouteChildren {
   ProjectsSlugRoute: typeof ProjectsSlugRoute
   ProjectsAiplRivieraResaleSector103GurgaonRoute: typeof ProjectsAiplRivieraResaleSector103GurgaonRoute
   ProjectsAnsalsHighlandParkSector103GurgaonRoute: typeof ProjectsAnsalsHighlandParkSector103GurgaonRoute
+  ProjectsDlfTheArbourSector63GurgaonRoute: typeof ProjectsDlfTheArbourSector63GurgaonRoute
   ProjectsDlfThePrimusSector82aGurgaonRoute: typeof ProjectsDlfThePrimusSector82aGurgaonRoute
   ProjectsDlfTheSkycourtSector86Route: typeof ProjectsDlfTheSkycourtSector86Route
   ProjectsEmaarUrbanOasisSector62Route: typeof ProjectsEmaarUrbanOasisSector62Route
@@ -1460,6 +1481,8 @@ const ProjectsRouteChildren: ProjectsRouteChildren = {
     ProjectsAiplRivieraResaleSector103GurgaonRoute,
   ProjectsAnsalsHighlandParkSector103GurgaonRoute:
     ProjectsAnsalsHighlandParkSector103GurgaonRoute,
+  ProjectsDlfTheArbourSector63GurgaonRoute:
+    ProjectsDlfTheArbourSector63GurgaonRoute,
   ProjectsDlfThePrimusSector82aGurgaonRoute:
     ProjectsDlfThePrimusSector82aGurgaonRoute,
   ProjectsDlfTheSkycourtSector86Route: ProjectsDlfTheSkycourtSector86Route,
