@@ -56,11 +56,13 @@ import { Route as ProjectsIndexRouteImport } from './routes/projects.index'
 import { Route as ProjectsSlugRouteImport } from './routes/projects.$slug'
 import { Route as ProjectsAiplRivieraResaleSector103GurgaonRouteImport } from './routes/projects.aipl-riviera-resale-sector-103-gurgaon'
 import { Route as ProjectsAnsalsHighlandParkSector103GurgaonRouteImport } from './routes/projects.ansals-highland-park-sector-103-gurgaon'
+import { Route as ProjectsDlfThePrimusSector82aGurgaonRouteImport } from './routes/projects.dlf-the-primus-sector-82a-gurgaon'
 import { Route as ProjectsDlfTheSkycourtSector86RouteImport } from './routes/projects.dlf-the-skycourt-sector-86'
 import { Route as ProjectsEmaarUrbanOasisSector62RouteImport } from './routes/projects.emaar-urban-oasis-sector-62'
 import { Route as ProjectsM3mGolfHillsSector79GurgaonRouteImport } from './routes/projects.m3m-golf-hills-sector-79-gurgaon'
 import { Route as ProjectsTataRaisinaResidencySector59RouteImport } from './routes/projects.tata-raisina-residency-sector-59'
 import { Route as PropertySlugRouteImport } from './routes/property.$slug'
+import { Route as PropertyDlfThePrimusSector82aGurgaonRouteImport } from './routes/property.dlf-the-primus-sector-82a-gurgaon'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
 import { Route as AuthenticatedAdminIdRouteImport } from './routes/_authenticated/admin.$id'
 import { Route as AuthenticatedAdminEnquiriesRouteImport } from './routes/_authenticated/admin.enquiries'
@@ -326,6 +328,12 @@ const ProjectsAnsalsHighlandParkSector103GurgaonRoute =
     path: '/ansals-highland-park-sector-103-gurgaon',
     getParentRoute: () => ProjectsRoute,
   } as any)
+const ProjectsDlfThePrimusSector82aGurgaonRoute =
+  ProjectsDlfThePrimusSector82aGurgaonRouteImport.update({
+    id: '/dlf-the-primus-sector-82a-gurgaon',
+    path: '/dlf-the-primus-sector-82a-gurgaon',
+    getParentRoute: () => ProjectsRoute,
+  } as any)
 const ProjectsDlfTheSkycourtSector86Route =
   ProjectsDlfTheSkycourtSector86RouteImport.update({
     id: '/dlf-the-skycourt-sector-86',
@@ -355,6 +363,12 @@ const PropertySlugRoute = PropertySlugRouteImport.update({
   path: '/property/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PropertyDlfThePrimusSector82aGurgaonRoute =
+  PropertyDlfThePrimusSector82aGurgaonRouteImport.update({
+    id: '/property/dlf-the-primus-sector-82a-gurgaon',
+    path: '/property/dlf-the-primus-sector-82a-gurgaon',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
   id: '/admin/',
   path: '/admin/',
@@ -479,11 +493,13 @@ export interface FileRoutesByFullPath {
   '/projects/$slug': typeof ProjectsSlugRoute
   '/projects/aipl-riviera-resale-sector-103-gurgaon': typeof ProjectsAiplRivieraResaleSector103GurgaonRoute
   '/projects/ansals-highland-park-sector-103-gurgaon': typeof ProjectsAnsalsHighlandParkSector103GurgaonRoute
+  '/projects/dlf-the-primus-sector-82a-gurgaon': typeof ProjectsDlfThePrimusSector82aGurgaonRoute
   '/projects/dlf-the-skycourt-sector-86': typeof ProjectsDlfTheSkycourtSector86Route
   '/projects/emaar-urban-oasis-sector-62': typeof ProjectsEmaarUrbanOasisSector62Route
   '/projects/m3m-golf-hills-sector-79-gurgaon': typeof ProjectsM3mGolfHillsSector79GurgaonRoute
   '/projects/tata-raisina-residency-sector-59': typeof ProjectsTataRaisinaResidencySector59Route
   '/property/$slug': typeof PropertySlugRoute
+  '/property/dlf-the-primus-sector-82a-gurgaon': typeof PropertyDlfThePrimusSector82aGurgaonRoute
   '/projects/': typeof ProjectsIndexRoute
   '/admin/$id': typeof AuthenticatedAdminIdRoute
   '/admin/enquiries': typeof AuthenticatedAdminEnquiriesRoute
@@ -545,11 +561,13 @@ export interface FileRoutesByTo {
   '/projects/$slug': typeof ProjectsSlugRoute
   '/projects/aipl-riviera-resale-sector-103-gurgaon': typeof ProjectsAiplRivieraResaleSector103GurgaonRoute
   '/projects/ansals-highland-park-sector-103-gurgaon': typeof ProjectsAnsalsHighlandParkSector103GurgaonRoute
+  '/projects/dlf-the-primus-sector-82a-gurgaon': typeof ProjectsDlfThePrimusSector82aGurgaonRoute
   '/projects/dlf-the-skycourt-sector-86': typeof ProjectsDlfTheSkycourtSector86Route
   '/projects/emaar-urban-oasis-sector-62': typeof ProjectsEmaarUrbanOasisSector62Route
   '/projects/m3m-golf-hills-sector-79-gurgaon': typeof ProjectsM3mGolfHillsSector79GurgaonRoute
   '/projects/tata-raisina-residency-sector-59': typeof ProjectsTataRaisinaResidencySector59Route
   '/property/$slug': typeof PropertySlugRoute
+  '/property/dlf-the-primus-sector-82a-gurgaon': typeof PropertyDlfThePrimusSector82aGurgaonRoute
   '/projects': typeof ProjectsIndexRoute
   '/admin/$id': typeof AuthenticatedAdminIdRoute
   '/admin/enquiries': typeof AuthenticatedAdminEnquiriesRoute
@@ -614,11 +632,13 @@ export interface FileRoutesById {
   '/projects/$slug': typeof ProjectsSlugRoute
   '/projects/aipl-riviera-resale-sector-103-gurgaon': typeof ProjectsAiplRivieraResaleSector103GurgaonRoute
   '/projects/ansals-highland-park-sector-103-gurgaon': typeof ProjectsAnsalsHighlandParkSector103GurgaonRoute
+  '/projects/dlf-the-primus-sector-82a-gurgaon': typeof ProjectsDlfThePrimusSector82aGurgaonRoute
   '/projects/dlf-the-skycourt-sector-86': typeof ProjectsDlfTheSkycourtSector86Route
   '/projects/emaar-urban-oasis-sector-62': typeof ProjectsEmaarUrbanOasisSector62Route
   '/projects/m3m-golf-hills-sector-79-gurgaon': typeof ProjectsM3mGolfHillsSector79GurgaonRoute
   '/projects/tata-raisina-residency-sector-59': typeof ProjectsTataRaisinaResidencySector59Route
   '/property/$slug': typeof PropertySlugRoute
+  '/property/dlf-the-primus-sector-82a-gurgaon': typeof PropertyDlfThePrimusSector82aGurgaonRoute
   '/projects/': typeof ProjectsIndexRoute
   '/_authenticated/admin/$id': typeof AuthenticatedAdminIdRoute
   '/_authenticated/admin/enquiries': typeof AuthenticatedAdminEnquiriesRoute
@@ -683,11 +703,13 @@ export interface FileRouteTypes {
     | '/projects/$slug'
     | '/projects/aipl-riviera-resale-sector-103-gurgaon'
     | '/projects/ansals-highland-park-sector-103-gurgaon'
+    | '/projects/dlf-the-primus-sector-82a-gurgaon'
     | '/projects/dlf-the-skycourt-sector-86'
     | '/projects/emaar-urban-oasis-sector-62'
     | '/projects/m3m-golf-hills-sector-79-gurgaon'
     | '/projects/tata-raisina-residency-sector-59'
     | '/property/$slug'
+    | '/property/dlf-the-primus-sector-82a-gurgaon'
     | '/projects/'
     | '/admin/$id'
     | '/admin/enquiries'
@@ -749,11 +771,13 @@ export interface FileRouteTypes {
     | '/projects/$slug'
     | '/projects/aipl-riviera-resale-sector-103-gurgaon'
     | '/projects/ansals-highland-park-sector-103-gurgaon'
+    | '/projects/dlf-the-primus-sector-82a-gurgaon'
     | '/projects/dlf-the-skycourt-sector-86'
     | '/projects/emaar-urban-oasis-sector-62'
     | '/projects/m3m-golf-hills-sector-79-gurgaon'
     | '/projects/tata-raisina-residency-sector-59'
     | '/property/$slug'
+    | '/property/dlf-the-primus-sector-82a-gurgaon'
     | '/projects'
     | '/admin/$id'
     | '/admin/enquiries'
@@ -817,11 +841,13 @@ export interface FileRouteTypes {
     | '/projects/$slug'
     | '/projects/aipl-riviera-resale-sector-103-gurgaon'
     | '/projects/ansals-highland-park-sector-103-gurgaon'
+    | '/projects/dlf-the-primus-sector-82a-gurgaon'
     | '/projects/dlf-the-skycourt-sector-86'
     | '/projects/emaar-urban-oasis-sector-62'
     | '/projects/m3m-golf-hills-sector-79-gurgaon'
     | '/projects/tata-raisina-residency-sector-59'
     | '/property/$slug'
+    | '/property/dlf-the-primus-sector-82a-gurgaon'
     | '/projects/'
     | '/_authenticated/admin/$id'
     | '/_authenticated/admin/enquiries'
@@ -882,6 +908,7 @@ export interface RootRouteChildren {
   LocationsGolfCourseExtensionRoadRoute: typeof LocationsGolfCourseExtensionRoadRoute
   NriCountryRoute: typeof NriCountryRoute
   PropertySlugRoute: typeof PropertySlugRoute
+  PropertyDlfThePrimusSector82aGurgaonRoute: typeof PropertyDlfThePrimusSector82aGurgaonRoute
   ApiPublicPropertyHealthRoute: typeof ApiPublicPropertyHealthRoute
   ApiPublicImgSplatRoute: typeof ApiPublicImgSplatRoute
 }
@@ -1217,6 +1244,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsAnsalsHighlandParkSector103GurgaonRouteImport
       parentRoute: typeof ProjectsRoute
     }
+    '/projects/dlf-the-primus-sector-82a-gurgaon': {
+      id: '/projects/dlf-the-primus-sector-82a-gurgaon'
+      path: '/dlf-the-primus-sector-82a-gurgaon'
+      fullPath: '/projects/dlf-the-primus-sector-82a-gurgaon'
+      preLoaderRoute: typeof ProjectsDlfThePrimusSector82aGurgaonRouteImport
+      parentRoute: typeof ProjectsRoute
+    }
     '/projects/dlf-the-skycourt-sector-86': {
       id: '/projects/dlf-the-skycourt-sector-86'
       path: '/dlf-the-skycourt-sector-86'
@@ -1250,6 +1284,13 @@ declare module '@tanstack/react-router' {
       path: '/property/$slug'
       fullPath: '/property/$slug'
       preLoaderRoute: typeof PropertySlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/property/dlf-the-primus-sector-82a-gurgaon': {
+      id: '/property/dlf-the-primus-sector-82a-gurgaon'
+      path: '/property/dlf-the-primus-sector-82a-gurgaon'
+      fullPath: '/property/dlf-the-primus-sector-82a-gurgaon'
+      preLoaderRoute: typeof PropertyDlfThePrimusSector82aGurgaonRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/admin/': {
@@ -1405,6 +1446,7 @@ interface ProjectsRouteChildren {
   ProjectsSlugRoute: typeof ProjectsSlugRoute
   ProjectsAiplRivieraResaleSector103GurgaonRoute: typeof ProjectsAiplRivieraResaleSector103GurgaonRoute
   ProjectsAnsalsHighlandParkSector103GurgaonRoute: typeof ProjectsAnsalsHighlandParkSector103GurgaonRoute
+  ProjectsDlfThePrimusSector82aGurgaonRoute: typeof ProjectsDlfThePrimusSector82aGurgaonRoute
   ProjectsDlfTheSkycourtSector86Route: typeof ProjectsDlfTheSkycourtSector86Route
   ProjectsEmaarUrbanOasisSector62Route: typeof ProjectsEmaarUrbanOasisSector62Route
   ProjectsM3mGolfHillsSector79GurgaonRoute: typeof ProjectsM3mGolfHillsSector79GurgaonRoute
@@ -1418,6 +1460,8 @@ const ProjectsRouteChildren: ProjectsRouteChildren = {
     ProjectsAiplRivieraResaleSector103GurgaonRoute,
   ProjectsAnsalsHighlandParkSector103GurgaonRoute:
     ProjectsAnsalsHighlandParkSector103GurgaonRoute,
+  ProjectsDlfThePrimusSector82aGurgaonRoute:
+    ProjectsDlfThePrimusSector82aGurgaonRoute,
   ProjectsDlfTheSkycourtSector86Route: ProjectsDlfTheSkycourtSector86Route,
   ProjectsEmaarUrbanOasisSector62Route: ProjectsEmaarUrbanOasisSector62Route,
   ProjectsM3mGolfHillsSector79GurgaonRoute:
@@ -1480,6 +1524,8 @@ const rootRouteChildren: RootRouteChildren = {
   LocationsGolfCourseExtensionRoadRoute: LocationsGolfCourseExtensionRoadRoute,
   NriCountryRoute: NriCountryRoute,
   PropertySlugRoute: PropertySlugRoute,
+  PropertyDlfThePrimusSector82aGurgaonRoute:
+    PropertyDlfThePrimusSector82aGurgaonRoute,
   ApiPublicPropertyHealthRoute: ApiPublicPropertyHealthRoute,
   ApiPublicImgSplatRoute: ApiPublicImgSplatRoute,
 }
