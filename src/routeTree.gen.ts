@@ -54,6 +54,7 @@ import { Route as LocationsGolfCourseExtensionRoadRouteImport } from './routes/l
 import { Route as NriCountryRouteImport } from './routes/nri_.$country'
 import { Route as ProjectsIndexRouteImport } from './routes/projects.index'
 import { Route as ProjectsSlugRouteImport } from './routes/projects.$slug'
+import { Route as ProjectsAiplRivieraResaleSector103GurgaonRouteImport } from './routes/projects.aipl-riviera-resale-sector-103-gurgaon'
 import { Route as ProjectsAnsalsHighlandParkSector103GurgaonRouteImport } from './routes/projects.ansals-highland-park-sector-103-gurgaon'
 import { Route as ProjectsDlfTheSkycourtSector86RouteImport } from './routes/projects.dlf-the-skycourt-sector-86'
 import { Route as ProjectsTataRaisinaResidencySector59RouteImport } from './routes/projects.tata-raisina-residency-sector-59'
@@ -311,6 +312,12 @@ const ProjectsSlugRoute = ProjectsSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => ProjectsRoute,
 } as any)
+const ProjectsAiplRivieraResaleSector103GurgaonRoute =
+  ProjectsAiplRivieraResaleSector103GurgaonRouteImport.update({
+    id: '/aipl-riviera-resale-sector-103-gurgaon',
+    path: '/aipl-riviera-resale-sector-103-gurgaon',
+    getParentRoute: () => ProjectsRoute,
+  } as any)
 const ProjectsAnsalsHighlandParkSector103GurgaonRoute =
   ProjectsAnsalsHighlandParkSector103GurgaonRouteImport.update({
     id: '/ansals-highland-park-sector-103-gurgaon',
@@ -456,6 +463,7 @@ export interface FileRoutesByFullPath {
   '/locations/golf-course-extension-road': typeof LocationsGolfCourseExtensionRoadRoute
   '/nri/$country': typeof NriCountryRoute
   '/projects/$slug': typeof ProjectsSlugRoute
+  '/projects/aipl-riviera-resale-sector-103-gurgaon': typeof ProjectsAiplRivieraResaleSector103GurgaonRoute
   '/projects/ansals-highland-park-sector-103-gurgaon': typeof ProjectsAnsalsHighlandParkSector103GurgaonRoute
   '/projects/dlf-the-skycourt-sector-86': typeof ProjectsDlfTheSkycourtSector86Route
   '/projects/tata-raisina-residency-sector-59': typeof ProjectsTataRaisinaResidencySector59Route
@@ -519,6 +527,7 @@ export interface FileRoutesByTo {
   '/locations/golf-course-extension-road': typeof LocationsGolfCourseExtensionRoadRoute
   '/nri/$country': typeof NriCountryRoute
   '/projects/$slug': typeof ProjectsSlugRoute
+  '/projects/aipl-riviera-resale-sector-103-gurgaon': typeof ProjectsAiplRivieraResaleSector103GurgaonRoute
   '/projects/ansals-highland-park-sector-103-gurgaon': typeof ProjectsAnsalsHighlandParkSector103GurgaonRoute
   '/projects/dlf-the-skycourt-sector-86': typeof ProjectsDlfTheSkycourtSector86Route
   '/projects/tata-raisina-residency-sector-59': typeof ProjectsTataRaisinaResidencySector59Route
@@ -585,6 +594,7 @@ export interface FileRoutesById {
   '/locations/golf-course-extension-road': typeof LocationsGolfCourseExtensionRoadRoute
   '/nri_/$country': typeof NriCountryRoute
   '/projects/$slug': typeof ProjectsSlugRoute
+  '/projects/aipl-riviera-resale-sector-103-gurgaon': typeof ProjectsAiplRivieraResaleSector103GurgaonRoute
   '/projects/ansals-highland-park-sector-103-gurgaon': typeof ProjectsAnsalsHighlandParkSector103GurgaonRoute
   '/projects/dlf-the-skycourt-sector-86': typeof ProjectsDlfTheSkycourtSector86Route
   '/projects/tata-raisina-residency-sector-59': typeof ProjectsTataRaisinaResidencySector59Route
@@ -651,6 +661,7 @@ export interface FileRouteTypes {
     | '/locations/golf-course-extension-road'
     | '/nri/$country'
     | '/projects/$slug'
+    | '/projects/aipl-riviera-resale-sector-103-gurgaon'
     | '/projects/ansals-highland-park-sector-103-gurgaon'
     | '/projects/dlf-the-skycourt-sector-86'
     | '/projects/tata-raisina-residency-sector-59'
@@ -714,6 +725,7 @@ export interface FileRouteTypes {
     | '/locations/golf-course-extension-road'
     | '/nri/$country'
     | '/projects/$slug'
+    | '/projects/aipl-riviera-resale-sector-103-gurgaon'
     | '/projects/ansals-highland-park-sector-103-gurgaon'
     | '/projects/dlf-the-skycourt-sector-86'
     | '/projects/tata-raisina-residency-sector-59'
@@ -779,6 +791,7 @@ export interface FileRouteTypes {
     | '/locations/golf-course-extension-road'
     | '/nri_/$country'
     | '/projects/$slug'
+    | '/projects/aipl-riviera-resale-sector-103-gurgaon'
     | '/projects/ansals-highland-park-sector-103-gurgaon'
     | '/projects/dlf-the-skycourt-sector-86'
     | '/projects/tata-raisina-residency-sector-59'
@@ -1164,6 +1177,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsSlugRouteImport
       parentRoute: typeof ProjectsRoute
     }
+    '/projects/aipl-riviera-resale-sector-103-gurgaon': {
+      id: '/projects/aipl-riviera-resale-sector-103-gurgaon'
+      path: '/aipl-riviera-resale-sector-103-gurgaon'
+      fullPath: '/projects/aipl-riviera-resale-sector-103-gurgaon'
+      preLoaderRoute: typeof ProjectsAiplRivieraResaleSector103GurgaonRouteImport
+      parentRoute: typeof ProjectsRoute
+    }
     '/projects/ansals-highland-park-sector-103-gurgaon': {
       id: '/projects/ansals-highland-park-sector-103-gurgaon'
       path: '/ansals-highland-park-sector-103-gurgaon'
@@ -1343,6 +1363,7 @@ const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
 
 interface ProjectsRouteChildren {
   ProjectsSlugRoute: typeof ProjectsSlugRoute
+  ProjectsAiplRivieraResaleSector103GurgaonRoute: typeof ProjectsAiplRivieraResaleSector103GurgaonRoute
   ProjectsAnsalsHighlandParkSector103GurgaonRoute: typeof ProjectsAnsalsHighlandParkSector103GurgaonRoute
   ProjectsDlfTheSkycourtSector86Route: typeof ProjectsDlfTheSkycourtSector86Route
   ProjectsTataRaisinaResidencySector59Route: typeof ProjectsTataRaisinaResidencySector59Route
@@ -1351,6 +1372,8 @@ interface ProjectsRouteChildren {
 
 const ProjectsRouteChildren: ProjectsRouteChildren = {
   ProjectsSlugRoute: ProjectsSlugRoute,
+  ProjectsAiplRivieraResaleSector103GurgaonRoute:
+    ProjectsAiplRivieraResaleSector103GurgaonRoute,
   ProjectsAnsalsHighlandParkSector103GurgaonRoute:
     ProjectsAnsalsHighlandParkSector103GurgaonRoute,
   ProjectsDlfTheSkycourtSector86Route: ProjectsDlfTheSkycourtSector86Route,

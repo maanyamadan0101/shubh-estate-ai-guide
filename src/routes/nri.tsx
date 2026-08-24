@@ -219,6 +219,35 @@ function NriPage() {
         </div>
       </section>
 
+      <section className="container-page pt-12">
+        <div className="grid gap-6 overflow-hidden rounded-2xl border border-gold/35 bg-gold/5 p-6 md:grid-cols-[minmax(0,1fr)_18rem] md:p-8">
+          <div>
+            <p className="eyebrow">Featured NRI resale opportunity</p>
+            <h2 className="mt-3 font-display text-3xl">
+              AIPL Riviera, Sector 103 at around ₹12,000/sq. ft.
+            </h2>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">
+              Explore select seller-held 3 and 4 BHK allotments indicated approximately 31% below
+              AIPL&apos;s published inaugural reference. The dedicated guide includes the project
+              walkthrough, size-wise value comparison, remote transaction support and mandatory
+              unit-level RERA checks.
+            </p>
+          </div>
+          <div className="flex flex-col justify-center rounded-xl border border-border bg-card p-5">
+            <p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">
+              Indicative resale rate
+            </p>
+            <p className="mt-2 font-display text-3xl text-gold">₹12,000/sq. ft.</p>
+            <Link
+              to="/projects/aipl-riviera-resale-sector-103-gurgaon"
+              className="mt-5 inline-flex justify-center rounded-md bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground"
+            >
+              View AIPL Riviera Resale Guide
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <section className="container-page grid gap-10 py-12 lg:grid-cols-[1fr_20rem]">
         <div>
           <h2 className="font-display text-2xl">How our NRI desk works</h2>

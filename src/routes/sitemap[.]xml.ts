@@ -50,6 +50,11 @@ const STATIC_PATHS: StaticPath[] = [
     lastmod: "2026-08-24",
   },
   {
+    path: "/projects/aipl-riviera-resale-sector-103-gurgaon",
+    priority: "0.9",
+    lastmod: "2026-08-24",
+  },
+  {
     path: "/capital-residences-360-3-bhk-for-sale-sector-70a-gurgaon",
     priority: "0.9",
     lastmod: "2026-08-21",
@@ -86,6 +91,9 @@ const STATIC_PATHS: StaticPath[] = [
 ];
 
 const PROJECT_HUB_SITEMAP_EXCLUSIONS = new Set([
+  "aipl-riviera",
+  "aipl-riviera-sector-103",
+  "riviera-at-aipl-lake-city",
   "ansal-highland-park",
   "ansals-highland-park",
   "ansal-highland-park-sector-103",

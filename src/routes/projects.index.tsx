@@ -7,6 +7,9 @@ import { listPublicProjectHubs } from "@/lib/project-hub.functions";
 import { formatArea, formatINR, SITE_ORIGIN, STATUS_LABEL } from "@/lib/seo";
 
 const DEDICATED_PROJECT_PAGES: Record<string, string> = {
+  "aipl-riviera": "/projects/aipl-riviera-resale-sector-103-gurgaon",
+  "aipl-riviera-sector-103": "/projects/aipl-riviera-resale-sector-103-gurgaon",
+  "riviera-at-aipl-lake-city": "/projects/aipl-riviera-resale-sector-103-gurgaon",
   "ansal-highland-park": "/projects/ansals-highland-park-sector-103-gurgaon",
   "ansals-highland-park": "/projects/ansals-highland-park-sector-103-gurgaon",
   "ansal-highland-park-sector-103": "/projects/ansals-highland-park-sector-103-gurgaon",
@@ -18,12 +21,28 @@ const DEDICATED_PROJECT_PAGES: Record<string, string> = {
 
 const FEATURED_RESEARCH_GUIDES = [
   {
+    name: "AIPL Riviera",
+    href: "/projects/aipl-riviera-resale-sector-103-gurgaon",
+    sector: "Sector 103, Dwarka Expressway",
+    configuration: "Spacious 3 & 4 BHK homes",
+    sizes: "Approx. 2,196-3,211 sq ft",
+    price: "Select resale options around ₹12,000/sq ft",
+    badge: "Featured resale opportunity",
+    badgeNote: "Approx. 31% value gap",
+    summary:
+      "A dedicated resale guide with the supplied project walkthrough, size-wise savings, NRI and end-user support, Haryana RERA facts and unit-level transfer checks.",
+  },
+  {
     name: "Ansals Highland Park",
     href: "/projects/ansals-highland-park-sector-103-gurgaon",
     sector: "Sector 103, Dwarka Expressway",
     configuration: "2, 3 & large-format homes",
     sizes: "1,361-2,670 sq ft",
     price: "Current market price from ₹1.04 Cr",
+    badge: "Featured value guide",
+    badgeNote: "Price evidence reviewed",
+    summary:
+      "A dedicated buyer guide covering every brochure layout, current market prices, nearby Adani, Emaar, Godrej and Tata comparison, Haryana RERA details and home-loan guidance.",
   },
 ] as const;
 
@@ -141,10 +160,10 @@ function ProjectDirectoryPage() {
               <div>
                 <div className="flex flex-wrap gap-2">
                   <Badge className="border-gold/30 bg-gold/10 text-gold hover:bg-gold/10">
-                    Featured value guide
+                    {guide.badge}
                   </Badge>
                   <Badge variant="secondary" className="font-normal">
-                    Price evidence reviewed
+                    {guide.badgeNote}
                   </Badge>
                 </div>
                 <h3 className="mt-4 font-display text-3xl leading-snug">{guide.name}</h3>
@@ -153,9 +172,7 @@ function ProjectDirectoryPage() {
                   {guide.sector}
                 </p>
                 <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">
-                  A dedicated buyer guide covering every brochure layout, current market prices,
-                  nearby Adani, Emaar, Godrej and Tata comparison, Haryana RERA details and home-loan
-                  guidance.
+                  {guide.summary}
                 </p>
               </div>
               <div className="flex flex-col rounded-xl border border-border bg-muted/25 p-5">
@@ -174,9 +191,7 @@ function ProjectDirectoryPage() {
                   </div>
                 </dl>
                 <Button asChild variant="gold" className="mt-5 w-full">
-                  <Link to="/projects/ansals-highland-park-sector-103-gurgaon">
-                    Open Ansals Highland Park guide
-                  </Link>
+                  <a href={guide.href}>Open {guide.name} guide</a>
                 </Button>
               </div>
             </article>
