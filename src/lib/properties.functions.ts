@@ -78,6 +78,53 @@ function normalizedProjectText(value: string) {
     .trim();
 }
 
+// These three corrections reflect owner/source instructions already confirmed
+// with Shubh Estate Brokers. They protect public catalogue cards and detail data
+// from stale imported fields until the underlying production rows are edited.
+export function applyConfirmedInventoryCorrections<T extends ListingRow>(row: T): T {
+  const title = normalizedProjectText(row.title);
+
+  if (title.includes("residency grand")) {
+    const repeatedSectorLocality =
+      row.locality && normalizedProjectText(row.locality) === "sector 52" ? null : row.locality;
+    return {
+      ...row,
+      bhk: "4 BHK",
+      price: 36_000_000,
+      area_sqft: 2900,
+      floor_number: 6,
+      sector: "Sector 52",
+      locality: repeatedSectorLocality,
+    } as T;
+  }
+
+  if (title.includes("vatika sovereign")) {
+    return {
+      ...row,
+      bhk: "4 BHK + servant",
+      price: 50_000_000,
+      area_sqft: 3000,
+      carpet_area_sqft: 2999,
+      floor_number: 3,
+      sector: "Sector 49",
+    } as T;
+  }
+
+  if (title.includes("puri emerald bay")) {
+    return {
+      ...row,
+      bhk: "3 BHK + servant",
+      price: 32_500_000,
+      area_sqft: 2450,
+      floor_number: 15,
+      facing: "North-East",
+      sector: "Sector 104",
+    } as T;
+  }
+
+  return row;
+}
+
 const PROJECT_INVENTORY_MATCHES = GURGAON_DIRECTORY_PROJECTS.flatMap((project) =>
   project.inventoryAliases.map((alias) => ({
     projectName: project.name,
@@ -146,7 +193,9 @@ export const listPublicProperties = createServerFn({ method: "GET" })
         };
       }
 
-      const publicRows = (rows ?? []) as unknown as ListingRow[];
+      const publicRows = ((rows ?? []) as unknown as ListingRow[]).map(
+        applyConfirmedInventoryCorrections,
+      );
       const properties = data.locality
         ? dedupeLocationListings(publicRows).slice(0, requestedLimit)
         : publicRows;
@@ -201,18 +250,18 @@ export const listPublicCataloguePage = createServerFn({ method: "GET" })
         };
       }
 
-      const curatedDwarkaRows = (DWARKA_CATALOGUE_LISTINGS as unknown as ListingRow[]).filter(
-        (row) => {
+      const curatedDwarkaRows = (DWARKA_CATALOGUE_LISTINGS as unknown as ListingRow[])
+        .map(applyConfirmedInventoryCorrections)
+        .filter((row) => {
           if (data.purpose && row.listing_type !== data.purpose) return false;
           if (data.status && row.status !== data.status) return false;
           return true;
-        },
-      );
+        });
 
       const queryText = data.q?.trim().toLocaleLowerCase("en-IN") ?? "";
       const catalogueRows = [
         ...curatedDwarkaRows,
-        ...((rows ?? []) as unknown as ListingRow[]),
+        ...((rows ?? []) as unknown as ListingRow[]).map(applyConfirmedInventoryCorrections),
       ].filter((row) => {
         if (!queryText) return true;
         return [row.title, row.sector, row.locality, row.city, row.bhk]
@@ -273,6 +322,10 @@ export const getPublicProperty = createServerFn({ method: "GET" })
       }
       if (!property) return null;
 
+      const correctedProperty = applyConfirmedInventoryCorrections(
+        property as unknown as ListingRow,
+      ) as typeof property;
+
       const [{ data: images, error: imageError }, { data: features, error: featureError }] =
         await Promise.all([
           supabase
@@ -299,7 +352,7 @@ export const getPublicProperty = createServerFn({ method: "GET" })
 
       const rows = (features ?? []) as FeatureRow[];
       return {
-        property,
+        property: correctedProperty,
         images: images ?? [],
         amenities: rows.filter((f) => f.category === "amenity").map((f) => f.feature_name),
         features: rows.filter((f) => f.category === "feature").map((f) => f.feature_name),
