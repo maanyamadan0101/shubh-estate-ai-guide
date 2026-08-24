@@ -372,6 +372,12 @@ function DwarkaExpresswayInventory() {
               Dwarka Expressway buying guide
             </Link>
             <Link
+              to="/projects/aipl-riviera-resale-sector-103-gurgaon"
+              className="inline-flex min-h-10 items-center rounded-md border border-gold bg-gold/5 px-5 text-sm font-medium text-gold transition-colors hover:bg-gold/10"
+            >
+              AIPL Riviera resale around ₹12,000/sq ft
+            </Link>
+            <Link
               to="/projects/ansals-highland-park-sector-103-gurgaon"
               className="inline-flex min-h-10 items-center rounded-md border border-border px-5 text-sm font-medium transition-colors hover:border-gold hover:text-gold"
             >
