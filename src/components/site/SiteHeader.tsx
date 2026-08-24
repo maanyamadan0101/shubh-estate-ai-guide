@@ -17,7 +17,7 @@ const NAV = [
 ] as const;
 
 const PROPERTY_LINKS = [
-  { to: "/properties", label: "All Gurgaon Properties", description: "Browse sale and rental listings" },
+  { to: "/flats-for-sale-in-gurgaon", label: "All Gurgaon Properties", description: "Browse sale and rental listings" },
   {
     to: "/dwarka-expressway-flats-for-sale-gurgaon",
     label: "Dwarka Expressway Flats for Sale",
@@ -43,7 +43,7 @@ export function SiteHeader() {
 
           <div className="group relative">
             <Link
-              to="/properties"
+              to="/flats-for-sale-in-gurgaon"
               className="flex items-center gap-1 text-sm text-muted-foreground transition-colors hover:text-foreground [&.active]:text-foreground"
             >
               Properties
@@ -82,7 +82,7 @@ export function SiteHeader() {
 
                 <div className="my-1 rounded-lg border border-border bg-secondary/35 p-2">
                   <Link
-                    to="/properties"
+                    to="/flats-for-sale-in-gurgaon"
                     onClick={() => setOpen(false)}
                     className="block rounded-md px-3 py-2 text-sm font-semibold transition-colors hover:bg-accent"
                   >

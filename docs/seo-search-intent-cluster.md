@@ -2,7 +2,8 @@
 
 Primary query ownership is intentionally separated to avoid multiple pages competing for the same search intent.
 
-- `/properties` — flats and apartments for sale in Gurgaon / Gurugram
+- `/flats-for-sale-in-gurgaon` — primary flats and residential-property sale catalogue
+- `/properties` — permanent redirect to the primary Gurgaon sale catalogue
 - `/locations/golf-course-road` — apartments for sale on Golf Course Road
 - `/locations/golf-course-extension-road` — apartments for sale on Golf Course Extension Road
 - `/desperate-deals-gurgaon` — desperate deals / urgent-sale property opportunities

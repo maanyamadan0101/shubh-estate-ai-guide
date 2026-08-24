@@ -1,6 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { DWARKA_CATALOGUE_LISTINGS } from "@/data/dwarka-catalogue-listings";
+import { GURGAON_DIRECTORY_PROJECTS } from "@/data/gurgaon-project-directory";
 
 async function publishedClient() {
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
@@ -11,8 +12,8 @@ async function publishedClient() {
 // against the production database. This prevents a stale generated type from
 // turning one missing optional column into an empty public catalogue.
 const LIST_COLUMNS =
-  "id,title,slug,bhk,property_type,listing_type,status,price,area_sqft,sector,locality,city,cover_image_url,is_luxury";
-const SITEMAP_COLUMNS = `${LIST_COLUMNS},updated_at`;
+  "id,title,slug,bhk,property_type,listing_type,status,price,area_sqft,carpet_area_sqft,floor_number,total_floors,facing,furnishing,sector,locality,city,cover_image_url,is_luxury,updated_at";
+const SITEMAP_COLUMNS = LIST_COLUMNS;
 
 export type ListingRow = {
   id: string;
@@ -24,11 +25,17 @@ export type ListingRow = {
   status: string;
   price: number;
   area_sqft: number | null;
+  carpet_area_sqft?: number | null;
+  floor_number?: number | null;
+  total_floors?: number | null;
+  facing?: string | null;
+  furnishing?: string | null;
   sector: string | null;
   locality: string | null;
   city: string;
   cover_image_url: string | null;
   is_luxury: boolean;
+  updated_at?: string;
 };
 
 type SitemapIdentityRow = ListingRow & { updated_at: string };
@@ -46,7 +53,11 @@ function listingDisplayFingerprint(row: ListingRow) {
     row.locality,
     row.city,
   ]
-    .map((value) => String(value ?? "").trim().toLocaleLowerCase("en-IN"))
+    .map((value) =>
+      String(value ?? "")
+        .trim()
+        .toLocaleLowerCase("en-IN"),
+    )
     .join("|");
 }
 
@@ -58,6 +69,77 @@ function dedupeLocationListings(rows: ListingRow[]) {
     seen.add(fingerprint);
     return true;
   });
+}
+
+function normalizedProjectText(value: string) {
+  return value
+    .toLocaleLowerCase("en-IN")
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
+// These three corrections reflect owner/source instructions already confirmed
+// with Shubh Estate Brokers. They protect public catalogue cards and detail data
+// from stale imported fields until the underlying production rows are edited.
+export function applyConfirmedInventoryCorrections<T extends ListingRow>(row: T): T {
+  const title = normalizedProjectText(row.title);
+
+  if (title.includes("residency grand")) {
+    const repeatedSectorLocality =
+      row.locality && normalizedProjectText(row.locality) === "sector 52" ? null : row.locality;
+    return {
+      ...row,
+      bhk: "4 BHK",
+      price: 36_000_000,
+      area_sqft: 2900,
+      floor_number: 6,
+      sector: "Sector 52",
+      locality: repeatedSectorLocality,
+    } as T;
+  }
+
+  if (title.includes("vatika sovereign")) {
+    return {
+      ...row,
+      bhk: "4 BHK + servant",
+      price: 50_000_000,
+      area_sqft: 3000,
+      carpet_area_sqft: 2999,
+      floor_number: 3,
+      sector: "Sector 49",
+    } as T;
+  }
+
+  if (title.includes("puri emerald bay")) {
+    return {
+      ...row,
+      bhk: "3 BHK + servant",
+      price: 32_500_000,
+      area_sqft: 2450,
+      floor_number: 15,
+      facing: "North-East",
+      sector: "Sector 104",
+    } as T;
+  }
+
+  return row;
+}
+
+const PROJECT_INVENTORY_MATCHES = GURGAON_DIRECTORY_PROJECTS.flatMap((project) =>
+  project.inventoryAliases.map((alias) => ({
+    projectName: project.name,
+    alias: normalizedProjectText(alias),
+  })),
+).sort((a, b) => b.alias.length - a.alias.length);
+
+function countCurrentProjectUnits(rows: ListingRow[]) {
+  const counts: Record<string, number> = {};
+  for (const row of rows) {
+    const title = normalizedProjectText(row.title);
+    const match = PROJECT_INVENTORY_MATCHES.find(({ alias }) => title.includes(alias));
+    if (match) counts[match.projectName] = (counts[match.projectName] ?? 0) + 1;
+  }
+  return counts;
 }
 
 // Every published property row remains an independently addressable inventory
@@ -111,7 +193,9 @@ export const listPublicProperties = createServerFn({ method: "GET" })
         };
       }
 
-      const publicRows = (rows ?? []) as unknown as ListingRow[];
+      const publicRows = ((rows ?? []) as unknown as ListingRow[]).map(
+        applyConfirmedInventoryCorrections,
+      );
       const properties = data.locality
         ? dedupeLocationListings(publicRows).slice(0, requestedLimit)
         : publicRows;
@@ -161,22 +245,23 @@ export const listPublicCataloguePage = createServerFn({ method: "GET" })
           total: 0,
           page: data.page,
           pageSize: data.pageSize,
+          projectUnitCounts: {} as Record<string, number>,
           error: `${error.code ?? "query_error"}: ${error.message}`,
         };
       }
 
-      const curatedDwarkaRows = (DWARKA_CATALOGUE_LISTINGS as unknown as ListingRow[]).filter(
-        (row) => {
+      const curatedDwarkaRows = (DWARKA_CATALOGUE_LISTINGS as unknown as ListingRow[])
+        .map(applyConfirmedInventoryCorrections)
+        .filter((row) => {
           if (data.purpose && row.listing_type !== data.purpose) return false;
           if (data.status && row.status !== data.status) return false;
           return true;
-        },
-      );
+        });
 
       const queryText = data.q?.trim().toLocaleLowerCase("en-IN") ?? "";
       const catalogueRows = [
         ...curatedDwarkaRows,
-        ...((rows ?? []) as unknown as ListingRow[]),
+        ...((rows ?? []) as unknown as ListingRow[]).map(applyConfirmedInventoryCorrections),
       ].filter((row) => {
         if (!queryText) return true;
         return [row.title, row.sector, row.locality, row.city, row.bhk]
@@ -187,12 +272,13 @@ export const listPublicCataloguePage = createServerFn({ method: "GET" })
       });
 
       const total = catalogueRows.length;
+      const projectUnitCounts = countCurrentProjectUnits(catalogueRows);
       const totalPages = Math.max(1, Math.ceil(total / data.pageSize));
       const page = Math.min(data.page, totalPages);
       const start = (page - 1) * data.pageSize;
       const properties = catalogueRows.slice(start, start + data.pageSize);
 
-      return { properties, total, page, pageSize: data.pageSize, error: null };
+      return { properties, total, page, pageSize: data.pageSize, projectUnitCounts, error: null };
     } catch (error) {
       const message =
         error instanceof Error
@@ -204,6 +290,7 @@ export const listPublicCataloguePage = createServerFn({ method: "GET" })
         total: 0,
         page: data.page,
         pageSize: data.pageSize,
+        projectUnitCounts: {} as Record<string, number>,
         error: message,
       };
     }
@@ -235,6 +322,10 @@ export const getPublicProperty = createServerFn({ method: "GET" })
       }
       if (!property) return null;
 
+      const correctedProperty = applyConfirmedInventoryCorrections(
+        property as unknown as ListingRow,
+      ) as typeof property;
+
       const [{ data: images, error: imageError }, { data: features, error: featureError }] =
         await Promise.all([
           supabase
@@ -261,7 +352,7 @@ export const getPublicProperty = createServerFn({ method: "GET" })
 
       const rows = (features ?? []) as FeatureRow[];
       return {
-        property,
+        property: correctedProperty,
         images: images ?? [],
         amenities: rows.filter((f) => f.category === "amenity").map((f) => f.feature_name),
         features: rows.filter((f) => f.category === "feature").map((f) => f.feature_name),

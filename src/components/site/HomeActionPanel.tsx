@@ -7,7 +7,7 @@ const ACTIONS = [
     body: "Compare luxury homes, residential apartments and sector-specific listings with realistic price context—not inflated asking-price claims.",
     eyebrow: "HOMEBUYERS",
     icon: Building2,
-    to: "/properties",
+    to: "/flats-for-sale-in-gurgaon",
     search: { purpose: "sale" },
   },
   {

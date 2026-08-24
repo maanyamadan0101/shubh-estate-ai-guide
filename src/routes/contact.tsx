@@ -296,7 +296,7 @@ function Contact() {
             timeline. NRI clients may also include their country and convenient call window.
           </p>
           <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm">
-            <Link to="/properties" className="text-gold hover:underline">
+            <Link to="/flats-for-sale-in-gurgaon" className="text-gold hover:underline">
               Browse Gurgaon properties
             </Link>
             <Link to="/sell-property-gurgaon" className="text-gold hover:underline">

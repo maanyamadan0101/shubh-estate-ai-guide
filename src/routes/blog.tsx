@@ -109,7 +109,7 @@ function BlogPage() {
                 diligence alongside the property search.
               </p>
               <Button asChild variant="gold" className="mt-5">
-                <Link to="/properties">View current properties</Link>
+                <Link to="/flats-for-sale-in-gurgaon">View current properties</Link>
               </Button>
             </div>
           </div>

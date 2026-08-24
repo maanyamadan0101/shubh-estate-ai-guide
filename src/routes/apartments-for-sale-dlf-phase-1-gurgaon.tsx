@@ -62,7 +62,7 @@ function DlfPhaseOnePage() {
       ]}
       related={[
         { href: "/locations/golf-course-road", label: "Apartments on Golf Course Road" },
-        { href: "/properties", label: "Flats for sale in Gurgaon" },
+        { href: "/flats-for-sale-in-gurgaon", label: "Flats for sale in Gurgaon" },
         { href: "/desperate-deals-gurgaon", label: "Urgent-sale properties in Gurgaon" },
         { href: "/best-areas-gurgaon-property-investment", label: "Gurgaon investment-area guide" },
       ]}

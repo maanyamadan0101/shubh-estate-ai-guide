@@ -23,6 +23,7 @@ import { Route as DlfSkycourtSector86GurgaonRouteImport } from './routes/dlf-sky
 import { Route as DwarkaExpresswayFlatsForSaleGurgaonRouteImport } from './routes/dwarka-expressway-flats-for-sale-gurgaon'
 import { Route as EmaarEmeraldHillsSector65GurgaonRouteImport } from './routes/emaar-emerald-hills-sector-65-gurgaon'
 import { Route as EmiCalculatorRouteImport } from './routes/emi-calculator'
+import { Route as FlatsForSaleInGurgaonRouteImport } from './routes/flats-for-sale-in-gurgaon'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as Godrej101Sector79GurgaonRouteImport } from './routes/godrej-101-sector-79-gurgaon'
 import { Route as GurugramGrowthStoryRouteImport } from './routes/gurugram-growth-story'
@@ -153,6 +154,11 @@ const EmaarEmeraldHillsSector65GurgaonRoute =
 const EmiCalculatorRoute = EmiCalculatorRouteImport.update({
   id: '/emi-calculator',
   path: '/emi-calculator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FlatsForSaleInGurgaonRoute = FlatsForSaleInGurgaonRouteImport.update({
+  id: '/flats-for-sale-in-gurgaon',
+  path: '/flats-for-sale-in-gurgaon',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
@@ -475,6 +481,7 @@ export interface FileRoutesByFullPath {
   '/dwarka-expressway-flats-for-sale-gurgaon': typeof DwarkaExpresswayFlatsForSaleGurgaonRoute
   '/emaar-emerald-hills-sector-65-gurgaon': typeof EmaarEmeraldHillsSector65GurgaonRoute
   '/emi-calculator': typeof EmiCalculatorRoute
+  '/flats-for-sale-in-gurgaon': typeof FlatsForSaleInGurgaonRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/godrej-101-sector-79-gurgaon': typeof Godrej101Sector79GurgaonRoute
   '/gurugram-growth-story': typeof GurugramGrowthStoryRoute
@@ -546,6 +553,7 @@ export interface FileRoutesByTo {
   '/dwarka-expressway-flats-for-sale-gurgaon': typeof DwarkaExpresswayFlatsForSaleGurgaonRoute
   '/emaar-emerald-hills-sector-65-gurgaon': typeof EmaarEmeraldHillsSector65GurgaonRoute
   '/emi-calculator': typeof EmiCalculatorRoute
+  '/flats-for-sale-in-gurgaon': typeof FlatsForSaleInGurgaonRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/godrej-101-sector-79-gurgaon': typeof Godrej101Sector79GurgaonRoute
   '/gurugram-growth-story': typeof GurugramGrowthStoryRoute
@@ -618,6 +626,7 @@ export interface FileRoutesById {
   '/dwarka-expressway-flats-for-sale-gurgaon': typeof DwarkaExpresswayFlatsForSaleGurgaonRoute
   '/emaar-emerald-hills-sector-65-gurgaon': typeof EmaarEmeraldHillsSector65GurgaonRoute
   '/emi-calculator': typeof EmiCalculatorRoute
+  '/flats-for-sale-in-gurgaon': typeof FlatsForSaleInGurgaonRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/godrej-101-sector-79-gurgaon': typeof Godrej101Sector79GurgaonRoute
   '/gurugram-growth-story': typeof GurugramGrowthStoryRoute
@@ -691,6 +700,7 @@ export interface FileRouteTypes {
     | '/dwarka-expressway-flats-for-sale-gurgaon'
     | '/emaar-emerald-hills-sector-65-gurgaon'
     | '/emi-calculator'
+    | '/flats-for-sale-in-gurgaon'
     | '/forgot-password'
     | '/godrej-101-sector-79-gurgaon'
     | '/gurugram-growth-story'
@@ -762,6 +772,7 @@ export interface FileRouteTypes {
     | '/dwarka-expressway-flats-for-sale-gurgaon'
     | '/emaar-emerald-hills-sector-65-gurgaon'
     | '/emi-calculator'
+    | '/flats-for-sale-in-gurgaon'
     | '/forgot-password'
     | '/godrej-101-sector-79-gurgaon'
     | '/gurugram-growth-story'
@@ -833,6 +844,7 @@ export interface FileRouteTypes {
     | '/dwarka-expressway-flats-for-sale-gurgaon'
     | '/emaar-emerald-hills-sector-65-gurgaon'
     | '/emi-calculator'
+    | '/flats-for-sale-in-gurgaon'
     | '/forgot-password'
     | '/godrej-101-sector-79-gurgaon'
     | '/gurugram-growth-story'
@@ -906,6 +918,7 @@ export interface RootRouteChildren {
   DwarkaExpresswayFlatsForSaleGurgaonRoute: typeof DwarkaExpresswayFlatsForSaleGurgaonRoute
   EmaarEmeraldHillsSector65GurgaonRoute: typeof EmaarEmeraldHillsSector65GurgaonRoute
   EmiCalculatorRoute: typeof EmiCalculatorRoute
+  FlatsForSaleInGurgaonRoute: typeof FlatsForSaleInGurgaonRoute
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   Godrej101Sector79GurgaonRoute: typeof Godrej101Sector79GurgaonRoute
   GurugramGrowthStoryRoute: typeof GurugramGrowthStoryRoute
@@ -1038,6 +1051,13 @@ declare module '@tanstack/react-router' {
       path: '/emi-calculator'
       fullPath: '/emi-calculator'
       preLoaderRoute: typeof EmiCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/flats-for-sale-in-gurgaon': {
+      id: '/flats-for-sale-in-gurgaon'
+      path: '/flats-for-sale-in-gurgaon'
+      fullPath: '/flats-for-sale-in-gurgaon'
+      preLoaderRoute: typeof FlatsForSaleInGurgaonRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/forgot-password': {
@@ -1538,6 +1558,7 @@ const rootRouteChildren: RootRouteChildren = {
     DwarkaExpresswayFlatsForSaleGurgaonRoute,
   EmaarEmeraldHillsSector65GurgaonRoute: EmaarEmeraldHillsSector65GurgaonRoute,
   EmiCalculatorRoute: EmiCalculatorRoute,
+  FlatsForSaleInGurgaonRoute: FlatsForSaleInGurgaonRoute,
   ForgotPasswordRoute: ForgotPasswordRoute,
   Godrej101Sector79GurgaonRoute: Godrej101Sector79GurgaonRoute,
   GurugramGrowthStoryRoute: GurugramGrowthStoryRoute,

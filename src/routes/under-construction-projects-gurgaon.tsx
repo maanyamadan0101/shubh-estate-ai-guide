@@ -158,7 +158,7 @@ function UnderConstructionProjects() {
             body="Availability, price, construction stage and offers can change. Confirm the exact unit and documents before visiting or paying any amount."
           />
           <Link
-            to="/properties"
+            to="/flats-for-sale-in-gurgaon"
             search={{ status: "under_construction" }}
             className="text-sm font-medium text-gold hover:underline"
           >

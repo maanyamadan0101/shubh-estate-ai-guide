@@ -194,7 +194,7 @@ function TataRaisinaPage() {
               <Link to="/property-sector-59-gurgaon" className="text-gold hover:underline">Sector 59 Gurgaon guide</Link>
               <Link to="/locations/$slug" params={{ slug: "golf-course-extension-road" }} className="text-gold hover:underline">Golf Course Extension Road</Link>
               <Link to="/projects" className="text-gold hover:underline">All Gurgaon project guides</Link>
-              <Link to="/properties" className="text-gold hover:underline">Current Gurgaon properties</Link>
+              <Link to="/flats-for-sale-in-gurgaon" className="text-gold hover:underline">Current Gurgaon properties</Link>
             </div>
           </section>
         </main>

@@ -65,7 +65,7 @@ export function AdminShell({
             <p className="hidden px-3 pb-1 pt-5 text-[10px] font-medium uppercase tracking-[0.18em] text-muted-foreground lg:block">Growth & Settings</p>
             <AdminNavLink href="/admin/seo" icon={BarChart3} label="SEO / Google" />
             <AdminNavLink href="/admin/settings" icon={Settings} label="Website Settings" />
-            <AdminNavLink href="/properties" icon={Globe2} label="View Website" external />
+            <AdminNavLink href="/flats-for-sale-in-gurgaon" icon={Globe2} label="View Website" external />
           </nav>
 
           <div className="hidden border-t border-border p-3 lg:block">

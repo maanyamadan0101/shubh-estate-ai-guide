@@ -141,7 +141,7 @@ function SubmissionCard({ submission }: { submission: SellerSubmission }) {
   );
 }
 
-function Detail({ label, value }: { label: string; value?: string | null }) {
+function Detail({ label, value }: { label: string; value?: string | null | undefined }) {
   return (
     <div className="rounded-xl border border-border p-4">
       <p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">{label}</p>

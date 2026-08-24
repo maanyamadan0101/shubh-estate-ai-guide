@@ -165,7 +165,7 @@ function NriPage() {
             </p>
             <div className="mt-5 flex flex-wrap gap-3">
               <Link
-                to="/properties"
+                to="/flats-for-sale-in-gurgaon"
                 className="inline-flex rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground"
               >
                 View Properties

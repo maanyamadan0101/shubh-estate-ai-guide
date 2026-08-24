@@ -59,7 +59,7 @@ export const Route = createFileRoute("/locations/golf-course-extension-road")({
 const clusters = [
   {
     sector: "Sector 65",
-    href: "/properties?q=Sector%2065",
+    href: "/flats-for-sale-in-gurgaon?q=Sector%2065",
     projects: [
       {
         name: "Emaar Emerald Hills",
@@ -69,7 +69,7 @@ const clusters = [
   },
   {
     sector: "Sector 63",
-    href: "/properties?q=Sector%2063",
+    href: "/flats-for-sale-in-gurgaon?q=Sector%2063",
     projects: [
       {
         name: "DLF The Arbour",
@@ -258,7 +258,7 @@ function GolfCourseExtensionPage() {
             </h2>
           </div>
           <Link
-            to="/properties"
+            to="/flats-for-sale-in-gurgaon"
             className="text-sm font-medium text-gold underline-offset-4 hover:underline"
           >
             View all properties

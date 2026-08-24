@@ -51,7 +51,7 @@ export const Route = createFileRoute(
               "@type": "ListItem",
               position: 2,
               name: "Gurgaon properties",
-              item: `${SITE_ORIGIN}/properties`,
+              item: `${SITE_ORIGIN}/flats-for-sale-in-gurgaon`,
             },
             {
               "@type": "ListItem",
@@ -174,7 +174,7 @@ function CapitalResidences360ListingPage() {
         },
       ]}
       related={[
-        { href: "/properties", label: "Current Gurgaon property listings" },
+        { href: "/flats-for-sale-in-gurgaon", label: "Current Gurgaon property listings" },
         {
           href: "/property-buying-advisory-gurgaon",
           label: "Gurgaon property buying advisory",

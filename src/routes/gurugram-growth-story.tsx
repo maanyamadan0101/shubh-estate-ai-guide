@@ -169,15 +169,15 @@ function GrowthStory() {
               <h2 className="font-display text-3xl">The corridors that matter</h2>
               <div className="mt-6 space-y-5">
                 {CORRIDORS.map((c) => (
-                  <Link
+                  <a
                     key={c.name}
-                    to={c.path}
+                    href={c.path}
                     className="block rounded-xl border border-border bg-card p-6 transition-colors hover:border-gold/50"
                   >
                     <h3 className="font-display text-xl">{c.name}</h3>
                     <p className="mt-2 text-sm text-muted-foreground">{c.body}</p>
                     <span className="mt-4 inline-block text-sm font-medium text-gold">Explore this Gurugram corridor →</span>
-                  </Link>
+                  </a>
                 ))}
               </div>
             </section>
@@ -237,7 +237,7 @@ function GrowthStory() {
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Button asChild variant="gold" size="lg">
-                  <Link to="/properties">Browse current inventory</Link>
+                  <Link to="/flats-for-sale-in-gurgaon">Browse current inventory</Link>
                 </Button>
                 <Button asChild variant="outline" size="lg">
                   <Link to="/contact">Get a market view for your budget</Link>

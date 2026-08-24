@@ -631,7 +631,7 @@ function Home() {
             </Link>
           </div>
           <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm">
-            <Link to="/properties" className="text-gold underline-offset-4 hover:underline">
+            <Link to="/flats-for-sale-in-gurgaon" className="text-gold underline-offset-4 hover:underline">
               Flats for sale in Gurgaon
             </Link>
             <Link to="/luxury" className="text-gold underline-offset-4 hover:underline">

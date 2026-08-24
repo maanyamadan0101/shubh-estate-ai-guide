@@ -187,7 +187,7 @@ function SellPropertyPage() {
 
           <p className="mt-8 text-sm text-muted-foreground">
             Buying instead?{" "}
-            <Link to="/properties" className="text-gold underline-offset-4 hover:underline">
+            <Link to="/flats-for-sale-in-gurgaon" className="text-gold underline-offset-4 hover:underline">
               Browse current Gurgaon properties
             </Link>
             .

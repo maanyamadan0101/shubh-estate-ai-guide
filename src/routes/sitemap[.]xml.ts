@@ -11,7 +11,7 @@ type StaticPath = {
 
 const STATIC_PATHS: StaticPath[] = [
   { path: "/", priority: "1.0" },
-  { path: "/properties", priority: "0.9" },
+  { path: "/flats-for-sale-in-gurgaon", priority: "0.9", lastmod: "2026-08-24" },
   { path: "/projects", priority: "0.9", lastmod: "2026-08-24" },
   { path: "/blog", priority: "0.9", lastmod: "2026-08-20" },
   {

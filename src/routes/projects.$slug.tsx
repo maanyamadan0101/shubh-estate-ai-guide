@@ -291,8 +291,8 @@ function ProjectHubPage() {
               Evaluate the actual approach roads, commute pattern, occupied surroundings, schools, healthcare and daily-use conveniences relevant to your household. Travel-time claims can vary materially by time of day and route.
             </p>
             <div className="mt-5 flex flex-wrap gap-3">
-              <Button asChild variant="goldOutline"><Link to={corridor as "/locations/gurgaon"}>Explore corridor guide</Link></Button>
-              <Button asChild variant="goldOutline"><Link to="/properties">Browse all properties</Link></Button>
+              <Button asChild variant="goldOutline"><a href={corridor}>Explore corridor guide</a></Button>
+              <Button asChild variant="goldOutline"><Link to="/flats-for-sale-in-gurgaon">Browse all properties</Link></Button>
             </div>
           </section>
 

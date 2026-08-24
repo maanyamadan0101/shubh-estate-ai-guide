@@ -585,9 +585,9 @@ function EmaarUrbanOasisPage() {
               </p>
             </div>
             <Button asChild variant="gold" className="shrink-0">
-              <Link to={CURRENT_LISTING}>
+              <a href={CURRENT_LISTING}>
                 View Current Listing <ExternalLink aria-hidden="true" />
-              </Link>
+              </a>
             </Button>
           </div>
         </div>

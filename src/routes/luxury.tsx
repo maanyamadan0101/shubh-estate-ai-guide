@@ -115,7 +115,7 @@ function LuxuryPage() {
             </p>
             <h2 className="mt-2 font-display text-3xl">Premium homes available for enquiry</h2>
           </div>
-          <Link to="/properties" className="text-sm font-medium text-gold hover:underline">
+          <Link to="/flats-for-sale-in-gurgaon" className="text-sm font-medium text-gold hover:underline">
             Browse all Gurgaon properties
           </Link>
         </div>

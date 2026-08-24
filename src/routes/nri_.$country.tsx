@@ -219,7 +219,7 @@ function NriCountryPage() {
           </dl>
 
           <p className="mt-8 text-sm text-muted-foreground">
-            Browse <Link to="/properties" className="text-gold underline-offset-4 hover:underline">current Gurgaon properties</Link>{" "}
+            Browse <Link to="/flats-for-sale-in-gurgaon" className="text-gold underline-offset-4 hover:underline">current Gurgaon properties</Link>{" "}
             or return to the <Link to="/nri" className="text-gold underline-offset-4 hover:underline">main NRI property guide</Link>.
           </p>
         </div>

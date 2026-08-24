@@ -80,7 +80,7 @@ export const listSellerSubmissions = createServerFn({ method: "GET" })
         full_name: row.full_name,
         phone: row.phone,
         email: row.email,
-        interest: row.interest,
+        interest: row.interest ?? "Seller property submission",
         reference: payload.reference,
         seller: payload.seller ?? {},
         property: payload.property ?? {},
