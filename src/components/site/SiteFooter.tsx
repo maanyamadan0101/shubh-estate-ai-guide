@@ -126,7 +126,7 @@ export function SiteFooter() {
           <p className="eyebrow">Services</p>
           <ul className="mt-4 space-y-2 text-sm text-navy-foreground/80">
             <li>
-              <Link to="/properties" className="hover:text-gold">
+              <Link to="/flats-for-sale-in-gurgaon" className="hover:text-gold">
                 Buy Property in Gurgaon
               </Link>
             </li>
@@ -151,7 +151,11 @@ export function SiteFooter() {
               </Link>
             </li>
             <li>
-              <Link to="/properties" className="hover:text-gold">
+              <Link
+                to="/flats-for-sale-in-gurgaon"
+                search={{ purpose: "rent" }}
+                className="hover:text-gold"
+              >
                 Rent & Lease
               </Link>
             </li>

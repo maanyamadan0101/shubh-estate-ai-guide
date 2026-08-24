@@ -103,11 +103,28 @@ export function ImageManager({
     const credit = projectImageCredit.trim();
     const license = projectImageLicense.trim();
     const sourceUrl = projectImageSource.trim();
-    if (!/^https:\/\//i.test(url)) return toast.error("Use a direct HTTPS image URL.");
-    if (!credit) return toast.error("Add the photographer/creator credit.");
-    if (!license || !isReusableImageLicense(license)) return toast.error("Use a verified reusable licence such as CC BY, CC BY-SA, CC0, Public Domain or OGL.");
-    if (!/^https:\/\//i.test(sourceUrl)) return toast.error("Add the HTTPS source page where the licence can be checked.");
-    if (images.some((image) => image.image_url === url)) return toast.error("This image is already attached.");
+    if (!/^https:\/\//i.test(url)) {
+      toast.error("Use a direct HTTPS image URL.");
+      return;
+    }
+    if (!credit) {
+      toast.error("Add the photographer/creator credit.");
+      return;
+    }
+    if (!license || !isReusableImageLicense(license)) {
+      toast.error(
+        "Use a verified reusable licence such as CC BY, CC BY-SA, CC0, Public Domain or OGL.",
+      );
+      return;
+    }
+    if (!/^https:\/\//i.test(sourceUrl)) {
+      toast.error("Add the HTTPS source page where the licence can be checked.");
+      return;
+    }
+    if (images.some((image) => image.image_url === url)) {
+      toast.error("This image is already attached.");
+      return;
+    }
 
     const altText = encodeProjectImageAlt({
       description: altFor(images.length).replace(/—\s*(property exterior|living room|bedroom|kitchen|balcony view|interior view)$/i, "— representative project image"),

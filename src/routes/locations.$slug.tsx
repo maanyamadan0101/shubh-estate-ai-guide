@@ -21,9 +21,9 @@ const LOCATIONS: Record<string, Location> = {
   gurgaon: {
     slug: "gurgaon",
     name: "Gurgaon (Gurugram)",
-    title: "Property in Gurgaon — Buying Guide & Listings",
+    title: "Gurgaon Residential Property Market & Buying Guide",
     description:
-      "A practical guide to buying property in Gurgaon: key residential corridors, due diligence, financing and current listings from Shubh Estate Brokers.",
+      "A practical Gurgaon residential-market guide covering corridors, due diligence, financing and buyer decision checks from Shubh Estate Brokers.",
     intro:
       "Gurugram has several distinct residential corridors, each with a different mix of completed homes, new launches, connectivity and price points. Choosing the right micro-market is as important as choosing the project.",
     body: [
@@ -138,9 +138,12 @@ export const Route = createFileRoute("/locations/$slug")({
   loader: async ({ params }) => {
     const location = LOCATIONS[params.slug];
     if (!location) throw notFound();
-    const { properties } = await listPublicProperties({
-      data: { locality: location.localityFilter, limit: 12 },
-    });
+    const { properties } =
+      location.slug === "gurgaon"
+        ? { properties: [] as ListingRow[] }
+        : await listPublicProperties({
+            data: { locality: location.localityFilter, limit: 12 },
+          });
     return { location, properties };
   },
   head: ({ loaderData, params }) => {
@@ -181,7 +184,7 @@ export const Route = createFileRoute("/locations/$slug")({
     <div className="container-page py-24 text-center">
       <h1 className="font-display text-3xl">Location not found</h1>
       <p className="mt-2 text-muted-foreground">
-        <Link to="/properties" className="text-gold underline-offset-4 hover:underline">Browse all properties</Link>
+        <Link to="/flats-for-sale-in-gurgaon" className="text-gold underline-offset-4 hover:underline">Browse all properties</Link>
       </p>
     </div>
   ),
@@ -259,7 +262,7 @@ function LocationPage() {
           </div>
 
           <p className="text-sm text-muted-foreground">
-            Related: <Link to="/properties" className="text-gold underline-offset-4 hover:underline">Flats for sale in Gurgaon</Link>{" "}
+            Related: <Link to="/flats-for-sale-in-gurgaon" className="text-gold underline-offset-4 hover:underline">Flats for sale in Gurgaon</Link>{" "}
             · <Link to="/nri" className="text-gold underline-offset-4 hover:underline">NRI property buying guide</Link>{" "}
             · <Link to="/home-loans" className="text-gold underline-offset-4 hover:underline">Home loan assistance</Link>{" "}
             · <a href="/best-areas-gurgaon-property-investment" className="text-gold underline-offset-4 hover:underline">Investment-area guide</a>{" "}
@@ -283,7 +286,7 @@ function LocationPage() {
               <p className="text-xs font-medium uppercase tracking-[0.18em] text-gold">Current Inventory</p>
               <h2 className="mt-1 font-display text-2xl">Available in {location.name}</h2>
             </div>
-            <Link to="/properties" className="text-sm font-medium text-gold underline-offset-4 hover:underline">
+            <Link to="/flats-for-sale-in-gurgaon" className="text-sm font-medium text-gold underline-offset-4 hover:underline">
               View all properties
             </Link>
           </div>

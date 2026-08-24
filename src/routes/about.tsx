@@ -166,7 +166,7 @@ function About() {
           <div className="mt-10 grid gap-4 md:grid-cols-3">
             <Link to="/property-buying-advisory-gurgaon" className="rounded-xl border border-border bg-card p-5 hover:border-gold/50"><p className="font-display text-xl">Gurugram buyer advisory</p><p className="mt-2 text-sm text-muted-foreground">See how Arun and Shubh Estate Brokers shortlist, compare and review Gurgaon property before a commitment.</p></Link>
             <Link to="/home-loans" className="rounded-xl border border-border bg-card p-5 hover:border-gold/50"><p className="font-display text-xl">Mortgage coordination</p><p className="mt-2 text-sm text-muted-foreground">Understand eligibility, valuation, documentation, balance transfer and lender coordination.</p></Link>
-            <Link to="/properties" className="rounded-xl border border-border bg-card p-5 hover:border-gold/50"><p className="font-display text-xl">Current Gurugram properties</p><p className="mt-2 text-sm text-muted-foreground">Browse current resale, rental and under-construction inventory across Gurugram.</p></Link>
+            <Link to="/flats-for-sale-in-gurgaon" className="rounded-xl border border-border bg-card p-5 hover:border-gold/50"><p className="font-display text-xl">Current Gurugram properties</p><p className="mt-2 text-sm text-muted-foreground">Browse current resale, rental and under-construction inventory across Gurugram.</p></Link>
           </div>
         </div>
       </section>

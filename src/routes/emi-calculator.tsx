@@ -56,7 +56,7 @@ function EmiPage() {
               <Link to="/home-loans" className="text-gold hover:underline">
                 View home-loan assistance
               </Link>
-              <Link to="/properties" className="text-gold hover:underline">
+              <Link to="/flats-for-sale-in-gurgaon" className="text-gold hover:underline">
                 Browse properties for sale
               </Link>
             </div>

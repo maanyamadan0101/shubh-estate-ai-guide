@@ -114,7 +114,7 @@ function Godrej101Page() {
       ]}
       related={[
         { href: "/property-sector-79-gurgaon", label: "Property and flats in Sector 79 Gurgaon" },
-        { href: "/properties", label: "Current Gurgaon property listings" },
+        { href: "/flats-for-sale-in-gurgaon", label: "Current Gurgaon property listings" },
         { href: "/sell-property-gurgaon", label: "List a Gurgaon property for sale" },
         { href: "/nri-sell-property-gurgaon", label: "NRI owner selling support" },
       ]}

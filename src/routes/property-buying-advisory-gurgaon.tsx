@@ -257,7 +257,7 @@ function PropertyBuyingAdvisoryPage() {
                 <a href={CONTACT.phoneHref}>Call {CONTACT.phone}</a>
               </Button>
               <Button asChild variant="goldOutline">
-                <Link to="/properties">View Current Properties</Link>
+                <Link to="/flats-for-sale-in-gurgaon">View Current Properties</Link>
               </Button>
               <Button asChild variant="goldOutline">
                 <Link to="/blog/gurgaon-property-due-diligence-checklist-2026">

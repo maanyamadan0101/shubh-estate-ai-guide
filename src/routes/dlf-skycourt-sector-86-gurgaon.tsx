@@ -434,7 +434,7 @@ function DlfSkycourtPage() {
                 <div className="mt-6 grid gap-3 sm:grid-cols-2">
                   {[
                     ["/locations/new-gurgaon", "New Gurgaon property guide"],
-                    ["/properties", "Current Gurgaon property listings"],
+                    ["/flats-for-sale-in-gurgaon", "Current Gurgaon property listings"],
                     ["/property-buying-advisory-gurgaon", "Property buying advisory"],
                     ["/home-loans", "Home-loan & mortgage assistance"],
                     ["/best-areas-gurgaon-property-investment", "Best Gurgaon investment areas"],

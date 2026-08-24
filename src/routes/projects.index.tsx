@@ -46,7 +46,7 @@ const FEATURED_RESEARCH_GUIDES = [
     sector: "Sector 63, Golf Course Extension Road",
     configuration: "4 BHK + utility residences",
     sizes: "Approx. 3,950-3,956 sq ft",
-    price: "Indicative resale entry ₹8.50 Cr onwards*",
+    price: "Indicative resale asking range ₹10-12 Cr*",
     badge: "Featured ultra-luxury guide",
     badgeNote: "Official RERA facts verified",
     summary:
@@ -202,7 +202,7 @@ function ProjectDirectoryPage() {
                 <a href="#project-guides">Browse Project Guides</a>
               </Button>
               <Button asChild variant="goldOutline">
-                <Link to="/properties">View All Listings</Link>
+                <Link to="/flats-for-sale-in-gurgaon">View All Listings</Link>
               </Button>
             </div>
           </div>
@@ -345,7 +345,7 @@ function ProjectDirectoryPage() {
               Browse the live property catalogue while project inventory is loading.
             </p>
             <Button asChild variant="goldOutline" className="mt-5">
-              <Link to="/properties">Browse Properties</Link>
+              <Link to="/flats-for-sale-in-gurgaon">Browse Properties</Link>
             </Button>
           </div>
         )}

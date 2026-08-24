@@ -63,7 +63,7 @@ function AdminHome() {
       subtitle="Manage your website and property catalogue from one place."
       actions={
         <Button asChild variant="outline" className="hidden md:inline-flex">
-          <Link to="/properties">
+          <Link to="/flats-for-sale-in-gurgaon">
             <Globe2 className="size-4" aria-hidden="true" />
             View Website
           </Link>

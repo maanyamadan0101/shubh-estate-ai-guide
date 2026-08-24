@@ -76,7 +76,7 @@ function Sector59Page() {
         { href: "/projects/tata-raisina-residency-sector-59", label: "Tata Raisina Residency project guide" },
         { href: "/property-sector-60-gurgaon", label: "Sector 60 Gurgaon property guide" },
         { href: "/property-sector-62-gurgaon", label: "Sector 62 Gurgaon property guide" },
-        { href: "/properties", label: "Current Gurgaon property listings" },
+        { href: "/flats-for-sale-in-gurgaon", label: "Current Gurgaon property listings" },
       ]}
     />
   );

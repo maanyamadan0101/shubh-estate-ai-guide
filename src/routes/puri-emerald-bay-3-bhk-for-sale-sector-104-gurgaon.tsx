@@ -71,7 +71,7 @@ export const Route = createFileRoute(
               "@type": "ListItem",
               position: 2,
               name: "Gurgaon properties",
-              item: `${SITE_ORIGIN}/properties`,
+              item: `${SITE_ORIGIN}/flats-for-sale-in-gurgaon`,
             },
             {
               "@type": "ListItem",
@@ -208,7 +208,7 @@ function PuriEmeraldBayListingPage() {
         },
       ]}
       related={[
-        { href: "/properties", label: "Current Gurgaon property listings" },
+        { href: "/flats-for-sale-in-gurgaon", label: "Current Gurgaon property listings" },
         {
           href: "/locations/dwarka-expressway",
           label: "Property near Dwarka Expressway",

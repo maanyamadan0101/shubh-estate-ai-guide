@@ -114,7 +114,7 @@ function formatPrice(price: number) {
 
 function makeDescription(item: Omit<ImportRow, "description" | "errors">) {
   const location = [item.projectName, item.sector, item.locality, item.city].filter(Boolean).join(", ");
-  const intro = `${item.bhk || "Property"} ${PROPERTY_TYPE_LABEL[item.propertyType].toLowerCase()}${item.areaSqft ? ` of approximately ${item.areaSqft.toLocaleString("en-IN")} sq ft` : ""} is available for ${item.listingType === "sale" ? "sale" : "rent"} in ${location || "Gurugram"}${item.price ? ` at ${formatPrice(item.price)}${item.negotiable ? ", negotiable" : ""}` : ""}.`;
+  const intro = `${item.bhk || "Property"} ${(PROPERTY_TYPE_LABEL[item.propertyType] ?? "Property").toLowerCase()}${item.areaSqft ? ` of approximately ${item.areaSqft.toLocaleString("en-IN")} sq ft` : ""} is available for ${item.listingType === "sale" ? "sale" : "rent"} in ${location || "Gurugram"}${item.price ? ` at ${formatPrice(item.price)}${item.negotiable ? ", negotiable" : ""}` : ""}.`;
 
   const details = [
     item.floorNumber !== null && item.totalFloors !== null ? `Located on the ${item.floorNumber}${ordinal(item.floorNumber)} floor of a ${item.totalFloors}-storey building` : item.floorNumber !== null ? `Located on floor ${item.floorNumber}` : "",
@@ -221,6 +221,7 @@ export function PropertyBulkImporter() {
       const sheetName = workbook.SheetNames.includes("Property_Data") ? "Property_Data" : workbook.SheetNames[0];
       if (!sheetName) throw new Error("No worksheet found in this Excel file.");
       const worksheet = workbook.Sheets[sheetName];
+      if (!worksheet) throw new Error(`Worksheet ${sheetName} could not be read.`);
       const rawRows = XLSX.utils.sheet_to_json<RawRow>(worksheet, { defval: "", raw: false });
       const parsed = rawRows.map(parseRow).filter((row) => row.projectName || row.propertyCode || row.bhk || row.price);
       if (!parsed.length) throw new Error("No property rows were found. Please use the Shubh Estate property template.");

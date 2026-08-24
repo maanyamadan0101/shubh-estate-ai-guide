@@ -190,7 +190,7 @@ export function PropertyView({
             Home
           </Link>
           <span className="px-2">/</span>
-          <Link to="/properties" className="hover:text-foreground">
+          <Link to="/flats-for-sale-in-gurgaon" className="hover:text-foreground">
             Properties
           </Link>
           <span className="px-2">/</span>

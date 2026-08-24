@@ -56,7 +56,7 @@ function publicHtmlCacheTtl(pathname: string): number | null {
   }
 
   if (pathname === "/") return 300;
-  if (pathname === "/properties") return 300;
+  if (pathname === "/flats-for-sale-in-gurgaon") return 300;
   if (pathname.startsWith("/property/")) return 600;
   if (pathname.startsWith("/locations/")) return 21_600;
 

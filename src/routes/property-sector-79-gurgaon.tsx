@@ -85,7 +85,7 @@ function Sector79Page() {
         { href: "/projects/m3m-golf-hills-sector-79-gurgaon", label: "M3M Golf Hills Sector 79 price, RERA and NRI buyer guide" },
         { href: "/godrej-101-sector-79-gurgaon", label: "Godrej 101 Sector 79 project and resale guide" },
         { href: "/locations/new-gurgaon", label: "New Gurugram property guide" },
-        { href: "/properties", label: "Flats and apartments for sale in Gurgaon" },
+        { href: "/flats-for-sale-in-gurgaon", label: "Flats and apartments for sale in Gurgaon" },
         { href: "/sell-property-gurgaon", label: "Sell property in Gurgaon" },
       ]}
     />

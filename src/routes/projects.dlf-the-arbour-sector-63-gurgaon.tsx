@@ -141,7 +141,7 @@ const BUYER_CHECKS = [
 const FAQS = [
   {
     q: "What is the current price of DLF The Arbour Sector 63?",
-    a: "Indicative resale asking prices begin around ₹8.50 crore and can exceed ₹10 crore. The executable price depends on the tower, floor, view, payment position, transfer timing, seller expectation and live availability.",
+    a: "The indicative resale asking range reviewed on 24 August 2026 is approximately ₹10–12 crore. The executable price depends on the tower, floor, view, payment position, transfer timing, seller expectation and live availability.",
   },
   {
     q: "Is direct developer inventory available in DLF The Arbour?",
@@ -310,9 +310,10 @@ function DLFTheArbourPage() {
               </h1>
               <p className="mt-6 max-w-3xl text-base leading-8 text-white/72 md:text-lg">
                 Compare large-format 4 BHK + utility residences by exact tower, floor, view, payment
-                status and transfer terms. Indicative resale asking prices begin around{" "}
-                <strong className="font-semibold text-white">₹8.50 crore</strong> and can exceed ₹10
-                crore. Contact Shubh Estate Brokers for the best currently available unit and a
+                status and transfer terms. The indicative resale asking range reviewed on 24 August
+                2026 is approximately{" "}
+                <strong className="font-semibold text-white">₹10–12 crore</strong>. Contact Shubh
+                Estate Brokers for the best currently available unit and a
                 complete acquisition-cost breakup.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
@@ -342,7 +343,7 @@ function DLFTheArbourPage() {
               <p className="text-xs uppercase tracking-[0.18em] text-gold">
                 Indicative resale entry
               </p>
-              <p className="mt-3 font-display text-4xl">₹8.50 Cr onwards*</p>
+              <p className="mt-3 font-display text-4xl">₹10–12 Cr*</p>
               <p className="mt-2 text-sm leading-6 text-white/60">
                 Exact asking price varies by the selected allotment
               </p>
@@ -460,7 +461,7 @@ function DLFTheArbourPage() {
                           3,950–3,956 sq ft
                         </td>
                         <td className="px-6 py-6 font-display text-lg text-navy">
-                          ₹8.50 Cr onwards*
+                          ₹10–12 Cr*
                         </td>
                         <td className="px-6 py-6">
                           <a

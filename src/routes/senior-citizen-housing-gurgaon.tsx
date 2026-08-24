@@ -67,7 +67,7 @@ function SeniorCitizenHousingPage() {
         },
       ]}
       related={[
-        { href: "/properties", label: "Flats for sale in Gurgaon" },
+        { href: "/flats-for-sale-in-gurgaon", label: "Flats for sale in Gurgaon" },
         { href: "/locations/golf-course-road", label: "Apartments on Golf Course Road" },
         { href: "/locations/golf-course-extension-road", label: "Apartments on Golf Course Extension Road" },
         { href: "/best-areas-gurgaon-property-investment", label: "Gurgaon investment-area guide" },

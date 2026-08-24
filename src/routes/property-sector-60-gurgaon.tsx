@@ -75,7 +75,7 @@ function Sector60Page() {
         { href: "/projects/ireo-skyon-sector-60", label: "Ireo Skyon current inventory" },
         { href: "/property-sector-62-gurgaon", label: "Sector 62 Gurgaon property guide" },
         { href: "/property-sector-59-gurgaon", label: "Sector 59 Gurgaon property guide" },
-        { href: "/properties", label: "Current Gurgaon property listings" },
+        { href: "/flats-for-sale-in-gurgaon", label: "Current Gurgaon property listings" },
       ]}
     />
   );

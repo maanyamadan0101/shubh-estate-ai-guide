@@ -1,10 +1,33 @@
 import { Link } from "@tanstack/react-router";
-import { BedDouble, Building2, Landmark, MapPin, Maximize } from "lucide-react";
+import {
+  BedDouble,
+  Building2,
+  CalendarCheck,
+  CalendarClock,
+  Landmark,
+  MapPin,
+  Maximize,
+  MessageCircle,
+} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { CONTACT } from "@/data/site";
+import { trackContact } from "@/lib/analytics";
 import { formatArea, formatINR, PROPERTY_TYPE_LABEL, STATUS_LABEL } from "@/lib/seo";
 import { representativeProjectImageFor } from "@/lib/project-image-catalog";
 import { vercelSrcSet } from "@/lib/image-optimization";
 import type { ListingRow } from "@/lib/properties.functions";
+
+const LISTING_DATE_FORMATTER = new Intl.DateTimeFormat("en-IN", {
+  day: "numeric",
+  month: "short",
+  year: "numeric",
+});
+
+function formatAvailabilityDate(value?: string) {
+  if (!value) return null;
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? null : LISTING_DATE_FORMATTER.format(date);
+}
 
 type CatalogueCardRow = Omit<ListingRow, "status" | "price"> & {
   status: string | null;
@@ -15,7 +38,13 @@ type CatalogueCardRow = Omit<ListingRow, "status" | "price"> & {
   facing?: string | null;
 };
 
-export function ListingCard({ property }: { property: CatalogueCardRow }) {
+export function ListingCard({
+  property,
+  showContactActions = false,
+}: {
+  property: CatalogueCardRow;
+  showContactActions?: boolean;
+}) {
   const place = [property.sector, property.locality].filter(Boolean).join(", ");
   const fallbackProjectImage = property.cover_image_url
     ? null
@@ -30,6 +59,16 @@ export function ListingCard({ property }: { property: CatalogueCardRow }) {
   const responsiveSrcSet = visualUrl ? vercelSrcSet(visualUrl, [320, 480, 640, 768]) : undefined;
   const statusLabel = property.status ? STATUS_LABEL[property.status] : null;
   const priceLabel = property.display_price ?? formatINR(property.price);
+  const availabilityDate = formatAvailabilityDate(property.updated_at);
+  const displayArea = property.carpet_area_sqft ?? property.area_sqft;
+  const floorLabel = property.floor
+    ? property.floor
+    : property.floor_number != null
+      ? `${property.floor_number}${property.total_floors ? ` of ${property.total_floors}` : ""} floor`
+      : null;
+  const whatsappMessage = encodeURIComponent(
+    `Hi Shubh Estate Brokers, please reconfirm the current price and availability for ${property.title}.`,
+  );
 
   const visual = (
     <div className="relative aspect-[4/3] overflow-hidden bg-muted">
@@ -106,7 +145,11 @@ export function ListingCard({ property }: { property: CatalogueCardRow }) {
                 {property.title}
               </a>
             ) : (
-              <Link to="/property/$slug" params={{ slug: property.slug }} className="hover:text-gold">
+              <Link
+                to="/property/$slug"
+                params={{ slug: property.slug }}
+                className="hover:text-gold"
+              >
                 {property.title}
               </Link>
             )}
@@ -127,13 +170,19 @@ export function ListingCard({ property }: { property: CatalogueCardRow }) {
               <dd>{property.bhk}</dd>
             </div>
           ) : null}
-          {property.area_sqft ? (
+          {displayArea ? (
             <div className="flex items-center gap-1.5">
               <Maximize className="size-4 text-gold" aria-hidden="true" />
-              <dt className="sr-only">Area</dt>
-              <dd>{formatArea(property.area_sqft)}</dd>
+              <dt className="sr-only">Area and basis</dt>
+              <dd>
+                {formatArea(displayArea)} ·{" "}
+                {property.carpet_area_sqft ? "carpet area" : "area basis to confirm"}
+              </dd>
             </div>
           ) : null}
+          {floorLabel ? <div>Floor: {floorLabel}</div> : null}
+          {property.facing ? <div>Facing: {property.facing}</div> : null}
+          {property.furnishing ? <div>Furnishing: {property.furnishing}</div> : null}
         </dl>
 
         {forSale ? (
@@ -164,6 +213,42 @@ export function ListingCard({ property }: { property: CatalogueCardRow }) {
             </Link>
           )}
         </div>
+        {availabilityDate ? (
+          <p className="flex items-center gap-1.5 text-[0.7rem] text-muted-foreground">
+            <CalendarClock className="size-3.5 text-gold" aria-hidden="true" />
+            Listing updated {availabilityDate}; reconfirm before visiting
+          </p>
+        ) : null}
+        {showContactActions ? (
+          <div className="grid grid-cols-2 gap-2 border-t border-border pt-4">
+            <a
+              href={`${CONTACT.whatsapp}?text=${whatsappMessage}`}
+              target="_blank"
+              rel="noreferrer"
+              onClick={() =>
+                trackContact("whatsapp", "gurgaon_inventory_card", {
+                  property_slug: property.slug,
+                })
+              }
+              className="inline-flex min-h-10 items-center justify-center gap-2 rounded-md border border-gold/50 px-3 text-sm font-medium text-gold hover:bg-gold/5"
+            >
+              <MessageCircle className="size-4" aria-hidden="true" />
+              WhatsApp
+            </a>
+            <a
+              href={`/contact?interest=${encodeURIComponent(`Site visit — ${property.title}`)}`}
+              onClick={() =>
+                trackContact("site_visit", "gurgaon_inventory_card", {
+                  property_slug: property.slug,
+                })
+              }
+              className="inline-flex min-h-10 items-center justify-center gap-2 rounded-md bg-primary px-3 text-sm font-medium text-primary-foreground hover:opacity-90"
+            >
+              <CalendarCheck className="size-4 text-gold" aria-hidden="true" />
+              Site visit
+            </a>
+          </div>
+        ) : null}
       </div>
     </article>
   );
