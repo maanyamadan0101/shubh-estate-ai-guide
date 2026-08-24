@@ -9,18 +9,18 @@ const ARUN_LINKEDIN = "https://in.linkedin.com/in/arun-madan-94ab4224";
 export const Route = createFileRoute("/about")({
   head: () => {
     const canonical = `${SITE_ORIGIN}/about`;
-    const title = "Arun Madan | Founder, Shubh Estate Brokers | Gurugram Real Estate";
+    const title = "Arun Madaan | Founder, Shubh Estate Brokers | Gurugram Real Estate";
     const description =
-      "Arun Madan, MBA, LLB, is Founder & Promoter of Shubh Estate Brokers in Gurugram and a former senior banking professional specialising in real estate advisory, mortgages, property valuation, title assessment and investment safety.";
+      "Arun Madaan, MBA, LLB, is Founder & Promoter of Shubh Estate Brokers in Gurugram and a former senior banking professional specialising in real estate advisory, mortgages, property valuation, title assessment and investment safety.";
 
     return {
       meta: [
         { title },
         { name: "description", content: description },
-        { property: "og:title", content: "Arun Madan | Founder of Shubh Estate Brokers, Gurugram" },
+        { property: "og:title", content: "Arun Madaan | Founder of Shubh Estate Brokers, Gurugram" },
         {
           property: "og:description",
-          content: "Meet Arun Madan, Founder & Promoter of Shubh Estate Brokers — Gurugram real estate advisory backed by senior banking, mortgage, valuation and title-assessment experience.",
+          content: "Meet Arun Madaan, Founder & Promoter of Shubh Estate Brokers — Gurugram real estate advisory backed by senior banking, mortgage, valuation and title-assessment experience.",
         },
         { property: "og:type", content: "profile" },
         { property: "og:url", content: canonical },
@@ -34,13 +34,14 @@ export const Route = createFileRoute("/about")({
             "@type": "ProfilePage",
             "@id": `${canonical}#profile-page`,
             url: canonical,
-            name: "Arun Madan — Founder of Shubh Estate Brokers, Gurugram",
+            name: "Arun Madaan — Founder of Shubh Estate Brokers, Gurugram",
             description,
-            dateModified: "2026-08-21T11:08:00+05:30",
+            dateModified: "2026-08-24T09:21:00+05:30",
             mainEntity: {
               "@type": "Person",
               "@id": `${canonical}#arun-madan`,
-              name: "Arun Madan",
+              name: "Arun Madaan",
+              alternateName: "Arun Madan",
               jobTitle: "Founder & Promoter, Shubh Estate Brokers",
               description:
                 "Gurugram real estate and mortgage advisor, MBA and LLB, and former senior banking professional with practical experience in mortgages, credit, property valuation, documentation, title assessment and investment risk review.",
@@ -100,9 +101,9 @@ function About() {
   return (
     <>
       <PageHero
-        eyebrow="About Arun Madan & Shubh Estate Brokers"
-        title="Arun Madan — Founder of Shubh Estate Brokers, Gurugram"
-        body="Arun Madan, MBA and LLB, is the Founder & Promoter of Shubh Estate Brokers and a former senior banking professional. His Gurugram real estate advisory combines local property knowledge with mortgage expertise, valuation experience and practical understanding of title, documentation and investment risk."
+        eyebrow="About Arun Madaan & Shubh Estate Brokers"
+        title="Arun Madaan — Founder of Shubh Estate Brokers, Gurugram"
+        body="Arun Madaan, MBA and LLB, is the Founder & Promoter of Shubh Estate Brokers and a former senior banking professional. His Gurugram real estate advisory combines local property knowledge with mortgage expertise, valuation experience and practical understanding of title, documentation and investment risk."
       />
 
       <section className="container-page py-16">
@@ -126,10 +127,10 @@ function About() {
 
       <section className="bg-secondary/60 py-16">
         <div className="container-page">
-          <SectionHead eyebrow="Founder Profile" title="Arun Madan — Gurugram Real Estate & Mortgage Advisor" />
+          <SectionHead eyebrow="Founder Profile" title="Arun Madaan — Gurugram Real Estate & Mortgage Advisor" />
           <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_1.2fr]">
             <div className="rounded-2xl border border-border bg-card p-8">
-              <p className="font-display text-2xl">Arun Madan</p>
+              <p className="font-display text-2xl">Arun Madaan</p>
               <p className="mt-1 text-sm text-muted-foreground">Founder & Promoter, Shubh Estate Brokers · MBA · LLB · Former Senior Banking Professional</p>
               <ul className="mt-6 space-y-2 text-sm text-muted-foreground">
                 <li>Gurugram Property & Investment Advisory</li>
@@ -147,7 +148,7 @@ function About() {
             </div>
 
             <div>
-              <p className="text-muted-foreground">Arun Madan leads Shubh Estate Brokers in Gurugram. His senior-level banking exposure provides a perspective that goes beyond conventional property brokerage. Years spent around credit, mortgages, collateral valuation, documentation and title processes shape how he evaluates residential property transactions and investment decisions today.</p>
+              <p className="text-muted-foreground">Arun Madaan leads Shubh Estate Brokers in Gurugram. His senior-level banking exposure provides a perspective that goes beyond conventional property brokerage. Years spent around credit, mortgages, collateral valuation, documentation and title processes shape how he evaluates residential property transactions and investment decisions today.</p>
               <p className="mt-5 text-muted-foreground">This background brings a deeper understanding of how title is created and examined, how lenders assess a property, where documentation gaps can create risk, how financing affects the true cost of ownership, and how buyers and investors should think about capital protection before expected returns.</p>
               <p className="mt-5 text-muted-foreground">Through Shubh Estate Brokers, Arun advises buyers, sellers and property investors across Gurugram, including resale property, luxury homes, builder floors, mortgage coordination, valuation and title/documentation assessment. The guiding principle is simple: integrity comes before commission.</p>
               <p className="mt-8 eyebrow">Core Expertise</p>
@@ -155,9 +156,9 @@ function About() {
                 {EXPERTISE.map((e) => <li key={e} className="text-sm text-muted-foreground">· {e}</li>)}
               </ul>
               <div className="mt-8 flex flex-wrap gap-3">
-                <Button asChild variant="navy"><a href={CONTACT.phoneHref}>Speak with Arun Madan</a></Button>
+                <Button asChild variant="navy"><a href={CONTACT.phoneHref}>Speak with Arun Madaan</a></Button>
                 <Button asChild variant="outline"><a href={CONTACT.googleBusinessProfile} target="_blank" rel="noreferrer">View Shubh Estate Brokers on Google</a></Button>
-                <Button asChild variant="outline"><a href={ARUN_LINKEDIN} target="_blank" rel="noreferrer">Arun Madan on LinkedIn</a></Button>
+                <Button asChild variant="outline"><a href={ARUN_LINKEDIN} target="_blank" rel="noreferrer">Arun Madaan on LinkedIn</a></Button>
               </div>
             </div>
           </div>

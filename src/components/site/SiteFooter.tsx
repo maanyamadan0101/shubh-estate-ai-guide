@@ -71,7 +71,7 @@ export function SiteFooter() {
               className="flex gap-3 hover:text-gold"
             >
               <MessageCircle className="size-4 shrink-0 text-gold" aria-hidden="true" />
-              WhatsApp Arun Madan
+              WhatsApp Arun Madaan
             </a>
             <a href={`mailto:${CONTACT.email}`} className="flex gap-3 hover:text-gold">
               <Mail className="size-4 shrink-0 text-gold" aria-hidden="true" />

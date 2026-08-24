@@ -166,7 +166,7 @@ function Home() {
     error: string | null;
   };
   const founderWhatsappMessage = encodeURIComponent(
-    "Hello Mr Arun Madan, I would like to discuss a Gurugram property decision with Shubh Estate Brokers.",
+    "Hello Mr Arun Madaan, I would like to discuss a Gurugram property decision with Shubh Estate Brokers.",
   );
 
   return (
@@ -222,7 +222,7 @@ function Home() {
                   onClick={() => trackContact("whatsapp", "homepage_hero_founder")}
                 >
                   <MessageCircle aria-hidden="true" />
-                  WhatsApp Founder Arun Madan
+                  WhatsApp Founder Arun Madaan
                 </a>
               </Button>
               <Button asChild variant="goldOutline" size="xl">
@@ -265,7 +265,7 @@ function Home() {
         <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
           <div className="rounded-2xl surface-navy p-8 md:p-10">
             <p className="eyebrow">Founder-led advice</p>
-            <h2 className="mt-4 font-display text-3xl text-navy-foreground">Arun Madan</h2>
+            <h2 className="mt-4 font-display text-3xl text-navy-foreground">Arun Madaan</h2>
             <p className="mt-2 text-sm text-navy-foreground/70">
               Founder & Promoter · MBA · LLB · Former Senior Banking Professional
             </p>
@@ -686,7 +686,7 @@ function Home() {
                 onClick={() => trackContact("whatsapp", "homepage_final_cta")}
               >
                 <MessageCircle aria-hidden="true" />
-                WhatsApp Arun Madan
+                WhatsApp Arun Madaan
               </a>
             </Button>
             <Button asChild variant="goldOutline" size="lg">
