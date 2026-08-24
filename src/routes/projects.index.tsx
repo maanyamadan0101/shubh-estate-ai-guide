@@ -23,7 +23,7 @@ const FEATURED_RESEARCH_GUIDES = [
     sector: "Sector 103, Dwarka Expressway",
     configuration: "2, 3 & large-format homes",
     sizes: "1,361-2,670 sq ft",
-    price: "99acres snapshot from ₹1.04 Cr",
+    price: "Current market price from ₹1.04 Cr",
   },
 ] as const;
 
@@ -153,9 +153,9 @@ function ProjectDirectoryPage() {
                   {guide.sector}
                 </p>
                 <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">
-                  A dedicated buyer guide covering every brochure layout, current 99acres asking-price
-                  snapshots, nearby Adani, Emaar, Godrej and Tata comparison, Haryana RERA checks and
-                  careful home-loan guidance.
+                  A dedicated buyer guide covering every brochure layout, current market prices,
+                  nearby Adani, Emaar, Godrej and Tata comparison, Haryana RERA details and home-loan
+                  guidance.
                 </p>
               </div>
               <div className="flex flex-col rounded-xl border border-border bg-muted/25 p-5">
