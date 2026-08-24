@@ -1,5 +1,9 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
+import {
+  applyConfirmedInventoryCorrections,
+  type ListingRow,
+} from "@/lib/properties.functions";
 
 export type PublicFeatureRow = { feature_name: string; category: string };
 
@@ -32,28 +36,32 @@ export const getPublicPropertyDetail = createServerFn({ method: "GET" })
       return null;
     }
 
+    const correctedProperty = applyConfirmedInventoryCorrections(
+      property as unknown as ListingRow,
+    ) as typeof property;
+
     const [imagesResult, featuresResult, builderResult, projectResult] = await Promise.all([
       supabaseAdmin
         .from("property_images")
         .select("id,image_url,alt_text,sort_order,is_primary")
-        .eq("property_id", property.id)
+        .eq("property_id", correctedProperty.id)
         .order("sort_order", { ascending: true }),
       supabaseAdmin
         .from("property_features")
         .select("feature_name,category")
-        .eq("property_id", property.id),
-      property.builder_id
+        .eq("property_id", correctedProperty.id),
+      correctedProperty.builder_id
         ? supabaseAdmin
             .from("builders")
             .select("id,name,slug,description,website")
-            .eq("id", property.builder_id)
+            .eq("id", correctedProperty.builder_id)
             .maybeSingle()
         : Promise.resolve({ data: null, error: null }),
-      property.project_id
+      correctedProperty.project_id
         ? supabaseAdmin
             .from("projects")
             .select("id,name,slug,locality,sector,rera_number,possession_date,description")
-            .eq("id", property.project_id)
+            .eq("id", correctedProperty.project_id)
             .maybeSingle()
         : Promise.resolve({ data: null, error: null }),
     ]);
@@ -75,7 +83,7 @@ export const getPublicPropertyDetail = createServerFn({ method: "GET" })
 
     return {
       property: {
-        ...property,
+        ...correctedProperty,
         builder: builderResult.data ?? null,
         project: projectResult.data ?? null,
       },
