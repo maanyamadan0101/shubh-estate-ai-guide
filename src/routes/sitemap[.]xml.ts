@@ -65,6 +65,11 @@ const STATIC_PATHS: StaticPath[] = [
     lastmod: "2026-08-24",
   },
   {
+    path: "/projects/dlf-the-primus-sector-82a-gurgaon",
+    priority: "0.9",
+    lastmod: "2026-08-24",
+  },
+  {
     path: "/capital-residences-360-3-bhk-for-sale-sector-70a-gurgaon",
     priority: "0.9",
     lastmod: "2026-08-21",
@@ -101,6 +106,8 @@ const STATIC_PATHS: StaticPath[] = [
 ];
 
 const PROJECT_HUB_SITEMAP_EXCLUSIONS = new Set([
+  "dlf-the-primus",
+  "dlf-the-primus-sector-82a",
   "m3m-golf-hills",
   "m3m-golf-hills-sector-79",
   "aipl-riviera",
