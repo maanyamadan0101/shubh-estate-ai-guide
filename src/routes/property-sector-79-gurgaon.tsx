@@ -5,7 +5,7 @@ import { SITE_ORIGIN } from "@/lib/seo";
 const canonical = `${SITE_ORIGIN}/property-sector-79-gurgaon`;
 const title = "Property in Sector 79 Gurgaon | Flats for Sale & Buying Guide";
 const description =
-  "Explore flats and property for sale in Sector 79 Gurgaon. Compare Godrej 101 and nearby residential options, connectivity, resale pricing, home loans and transaction checks.";
+  "Explore flats and property for sale in Sector 79 Gurgaon. Compare M3M Golf Hills, Godrej 101, connectivity, resale pricing, home loans and transaction checks.";
 
 export const Route = createFileRoute("/property-sector-79-gurgaon")({
   head: () => ({
@@ -82,6 +82,7 @@ function Sector79Page() {
         },
       ]}
       related={[
+        { href: "/projects/m3m-golf-hills-sector-79-gurgaon", label: "M3M Golf Hills Sector 79 price, RERA and NRI buyer guide" },
         { href: "/godrej-101-sector-79-gurgaon", label: "Godrej 101 Sector 79 project and resale guide" },
         { href: "/locations/new-gurgaon", label: "New Gurugram property guide" },
         { href: "/properties", label: "Flats and apartments for sale in Gurgaon" },

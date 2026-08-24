@@ -7,6 +7,8 @@ import { listPublicProjectHubs } from "@/lib/project-hub.functions";
 import { formatArea, formatINR, SITE_ORIGIN, STATUS_LABEL } from "@/lib/seo";
 
 const DEDICATED_PROJECT_PAGES: Record<string, string> = {
+  "m3m-golf-hills": "/projects/m3m-golf-hills-sector-79-gurgaon",
+  "m3m-golf-hills-sector-79": "/projects/m3m-golf-hills-sector-79-gurgaon",
   "aipl-riviera": "/projects/aipl-riviera-resale-sector-103-gurgaon",
   "aipl-riviera-sector-103": "/projects/aipl-riviera-resale-sector-103-gurgaon",
   "riviera-at-aipl-lake-city": "/projects/aipl-riviera-resale-sector-103-gurgaon",
@@ -20,6 +22,18 @@ const DEDICATED_PROJECT_PAGES: Record<string, string> = {
 };
 
 const FEATURED_RESEARCH_GUIDES = [
+  {
+    name: "M3M Golf Hills",
+    href: "/projects/m3m-golf-hills-sector-79-gurgaon",
+    sector: "Sector 79 & 79B, New Gurugram",
+    configuration: "2.5, 3.5 & 4.5 BHK homes",
+    sizes: "Illustrative examples: 1,420-2,685 sq ft",
+    price: "Select seller-held units from ₹13,000/sq ft*",
+    badge: "Featured NRI opportunity",
+    badgeNote: "Two RERA phases verified",
+    summary:
+      "An NRI-focused buyer guide with phase-specific Haryana RERA records, unit-wise cost examples, public project videos, transfer checks and transparent current-price context.",
+  },
   {
     name: "AIPL Riviera",
     href: "/projects/aipl-riviera-resale-sector-103-gurgaon",
