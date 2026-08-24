@@ -55,6 +55,11 @@ const STATIC_PATHS: StaticPath[] = [
     lastmod: "2026-08-24",
   },
   {
+    path: "/projects/emaar-urban-oasis-sector-62",
+    priority: "0.9",
+    lastmod: "2026-08-24",
+  },
+  {
     path: "/capital-residences-360-3-bhk-for-sale-sector-70a-gurgaon",
     priority: "0.9",
     lastmod: "2026-08-21",
@@ -102,6 +107,7 @@ const PROJECT_HUB_SITEMAP_EXCLUSIONS = new Set([
   "dlf-the-skycourt-sector-86",
   "godrej-101",
   "godrej-101-sector-79",
+  "emaar-urban-oasis-sector-62",
   "tata-raisina-residency-sector-59",
 ]);
 
@@ -141,7 +147,9 @@ export const Route = createFileRoute("/sitemap.xml")({
               `  <url>\n    <loc>${escapeXml(`${SITE_ORIGIN}${p.path}`)}</loc>${safeLastmod(p.lastmod)}\n    <priority>${p.priority}</priority>\n  </url>`,
           ),
           ...projectHubs
-            .filter((hub) => Boolean(hub.slug?.trim()) && !PROJECT_HUB_SITEMAP_EXCLUSIONS.has(hub.slug))
+            .filter(
+              (hub) => Boolean(hub.slug?.trim()) && !PROJECT_HUB_SITEMAP_EXCLUSIONS.has(hub.slug),
+            )
             .map(
               (hub) =>
                 `  <url>\n    <loc>${escapeXml(`${SITE_ORIGIN}/projects/${hub.slug}`)}</loc>${safeLastmod(hub.updated_at)}\n    <priority>0.8</priority>\n  </url>`,
