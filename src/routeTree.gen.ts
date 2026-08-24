@@ -57,6 +57,7 @@ import { Route as ProjectsSlugRouteImport } from './routes/projects.$slug'
 import { Route as ProjectsAiplRivieraResaleSector103GurgaonRouteImport } from './routes/projects.aipl-riviera-resale-sector-103-gurgaon'
 import { Route as ProjectsAnsalsHighlandParkSector103GurgaonRouteImport } from './routes/projects.ansals-highland-park-sector-103-gurgaon'
 import { Route as ProjectsDlfTheSkycourtSector86RouteImport } from './routes/projects.dlf-the-skycourt-sector-86'
+import { Route as ProjectsM3mGolfHillsSector79GurgaonRouteImport } from './routes/projects.m3m-golf-hills-sector-79-gurgaon'
 import { Route as ProjectsTataRaisinaResidencySector59RouteImport } from './routes/projects.tata-raisina-residency-sector-59'
 import { Route as PropertySlugRouteImport } from './routes/property.$slug'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
@@ -330,6 +331,12 @@ const ProjectsDlfTheSkycourtSector86Route =
     path: '/dlf-the-skycourt-sector-86',
     getParentRoute: () => ProjectsRoute,
   } as any)
+const ProjectsM3mGolfHillsSector79GurgaonRoute =
+  ProjectsM3mGolfHillsSector79GurgaonRouteImport.update({
+    id: '/m3m-golf-hills-sector-79-gurgaon',
+    path: '/m3m-golf-hills-sector-79-gurgaon',
+    getParentRoute: () => ProjectsRoute,
+  } as any)
 const ProjectsTataRaisinaResidencySector59Route =
   ProjectsTataRaisinaResidencySector59RouteImport.update({
     id: '/tata-raisina-residency-sector-59',
@@ -466,6 +473,7 @@ export interface FileRoutesByFullPath {
   '/projects/aipl-riviera-resale-sector-103-gurgaon': typeof ProjectsAiplRivieraResaleSector103GurgaonRoute
   '/projects/ansals-highland-park-sector-103-gurgaon': typeof ProjectsAnsalsHighlandParkSector103GurgaonRoute
   '/projects/dlf-the-skycourt-sector-86': typeof ProjectsDlfTheSkycourtSector86Route
+  '/projects/m3m-golf-hills-sector-79-gurgaon': typeof ProjectsM3mGolfHillsSector79GurgaonRoute
   '/projects/tata-raisina-residency-sector-59': typeof ProjectsTataRaisinaResidencySector59Route
   '/property/$slug': typeof PropertySlugRoute
   '/projects/': typeof ProjectsIndexRoute
@@ -530,6 +538,7 @@ export interface FileRoutesByTo {
   '/projects/aipl-riviera-resale-sector-103-gurgaon': typeof ProjectsAiplRivieraResaleSector103GurgaonRoute
   '/projects/ansals-highland-park-sector-103-gurgaon': typeof ProjectsAnsalsHighlandParkSector103GurgaonRoute
   '/projects/dlf-the-skycourt-sector-86': typeof ProjectsDlfTheSkycourtSector86Route
+  '/projects/m3m-golf-hills-sector-79-gurgaon': typeof ProjectsM3mGolfHillsSector79GurgaonRoute
   '/projects/tata-raisina-residency-sector-59': typeof ProjectsTataRaisinaResidencySector59Route
   '/property/$slug': typeof PropertySlugRoute
   '/projects': typeof ProjectsIndexRoute
@@ -597,6 +606,7 @@ export interface FileRoutesById {
   '/projects/aipl-riviera-resale-sector-103-gurgaon': typeof ProjectsAiplRivieraResaleSector103GurgaonRoute
   '/projects/ansals-highland-park-sector-103-gurgaon': typeof ProjectsAnsalsHighlandParkSector103GurgaonRoute
   '/projects/dlf-the-skycourt-sector-86': typeof ProjectsDlfTheSkycourtSector86Route
+  '/projects/m3m-golf-hills-sector-79-gurgaon': typeof ProjectsM3mGolfHillsSector79GurgaonRoute
   '/projects/tata-raisina-residency-sector-59': typeof ProjectsTataRaisinaResidencySector59Route
   '/property/$slug': typeof PropertySlugRoute
   '/projects/': typeof ProjectsIndexRoute
@@ -664,6 +674,7 @@ export interface FileRouteTypes {
     | '/projects/aipl-riviera-resale-sector-103-gurgaon'
     | '/projects/ansals-highland-park-sector-103-gurgaon'
     | '/projects/dlf-the-skycourt-sector-86'
+    | '/projects/m3m-golf-hills-sector-79-gurgaon'
     | '/projects/tata-raisina-residency-sector-59'
     | '/property/$slug'
     | '/projects/'
@@ -728,6 +739,7 @@ export interface FileRouteTypes {
     | '/projects/aipl-riviera-resale-sector-103-gurgaon'
     | '/projects/ansals-highland-park-sector-103-gurgaon'
     | '/projects/dlf-the-skycourt-sector-86'
+    | '/projects/m3m-golf-hills-sector-79-gurgaon'
     | '/projects/tata-raisina-residency-sector-59'
     | '/property/$slug'
     | '/projects'
@@ -794,6 +806,7 @@ export interface FileRouteTypes {
     | '/projects/aipl-riviera-resale-sector-103-gurgaon'
     | '/projects/ansals-highland-park-sector-103-gurgaon'
     | '/projects/dlf-the-skycourt-sector-86'
+    | '/projects/m3m-golf-hills-sector-79-gurgaon'
     | '/projects/tata-raisina-residency-sector-59'
     | '/property/$slug'
     | '/projects/'
@@ -1198,6 +1211,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsDlfTheSkycourtSector86RouteImport
       parentRoute: typeof ProjectsRoute
     }
+    '/projects/m3m-golf-hills-sector-79-gurgaon': {
+      id: '/projects/m3m-golf-hills-sector-79-gurgaon'
+      path: '/m3m-golf-hills-sector-79-gurgaon'
+      fullPath: '/projects/m3m-golf-hills-sector-79-gurgaon'
+      preLoaderRoute: typeof ProjectsM3mGolfHillsSector79GurgaonRouteImport
+      parentRoute: typeof ProjectsRoute
+    }
     '/projects/tata-raisina-residency-sector-59': {
       id: '/projects/tata-raisina-residency-sector-59'
       path: '/tata-raisina-residency-sector-59'
@@ -1366,6 +1386,7 @@ interface ProjectsRouteChildren {
   ProjectsAiplRivieraResaleSector103GurgaonRoute: typeof ProjectsAiplRivieraResaleSector103GurgaonRoute
   ProjectsAnsalsHighlandParkSector103GurgaonRoute: typeof ProjectsAnsalsHighlandParkSector103GurgaonRoute
   ProjectsDlfTheSkycourtSector86Route: typeof ProjectsDlfTheSkycourtSector86Route
+  ProjectsM3mGolfHillsSector79GurgaonRoute: typeof ProjectsM3mGolfHillsSector79GurgaonRoute
   ProjectsTataRaisinaResidencySector59Route: typeof ProjectsTataRaisinaResidencySector59Route
   ProjectsIndexRoute: typeof ProjectsIndexRoute
 }
@@ -1377,6 +1398,8 @@ const ProjectsRouteChildren: ProjectsRouteChildren = {
   ProjectsAnsalsHighlandParkSector103GurgaonRoute:
     ProjectsAnsalsHighlandParkSector103GurgaonRoute,
   ProjectsDlfTheSkycourtSector86Route: ProjectsDlfTheSkycourtSector86Route,
+  ProjectsM3mGolfHillsSector79GurgaonRoute:
+    ProjectsM3mGolfHillsSector79GurgaonRoute,
   ProjectsTataRaisinaResidencySector59Route:
     ProjectsTataRaisinaResidencySector59Route,
   ProjectsIndexRoute: ProjectsIndexRoute,
