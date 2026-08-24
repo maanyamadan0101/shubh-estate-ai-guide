@@ -7,6 +7,8 @@ import { listPublicProjectHubs } from "@/lib/project-hub.functions";
 import { formatArea, formatINR, SITE_ORIGIN, STATUS_LABEL } from "@/lib/seo";
 
 const DEDICATED_PROJECT_PAGES: Record<string, string> = {
+  "dlf-the-arbour": "/projects/dlf-the-arbour-sector-63-gurgaon",
+  "dlf-the-arbour-sector-63": "/projects/dlf-the-arbour-sector-63-gurgaon",
   "dlf-the-primus": "/projects/dlf-the-primus-sector-82a-gurgaon",
   "dlf-the-primus-sector-82a": "/projects/dlf-the-primus-sector-82a-gurgaon",
   "m3m-golf-hills": "/projects/m3m-golf-hills-sector-79-gurgaon",
@@ -24,6 +26,18 @@ const DEDICATED_PROJECT_PAGES: Record<string, string> = {
 };
 
 const FEATURED_RESEARCH_GUIDES = [
+  {
+    name: "DLF The Arbour",
+    href: "/projects/dlf-the-arbour-sector-63-gurgaon",
+    sector: "Sector 63, Golf Course Extension Road",
+    configuration: "4 BHK + utility residences",
+    sizes: "Approx. 3,950-3,956 sq ft",
+    price: "Indicative resale entry ₹8.50 Cr onwards*",
+    badge: "Featured ultra-luxury guide",
+    badgeNote: "Official RERA facts verified",
+    summary:
+      "A dedicated resale and permitted-transfer guide covering current price context, low-density apartment planning, clubhouse scale, official disclosures and payment-led buyer checks.",
+  },
   {
     name: "DLF The Primus",
     href: "/projects/dlf-the-primus-sector-82a-gurgaon",

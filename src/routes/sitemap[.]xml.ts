@@ -12,7 +12,7 @@ type StaticPath = {
 const STATIC_PATHS: StaticPath[] = [
   { path: "/", priority: "1.0" },
   { path: "/properties", priority: "0.9" },
-  { path: "/projects", priority: "0.9", lastmod: "2026-08-23" },
+  { path: "/projects", priority: "0.9", lastmod: "2026-08-24" },
   { path: "/blog", priority: "0.9", lastmod: "2026-08-20" },
   {
     path: "/blog/gurgaon-property-due-diligence-checklist-2026",
@@ -43,6 +43,11 @@ const STATIC_PATHS: StaticPath[] = [
     path: "/dwarka-expressway-flats-for-sale-gurgaon",
     priority: "0.9",
     lastmod: "2026-08-21",
+  },
+  {
+    path: "/projects/dlf-the-arbour-sector-63-gurgaon",
+    priority: "0.9",
+    lastmod: "2026-08-24",
   },
   {
     path: "/projects/m3m-golf-hills-sector-79-gurgaon",
@@ -106,6 +111,8 @@ const STATIC_PATHS: StaticPath[] = [
 ];
 
 const PROJECT_HUB_SITEMAP_EXCLUSIONS = new Set([
+  "dlf-the-arbour",
+  "dlf-the-arbour-sector-63",
   "dlf-the-primus",
   "dlf-the-primus-sector-82a",
   "m3m-golf-hills",
