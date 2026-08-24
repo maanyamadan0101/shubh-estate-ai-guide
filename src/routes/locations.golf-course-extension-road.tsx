@@ -9,7 +9,7 @@ import { SITE_ORIGIN } from "@/lib/seo";
 const canonical = `${SITE_ORIGIN}/locations/golf-course-extension-road`;
 const title = "Golf Course Extension Road Gurgaon | Sectors, Projects & Properties";
 const description =
-  "Explore Golf Course Extension Road Gurgaon by sector and project, including DLF The Arbour Sector 63, Emaar Urban Oasis Sector 62, Ireo Skyon and Tata Raisina Residency.";
+  "Explore Golf Course Extension Road Gurgaon by sector and project, including Emaar Emerald Hills Sector 65, DLF The Arbour and Emaar Urban Oasis.";
 
 export const Route = createFileRoute("/locations/golf-course-extension-road")({
   loader: async () => {
@@ -57,6 +57,16 @@ export const Route = createFileRoute("/locations/golf-course-extension-road")({
 });
 
 const clusters = [
+  {
+    sector: "Sector 65",
+    href: "/properties?q=Sector%2065",
+    projects: [
+      {
+        name: "Emaar Emerald Hills",
+        href: "/emaar-emerald-hills-sector-65-gurgaon",
+      },
+    ],
+  },
   {
     sector: "Sector 63",
     href: "/properties?q=Sector%2063",
@@ -144,14 +154,14 @@ function GolfCourseExtensionPage() {
             Explore Golf Course Extension Road by sector
           </h2>
           <p className="mt-4 leading-7 text-muted-foreground">
-            Sector accuracy matters. Ireo Skyon is in Sector 60, while Tata Raisina Residency is in
-            Sector 59. Conscient Heritage One and Emaar Urban Oasis are in Sector 62. Keeping these
-            relationships correct helps buyers compare the right micro-market and strengthens local
-            search relevance.
+            Sector accuracy matters. Emaar Emerald Hills is primarily associated with Sector 65,
+            while DLF The Arbour is in Sector 63. Conscient Heritage One and Emaar Urban Oasis are
+            in Sector 62, Ireo Skyon is in Sector 60 and Tata Raisina Residency is in Sector 59.
+            Keeping these relationships correct helps buyers compare the right micro-market.
           </p>
         </div>
 
-        <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+        <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-5">
           {clusters.map((cluster) => (
             <article key={cluster.sector} className="rounded-xl border border-border bg-card p-6">
               <MapPin className="size-5 text-gold" aria-hidden="true" />
