@@ -372,6 +372,12 @@ function DwarkaExpresswayInventory() {
               Dwarka Expressway buying guide
             </Link>
             <Link
+              to="/projects/ansals-highland-park-sector-103-gurgaon"
+              className="inline-flex min-h-10 items-center rounded-md border border-border px-5 text-sm font-medium transition-colors hover:border-gold hover:text-gold"
+            >
+              Ansals Highland Park value guide
+            </Link>
+            <Link
               to="/home-loans"
               className="inline-flex min-h-10 items-center rounded-md border border-border px-5 text-sm font-medium transition-colors hover:border-gold hover:text-gold"
             >

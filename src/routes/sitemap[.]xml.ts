@@ -45,6 +45,11 @@ const STATIC_PATHS: StaticPath[] = [
     lastmod: "2026-08-21",
   },
   {
+    path: "/projects/ansals-highland-park-sector-103-gurgaon",
+    priority: "0.9",
+    lastmod: "2026-08-24",
+  },
+  {
     path: "/capital-residences-360-3-bhk-for-sale-sector-70a-gurgaon",
     priority: "0.9",
     lastmod: "2026-08-21",
@@ -81,6 +86,9 @@ const STATIC_PATHS: StaticPath[] = [
 ];
 
 const PROJECT_HUB_SITEMAP_EXCLUSIONS = new Set([
+  "ansal-highland-park",
+  "ansals-highland-park",
+  "ansal-highland-park-sector-103",
   "dlf-skycourt",
   "dlf-skycourt-sector-86",
   "dlf-the-skycourt-sector-86",
