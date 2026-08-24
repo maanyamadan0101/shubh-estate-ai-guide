@@ -45,6 +45,11 @@ const STATIC_PATHS: StaticPath[] = [
     lastmod: "2026-08-21",
   },
   {
+    path: "/projects/m3m-golf-hills-sector-79-gurgaon",
+    priority: "0.9",
+    lastmod: "2026-08-24",
+  },
+  {
     path: "/projects/ansals-highland-park-sector-103-gurgaon",
     priority: "0.9",
     lastmod: "2026-08-24",
@@ -91,6 +96,8 @@ const STATIC_PATHS: StaticPath[] = [
 ];
 
 const PROJECT_HUB_SITEMAP_EXCLUSIONS = new Set([
+  "m3m-golf-hills",
+  "m3m-golf-hills-sector-79",
   "aipl-riviera",
   "aipl-riviera-sector-103",
   "riviera-at-aipl-lake-city",
