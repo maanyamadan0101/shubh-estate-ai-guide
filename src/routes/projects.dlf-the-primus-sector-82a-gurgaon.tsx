@@ -292,13 +292,13 @@ function DLFThePrimusPage() {
                 Sector 82A · DLF Garden City · New Gurgaon
               </p>
               <h1 className="mt-4 max-w-5xl font-display text-4xl leading-[1.08] sm:text-5xl lg:text-6xl">
-                DLF The Primus
+                <span className="block text-white">DLF The Primus</span>{" "}
                 <span className="mt-2 block text-gradient-gold">3 & 4 BHK resale apartments</span>
               </h1>
               <p className="mt-6 max-w-3xl text-base leading-8 text-white/72 md:text-lg">
                 Compare ready-to-move homes by exact tower, floor, view, condition and ownership
                 papers. Current public asking guidance spans roughly{" "}
-                <strong className="font-semibold text-white">₹2.80 crore to ₹4.60 crore</strong>
+                <strong className="font-semibold text-white">₹2.80 crore to ₹4.60 crore</strong>{" "}
                 across the principal 3 and 4 BHK layouts. Contact Shubh Estate Brokers for the best
                 presently available unit and a complete acquisition-cost breakup.
               </p>
