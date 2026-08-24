@@ -23,9 +23,23 @@ const DEDICATED_PROJECT_PAGES: Record<string, string> = {
   "dlf-skycourt-sector-86": "/dlf-skycourt-sector-86-gurgaon",
   "godrej-101": "/godrej-101-sector-79-gurgaon",
   "godrej-101-sector-79": "/godrej-101-sector-79-gurgaon",
+  "emaar-emerald-hills": "/emaar-emerald-hills-sector-65-gurgaon",
+  "emaar-emerald-hills-sector-65": "/emaar-emerald-hills-sector-65-gurgaon",
 };
 
 const FEATURED_RESEARCH_GUIDES = [
+  {
+    name: "Emaar Emerald Hills",
+    href: "/emaar-emerald-hills-sector-65-gurgaon",
+    sector: "Sector 65, Golf Course Extension Road",
+    configuration: "Ready-to-move floors, homes & plots",
+    sizes: "Featured 4 BHK on stated 4,000 sq ft plot",
+    price: "Featured east-facing 4 BHK asking ₹5 Cr",
+    badge: "Featured resale opportunity",
+    badgeNote: "Legacy and Phase 2 RERA separated",
+    summary:
+      "A current resale and plot guide featuring an east-facing corner 4 BHK with private half terrace, size-wise asking-price context, phase-specific RERA records and document-led buyer checks.",
+  },
   {
     name: "DLF The Arbour",
     href: "/projects/dlf-the-arbour-sector-63-gurgaon",

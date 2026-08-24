@@ -40,6 +40,11 @@ const STATIC_PATHS: StaticPath[] = [
     lastmod: "2026-08-20",
   },
   {
+    path: "/emaar-emerald-hills-sector-65-gurgaon",
+    priority: "0.9",
+    lastmod: "2026-08-24",
+  },
+  {
     path: "/dwarka-expressway-flats-for-sale-gurgaon",
     priority: "0.9",
     lastmod: "2026-08-21",
@@ -129,6 +134,8 @@ const PROJECT_HUB_SITEMAP_EXCLUSIONS = new Set([
   "godrej-101",
   "godrej-101-sector-79",
   "emaar-urban-oasis-sector-62",
+  "emaar-emerald-hills",
+  "emaar-emerald-hills-sector-65",
   "tata-raisina-residency-sector-59",
 ]);
 
