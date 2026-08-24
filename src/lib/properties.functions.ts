@@ -33,10 +33,38 @@ export type ListingRow = {
 
 type SitemapIdentityRow = ListingRow & { updated_at: string };
 
-// Every published property row represents a genuine, independently marketable
-// inventory unit. Two flats in the same society can legitimately have the same
-// size, price and configuration, so never collapse listings by a market-facing
-// fingerprint. The database row id and slug are the inventory identity.
+function listingDisplayFingerprint(row: ListingRow) {
+  return [
+    row.title,
+    row.bhk,
+    row.property_type,
+    row.listing_type,
+    row.status,
+    row.price,
+    row.area_sqft,
+    row.sector,
+    row.locality,
+    row.city,
+  ]
+    .map((value) => String(value ?? "").trim().toLocaleLowerCase("en-IN"))
+    .join("|");
+}
+
+function dedupeLocationListings(rows: ListingRow[]) {
+  const seen = new Set<string>();
+  return rows.filter((row) => {
+    const fingerprint = listingDisplayFingerprint(row);
+    if (seen.has(fingerprint)) return false;
+    seen.add(fingerprint);
+    return true;
+  });
+}
+
+// Every published property row remains an independently addressable inventory
+// unit in the catalogue, project hubs and sitemap. Location landing pages are
+// different: repeating buyer-identical cards weakens UX and SEO, so locality
+// queries collapse exact market-facing duplicates while preserving the newest
+// row (the database query is ordered by updated_at descending).
 export const listPublicProperties = createServerFn({ method: "GET" })
   .inputValidator((input: unknown) =>
     z
@@ -55,12 +83,13 @@ export const listPublicProperties = createServerFn({ method: "GET" })
     try {
       const supabase = await publishedClient();
       const requestedLimit = data.limit ?? 60;
+      const queryLimit = data.locality ? Math.min(requestedLimit * 3, 60) : requestedLimit;
       let query = supabase
         .from("properties")
         .select(LIST_COLUMNS)
         .eq("is_published", true)
         .order("updated_at", { ascending: false })
-        .limit(requestedLimit);
+        .limit(queryLimit);
 
       // Imported listings often contain combined locality labels such as
       // "New Gurugram / Dwarka Expressway". A contains match keeps those
@@ -82,7 +111,12 @@ export const listPublicProperties = createServerFn({ method: "GET" })
         };
       }
 
-      return { properties: (rows ?? []) as unknown as ListingRow[], error: null };
+      const publicRows = (rows ?? []) as unknown as ListingRow[];
+      const properties = data.locality
+        ? dedupeLocationListings(publicRows).slice(0, requestedLimit)
+        : publicRows;
+
+      return { properties, error: null };
     } catch (error) {
       const message =
         error instanceof Error
