@@ -7,11 +7,25 @@ import { listPublicProjectHubs } from "@/lib/project-hub.functions";
 import { formatArea, formatINR, SITE_ORIGIN, STATUS_LABEL } from "@/lib/seo";
 
 const DEDICATED_PROJECT_PAGES: Record<string, string> = {
+  "ansal-highland-park": "/projects/ansals-highland-park-sector-103-gurgaon",
+  "ansals-highland-park": "/projects/ansals-highland-park-sector-103-gurgaon",
+  "ansal-highland-park-sector-103": "/projects/ansals-highland-park-sector-103-gurgaon",
   "dlf-skycourt": "/dlf-skycourt-sector-86-gurgaon",
   "dlf-skycourt-sector-86": "/dlf-skycourt-sector-86-gurgaon",
   "godrej-101": "/godrej-101-sector-79-gurgaon",
   "godrej-101-sector-79": "/godrej-101-sector-79-gurgaon",
 };
+
+const FEATURED_RESEARCH_GUIDES = [
+  {
+    name: "Ansals Highland Park",
+    href: "/projects/ansals-highland-park-sector-103-gurgaon",
+    sector: "Sector 103, Dwarka Expressway",
+    configuration: "2, 3 & large-format homes",
+    sizes: "1,361-2,670 sq ft",
+    price: "99acres snapshot from ₹1.04 Cr",
+  },
+] as const;
 
 function projectHref(slug: string) {
   return DEDICATED_PROJECT_PAGES[slug] ?? `/projects/${slug}`;
@@ -34,7 +48,7 @@ export const Route = createFileRoute("/projects/")({
   loader: () => listPublicProjectHubs(),
   head: ({ loaderData }) => {
     const canonical = `${SITE_ORIGIN}/projects`;
-    const count = loaderData?.length ?? 0;
+    const count = (loaderData?.length ?? 0) + FEATURED_RESEARCH_GUIDES.length;
     const title = "Gurgaon Project Guides | Current Property Inventory";
     const description = `Explore ${count || "current"} Gurgaon residential project guides with Shubh Estate Brokers inventory, asking prices, unit sizes, buyer checks and project-level comparisons.`;
     const schema = {
@@ -46,11 +60,20 @@ export const Route = createFileRoute("/projects/")({
       mainEntity: {
         "@type": "ItemList",
         numberOfItems: count,
-        itemListElement: (loaderData ?? []).slice(0, 50).map((hub, index) => ({
+        itemListElement: [
+          ...FEATURED_RESEARCH_GUIDES.map((guide) => ({
+            name: guide.name,
+            url: `${SITE_ORIGIN}${guide.href}`,
+          })),
+          ...(loaderData ?? []).map((hub) => ({
+            name: hub.name,
+            url: `${SITE_ORIGIN}${projectHref(hub.slug)}`,
+          })),
+        ].slice(0, 50).map((item, index) => ({
           "@type": "ListItem",
           position: index + 1,
-          name: hub.name,
-          url: `${SITE_ORIGIN}${projectHref(hub.slug)}`,
+          name: item.name,
+          url: item.url,
         })),
       },
     };
@@ -103,11 +126,65 @@ function ProjectDirectoryPage() {
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gold">Project directory</p>
             <h2 className="mt-2 font-display text-3xl">Projects represented in our published catalogue</h2>
           </div>
-          <p className="text-sm text-muted-foreground">{hubs.length} project guide{hubs.length === 1 ? "" : "s"}</p>
+          <p className="text-sm text-muted-foreground">
+            {hubs.length + FEATURED_RESEARCH_GUIDES.length} project guide
+            {hubs.length + FEATURED_RESEARCH_GUIDES.length === 1 ? "" : "s"}
+          </p>
+        </div>
+
+        <div className="mt-8 grid gap-6">
+          {FEATURED_RESEARCH_GUIDES.map((guide) => (
+            <article
+              key={guide.href}
+              className="grid gap-6 overflow-hidden rounded-2xl border border-gold/30 bg-card p-6 md:grid-cols-[minmax(0,1fr)_17rem] md:p-8"
+            >
+              <div>
+                <div className="flex flex-wrap gap-2">
+                  <Badge className="border-gold/30 bg-gold/10 text-gold hover:bg-gold/10">
+                    Featured value guide
+                  </Badge>
+                  <Badge variant="secondary" className="font-normal">
+                    Price evidence reviewed
+                  </Badge>
+                </div>
+                <h3 className="mt-4 font-display text-3xl leading-snug">{guide.name}</h3>
+                <p className="mt-2 flex items-center gap-1.5 text-sm text-muted-foreground">
+                  <MapPin className="size-4 text-gold" aria-hidden="true" />
+                  {guide.sector}
+                </p>
+                <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">
+                  A dedicated buyer guide covering every brochure layout, current 99acres asking-price
+                  snapshots, nearby Adani, Emaar, Godrej and Tata comparison, Haryana RERA checks and
+                  careful home-loan guidance.
+                </p>
+              </div>
+              <div className="flex flex-col rounded-xl border border-border bg-muted/25 p-5">
+                <dl className="grid gap-3 text-sm">
+                  <div className="border-b border-border pb-3">
+                    <dt className="text-muted-foreground">Configuration</dt>
+                    <dd className="mt-1 font-medium">{guide.configuration}</dd>
+                  </div>
+                  <div className="border-b border-border pb-3">
+                    <dt className="text-muted-foreground">Published sizes</dt>
+                    <dd className="mt-1 font-medium">{guide.sizes}</dd>
+                  </div>
+                  <div>
+                    <dt className="text-muted-foreground">Asking-price context</dt>
+                    <dd className="mt-1 font-medium text-gold">{guide.price}</dd>
+                  </div>
+                </dl>
+                <Button asChild variant="gold" className="mt-5 w-full">
+                  <Link to="/projects/ansals-highland-park-sector-103-gurgaon">
+                    Open Ansals Highland Park guide
+                  </Link>
+                </Button>
+              </div>
+            </article>
+          ))}
         </div>
 
         {hubs.length ? (
-          <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {hubs.map((hub) => {
               const configurations = [...new Set(hub.listings.map((item) => item.bhk).filter(Boolean))];
               const areas = hub.listings
