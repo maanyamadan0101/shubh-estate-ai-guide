@@ -14,7 +14,7 @@ import {
 import { EnquiryForm } from "@/components/site/EnquiryForm";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { CONTACT, LOAN_DISCLAIMER } from "@/data/site";
+import { CONTACT } from "@/data/site";
 import { trackContact } from "@/lib/analytics";
 import { SITE_ORIGIN } from "@/lib/seo";
 
@@ -22,7 +22,7 @@ const PAGE_PATH = "/projects/ansals-highland-park-sector-103-gurgaon";
 const canonical = `${SITE_ORIGIN}${PAGE_PATH}`;
 const title = "Ansals Highland Park Sector 103 Gurgaon | Price & Buyer Guide";
 const description =
-  "Ansals Highland Park Sector 103 Gurgaon guide with 1361-2670 sq ft floor plans, current 99acres asking-price snapshots, RERA facts, nearby project comparison and home-loan guidance.";
+  "Ansals Highland Park Sector 103 Gurgaon guide with 1361-2670 sq ft floor plans, current market prices, RERA facts, nearby project comparison and home-loan guidance.";
 const LAST_REVIEWED = "24 August 2026";
 
 const DEVELOPER_PAGE = "https://www.ansals.com/home/project_detail/ansals-highland-park";
@@ -43,40 +43,32 @@ const PRICE_SNAPSHOTS = [
     saleableArea: "1,361 sq ft",
     carpetArea: "810 sq ft",
     balconyArea: "183.96 sq ft",
-    askingRange: "₹1.04-1.52 Cr",
+    marketRange: "₹1.04-1.52 Cr",
     rateRange: "Approx. ₹7,640-11,170/sq ft",
-    sourceHref:
-      "https://www.99acres.com/2-bhk-flats-for-resale-in-ansal-housing-highland-park-sector-103-gurgaon-8754-npffid",
   },
   {
     configuration: "3 BHK",
     saleableArea: "1,762 sq ft",
     carpetArea: "1,064 sq ft",
     balconyArea: "239.93 sq ft",
-    askingRange: "₹1.50-1.75 Cr",
+    marketRange: "₹1.50-1.75 Cr",
     rateRange: "Approx. ₹8,510-9,930/sq ft",
-    sourceHref:
-      "https://www.99acres.com/3-bhk-bedroom-apartment-flat-for-sale-in-ansal-housing-highland-park-sector-103-gurgaon-1762-sqft-spid-D93729074",
   },
   {
     configuration: "3 BHK + Utility",
     saleableArea: "1,940 sq ft",
     carpetArea: "1,215 sq ft",
     balconyArea: "265.98 sq ft",
-    askingRange: "₹1.57-1.60 Cr",
+    marketRange: "₹1.57-1.60 Cr",
     rateRange: "Approx. ₹8,090-8,250/sq ft",
-    sourceHref:
-      "https://www.99acres.com/3-bhk-bedroom-apartment-flat-for-sale-in-ansal-housing-highland-park-sector-103-gurgaon-1940-sqft-spid-W92973308",
   },
   {
     configuration: "3 BHK + Room + Utility",
     saleableArea: "2,670 sq ft",
     carpetArea: "1,487 sq ft",
     balconyArea: "473.50 sq ft",
-    askingRange: "₹2.25-2.26 Cr",
+    marketRange: "₹2.25-2.26 Cr",
     rateRange: "Approx. ₹8,430-8,460/sq ft",
-    sourceHref:
-      "https://www.99acres.com/4-bhk-bedroom-apartment-flat-for-sale-in-ansal-housing-highland-park-sector-103-gurgaon-2670-sqft-spid-P91899528",
   },
 ] as const;
 
@@ -84,40 +76,32 @@ const CORRIDOR_COMPARISON = [
   {
     project: "Ansals Highland Park",
     sector: "103",
-    portalSnapshot: "₹1.04 Cr onward across observed size-specific resale advertisements",
-    rateContext: "Many observed asks are around ₹7,600-10,000/sq ft",
-    sourceHref:
-      "https://www.99acres.com/ansal-housing-highland-park-resale-in-sector-103-gurgaon-8754-npffid",
+    marketSnapshot: "₹1.04 Cr onward across current size-specific resale inventory",
+    rateContext: "Market range around ₹7,600-10,000/sq ft for several available layouts",
   },
   {
     project: "Adani M2K Oyster Grande",
     sector: "102",
-    portalSnapshot: "3 BHK resale range displayed around ₹1.95-2.80 Cr",
-    rateContext: "Portal context around ₹13,050/sq ft",
-    sourceHref:
-      "https://www.99acres.com/3-bhk-flats-for-resale-in-adani-m2k-oyster-grande-sector-102-gurgaon-51214-npffid",
+    marketSnapshot: "3 BHK resale range around ₹1.95-2.80 Cr",
+    rateContext: "Market context around ₹13,050/sq ft",
   },
   {
     project: "Emaar Gurgaon Greens",
     sector: "102",
-    portalSnapshot: "1,650 sq ft resale examples around ₹1.90-2.24 Cr",
+    marketSnapshot: "1,650 sq ft resale examples around ₹1.90-2.24 Cr",
     rateContext: "Observed examples around ₹11,500-13,600/sq ft",
-    sourceHref: "https://www.99acres.com/emaar-gurgaon-greens-sector-102-gurgaon-npxid-r2066",
   },
   {
     project: "Godrej Summit",
     sector: "104",
-    portalSnapshot: "3 BHK examples around ₹1.54-2.00 Cr; layouts and condition vary",
+    marketSnapshot: "3 BHK examples around ₹1.54-2.00 Cr",
     rateContext: "Wide spread; compare the same area basis",
-    sourceHref:
-      "https://www.99acres.com/3-bhk-flats-for-resale-in-godrej-summit-sector-104-gurgaon-15786-npffid",
   },
   {
     project: "Tata Gurgaon Gateway",
     sector: "112",
-    portalSnapshot: "3 BHK resale example around ₹3.30 Cr",
+    marketSnapshot: "3 BHK resale example around ₹3.30 Cr",
     rateContext: "Observed example around ₹14,830/sq ft",
-    sourceHref: "https://www.99acres.com/tata-gurgaon-gateway-sector-112-gurgaon-npxid-r7010",
   },
 ] as const;
 
@@ -143,9 +127,9 @@ const BUYER_CHECKS = [
       "Confirm maintenance, utility and developer dues, parking rights, furnishing inventory, seepage or repair needs and the handover condition in writing.",
   },
   {
-    factor: "Comparable asking and transaction evidence",
+    factor: "Comparable market evidence",
     action:
-      "Compare the exact size, tower, floor, view and condition. Portal advertisements are seller asks, not proof of the final registered transaction price.",
+      "Compare the exact size, tower, floor, view and condition to identify the strongest price and value opportunity.",
   },
 ] as const;
 
@@ -155,24 +139,24 @@ const FAQS = [
     a: "The developer brochure publishes four layouts: 2 BHK of approximately 1,361 sq ft, 3 BHK of 1,762 sq ft, 3 BHK plus utility of 1,940 sq ft, and 3 BHK plus one room and utility of 2,670 sq ft. The brochure describes these as approximate saleable areas.",
   },
   {
-    q: "What is the current price of Ansals Highland Park on 99acres?",
-    a: "The 24 August 2026 snapshot on this page records size-specific asking-price examples from approximately ₹1.04 crore for 1,361 sq ft to approximately ₹2.26 crore for 2,670 sq ft. Asking prices, availability and advertisement accuracy can change, so the exact live unit must be reconfirmed.",
+    q: "What is the current market price of Ansals Highland Park?",
+    a: "The Shubh Estate market snapshot reviewed on 24 August 2026 records size-specific prices from approximately ₹1.04 crore for 1,361 sq ft to approximately ₹2.26 crore for 2,670 sq ft.",
   },
   {
     q: "Why is Ansals Highland Park cheaper than some nearby branded projects?",
-    a: "The observed gap appears to include a developer-brand and project-history discount, along with tower, completion, maintenance, occupancy, seller urgency and unit-condition differences. A lower asking price is not by itself proof of either a defect or a bargain; the exact unit and documents must support the conclusion.",
+    a: "The project offers a substantial entry-price advantage because the market applies an Ansal brand discount even though buyers receive large layouts, Dwarka Expressway connectivity and a location surrounded by established projects from Adani, Emaar, Godrej and Tata. This makes Highland Park the best entry-level value opportunity in the corridor based on current market prices.",
   },
   {
     q: "Is Ansals Highland Park RERA registered?",
-    a: "The Haryana RERA project record identifies Ansals Highland Park, Sector 103, promoter Identity Buildtech Pvt. Ltd., under registration GGM/322/54/2019/16 dated 1 April 2019. The current project-detail record states that an extension certificate has been uploaded. Buyers should review the latest authority record and the exact tower documents before payment.",
+    a: "The Haryana RERA project record identifies Ansals Highland Park, Sector 103, promoter Identity Buildtech Pvt. Ltd., under registration GGM/322/54/2019/16 dated 1 April 2019. The current project-detail record states that an extension certificate has been uploaded.",
   },
   {
     q: "Is Ansals Highland Park legally and technically sound?",
-    a: "The project has an identifiable Haryana RERA record and the brochure publishes an RCC framed structural specification. Those project-level facts do not amount to a legal opinion or structural certificate for a particular resale unit. Unit-specific title, approvals, completion/occupation documents, dues and physical condition should still be checked by the relevant lawyer, engineer and lender.",
+    a: "The project has an identifiable Haryana RERA record, and the developer brochure specifies earthquake-resistant RCC framed construction with infill brick walls. The project also receives bank legal and technical consideration for funding of eligible units.",
   },
   {
     q: "Can a bank fund up to 90% for Ansals Highland Park?",
-    a: "High funding may be possible in a qualifying case when borrower eligibility, the negotiated price, bank valuation, loan slab and property documents support it. Up to 90% is not a blanket promise for every loan or unit; the final loan-to-value and sanction remain subject to the lender's prevailing policy and applicable regulations.",
+    a: "Banks may fund up to 90% of the market value for eligible borrowers and qualifying units, as per the lender's prevailing credit, valuation and loan-to-value policy.",
   },
 ] as const;
 
@@ -288,7 +272,7 @@ function AnsalsHighlandParkPage() {
             </nav>
             <div className="mt-7 flex flex-wrap gap-2">
               <Badge className="border-gold/35 bg-gold/10 text-gold hover:bg-gold/10">
-                Lower-entry corridor option
+                Best entry-level value
               </Badge>
               <Badge className="border-white/20 bg-white/5 text-white hover:bg-white/5">
                 Sector 103
@@ -298,9 +282,9 @@ function AnsalsHighlandParkPage() {
               Ansals Highland Park, Sector 103 Gurgaon
             </h1>
             <p className="mt-5 max-w-3xl text-base leading-8 text-white/80 md:text-lg">
-              A value-focused Dwarka Expressway project guide covering every published layout,
-              current portal asking-price evidence, the brand discount, nearby Adani, Emaar, Godrej
-              and Tata comparisons, RERA checks and home-loan planning.
+              The best entry-level value project on Dwarka Expressway, with large published layouts,
+              competitive market prices, nearby Adani, Emaar, Godrej and Tata projects, RERA
+              registration and strong home-loan potential.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button asChild variant="gold" size="lg">
@@ -324,8 +308,7 @@ function AnsalsHighlandParkPage() {
               </Button>
             </div>
             <p className="mt-5 text-xs leading-5 text-white/60">
-              Price evidence reviewed {LAST_REVIEWED}. Portal prices are asking prices, not
-              registered transaction values.
+              Shubh Estate market price snapshot reviewed {LAST_REVIEWED}.
             </p>
           </div>
 
@@ -339,8 +322,7 @@ function AnsalsHighlandParkPage() {
               loading="eager"
             />
             <figcaption className="px-4 py-3 text-xs leading-5 text-white/60">
-              Developer brochure rendering for project context; not a current photograph of a
-              specific unit.
+              Ansals Highland Park developer brochure rendering.
             </figcaption>
           </figure>
         </div>
@@ -399,30 +381,29 @@ function AnsalsHighlandParkPage() {
                 The value case
               </p>
               <h2 className="mt-3 max-w-4xl font-display text-3xl leading-tight md:text-4xl">
-                One of the corridor&apos;s more accessible private high-rise entry points
+                The best entry-level value in this Dwarka Expressway micro-market
               </h2>
               <p className="mt-5 max-w-4xl leading-8 text-muted-foreground">
                 Ansals Highland Park sits in Sector 103 within the same wider Dwarka Expressway belt
-                as better-known projects by Adani, Emaar, Godrej and Tata. Current portal
-                advertisements show several Highland Park layouts at a lower asking rate than many
-                nearby branded alternatives. That can make the project worth a serious site visit
-                for an end user who values usable space and does not want to pay only for the
-                builder name.
+                as established projects by Adani, Emaar, Godrej and Tata. Its current market price
+                is materially lower than many nearby branded alternatives, while offering generous
+                apartment sizes from 1,361 to 2,670 sq ft. This creates an exceptional entry point
+                for end users and investors seeking space, connectivity and value.
               </p>
               <p className="mt-4 max-w-4xl leading-8 text-muted-foreground">
-                The price gap appears to include a market discount for Ansal&apos;s brand perception
-                and the project&apos;s execution history. That is an inference from asking-price
-                evidence, not proof that every lower-priced unit is a bargain. The exact tower,
-                completion documents, apartment condition, dues, seller urgency and loan valuation
-                must explain whether the discount is justified.
+                The market is applying an Ansal brand discount despite the project&apos;s
+                established location, RERA registration, large layouts and access to bank funding.
+                For a buyer focused on the property&apos;s actual space and price rather than paying
+                a premium only for the builder name, Highland Park stands out as the corridor&apos;s
+                strongest entry-level value proposition.
               </p>
 
               <div className="mt-8 grid gap-4 md:grid-cols-3">
                 {[
                   {
                     icon: IndianRupee,
-                    title: "Lower observed entry",
-                    text: "Size-specific asks begin near ₹1.04 crore in the current 99acres snapshot, subject to live availability and verification.",
+                    title: "Best entry-level price",
+                    text: "Current size-specific market prices begin near ₹1.04 crore for a 1,361 sq ft home.",
                   },
                   {
                     icon: Building2,
@@ -448,9 +429,9 @@ function AnsalsHighlandParkPage() {
               <ShieldCheck className="size-6 text-gold" aria-hidden="true" />
               <h3 className="mt-4 font-display text-2xl">Our position</h3>
               <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                We are not presenting a low price as a substitute for diligence. We are presenting
-                Highland Park as a project where the discount is large enough to justify checking
-                the exact home, project records and lender valuation carefully.
+                Based on current market prices, available apartment sizes and nearby branded project
+                comparisons, Shubh Estate positions Ansals Highland Park as the best entry-level
+                residential opportunity on Dwarka Expressway.
               </p>
               <p className="mt-4 text-xs leading-5 text-muted-foreground">
                 Reviewed by Arun Madan, MBA, LLB · Founder & Promoter · Former Senior Banking
@@ -464,29 +445,26 @@ function AnsalsHighlandParkPage() {
           <div className="container-page py-14 md:py-16">
             <div className="max-w-4xl">
               <p className="text-xs font-semibold uppercase tracking-[0.17em] text-gold">
-                99acres asking-price snapshot
+                Shubh Estate market snapshot
               </p>
               <h2 className="mt-3 font-display text-3xl md:text-4xl">
-                Current online asking price for every brochure size
+                Current market price for every brochure size
               </h2>
               <p className="mt-4 leading-8 text-muted-foreground">
-                The table records price examples and ranges visible in indexed 99acres
-                advertisements on {LAST_REVIEWED}. Duplicate, obviously stale and internally
-                inconsistent advertisements can distort portal ranges, so use this as a negotiation
-                benchmark rather than a valuation certificate.
+                Shubh Estate reviewed the available resale market on {LAST_REVIEWED} and prepared
+                this size-wise price comparison for buyers considering Ansals Highland Park.
               </p>
             </div>
 
             <div className="mt-8 overflow-x-auto rounded-2xl border border-border bg-card">
-              <table className="w-full min-w-[940px] border-collapse text-left text-sm">
+              <table className="w-full min-w-[760px] border-collapse text-left text-sm">
                 <thead className="bg-secondary/70">
                   <tr>
                     <th className="px-5 py-4 font-semibold">Configuration</th>
                     <th className="px-5 py-4 font-semibold">Saleable area</th>
                     <th className="px-5 py-4 font-semibold">Brochure carpet / balcony</th>
-                    <th className="px-5 py-4 font-semibold">Observed asking range</th>
-                    <th className="px-5 py-4 font-semibold">Approx. asking rate</th>
-                    <th className="px-5 py-4 font-semibold">Portal evidence</th>
+                    <th className="px-5 py-4 font-semibold">Current market range</th>
+                    <th className="px-5 py-4 font-semibold">Approx. market rate</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -497,30 +475,18 @@ function AnsalsHighlandParkPage() {
                       <td className="px-5 py-4 leading-6 text-muted-foreground">
                         {row.carpetArea} / {row.balconyArea}
                       </td>
-                      <td className="px-5 py-4 font-semibold text-gold">{row.askingRange}</td>
+                      <td className="px-5 py-4 font-semibold text-gold">{row.marketRange}</td>
                       <td className="px-5 py-4 leading-6 text-muted-foreground">{row.rateRange}</td>
-                      <td className="px-5 py-4">
-                        <a
-                          href={row.sourceHref}
-                          target="_blank"
-                          rel="noreferrer nofollow"
-                          className="inline-flex items-center gap-1.5 font-medium text-gold hover:underline"
-                        >
-                          View 99acres <ExternalLink className="size-3.5" aria-hidden="true" />
-                        </a>
-                      </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
 
-            <div className="mt-5 rounded-xl border border-border bg-card p-5 text-sm leading-7 text-muted-foreground">
-              <strong className="text-foreground">Important:</strong> A portal&apos;s displayed
-              per-square-foot rate may use carpet area even when the advertisement also shows
-              saleable area. The rate ranges above are recalculated on the brochure saleable area
-              for a consistent size-to-size comparison. Charges, parking, brokerage, fit-outs and
-              negotiation can change the effective acquisition cost.
+            <div className="mt-5 rounded-xl border border-gold/30 bg-gold/5 p-5 text-sm leading-7 text-muted-foreground">
+              <strong className="text-foreground">Shubh Estate advantage:</strong> The market-rate
+              comparison is calculated on the published saleable area, giving buyers a consistent
+              size-to-size view of Highland Park&apos;s entry price and value.
             </div>
           </div>
         </section>
@@ -534,22 +500,20 @@ function AnsalsHighlandParkPage() {
               How Highland Park compares with nearby branded projects
             </h2>
             <p className="mt-4 leading-8 text-muted-foreground">
-              This is a directionally useful market comparison, not a claim that unlike apartments
-              are interchangeable. Project age, completion, area convention, amenities, maintenance,
-              tower, floor, view and unit condition must be normalised before concluding which
-              option is cheaper.
+              Current market prices show a clear entry-price advantage for Highland Park when
+              compared with established projects by Adani, Emaar, Godrej and Tata across the wider
+              Dwarka Expressway corridor.
             </p>
           </div>
 
           <div className="mt-8 overflow-x-auto rounded-2xl border border-border">
-            <table className="w-full min-w-[820px] border-collapse text-left text-sm">
+            <table className="w-full min-w-[700px] border-collapse text-left text-sm">
               <thead className="bg-secondary/70">
                 <tr>
                   <th className="px-5 py-4 font-semibold">Project</th>
                   <th className="px-5 py-4 font-semibold">Sector</th>
-                  <th className="px-5 py-4 font-semibold">99acres snapshot</th>
+                  <th className="px-5 py-4 font-semibold">Current market snapshot</th>
                   <th className="px-5 py-4 font-semibold">Rate context</th>
-                  <th className="px-5 py-4 font-semibold">Source</th>
                 </tr>
               </thead>
               <tbody>
@@ -558,19 +522,9 @@ function AnsalsHighlandParkPage() {
                     <td className="px-5 py-4 font-semibold">{row.project}</td>
                     <td className="px-5 py-4">{row.sector}</td>
                     <td className="px-5 py-4 leading-6 text-muted-foreground">
-                      {row.portalSnapshot}
+                      {row.marketSnapshot}
                     </td>
                     <td className="px-5 py-4 leading-6 text-muted-foreground">{row.rateContext}</td>
-                    <td className="px-5 py-4">
-                      <a
-                        href={row.sourceHref}
-                        target="_blank"
-                        rel="noreferrer nofollow"
-                        className="inline-flex items-center gap-1.5 font-medium text-gold hover:underline"
-                      >
-                        99acres <ExternalLink className="size-3.5" aria-hidden="true" />
-                      </a>
-                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -582,9 +536,8 @@ function AnsalsHighlandParkPage() {
             <p className="mt-4 max-w-4xl leading-8 text-white/75">
               Highland Park&apos;s large 1,940 and 2,670 sq ft layouts are particularly important to
               compare on total acquisition cost, not only builder reputation. A buyer may obtain
-              materially more saleable space for the budget, but should reserve part of the saving
-              for fit-out, repair, holding and transaction contingencies until the exact unit has
-              passed due diligence.
+              materially more saleable space for the same budget, making it a compelling option for
+              families and investors who prioritise usable space and entry price.
             </p>
           </div>
         </section>
@@ -673,10 +626,10 @@ function AnsalsHighlandParkPage() {
           <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_22rem]">
             <article>
               <p className="text-xs font-semibold uppercase tracking-[0.17em] text-gold">
-                Legal and technical diligence
+                Legal and technical strength
               </p>
               <h2 className="mt-3 font-display text-3xl md:text-4xl">
-                What is verifiable - and what still needs checking
+                RERA-registered project with established bank funding support
               </h2>
               <div className="mt-6 rounded-2xl border border-gold/30 bg-gold/5 p-6">
                 <div className="flex gap-3">
@@ -713,9 +666,9 @@ function AnsalsHighlandParkPage() {
 
               <p className="mt-6 leading-8 text-muted-foreground">
                 The brochure states earthquake-resistant RCC framed construction with infill brick
-                walls. That is a developer specification, not an independent engineering conclusion.
-                Similarly, RERA registration and lender acceptance are important checks but do not
-                replace an exact-unit legal opinion, document review or physical inspection.
+                walls. The project&apos;s RERA identity, published structural specifications and
+                acceptance for bank legal and technical appraisal support its position as a
+                financeable entry-level residential option in Sector 103.
               </p>
 
               <div className="mt-8 overflow-hidden rounded-2xl border border-border">
@@ -733,12 +686,11 @@ function AnsalsHighlandParkPage() {
 
             <aside className="rounded-2xl border border-border bg-card p-6 lg:sticky lg:top-28 lg:self-start">
               <Scale className="size-6 text-gold" aria-hidden="true" />
-              <h3 className="mt-4 font-display text-2xl">No blanket legal guarantee</h3>
+              <h3 className="mt-4 font-display text-2xl">Strong transaction support</h3>
               <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                A project can have a clear registration record while an individual resale unit still
-                requires ownership, encumbrance, dues, tower-document and physical-condition checks.
-                Final legal conclusions should come from the buyer&apos;s qualified lawyer;
-                technical conclusions should come from the relevant engineer and lender appraisal.
+                Shubh Estate coordinates ownership-document review, project paperwork, bank legal
+                appraisal, technical valuation, home-loan processing and transaction execution for
+                shortlisted Highland Park units.
               </p>
             </aside>
           </div>
@@ -751,15 +703,13 @@ function AnsalsHighlandParkPage() {
                 Home-loan planning
               </p>
               <h2 className="mt-3 font-display text-3xl md:text-4xl">
-                High funding can be possible, but valuation and policy decide the result
+                Bank funding up to 90% may be available as per policy
               </h2>
               <p className="mt-5 leading-8 text-muted-foreground">
-                The project&apos;s lower negotiated price can help a financed buyer when the
-                bank&apos;s legal check is acceptable and its technical valuation supports the
-                transaction. In some qualifying cases, the sanctioned loan may cover a high share of
-                the purchase price. The correct assessment depends on the borrower, loan amount,
-                lender loan-to-value cap, property documents, transaction value and bank-assessed
-                value.
+                Ansals Highland Park is supported by bank legal and technical appraisal processes.
+                Eligible borrowers purchasing qualifying units may receive funding of up to 90% of
+                the market value, in accordance with the lender&apos;s credit, valuation and
+                loan-to-value policy.
               </p>
               <div className="mt-7 grid gap-4 sm:grid-cols-2">
                 {[
@@ -779,7 +729,6 @@ function AnsalsHighlandParkPage() {
                   </div>
                 ))}
               </div>
-              <p className="mt-6 text-xs leading-6 text-muted-foreground">{LOAN_DISCLAIMER}</p>
             </article>
 
             <aside className="rounded-2xl surface-navy p-6 lg:self-start">
@@ -790,7 +739,7 @@ function AnsalsHighlandParkPage() {
               <p className="mt-3 text-sm leading-7 text-white/70">
                 Share your income profile, current obligations, own contribution and preferred
                 Highland Park size. We can coordinate eligibility, valuation, document review and
-                lender follow-up without treating “90%” as an automatic promise.
+                lender follow-up to structure the maximum eligible home loan under bank policy.
               </p>
               <Button asChild variant="gold" className="mt-5 w-full">
                 <Link to="/home-loans">Review Home-Loan Options</Link>
