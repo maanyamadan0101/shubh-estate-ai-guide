@@ -16,7 +16,7 @@ const STATIC_PATHS: StaticPath[] = [
   { path: "/sell-property-gurgaon", priority: "0.9", lastmod: "2026-08-25" },
   { path: "/rent-out-property-in-gurgaon", priority: "0.9", lastmod: "2026-08-25" },
   { path: "/mandate-to-sell-property-in-gurgaon", priority: "0.9", lastmod: "2026-08-25" },
-  { path: "/projects", priority: "0.9", lastmod: "2026-08-24" },
+  { path: "/projects", priority: "0.9", lastmod: "2026-08-25" },
   { path: "/blog", priority: "0.9", lastmod: "2026-08-20" },
   {
     path: "/blog/gurgaon-property-due-diligence-checklist-2026",
@@ -57,6 +57,11 @@ const STATIC_PATHS: StaticPath[] = [
     path: "/projects/dlf-the-arbour-sector-63-gurgaon",
     priority: "0.9",
     lastmod: "2026-08-24",
+  },
+  {
+    path: "/projects/godrej-sora-sector-53-gurgaon",
+    priority: "0.9",
+    lastmod: "2026-08-25",
   },
   {
     path: "/projects/m3m-golf-hills-sector-79-gurgaon",
