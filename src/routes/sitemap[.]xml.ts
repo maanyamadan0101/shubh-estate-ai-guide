@@ -10,8 +10,11 @@ type StaticPath = {
 };
 
 const STATIC_PATHS: StaticPath[] = [
-  { path: "/", priority: "1.0" },
+  { path: "/", priority: "1.0", lastmod: "2026-08-25" },
   { path: "/flats-for-sale-in-gurgaon", priority: "0.9", lastmod: "2026-08-24" },
+  { path: "/sell-property-gurgaon", priority: "0.9", lastmod: "2026-08-25" },
+  { path: "/rent-out-property-in-gurgaon", priority: "0.9", lastmod: "2026-08-25" },
+  { path: "/mandate-to-sell-property-in-gurgaon", priority: "0.9", lastmod: "2026-08-25" },
   { path: "/projects", priority: "0.9", lastmod: "2026-08-24" },
   { path: "/blog", priority: "0.9", lastmod: "2026-08-20" },
   {
@@ -94,7 +97,6 @@ const STATIC_PATHS: StaticPath[] = [
   { path: "/apartments-for-sale-dlf-phase-1-gurgaon", priority: "0.7" },
   { path: "/higher-floor-apartments-golf-course-extension-road", priority: "0.7" },
   { path: "/senior-citizen-housing-gurgaon", priority: "0.7" },
-  { path: "/sell-property-gurgaon", priority: "0.8" },
   { path: "/nri-sell-property-gurgaon", priority: "0.8" },
   { path: "/nri", priority: "0.8" },
   { path: "/nri/usa", priority: "0.8" },
