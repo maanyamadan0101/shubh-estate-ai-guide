@@ -11,7 +11,7 @@ import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 import { ImageManager, type ManagedImage } from "@/components/admin/ImageManager";
 import { VideoManager } from "@/components/admin/VideoManager";
-import { savePropertyDraft } from "@/lib/admin.functions";
+import { findPotentialPropertyDuplicates, savePropertyDraft } from "@/lib/admin.functions";
 import {
   buildCanonical,
   buildImageAlt,
@@ -19,6 +19,7 @@ import {
   buildOgTitle,
   buildSeoTitle,
   buildSlug,
+  listingReference,
   PROPERTY_TYPE_LABEL,
   type SeoSource,
 } from "@/lib/seo";
@@ -155,6 +156,7 @@ export function PropertyForm({
   const [saving, setSaving] = useState(false);
   const navigate = useNavigate();
   const save = useServerFn(savePropertyDraft);
+  const checkDuplicates = useServerFn(findPotentialPropertyDuplicates);
 
   const set = <K extends keyof PropertyFormValues>(key: K, value: PropertyFormValues[K]) =>
     setValues((prev) => ({ ...prev, [key]: value }));
@@ -175,6 +177,8 @@ export function PropertyForm({
       city: values.city,
       price: num(values.price),
       areaSqft: num(values.area_sqft),
+      floorNumber: num(values.floor_number),
+      facing: values.facing,
       description: values.description,
     }),
     [values, projectName, builderName],
@@ -188,28 +192,75 @@ export function PropertyForm({
       return null;
     }
 
-    const slug = merged.id && merged.slug.trim() ? merged.slug.trim() : buildSlug(seoSource);
+    const mergedSeoSource: SeoSource = {
+      ...seoSource,
+      title: merged.title,
+      bhk: merged.bhk,
+      propertyType: merged.property_type,
+      listingType: merged.listing_type,
+      projectName: projects.find((p) => p.id === merged.project_id)?.name ?? null,
+      builderName: builders.find((b) => b.id === merged.builder_id)?.name ?? null,
+      sector: merged.sector,
+      locality: merged.locality,
+      city: merged.city,
+      price: num(merged.price),
+      areaSqft: num(merged.area_sqft),
+      floorNumber: num(merged.floor_number),
+      facing: merged.facing,
+      description: merged.description,
+    };
+
+    const slug = merged.id && merged.slug.trim() ? merged.slug.trim() : buildSlug(mergedSeoSource);
     const publishing = merged.is_published;
     const metaTitle = publishing
-      ? buildSeoTitle(seoSource)
-      : merged.meta_title || buildSeoTitle(seoSource);
+      ? buildSeoTitle(mergedSeoSource)
+      : merged.meta_title || buildSeoTitle(mergedSeoSource);
     const metaDescription = publishing
-      ? buildMetaDescription(seoSource)
-      : merged.meta_description || buildMetaDescription(seoSource);
+      ? buildMetaDescription(mergedSeoSource)
+      : merged.meta_description || buildMetaDescription(mergedSeoSource);
     const ogTitle = publishing
-      ? buildOgTitle(seoSource)
-      : merged.og_title || buildOgTitle(seoSource);
+      ? buildOgTitle(mergedSeoSource)
+      : merged.og_title || buildOgTitle(mergedSeoSource);
     const ogDescription = publishing
-      ? buildMetaDescription(seoSource)
-      : merged.og_description || buildMetaDescription(seoSource);
+      ? buildMetaDescription(mergedSeoSource)
+      : merged.og_description || buildMetaDescription(mergedSeoSource);
     const canonicalUrl = buildCanonical(slug);
     const imagesWithAlt = merged.images.map((image, index) => ({
       ...image,
-      alt_text: image.alt_text || buildImageAlt(seoSource, index),
+      alt_text: image.alt_text || buildImageAlt(mergedSeoSource, index),
     }));
 
     setSaving(true);
     try {
+      if (!merged.id && publishing) {
+        const duplicateResult = await checkDuplicates({
+          data: {
+            id: null,
+            listing_type: merged.listing_type,
+            property_type: merged.property_type,
+            bhk: merged.bhk || null,
+            project_id: merged.project_id,
+            sector: merged.sector || null,
+            area_sqft: num(merged.area_sqft),
+            floor_number: num(merged.floor_number),
+            facing: merged.facing || null,
+          },
+        });
+
+        if (duplicateResult.candidates.length) {
+          const summary = duplicateResult.candidates
+            .map((candidate) => `${candidate.reference}: ${candidate.title} (${candidate.reasons.join(", ")})`)
+            .join("\n");
+          const proceed = window.confirm(
+            `Possible duplicate property found:\n\n${summary}\n\nIf this is a genuinely different physical unit, press OK to create it with its own permanent URL. Otherwise press Cancel and update the existing listing.`,
+          );
+          if (!proceed) {
+            toast.warning("Publishing cancelled so you can review the existing property listing.");
+            return null;
+          }
+        }
+      }
+
       const result = await save({
         data: {
           id: merged.id,
@@ -567,8 +618,15 @@ export function PropertyForm({
               </ul>
               <p className="mt-3 text-xs text-muted-foreground">
                 SEO title, search description, URL, canonical URL and missing image ALT text are
-                generated automatically when you publish.
+                generated automatically when you publish. New URLs use project, configuration,
+                size, floor and facing where available; meaningless -2/-3 suffixes are not the
+                normal collision strategy.
               </p>
+              {values.id ? (
+                <p className="mt-2 text-xs font-medium text-foreground">
+                  Permanent listing reference: {listingReference(values.id)} · Public URL: /property/{values.slug}
+                </p>
+              ) : null}
             </div>
             <Label htmlFor="description">Property description</Label>
             <Textarea
@@ -654,7 +712,7 @@ export function PropertyForm({
             onClick={() => {
               void persist({ is_published: true }).then((r) => {
                 if (r) {
-                  toast.success("Property published with SEO updated");
+                  toast.success(`Property published · ${r.reference}`);
                   void navigate({ to: "/property/$slug", params: { slug: r.slug } });
                 }
               });
