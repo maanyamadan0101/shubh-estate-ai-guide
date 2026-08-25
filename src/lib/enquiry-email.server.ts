@@ -1,7 +1,7 @@
 type EnquiryEmailInput = {
   enquiryId?: string | null;
   reference?: string | null;
-  category: "seller_submission" | "contact" | "property_enquiry";
+  category: "seller_submission" | "rent_out" | "selling_mandate" | "contact" | "property_enquiry";
   fullName: string;
   phone: string;
   email?: string | null;
@@ -32,7 +32,9 @@ function row(label: string, value?: string | null) {
 }
 
 function categoryLabel(category: EnquiryEmailInput["category"]) {
-  if (category === "seller_submission") return "New Private Seller Submission";
+  if (category === "seller_submission") return "New Property Seller Enquiry";
+  if (category === "rent_out") return "New Rent-Out / Tenant Placement Enquiry";
+  if (category === "selling_mandate") return "New Property Selling Mandate Enquiry";
   if (category === "property_enquiry") return "New Property Enquiry";
   return "New Website Enquiry";
 }
@@ -72,7 +74,7 @@ export async function sendEnquiryNotification(input: EnquiryEmailInput) {
           ${row("Requirement", input.interest)}
           ${row("Project / Property", input.project)}
           ${row("Sector / Locality", input.sector)}
-          ${row("Expected price", input.expectedPrice)}
+          ${row("Expected price / rent", input.expectedPrice)}
           ${row("Property ID", input.propertyId)}
           ${row("Source", input.source)}
           ${row("Reference", input.reference)}
