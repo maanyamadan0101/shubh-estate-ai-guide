@@ -87,6 +87,11 @@ const STATIC_PATHS: StaticPath[] = [
     priority: "0.9",
     lastmod: "2026-08-21",
   },
+  {
+    path: "/3-bhk-builder-floor-for-sale-vatika-inxt-floors-sector-82a-gurgaon",
+    priority: "0.9",
+    lastmod: "2026-08-25",
+  },
   { path: "/property-sector-79-gurgaon", priority: "0.8" },
   { path: "/property-sector-62-gurgaon", priority: "0.8", lastmod: "2026-08-23" },
   { path: "/property-sector-60-gurgaon", priority: "0.8", lastmod: "2026-08-23" },
