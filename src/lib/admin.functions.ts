@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
-import { buildCanonical } from "@/lib/seo";
+import { buildCanonical, listingReference, listingReferenceSlug, slugify } from "@/lib/seo";
 
 /** Grants the admin role to the first signed-in user when no admin exists yet. */
 export const bootstrapAdmin = createServerFn({ method: "POST" })
@@ -99,6 +99,81 @@ export const listTaxonomy = createServerFn({ method: "GET" })
     return { builders: builders ?? [], projects: projects ?? [] };
   });
 
+const duplicateCheckSchema = z.object({
+  id: z.string().uuid().nullable().optional(),
+  listing_type: z.enum(["sale", "rent"]),
+  property_type: z.enum(["apartment", "builder_floor", "villa", "plot", "commercial", "office", "retail"]),
+  bhk: z.string().max(40).nullable(),
+  project_id: z.string().uuid().nullable(),
+  sector: z.string().max(80).nullable(),
+  area_sqft: z.number().nonnegative().nullable(),
+  floor_number: z.number().int().nullable(),
+  facing: z.string().max(40).nullable(),
+});
+
+export const findPotentialPropertyDuplicates = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input: unknown) => duplicateCheckSchema.parse(input))
+  .handler(async ({ context, data }) => {
+    let query = context.supabase
+      .from("properties")
+      .select("id,title,slug,bhk,project_id,sector,area_sqft,floor_number,facing,listing_type,property_type,is_published")
+      .eq("listing_type", data.listing_type)
+      .eq("property_type", data.property_type)
+      .limit(20);
+
+    if (data.id) query = query.neq("id", data.id);
+    if (data.project_id) query = query.eq("project_id", data.project_id);
+    else if (data.sector) query = query.ilike("sector", data.sector);
+
+    const { data: rows, error } = await query;
+    if (error) throw new Error(error.message);
+
+    const norm = (value: string | null | undefined) => value?.trim().toLowerCase() ?? "";
+    const candidates = (rows ?? [])
+      .map((row) => {
+        let score = 0;
+        const reasons: string[] = [];
+        if (data.project_id && row.project_id === data.project_id) {
+          score += 3;
+          reasons.push("same project");
+        } else if (data.sector && norm(row.sector) === norm(data.sector)) {
+          score += 2;
+          reasons.push("same sector");
+        }
+        if (data.bhk && norm(row.bhk) === norm(data.bhk)) {
+          score += 2;
+          reasons.push("same configuration");
+        }
+        if (data.area_sqft && row.area_sqft && Math.abs(Number(row.area_sqft) - data.area_sqft) <= 10) {
+          score += 2;
+          reasons.push("same area");
+        }
+        if (data.floor_number !== null && data.floor_number !== undefined && row.floor_number === data.floor_number) {
+          score += 2;
+          reasons.push("same floor");
+        }
+        if (data.facing && norm(row.facing) === norm(data.facing)) {
+          score += 1;
+          reasons.push("same facing");
+        }
+        return {
+          id: row.id,
+          title: row.title,
+          slug: row.slug,
+          reference: listingReference(row.id),
+          is_published: row.is_published,
+          score,
+          reasons,
+        };
+      })
+      .filter((candidate) => candidate.score >= 5)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 5);
+
+    return { candidates };
+  });
+
 const propertySchema = z.object({
   id: z.string().uuid().nullable().optional(),
   title: z.string().trim().min(3).max(160),
@@ -154,15 +229,18 @@ export const savePropertyDraft = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => propertySchema.parse(input))
   .handler(async ({ context, data }) => {
     const { id, amenities, features, videos, images, ...fields } = data;
+    const propertyId = id ?? crypto.randomUUID();
 
-    const baseSlug = fields.slug.replace(/-+$/g, "").slice(0, 120);
+    const baseSlug = slugify(fields.slug.replace(/-+$/g, "")).slice(0, 120);
+    if (!baseSlug) throw new Error("Could not create a property URL. Please add more property details and try again.");
+
+    const stableSuffix = listingReferenceSlug(propertyId);
+    const candidates = [baseSlug, `${baseSlug.slice(0, 120 - stableSuffix.length - 1)}-${stableSuffix}`];
     let uniqueSlug = "";
 
-    for (let suffix = 1; suffix <= 99; suffix += 1) {
-      const suffixText = suffix === 1 ? "" : `-${suffix}`;
-      const candidate = `${baseSlug.slice(0, 120 - suffixText.length)}${suffixText}`;
+    for (const candidate of candidates) {
       let conflictQuery = context.supabase.from("properties").select("id").eq("slug", candidate).limit(1);
-      if (id) conflictQuery = conflictQuery.neq("id", id);
+      conflictQuery = conflictQuery.neq("id", propertyId);
       const { data: conflicts, error: conflictError } = await conflictQuery;
       if (conflictError) throw new Error(conflictError.message);
       if (!conflicts?.length) {
@@ -172,7 +250,7 @@ export const savePropertyDraft = createServerFn({ method: "POST" })
     }
 
     if (!uniqueSlug) {
-      throw new Error("Could not create a unique property URL. Please change the property title slightly and try again.");
+      throw new Error("Could not create a unique property URL. Please add a distinguishing floor, area, facing or project detail and try again.");
     }
 
     const normalizedFields = {
@@ -182,25 +260,21 @@ export const savePropertyDraft = createServerFn({ method: "POST" })
     };
     const row = { ...normalizedFields } as never;
 
-    let propertyId = id ?? null;
-    if (propertyId) {
+    if (id) {
       const { error } = await context.supabase.from("properties").update(row).eq("id", propertyId);
       if (error) throw new Error(error.message);
     } else {
-      const { data: inserted, error } = await context.supabase
+      const { error } = await context.supabase
         .from("properties")
-        .insert({ ...normalizedFields, created_by: context.userId } as never)
-        .select("id")
-        .single();
+        .insert({ id: propertyId, ...normalizedFields, created_by: context.userId } as never);
       if (error) throw new Error(error.message);
-      propertyId = inserted.id;
     }
 
-    await context.supabase.from("property_images").delete().eq("property_id", propertyId!);
+    await context.supabase.from("property_images").delete().eq("property_id", propertyId);
     if (images.length) {
       const { error } = await context.supabase.from("property_images").insert(
         images.map((img, i) => ({
-          property_id: propertyId!,
+          property_id: propertyId,
           image_url: img.image_url,
           alt_text: img.alt_text,
           sort_order: i,
@@ -210,18 +284,18 @@ export const savePropertyDraft = createServerFn({ method: "POST" })
       if (error) throw new Error(error.message);
     }
 
-    await context.supabase.from("property_features").delete().eq("property_id", propertyId!);
+    await context.supabase.from("property_features").delete().eq("property_id", propertyId);
     const featureRows = [
-      ...amenities.map((name) => ({ property_id: propertyId!, feature_name: name, category: "amenity" })),
-      ...features.map((name) => ({ property_id: propertyId!, feature_name: name, category: "feature" })),
-      ...videos.map((url) => ({ property_id: propertyId!, feature_name: url, category: "video" })),
+      ...amenities.map((name) => ({ property_id: propertyId, feature_name: name, category: "amenity" })),
+      ...features.map((name) => ({ property_id: propertyId, feature_name: name, category: "feature" })),
+      ...videos.map((url) => ({ property_id: propertyId, feature_name: url, category: "video" })),
     ];
     if (featureRows.length) {
       const { error } = await context.supabase.from("property_features").insert(featureRows);
       if (error) throw new Error(error.message);
     }
 
-    return { id: propertyId!, slug: uniqueSlug };
+    return { id: propertyId, slug: uniqueSlug, reference: listingReference(propertyId) };
   });
 
 export const setPropertyState = createServerFn({ method: "POST" })
