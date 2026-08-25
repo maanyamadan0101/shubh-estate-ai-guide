@@ -1,35 +1,48 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowUpRight, Building2, Globe2, Landmark, Upload } from "lucide-react";
+import { ArrowUpRight, Building2, Globe2, Handshake, KeyRound, Landmark, Upload } from "lucide-react";
 
 const ACTIONS = [
   {
-    label: "Browse Verified Properties",
-    body: "Compare luxury homes, residential apartments and sector-specific listings with realistic price context—not inflated asking-price claims.",
-    eyebrow: "HOMEBUYERS",
+    label: "Buy Property in Gurgaon",
+    body: "Browse verified resale, ready-to-move, new-launch and under-construction options with price, location and transaction context.",
+    eyebrow: "BUYERS",
     icon: Building2,
     to: "/flats-for-sale-in-gurgaon",
-    search: { purpose: "sale" },
   },
   {
-    label: "NRI Property Selling & Remote Services",
-    body: "POA assistance, tenant coordination, local property oversight and remote resale execution for owners living outside Gurugram or overseas.",
-    eyebrow: "NRI & REMOTE OWNERS",
-    icon: Globe2,
-    to: "/nri-sell-property-gurgaon",
+    label: "Sell Property in Gurgaon",
+    body: "Start with valuation, pricing, listing preparation, buyer screening, negotiation and transaction coordination.",
+    eyebrow: "SELLERS",
+    icon: Upload,
+    to: "/sell-property-gurgaon",
+  },
+  {
+    label: "Rent Out Your Property",
+    body: "Request a market-rent assessment, tenant search, viewing coordination and rental transaction support.",
+    eyebrow: "LANDLORDS",
+    icon: KeyRound,
+    to: "/rent-out-property-in-gurgaon",
+  },
+  {
+    label: "Give a Selling Mandate",
+    body: "Appoint one accountable advisor for coordinated pricing, marketing, qualified-buyer screening, visits and negotiation.",
+    eyebrow: "PROPERTY OWNERS",
+    icon: Handshake,
+    to: "/mandate-to-sell-property-in-gurgaon",
   },
   {
     label: "Home Loan & Mortgage Structuring",
-    body: "Integrated loan coordination, valuation analysis, balance transfer, property-debt takeover and eligible overdraft structuring.",
-    eyebrow: "FINANCIALLY FOCUSED BUYERS",
+    body: "Coordinate eligibility, valuation, loan structuring, balance transfer, takeover and eligible overdraft-linked options.",
+    eyebrow: "FINANCING",
     icon: Landmark,
     to: "/home-loans",
   },
   {
-    label: "Post Your Property",
-    body: "Receive a practical property assessment, transparent price benchmarks and seller due-diligence coordination before marketing begins.",
-    eyebrow: "SELLERS",
-    icon: Upload,
-    to: "/seller-submit",
+    label: "Managing Property Remotely?",
+    body: "Owners outside Gurgaon can use WhatsApp, email and video consultation for sale, rent-out or property coordination without a separate country journey.",
+    eyebrow: "REMOTE OWNERS",
+    icon: Globe2,
+    to: "/property-services-gurgaon",
   },
 ] as const;
 
@@ -41,11 +54,10 @@ export function HomeActionPanel() {
           <div>
             <p className="eyebrow">Start here</p>
             <h2 id="start-here-title" className="mt-3 font-display text-3xl md:text-4xl">
-              Choose the property outcome you need
+              Choose the Gurgaon property outcome you need
             </h2>
             <p className="mt-3 max-w-2xl text-sm leading-6 text-muted-foreground md:text-base">
-              Go directly to the relevant advisory path—without navigating a crowded property portal
-              or sitting through an aggressive sales pitch.
+              Buy, sell, rent out or appoint a selling representative in Gurgaon (Gurugram). The same core advisory pages remain accessible whether you are in Gurgaon, elsewhere in India or overseas.
             </p>
           </div>
           <span className="hidden text-right text-xs font-semibold uppercase leading-5 tracking-[0.16em] text-muted-foreground sm:block">
@@ -61,14 +73,13 @@ export function HomeActionPanel() {
         >
           <div>
             <p className="text-[0.65rem] font-bold uppercase tracking-[0.18em] text-gold">
-              LIVE DWARKA EXPRESSWAY INVENTORY
+              DWARKA EXPRESSWAY INVENTORY
             </p>
             <h3 className="mt-2 font-display text-2xl text-foreground">
-              37 flats for sale across 13 Dwarka Expressway project groups
+              Compare flats for sale across key Dwarka Expressway project groups
             </h3>
             <p className="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground">
-              Compare current resale and selected under-construction options in Sectors 99–111,
-              including Puri Emerald Bay, ATS Triumph, Godrej Meridien, Sobha City, Hero Homes and more.
+              Review current resale and selected under-construction opportunities by project, sector, configuration and asking-price context.
             </p>
           </div>
           <span className="inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-gold">
@@ -77,13 +88,12 @@ export function HomeActionPanel() {
           </span>
         </Link>
 
-        <div className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {ACTIONS.map(({ label, body, eyebrow, icon: Icon, to, ...action }) => (
+        <div className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {ACTIONS.map(({ label, body, eyebrow, icon: Icon, to }) => (
             <Link
               key={label}
               to={to}
-              {...("search" in action ? { search: action.search } : {})}
-              className="group relative min-h-[250px] overflow-hidden rounded-2xl border border-border bg-card p-6 text-navy shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-gold/60 hover:shadow-[var(--shadow-elegant)]"
+              className="group relative min-h-[235px] overflow-hidden rounded-2xl border border-border bg-card p-6 text-navy shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-gold/60 hover:shadow-[var(--shadow-elegant)]"
             >
               <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-gold via-gold/55 to-transparent" />
               <div className="flex items-start justify-between gap-4">
@@ -95,7 +105,6 @@ export function HomeActionPanel() {
                   aria-hidden="true"
                 />
               </div>
-
               <p className="mt-6 text-[0.65rem] font-bold tracking-[0.18em] text-gold">{eyebrow}</p>
               <h3 className="mt-2 font-display text-xl leading-tight">{label}</h3>
               <p className="mt-3 text-sm leading-6 text-muted-foreground">{body}</p>
@@ -104,8 +113,7 @@ export function HomeActionPanel() {
         </div>
 
         <p className="mt-5 text-xs leading-5 text-muted-foreground">
-          Seller submissions remain private and are visible only to the Shubh Estate Brokers team
-          until reviewed and approved for marketing.
+          Owner enquiries remain private. Contact details and property documents are not automatically published as buyer-facing property listings.
         </p>
       </div>
     </section>
