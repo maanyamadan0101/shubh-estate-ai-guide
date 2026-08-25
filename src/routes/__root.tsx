@@ -97,6 +97,7 @@ const localBusinessSchema = {
   telephone: ["+919911050561", "+918130785000"],
   email: CONTACT.email,
   url: SITE_ORIGIN,
+  logo: `${SITE_ORIGIN}/shubh-estate-logo.png`,
   sameAs: [CONTACT.googleBusinessProfile, CONTACT.instagram, CONTACT.youtube],
   hasMap: CONTACT.googleBusinessProfile,
   contactPoint: {
@@ -217,7 +218,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Marcellus&family=Inter:wght@400;500;600&display=swap",
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", href: "/shubh-estate-logo.png", type: "image/png" },
+      { rel: "apple-touch-icon", href: "/shubh-estate-logo.png" },
     ],
     scripts: [
       { async: true, src: `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}` },
