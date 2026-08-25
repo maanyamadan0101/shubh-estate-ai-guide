@@ -12,6 +12,8 @@ let serverEntryPromise: Promise<ServerEntry> | undefined;
 const CANONICAL_PATH_REDIRECTS: Record<string, string> = {
   "/sell-property-in-gurgaon": "/sell-property-gurgaon",
   "/property-for-sale-in-gurgaon": "/flats-for-sale-in-gurgaon",
+  "/properties": "/flats-for-sale-in-gurgaon",
+  "/property-valuation-gurgaon": "/property-services-gurgaon",
   "/home-loan": "/home-loans",
 };
 
