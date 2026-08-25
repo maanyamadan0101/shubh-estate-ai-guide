@@ -10,6 +10,15 @@ const enquirySchema = z.object({
   interest: z.string().trim().max(200).default("Property enquiry"),
   source: z.enum(["contact_page", "property_enquiry", "general_enquiry"]).default("general_enquiry"),
   property_id: z.string().trim().max(100).nullable().optional(),
+  lead_category: z.string().trim().max(50).default("general"),
+  current_page: z.string().trim().max(240).default(""),
+  landing_page: z.string().trim().max(240).default(""),
+  referrer: z.string().trim().max(240).default(""),
+  utm_source: z.string().trim().max(100).default(""),
+  utm_medium: z.string().trim().max(100).default(""),
+  utm_campaign: z.string().trim().max(150).default(""),
+  utm_term: z.string().trim().max(150).default(""),
+  utm_content: z.string().trim().max(150).default(""),
   website: z.string().max(200).default(""),
 });
 
@@ -21,6 +30,23 @@ function json(body: unknown, status = 200) {
       "cache-control": "no-store",
     },
   });
+}
+
+function attributionReference(input: z.infer<typeof enquirySchema>) {
+  return [
+    input.lead_category ? `Lead category: ${input.lead_category}` : "",
+    input.current_page ? `Enquiry page: ${input.current_page}` : "",
+    input.landing_page ? `Landing page: ${input.landing_page}` : "",
+    input.referrer ? `Referrer: ${input.referrer}` : "",
+    input.utm_source ? `UTM source: ${input.utm_source}` : "",
+    input.utm_medium ? `UTM medium: ${input.utm_medium}` : "",
+    input.utm_campaign ? `UTM campaign: ${input.utm_campaign}` : "",
+    input.utm_term ? `UTM term: ${input.utm_term}` : "",
+    input.utm_content ? `UTM content: ${input.utm_content}` : "",
+  ]
+    .filter(Boolean)
+    .join(" | ")
+    .slice(0, 1500);
 }
 
 export const Route = createFileRoute("/api/enquiry")({
@@ -61,6 +87,7 @@ export const Route = createFileRoute("/api/enquiry")({
             interest: input.interest || null,
             source: input.source,
             propertyId: input.property_id || null,
+            reference: attributionReference(input) || null,
             message: input.message || null,
           });
 
