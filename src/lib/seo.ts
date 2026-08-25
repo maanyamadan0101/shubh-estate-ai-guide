@@ -7,7 +7,7 @@ export function slugify(input: string): string {
     .normalize("NFKD")
     .replace(/[^\p{L}\p{N}]+/gu, "-")
     .replace(/^-+|-+$/g, "")
-    .slice(0, 90);
+    .slice(0, 110);
 }
 
 export function formatINR(value: number | null | undefined): string {
@@ -51,6 +51,8 @@ export type SeoSource = {
   city?: string | null;
   price?: number | null;
   areaSqft?: number | null;
+  floorNumber?: number | null;
+  facing?: string | null;
   description?: string | null;
 };
 
@@ -62,10 +64,30 @@ function parts(s: SeoSource) {
   return { type, place, city, searchCity };
 }
 
+/**
+ * Builds the normal public inventory slug from stable, meaningful attributes.
+ * Price is intentionally excluded because asking prices change. New listings
+ * should not rely on meaningless -2/-3 collision suffixes; the save layer uses
+ * the permanent SEB listing reference only when two genuine units still collide.
+ */
 export function buildSlug(s: SeoSource): string {
   const { type, searchCity } = parts(s);
+  const area = s.areaSqft ? `${Math.round(s.areaSqft)} sq ft` : null;
+  const floor = s.floorNumber !== null && s.floorNumber !== undefined ? `${s.floorNumber} floor` : null;
+  const facing = s.facing ? `${s.facing} facing` : null;
   return slugify(
-    [s.bhk, s.projectName || s.title, type, s.sector, searchCity].filter(Boolean).join(" "),
+    [
+      s.projectName || s.title,
+      s.sector,
+      s.bhk,
+      type,
+      area,
+      floor,
+      facing,
+      searchCity,
+    ]
+      .filter(Boolean)
+      .join(" "),
   );
 }
 
@@ -84,6 +106,8 @@ export function buildMetaDescription(s: SeoSource): string {
     s.projectName ? `at ${s.projectName}` : null,
     s.sector ? `in ${s.sector}, ${searchCity}` : `in ${searchCity}`,
     s.areaSqft ? `${formatArea(s.areaSqft)}` : null,
+    s.floorNumber !== null && s.floorNumber !== undefined ? `floor ${s.floorNumber}` : null,
+    s.facing ? `${s.facing} facing` : null,
     s.price ? `${formatINR(s.price)}` : null,
   ].filter(Boolean);
   return `${bits.join(" · ")}. View property details, location, home-loan assistance and availability from Shubh Estate Brokers, Gurugram.`.slice(0, 160);
@@ -113,4 +137,17 @@ export function buildImageAlt(s: SeoSource, index: number): string {
 
 export function buildCanonical(slug: string): string {
   return `${SITE_ORIGIN}/property/${slug}`;
+}
+
+export function listingReference(id: string): string {
+  const compact = id.replace(/-/g, "").toUpperCase();
+  return `SEB-${compact.slice(0, 8)}`;
+}
+
+export function listingReferenceSlug(id: string): string {
+  return listingReference(id).toLowerCase();
+}
+
+export function hasLegacyNumericSlugSuffix(slug: string): boolean {
+  return /-\d+$/.test(slug);
 }
