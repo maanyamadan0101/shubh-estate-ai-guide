@@ -9,6 +9,12 @@ type ServerEntry = {
 
 let serverEntryPromise: Promise<ServerEntry> | undefined;
 
+const CANONICAL_PATH_REDIRECTS: Record<string, string> = {
+  "/sell-property-in-gurgaon": "/sell-property-gurgaon",
+  "/property-for-sale-in-gurgaon": "/flats-for-sale-in-gurgaon",
+  "/home-loan": "/home-loans",
+};
+
 async function getServerEntry(): Promise<ServerEntry> {
   if (!serverEntryPromise) {
     serverEntryPromise = import("@tanstack/react-start/server-entry").then(
@@ -16,6 +22,30 @@ async function getServerEntry(): Promise<ServerEntry> {
     );
   }
   return serverEntryPromise;
+}
+
+function canonicalRedirect(request: Request): Response | null {
+  if (request.method !== "GET" && request.method !== "HEAD") return null;
+  const url = new URL(request.url);
+  const mapped = CANONICAL_PATH_REDIRECTS[url.pathname];
+
+  if (mapped) {
+    url.pathname = mapped;
+    return new Response(null, {
+      status: 308,
+      headers: { Location: url.toString(), "Cache-Control": "public, max-age=3600" },
+    });
+  }
+
+  if (url.pathname !== "/" && url.pathname.endsWith("/")) {
+    url.pathname = url.pathname.replace(/\/+$/, "");
+    return new Response(null, {
+      status: 308,
+      headers: { Location: url.toString(), "Cache-Control": "public, max-age=3600" },
+    });
+  }
+
+  return null;
 }
 
 // h3 swallows in-handler throws into a normal 500 Response with body
@@ -60,7 +90,7 @@ function publicHtmlCacheTtl(pathname: string): number | null {
   if (pathname.startsWith("/property/")) return 600;
   if (pathname.startsWith("/locations/")) return 21_600;
 
-  // Marketing, advisory, NRI, finance and company pages change less frequently.
+  // Marketing, advisory, owner, international, finance and company pages change less frequently.
   return 3_600;
 }
 
@@ -101,6 +131,9 @@ function applyPublicHtmlCache(request: Request, response: Response): Response {
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
+      const redirect = canonicalRedirect(request);
+      if (redirect) return redirect;
+
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
       const normalized = await normalizeCatastrophicSsrResponse(response);
