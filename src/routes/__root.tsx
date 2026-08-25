@@ -15,6 +15,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { FloatingActions } from "@/components/site/FloatingActions";
+import { LeadAssistant } from "@/components/site/LeadAssistant";
 import { Toaster } from "@/components/ui/sonner";
 import { CONTACT } from "@/data/site";
 import { initWebVitals, trackEvent } from "@/lib/analytics";
@@ -289,6 +290,7 @@ function RootComponent() {
       </main>
       <SiteFooter />
       <FloatingActions />
+      <LeadAssistant pathname={pathname} />
       <Toaster />
     </QueryClientProvider>
   );
