@@ -61,6 +61,12 @@ const submissionSchema = z.object({
   media: z.array(mediaSchema).max(12).default([]),
 });
 
+type EnquiryLabels = {
+  interest: string;
+  category: "seller_submission" | "rent_out" | "selling_mandate";
+  referenceLabel: string;
+};
+
 function json(body: unknown, status = 200) {
   return new Response(JSON.stringify(body), {
     status,
@@ -103,7 +109,7 @@ async function ensurePrivateBucket() {
   return supabaseAdmin;
 }
 
-function enquiryLabels(inquiryType: z.infer<typeof submissionSchema>["inquiry_type"]) {
+function enquiryLabels(inquiryType: z.infer<typeof submissionSchema>["inquiry_type"]): EnquiryLabels {
   if (inquiryType === "rent_out") {
     return {
       interest: "Rent out property in Gurgaon / tenant placement enquiry",
@@ -216,9 +222,23 @@ export const Route = createFileRoute("/api/seller-submission")({
 
           if (insertError) throw new Error(`Could not save your property: ${insertError.message}`);
 
+          const notificationReference = [
+            `Reference: ${reference}`,
+            `Enquiry type: ${input.inquiry_type}`,
+            input.source_url ? `Source page: ${input.source_url}` : "",
+            input.landing_page ? `Landing page: ${input.landing_page}` : "",
+            input.referrer ? `Referrer: ${input.referrer}` : "",
+            input.utm_source ? `UTM source: ${input.utm_source}` : "",
+            input.utm_medium ? `UTM medium: ${input.utm_medium}` : "",
+            input.utm_campaign ? `UTM campaign: ${input.utm_campaign}` : "",
+          ]
+            .filter(Boolean)
+            .join(" | ")
+            .slice(0, 1500);
+
           await sendEnquiryNotification({
             enquiryId: enquiry.id,
-            reference,
+            reference: notificationReference,
             category: labels.category,
             fullName: input.full_name,
             phone: input.phone,
@@ -228,18 +248,6 @@ export const Route = createFileRoute("/api/seller-submission")({
             project: input.project,
             sector: input.sector || null,
             expectedPrice: input.expected_price || null,
-            reference: [
-              `Enquiry type: ${input.inquiry_type}`,
-              input.source_url ? `Source page: ${input.source_url}` : "",
-              input.landing_page ? `Landing page: ${input.landing_page}` : "",
-              input.referrer ? `Referrer: ${input.referrer}` : "",
-              input.utm_source ? `UTM source: ${input.utm_source}` : "",
-              input.utm_medium ? `UTM medium: ${input.utm_medium}` : "",
-              input.utm_campaign ? `UTM campaign: ${input.utm_campaign}` : "",
-            ]
-              .filter(Boolean)
-              .join(" | ")
-              .slice(0, 1500),
             message: [
               input.configuration ? `Configuration: ${input.configuration}` : "",
               input.area_sqft ? `Area: ${input.area_sqft}` : "",
