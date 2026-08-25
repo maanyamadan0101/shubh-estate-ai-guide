@@ -64,6 +64,11 @@ const STATIC_PATHS: StaticPath[] = [
     lastmod: "2026-08-25",
   },
   {
+    path: "/tonino-lamborghini-residences-sector-71-gurgaon",
+    priority: "0.9",
+    lastmod: "2026-08-25",
+  },
+  {
     path: "/projects/m3m-golf-hills-sector-79-gurgaon",
     priority: "0.9",
     lastmod: "2026-08-24",
