@@ -54,7 +54,14 @@ export function SiteHeader() {
     <header className="sticky top-0 z-50 border-b border-border/60 bg-background/85 backdrop-blur-xl">
       <div className="container-page flex h-18 items-center justify-between gap-4 py-3">
         <Link to="/" className="flex items-center gap-3" aria-label="Shubh Estate Brokers home">
-          <span className="flex size-10 items-center justify-center rounded-sm surface-navy font-display text-lg text-gold">S</span>
+          <img
+            src="/shubh-estate-logo.png"
+            alt=""
+            width={44}
+            height={44}
+            className="size-11 shrink-0 object-contain"
+            aria-hidden="true"
+          />
           <span className="leading-tight">
             <span className="block font-display text-lg tracking-tight">Shubh Estate Brokers</span>
             <span className="hidden text-[0.62rem] uppercase tracking-[0.2em] text-muted-foreground sm:block">Gurugram · Advisory & Mortgage</span>
