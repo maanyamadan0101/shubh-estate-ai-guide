@@ -1,83 +1,61 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { BadgeIndianRupee, Camera, FileCheck2, Handshake, ShieldCheck, Users } from "lucide-react";
+import { FileCheck2, Globe2, Handshake, MessageCircle, Phone, Scale, ShieldCheck, Video } from "lucide-react";
 import { PageHero } from "@/components/site/SectionHead";
-import { EnquiryForm } from "@/components/site/EnquiryForm";
+import { OwnerServiceForm } from "@/components/site/OwnerServiceForm";
+import { Button } from "@/components/ui/button";
+import { CONTACT } from "@/data/site";
+import { trackContact } from "@/lib/analytics";
 import { SITE_ORIGIN } from "@/lib/seo";
 
-const SELLER_SERVICES = [
-  {
-    icon: BadgeIndianRupee,
-    title: "Price positioning",
-    body: "We review the project, unit, floor, view, condition, recent market evidence and competing inventory before recommending an asking-price range.",
-  },
-  {
-    icon: Camera,
-    title: "Listing presentation",
-    body: "Property photographs, videos, key features and buyer-facing copy are organised so the listing explains the unit clearly instead of relying on a one-line advertisement.",
-  },
-  {
-    icon: Users,
-    title: "Buyer qualification",
-    body: "Enquiries are screened for budget, purchase timeline and financing readiness so owner time is focused on buyers with a realistic chance of closing.",
-  },
-  {
-    icon: Handshake,
-    title: "Negotiation support",
-    body: "Offers are compared on price, payment structure, loan dependence, possession timeline and documentation requirements rather than price alone.",
-  },
-  {
-    icon: FileCheck2,
-    title: "Document readiness",
-    body: "We help organise the property information and transaction documents buyers and lenders commonly ask for, and coordinate specialist review where required.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Transaction coordination",
-    body: "From buyer questions and lender valuation to token, agreement and closing coordination, the objective is to reduce avoidable delays in the sale process.",
-  },
+const SELLING_STEPS = [
+  "Property consultation",
+  "Market valuation",
+  "Comparable-property analysis",
+  "Pricing recommendation",
+  "Documentation review",
+  "Professional listing creation",
+  "Buyer screening",
+  "Property marketing",
+  "Site-visit coordination",
+  "Offer and negotiation management",
+  "Token and documentation support",
+  "Home-loan coordination where required",
+  "Transaction completion and handover coordination",
 ];
 
 const FAQS = [
   {
-    q: "How do you decide the right asking price for a Gurgaon property?",
-    a: "We compare the specific unit with current competing inventory, project positioning, floor and view, property condition, recent market evidence and buyer demand before discussing an asking-price range with the owner.",
+    q: "How can I sell my property in Gurgaon?",
+    a: "Start with a unit-specific pricing and documentation review. We then agree the positioning, prepare the listing, screen enquiries, coordinate visits and offers, and support the transaction through documentation and lender coordination where required.",
   },
   {
-    q: "Do you use recent market evidence instead of relying only on asking prices?",
-    a: "Yes. We consider available transaction evidence, current competing inventory, buyer responses and unit-specific differences. Public records and reported transactions can be incomplete or delayed, so the evidence is explained with its limitations rather than presented as a guaranteed selling price.",
+    q: "How do I determine the market value of my Gurgaon flat?",
+    a: "A useful valuation compares the exact unit with competing inventory, recent available market evidence, project demand, floor, view, condition, size, occupancy and transaction constraints. An asking price should be a reasoned range, not a generic portal average.",
   },
   {
-    q: "Can you help with a time-sensitive or difficult-to-sell Gurgaon property?",
-    a: "Yes. We can review whether the main obstacle is price, presentation, access for visits, property condition, documentation or a narrow buyer pool, then recommend a practical sale plan. No broker can guarantee a sale date, but realistic positioning and transaction readiness can reduce avoidable delay.",
+    q: "Can I sell a Gurgaon property while living outside India?",
+    a: "Yes. Initial consultation, video review, document sharing, pricing discussion and much of the buyer coordination can be handled remotely. Transaction-specific tax, power-of-attorney or repatriation questions should be confirmed with the appropriate legal or tax professional.",
   },
   {
-    q: "Can you market a resale flat to NRI and outstation buyers?",
-    a: "Yes. A well-prepared listing can be shared with local, outstation and NRI buyers, with video walkthroughs and remote coordination where appropriate.",
+    q: "What documents are normally needed to sell a flat in Gurgaon?",
+    a: "The exact set depends on the property and transaction, but buyers and lenders commonly ask for ownership/title documents, allotment or conveyance papers, payment records, possession or occupancy documents where applicable, identity details and information about any existing loan. We help organise the transaction file and flag items that need specialist review.",
   },
   {
-    q: "Can you handle buyers who need a home loan?",
-    a: "We can coordinate property-related lender requirements and help the buyer organise the mortgage process. Final eligibility, valuation and sanction remain subject to the lender's policies.",
+    q: "Can you coordinate a buyer who needs a home loan?",
+    a: "Yes. We can coordinate the property-related lender requirements, valuation visit and transaction timeline. Loan eligibility, valuation and sanction remain subject to the lender's policies.",
   },
   {
-    q: "Can an owner start the sale process without immediately visiting your office?",
-    a: "Yes. The initial property review, pricing discussion, document checklist and marketing preparation can begin remotely. Physical inspection can then be scheduled when needed.",
-  },
-  {
-    q: "Will an owner's property details become public immediately after submission?",
-    a: "No. A private seller submission is reviewed by the Shubh Estate Brokers team first. It is not automatically added to the buyer-facing property catalogue, and publication remains a separate manual decision after the property information is checked.",
-  },
-  {
-    q: "How is seller and client information handled?",
-    a: "Only information needed for the property review, marketing decision or transaction coordination should be collected and shared with relevant parties. Private documents and contact details are not intended to appear in a public listing without permission.",
+    q: "Should I give an exclusive selling mandate to one property advisor?",
+    a: "A mandate can be useful when the owner wants one accountable representative, consistent pricing, controlled visits and coordinated negotiation. It should define the scope, period and expectations clearly without promising a guaranteed sale.",
   },
 ];
 
 export const Route = createFileRoute("/sell-property-gurgaon")({
   head: () => {
     const canonical = `${SITE_ORIGIN}/sell-property-gurgaon`;
-    const title = "Sell Property in Gurgaon | List Your Flat for Sale | Shubh Estate Brokers";
+    const title = "Sell Property in Gurgaon | Owner Sale Advisory | Shubh Estate Brokers";
     const description =
-      "Sell or list your property in Gurgaon with pricing guidance, professional listing preparation, qualified buyer enquiries, negotiation support and transaction coordination.";
+      "Sell property in Gurgaon or Gurugram with valuation guidance, professional marketing, buyer screening, negotiation, documentation and transaction coordination.";
 
     return {
       meta: [
@@ -95,16 +73,22 @@ export const Route = createFileRoute("/sell-property-gurgaon")({
           children: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Service",
-            name: "Property Selling and Listing Service in Gurgaon",
-            provider: {
-              "@type": "RealEstateAgent",
-              name: "Shubh Estate Brokers",
-              url: SITE_ORIGIN,
-            },
+            name: "Property Selling Advisory in Gurgaon",
+            provider: { "@type": "RealEstateAgent", name: "Shubh Estate Brokers", url: SITE_ORIGIN },
             areaServed: "Gurugram, Haryana, India",
-            serviceType:
-              "Residential property selling, resale listing and transaction coordination",
+            serviceType: "Residential property selling, resale marketing and transaction coordination",
             url: canonical,
+          }),
+        },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: SITE_ORIGIN },
+              { "@type": "ListItem", position: 2, name: "Sell Property in Gurgaon", item: canonical },
+            ],
           }),
         },
         {
@@ -129,54 +113,96 @@ function SellPropertyPage() {
   return (
     <>
       <PageHero
-        eyebrow="For Property Owners"
-        title="Sell your Gurgaon property with better preparation"
-        body="A strong resale process starts before the advertisement goes live: sensible pricing, clear presentation, complete information and disciplined buyer follow-up."
+        eyebrow="For Gurgaon Property Owners"
+        title="Sell your Gurgaon property with disciplined pricing and transaction support"
+        body="Shubh Estate Brokers helps owners in Gurgaon (Gurugram) and owners living elsewhere prepare, market and negotiate a property sale with clear information, qualified-buyer screening and transaction coordination."
       />
 
-      <section className="container-page grid gap-10 py-14 lg:grid-cols-[1fr_20rem]">
-        <div>
-          <div className="rounded-2xl border border-gold/30 bg-card p-6 md:p-8">
-            <p className="eyebrow">List Your Property</p>
-            <h2 className="mt-3 font-display text-2xl md:text-3xl">
-              From owner listing to a transaction-ready opportunity
-            </h2>
-            <p className="mt-4 max-w-3xl text-sm leading-6 text-muted-foreground">
-              Shubh Estate Brokers works with owners of apartments, builder floors, villas and other
-              residential properties across Gurugram. The aim is to present the property accurately,
-              attract serious enquiries and reduce friction once a buyer is ready to proceed.
+      <main className="container-page py-14">
+        <section className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
+          <div>
+            <p className="eyebrow">Owner Sale Advisory</p>
+            <h2 className="mt-3 font-display text-3xl">A sale process built around the specific property</h2>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">
+              A serious buyer needs more than a portal advertisement. We review the unit, likely buyer profile, competing supply, asking-price logic, documents, visit access and financing considerations before the property is pushed into the market. The objective is better decision-making and cleaner execution, not an unrealistic promise of a guaranteed price or sale date.
             </p>
+            <div className="mt-6 grid gap-4 sm:grid-cols-2">
+              <Benefit icon={Scale} title="Evidence-led valuation" body="Compare the unit with relevant market evidence, competing inventory, floor, view, condition and project demand." />
+              <Benefit icon={ShieldCheck} title="Owner privacy" body="Contact details and private documents stay within the enquiry and transaction workflow rather than appearing in public listing HTML." />
+              <Benefit icon={Handshake} title="Qualified negotiation" body="Compare offers on price, payment terms, financing dependence, possession timing and documentation readiness." />
+              <Benefit icon={FileCheck2} title="Transaction readiness" body="Organise the information buyers and lenders commonly need so avoidable documentation gaps surface earlier." />
+            </div>
           </div>
 
-          <h2 className="mt-10 font-display text-2xl">What we do for sellers</h2>
-          <div className="mt-6 grid gap-4 sm:grid-cols-2">
-            {SELLER_SERVICES.map((service) => (
-              <div key={service.title} className="rounded-xl border border-border bg-card p-6">
-                <service.icon className="size-5 text-gold" aria-hidden="true" />
-                <h3 className="mt-3 font-display text-lg">{service.title}</h3>
-                <p className="mt-2 text-sm leading-6 text-muted-foreground">{service.body}</p>
-              </div>
+          <div className="rounded-2xl surface-navy p-7">
+            <p className="eyebrow">Speak to an Advisor</p>
+            <h2 className="mt-3 font-display text-2xl">Start with a confidential property review</h2>
+            <p className="mt-3 text-sm leading-6 text-navy-foreground/75">
+              Owners can begin by phone, WhatsApp, email or video consultation. International-format numbers are accepted in the form below.
+            </p>
+            <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
+              <Button asChild variant="gold">
+                <a href={CONTACT.phoneHref} onClick={() => trackContact("phone", "seller_page")}> <Phone aria-hidden="true" /> Call {CONTACT.phone}</a>
+              </Button>
+              <Button asChild variant="outline" className="border-navy-foreground/20 bg-transparent text-navy-foreground hover:bg-navy-foreground/10">
+                <a href={CONTACT.whatsapp} target="_blank" rel="noreferrer" onClick={() => trackContact("whatsapp", "seller_page")}><MessageCircle aria-hidden="true" /> WhatsApp</a>
+              </Button>
+            </div>
+          </div>
+        </section>
+
+        <section className="mt-16">
+          <p className="eyebrow">How We Work</p>
+          <h2 className="mt-3 font-display text-3xl">From property consultation to transaction completion</h2>
+          <ol className="mt-7 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {SELLING_STEPS.map((step, index) => (
+              <li key={step} className="rounded-xl border border-border bg-card p-5">
+                <span className="text-xs font-semibold uppercase tracking-[0.18em] text-gold">Step {index + 1}</span>
+                <p className="mt-2 font-medium">{step}</p>
+              </li>
             ))}
-          </div>
+          </ol>
+        </section>
 
-          <div className="mt-10 rounded-2xl surface-navy p-7 md:p-9">
-            <p className="eyebrow">Better Listings</p>
-            <h2 className="mt-3 font-display text-2xl">Give buyers enough information to act</h2>
-            <p className="mt-3 max-w-3xl text-sm leading-6 text-navy-foreground/75">
-              Good property marketing should answer the questions serious buyers ask: exact
-              configuration, area, floor, facing, view, parking, condition, possession, project
-              amenities, connectivity, asking price and loan suitability. Clear information improves
-              enquiry quality and reduces repetitive calls.
-            </p>
-            <p className="mt-4 text-sm leading-6 text-navy-foreground/75">
-              Owner submissions are reviewed privately and do not become buyer-facing listings
-              automatically. Publication happens only after the Shubh Estate Brokers team checks the
-              information and chooses to create or approve a public listing.
-            </p>
+        <section className="mt-16 rounded-2xl border border-gold/30 bg-secondary/30 p-7 md:p-9">
+          <div className="grid gap-8 lg:grid-cols-[1fr_0.9fr]">
+            <div>
+              <div className="flex items-center gap-3">
+                <Globe2 className="size-6 text-gold" aria-hidden="true" />
+                <p className="eyebrow">Remote Owner Support</p>
+              </div>
+              <h2 className="mt-3 font-display text-3xl">Managing your Gurgaon property from outside India?</h2>
+              <p className="mt-4 text-sm leading-7 text-muted-foreground">
+                Owners based outside Gurgaon can start remotely without being forced through a separate country version of the website. We can arrange an initial video consultation, receive property information securely, discuss indicative valuation, coordinate access through an authorised representative where appropriate, and plan buyer communication around time-zone differences.
+              </p>
+              <p className="mt-4 text-sm leading-7 text-muted-foreground">
+                Where a transaction may involve a representative or power of attorney, we can coordinate the practical property process; transaction-specific legal, tax and repatriation advice should be confirmed by the relevant qualified professional.
+              </p>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+              <RemoteItem icon={MessageCircle} title="WhatsApp and international numbers" body="Start the discussion from India or overseas using your preferred contact method." />
+              <RemoteItem icon={Video} title="Video consultation" body="Review the property, documents available, expected price and next steps before arranging physical access." />
+            </div>
           </div>
+        </section>
 
-          <h2 className="mt-12 font-display text-2xl">Seller questions</h2>
-          <dl className="mt-6 space-y-4">
+        <section id="sell-my-property" className="mt-16 scroll-mt-24">
+          <OwnerServiceForm mode="sell" />
+          <p className="mt-4 text-xs leading-5 text-muted-foreground">
+            Need to send property photos or videos too? Use our <Link to="/seller-submit" className="text-gold underline-offset-4 hover:underline">private owner submission link</Link>. It is intentionally noindex and does not publish your property automatically.
+          </p>
+        </section>
+
+        <section className="mt-16 grid gap-5 md:grid-cols-3">
+          <RelatedLink to="/rent-out-property-in-gurgaon" title="Rent Out Property" body="Market rent assessment, tenant sourcing, screening and rental coordination for Gurgaon owners." />
+          <RelatedLink to="/mandate-to-sell-property-in-gurgaon" title="Give Selling Mandate" body="One accountable representative for coordinated marketing, visits and negotiation." />
+          <RelatedLink to="/home-loans" title="Home Loan Coordination" body="Coordinate buyer financing and property-related lender requirements where a sale depends on a loan." />
+        </section>
+
+        <section className="mt-16">
+          <p className="eyebrow">Seller Questions</p>
+          <h2 className="mt-3 font-display text-3xl">Frequently asked questions</h2>
+          <dl className="mt-6 grid gap-4 lg:grid-cols-2">
             {FAQS.map((faq) => (
               <div key={faq.q} className="rounded-xl border border-border bg-card p-6">
                 <dt className="font-medium">{faq.q}</dt>
@@ -184,27 +210,38 @@ function SellPropertyPage() {
               </div>
             ))}
           </dl>
-
-          <p className="mt-8 text-sm text-muted-foreground">
-            Buying instead?{" "}
-            <Link to="/flats-for-sale-in-gurgaon" className="text-gold underline-offset-4 hover:underline">
-              Browse current Gurgaon properties
-            </Link>
-            .
-          </p>
-        </div>
-
-        <aside className="rounded-xl border border-border bg-card p-6 lg:sticky lg:top-24 lg:self-start">
-          <h2 className="font-display text-xl">List your property</h2>
-          <p className="mt-1 text-xs leading-5 text-muted-foreground">
-            Share the project or sector, configuration and expected price. We can start with a
-            property review.
-          </p>
-          <div className="mt-4">
-            <EnquiryForm interest="Sell property in Gurgaon" compact />
-          </div>
-        </aside>
-      </section>
+        </section>
+      </main>
     </>
+  );
+}
+
+function Benefit({ icon: Icon, title, body }: { icon: typeof Scale; title: string; body: string }) {
+  return (
+    <div className="rounded-xl border border-border bg-card p-5">
+      <Icon className="size-5 text-gold" aria-hidden="true" />
+      <h3 className="mt-3 font-display text-lg">{title}</h3>
+      <p className="mt-2 text-sm leading-6 text-muted-foreground">{body}</p>
+    </div>
+  );
+}
+
+function RemoteItem({ icon: Icon, title, body }: { icon: typeof MessageCircle; title: string; body: string }) {
+  return (
+    <div className="rounded-xl border border-border bg-card p-5">
+      <Icon className="size-5 text-gold" aria-hidden="true" />
+      <h3 className="mt-3 font-display text-lg">{title}</h3>
+      <p className="mt-2 text-sm leading-6 text-muted-foreground">{body}</p>
+    </div>
+  );
+}
+
+function RelatedLink({ to, title, body }: { to: string; title: string; body: string }) {
+  return (
+    <a href={to} className="rounded-xl border border-border bg-card p-6 transition-colors hover:border-gold/50">
+      <h3 className="font-display text-xl">{title}</h3>
+      <p className="mt-2 text-sm leading-6 text-muted-foreground">{body}</p>
+      <span className="mt-4 inline-block text-sm font-medium text-gold">Explore service →</span>
+    </a>
   );
 }

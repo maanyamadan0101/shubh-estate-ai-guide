@@ -25,8 +25,11 @@ const mediaSchema = z.object({
 });
 
 const submissionSchema = z.object({
+  inquiry_type: z.enum(["sell", "rent_out", "mandate"]).default("sell"),
+  submission_channel: z.enum(["seller_private_link", "owner_service_page"]).default("seller_private_link"),
   full_name: z.string().trim().min(2).max(100),
   phone: z.string().trim().min(8).max(30),
+  whatsapp: z.string().trim().max(30).default(""),
   email: z.string().trim().email().max(255).or(z.literal("")),
   is_nri: z.boolean().default(false),
   country: z.string().trim().max(80).default(""),
@@ -36,15 +39,33 @@ const submissionSchema = z.object({
   configuration: z.string().trim().max(80).default(""),
   area_sqft: z.string().trim().max(30).default(""),
   floor: z.string().trim().max(40).default(""),
-  facing: z.string().trim().max(40).default(""),
+  facing: z.string().trim().max(80).default(""),
   expected_price: z.string().trim().max(60).default(""),
   occupancy: z.string().trim().max(80).default(""),
   availability: z.string().trim().max(120).default(""),
+  loan_outstanding: z.string().trim().max(160).default(""),
+  contact_preference: z.string().trim().max(80).default(""),
+  property_documents: z.string().trim().max(500).default(""),
+  mandate_period: z.string().trim().max(80).default(""),
   media_link: z.string().trim().max(800).default(""),
   notes: z.string().trim().max(2500).default(""),
+  source_url: z.string().trim().max(800).default(""),
+  landing_page: z.string().trim().max(240).default(""),
+  referrer: z.string().trim().max(240).default(""),
+  utm_source: z.string().trim().max(100).default(""),
+  utm_medium: z.string().trim().max(100).default(""),
+  utm_campaign: z.string().trim().max(150).default(""),
+  utm_term: z.string().trim().max(150).default(""),
+  utm_content: z.string().trim().max(150).default(""),
   website: z.string().max(200).default(""),
   media: z.array(mediaSchema).max(12).default([]),
 });
+
+type EnquiryLabels = {
+  interest: string;
+  category: "seller_submission" | "rent_out" | "selling_mandate";
+  referenceLabel: string;
+};
 
 function json(body: unknown, status = 200) {
   return new Response(JSON.stringify(body), {
@@ -88,6 +109,28 @@ async function ensurePrivateBucket() {
   return supabaseAdmin;
 }
 
+function enquiryLabels(inquiryType: z.infer<typeof submissionSchema>["inquiry_type"]): EnquiryLabels {
+  if (inquiryType === "rent_out") {
+    return {
+      interest: "Rent out property in Gurgaon / tenant placement enquiry",
+      category: "rent_out",
+      referenceLabel: "Expected rent",
+    };
+  }
+  if (inquiryType === "mandate") {
+    return {
+      interest: "Exclusive selling mandate enquiry in Gurgaon",
+      category: "selling_mandate",
+      referenceLabel: "Expected selling price",
+    };
+  }
+  return {
+    interest: "Sell property in Gurgaon owner enquiry",
+    category: "seller_submission",
+    referenceLabel: "Expected selling price",
+  };
+}
+
 export const Route = createFileRoute("/api/seller-submission")({
   server: {
     handlers: {
@@ -111,14 +154,19 @@ export const Route = createFileRoute("/api/seller-submission")({
             size: item.size,
             path: `${reference}/${item.kind === "image" ? "photos" : "videos"}/${globalThis.crypto.randomUUID()}.${item.extension}`,
           }));
+          const labels = enquiryLabels(input.inquiry_type);
 
           const privateDetails = {
             reference,
             private_submission: true,
             publish_status: "NOT_PUBLISHED",
-            seller: {
+            enquiry_type: input.inquiry_type,
+            submission_channel: input.submission_channel,
+            owner: {
               is_nri: input.is_nri,
               country: input.country || null,
+              whatsapp: input.whatsapp || null,
+              contact_preference: input.contact_preference || null,
             },
             property: {
               project: input.project,
@@ -128,18 +176,35 @@ export const Route = createFileRoute("/api/seller-submission")({
               area_sqft: input.area_sqft || null,
               floor: input.floor || null,
               facing: input.facing || null,
-              expected_price: input.expected_price || null,
+              expected_price_or_rent: input.expected_price || null,
               occupancy: input.occupancy || null,
               availability: input.availability || null,
+              loan_outstanding: input.loan_outstanding || null,
+              property_documents: input.property_documents || null,
+              mandate_period: input.mandate_period || null,
+            },
+            attribution: {
+              source_url: input.source_url || null,
+              landing_page: input.landing_page || null,
+              referrer: input.referrer || null,
+              utm_source: input.utm_source || null,
+              utm_medium: input.utm_medium || null,
+              utm_campaign: input.utm_campaign || null,
+              utm_term: input.utm_term || null,
+              utm_content: input.utm_content || null,
             },
             media_link: input.media_link || null,
             notes: input.notes || null,
             private_media_paths: mediaRows.map(({ path, kind, name }) => ({ path, kind, name })),
           };
 
-          const interest = input.is_nri
-            ? "Private NRI seller property submission"
-            : "Private seller property submission";
+          const interest =
+            input.submission_channel === "seller_private_link" && input.inquiry_type === "sell"
+              ? input.is_nri
+                ? "Private overseas seller property submission"
+                : "Private seller property submission"
+              : labels.interest;
+          const source = input.submission_channel === "owner_service_page" ? "owner_service_page" : "seller_private_link";
 
           const { data: enquiry, error: insertError } = await supabaseAdmin
             .from("enquiries")
@@ -150,33 +215,53 @@ export const Route = createFileRoute("/api/seller-submission")({
               email: input.email || null,
               message: JSON.stringify(privateDetails),
               interest,
-              source: "seller_private_link",
+              source,
             })
             .select("id")
             .single();
 
           if (insertError) throw new Error(`Could not save your property: ${insertError.message}`);
 
+          const notificationReference = [
+            `Reference: ${reference}`,
+            `Enquiry type: ${input.inquiry_type}`,
+            input.source_url ? `Source page: ${input.source_url}` : "",
+            input.landing_page ? `Landing page: ${input.landing_page}` : "",
+            input.referrer ? `Referrer: ${input.referrer}` : "",
+            input.utm_source ? `UTM source: ${input.utm_source}` : "",
+            input.utm_medium ? `UTM medium: ${input.utm_medium}` : "",
+            input.utm_campaign ? `UTM campaign: ${input.utm_campaign}` : "",
+          ]
+            .filter(Boolean)
+            .join(" | ")
+            .slice(0, 1500);
+
           await sendEnquiryNotification({
             enquiryId: enquiry.id,
-            reference,
-            category: "seller_submission",
+            reference: notificationReference,
+            category: labels.category,
             fullName: input.full_name,
             phone: input.phone,
             email: input.email || null,
             interest,
-            source: "seller_private_link",
+            source,
             project: input.project,
             sector: input.sector || null,
             expectedPrice: input.expected_price || null,
             message: [
               input.configuration ? `Configuration: ${input.configuration}` : "",
-              input.area_sqft ? `Area: ${input.area_sqft} sq.ft.` : "",
+              input.area_sqft ? `Area: ${input.area_sqft}` : "",
               input.floor ? `Floor: ${input.floor}` : "",
               input.facing ? `Facing / view: ${input.facing}` : "",
+              input.expected_price ? `${labels.referenceLabel}: ${input.expected_price}` : "",
               input.occupancy ? `Occupancy: ${input.occupancy}` : "",
               input.availability ? `Visit / possession availability: ${input.availability}` : "",
+              input.loan_outstanding ? `Loan outstanding: ${input.loan_outstanding}` : "",
+              input.whatsapp ? `WhatsApp: ${input.whatsapp}` : "",
+              input.contact_preference ? `Preferred contact: ${input.contact_preference}` : "",
               input.country ? `Owner country: ${input.country}` : "",
+              input.property_documents ? `Documents available: ${input.property_documents}` : "",
+              input.mandate_period ? `Preferred mandate period: ${input.mandate_period}` : "",
               input.media_link ? `Media link: ${input.media_link}` : "",
               input.notes || "",
             ]
