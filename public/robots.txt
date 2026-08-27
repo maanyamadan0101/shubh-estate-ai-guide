@@ -8,3 +8,4 @@ Disallow: /reset-password
 Disallow: /api/
 
 Sitemap: https://www.shubhestatebroker.in/sitemap.xml
+Sitemap: https://www.shubhestatebroker.in/video-sitemap.xml
