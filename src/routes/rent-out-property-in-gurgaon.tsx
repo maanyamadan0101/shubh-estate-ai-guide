@@ -111,6 +111,20 @@ function RentOutPropertyPage() {
         body="For landlords in Gurgaon (Gurugram) or living elsewhere, Shubh Estate Brokers can coordinate rent assessment, listing preparation, tenant enquiries, viewings, negotiation, documentation and move-in support."
       />
 
+      <section className="border-b border-border bg-background">
+        <div className="container-page flex flex-col gap-5 py-6 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <p className="text-sm font-semibold text-foreground">Want to rent out your property?</p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Share the property details privately so we can assess the rent and start tenant sourcing.
+            </p>
+          </div>
+          <Button asChild variant="gold" size="lg" className="shrink-0">
+            <a href="#rent-out-my-property">Rent Out Your Property</a>
+          </Button>
+        </div>
+      </section>
+
       <main className="container-page py-14">
         <section className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
           <div>
