@@ -29,8 +29,9 @@ const FAQS = [
 export const Route = createFileRoute("/godrej-101-sector-79-gurgaon")({
   head: () => ({
     meta: [
-      { title: `${title} | Shubh Estate Brokers` },
+      { title },
       { name: "description", content: description },
+      { name: "robots", content: "index,follow,max-image-preview:large" },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
@@ -118,6 +119,7 @@ function Godrej101Page() {
         { href: "/sell-property-gurgaon", label: "List a Gurgaon property for sale" },
         { href: "/nri-sell-property-gurgaon", label: "NRI owner selling support" },
       ]}
+      faqs={FAQS}
     />
   );
 }

@@ -202,23 +202,17 @@ const itemListSchema = {
 export const Route = createFileRoute("/dwarka-expressway-flats-for-sale-gurgaon")({
   head: () => ({
     meta: [
-      {
-        title: "Dwarka Expressway Flats for Sale Gurgaon | Current Resale Inventory | Shubh Estate Brokers",
-      },
+      { title: "Dwarka Expressway Flats for Sale | Resale Gurgaon" },
       {
         name: "description",
         content:
-          "Browse current residential flats for sale on Dwarka Expressway Gurgaon across Sectors 99 to 111 and selected nearby projects. Compare configuration, area, floor, view and asking price with Shubh Estate Brokers.",
+          "Browse flats for sale on Dwarka Expressway, Gurgaon. Compare current resale and under-construction options by sector, size, floor, view and asking price.",
       },
-      {
-        name: "keywords",
-        content:
-          "Dwarka Expressway flats for sale Gurgaon, apartments for sale Dwarka Expressway, Sector 104 Gurgaon flats, Sector 106 Gurgaon property, Sector 108 Gurgaon apartments, Sector 110 Gurgaon flats",
-      },
-      { property: "og:title", content: "Dwarka Expressway Flats for Sale in Gurgaon" },
+      { name: "robots", content: "index,follow,max-image-preview:large" },
+      { property: "og:title", content: "Dwarka Expressway Flats for Sale | Resale Gurgaon" },
       {
         property: "og:description",
-        content: `${totalOptions} current sale options across premium residential projects, updated ${LAST_UPDATED}.`,
+        content: `${totalOptions} current sale options across key Dwarka Expressway residential projects, updated ${LAST_UPDATED}.`,
       },
       { property: "og:type", content: "website" },
       { property: "og:url", content: PAGE_URL },
@@ -274,9 +268,12 @@ function DwarkaExpresswayInventory() {
         <div className="overflow-hidden rounded-2xl border border-border bg-card">
           <img
             src={corridorImage.url}
-            alt={`Dwarka Expressway in Gurugram — ${corridorImage.credit}, ${corridorImage.license}`}
+            width={1600}
+            height={900}
+            alt="Dwarka Expressway in Gurugram"
             className="h-56 w-full object-cover md:h-72"
             loading="eager"
+            decoding="async"
           />
           <div className="flex flex-wrap items-center justify-between gap-3 px-5 py-4 text-xs text-muted-foreground">
             <span>Representative corridor image — not a photograph of any specific listed apartment.</span>

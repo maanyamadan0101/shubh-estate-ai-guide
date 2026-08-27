@@ -3,15 +3,16 @@ import { SeoIntentLanding } from "@/components/site/SeoIntentLanding";
 import { SITE_ORIGIN } from "@/lib/seo";
 
 const canonical = `${SITE_ORIGIN}/property-sector-79-gurgaon`;
-const title = "Property in Sector 79 Gurgaon | Flats for Sale & Buying Guide";
+const title = "Sector 79 Gurgaon Property | Flats for Sale & Projects";
 const description =
   "Explore flats and property for sale in Sector 79 Gurgaon. Compare M3M Golf Hills, Godrej 101, connectivity, resale pricing, home loans and transaction checks.";
 
 export const Route = createFileRoute("/property-sector-79-gurgaon")({
   head: () => ({
     meta: [
-      { title: `${title} | Shubh Estate Brokers` },
+      { title },
       { name: "description", content: description },
+      { name: "robots", content: "index,follow,max-image-preview:large" },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },

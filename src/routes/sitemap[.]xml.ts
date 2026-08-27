@@ -9,12 +9,14 @@ type StaticPath = {
   lastmod?: string;
 };
 
+const SEO_TEMPLATE_LASTMOD = "2026-08-27";
+
 const STATIC_PATHS: StaticPath[] = [
   { path: "/", priority: "1.0", lastmod: "2026-08-25" },
   { path: "/flats-for-sale-in-gurgaon", priority: "0.9", lastmod: "2026-08-24" },
   { path: "/properties-for-sale-on-spr-gurgaon", priority: "0.9", lastmod: "2026-08-25" },
-  { path: "/sell-property-gurgaon", priority: "0.9", lastmod: "2026-08-25" },
-  { path: "/rent-out-property-in-gurgaon", priority: "0.9", lastmod: "2026-08-25" },
+  { path: "/sell-property-gurgaon", priority: "0.9", lastmod: SEO_TEMPLATE_LASTMOD },
+  { path: "/rent-out-property-in-gurgaon", priority: "0.9", lastmod: SEO_TEMPLATE_LASTMOD },
   { path: "/mandate-to-sell-property-in-gurgaon", priority: "0.9", lastmod: "2026-08-25" },
   { path: "/projects", priority: "0.9", lastmod: "2026-08-25" },
   { path: "/blog", priority: "0.9", lastmod: "2026-08-20" },
@@ -31,8 +33,8 @@ const STATIC_PATHS: StaticPath[] = [
   { path: "/under-construction-projects-gurgaon", priority: "0.9" },
   { path: "/property-services-gurgaon", priority: "0.9" },
   { path: "/luxury", priority: "0.8" },
-  { path: "/property-buying-advisory-gurgaon", priority: "0.8" },
-  { path: "/godrej-101-sector-79-gurgaon", priority: "0.8" },
+  { path: "/property-buying-advisory-gurgaon", priority: "0.8", lastmod: SEO_TEMPLATE_LASTMOD },
+  { path: "/godrej-101-sector-79-gurgaon", priority: "0.8", lastmod: SEO_TEMPLATE_LASTMOD },
   {
     path: "/dlf-skycourt-sector-86-gurgaon",
     priority: "0.9",
@@ -51,7 +53,7 @@ const STATIC_PATHS: StaticPath[] = [
   {
     path: "/dwarka-expressway-flats-for-sale-gurgaon",
     priority: "0.9",
-    lastmod: "2026-08-21",
+    lastmod: SEO_TEMPLATE_LASTMOD,
   },
   {
     path: "/projects/dlf-the-arbour-sector-63-gurgaon",
@@ -103,13 +105,13 @@ const STATIC_PATHS: StaticPath[] = [
     priority: "0.9",
     lastmod: "2026-08-25",
   },
-  { path: "/property-sector-79-gurgaon", priority: "0.8" },
+  { path: "/property-sector-79-gurgaon", priority: "0.8", lastmod: SEO_TEMPLATE_LASTMOD },
   { path: "/property-sector-62-gurgaon", priority: "0.8", lastmod: "2026-08-23" },
   { path: "/property-sector-60-gurgaon", priority: "0.8", lastmod: "2026-08-23" },
   { path: "/property-sector-59-gurgaon", priority: "0.8", lastmod: "2026-08-23" },
   { path: "/projects/tata-raisina-residency-sector-59", priority: "0.8", lastmod: "2026-08-23" },
   { path: "/desperate-deals-gurgaon", priority: "0.8" },
-  { path: "/best-areas-gurgaon-property-investment", priority: "0.8" },
+  { path: "/best-areas-gurgaon-property-investment", priority: "0.8", lastmod: SEO_TEMPLATE_LASTMOD },
   { path: "/apartments-for-sale-dlf-phase-1-gurgaon", priority: "0.7" },
   { path: "/higher-floor-apartments-golf-course-extension-road", priority: "0.7" },
   { path: "/senior-citizen-housing-gurgaon", priority: "0.7" },
@@ -119,18 +121,18 @@ const STATIC_PATHS: StaticPath[] = [
   { path: "/nri/canada", priority: "0.8" },
   { path: "/nri/australia", priority: "0.8" },
   { path: "/nri/europe", priority: "0.8" },
-  { path: "/locations/gurgaon", priority: "0.8" },
-  { path: "/locations/golf-course-road", priority: "0.7" },
-  { path: "/locations/golf-course-extension-road", priority: "0.8", lastmod: "2026-08-23" },
-  { path: "/locations/dwarka-expressway", priority: "0.7" },
-  { path: "/locations/southern-peripheral-road", priority: "0.7" },
-  { path: "/locations/sohna-road", priority: "0.7" },
-  { path: "/locations/new-gurgaon", priority: "0.7" },
-  { path: "/home-loans", priority: "0.7", lastmod: "2026-08-11" },
+  { path: "/locations/gurgaon", priority: "0.8", lastmod: SEO_TEMPLATE_LASTMOD },
+  { path: "/locations/golf-course-road", priority: "0.7", lastmod: SEO_TEMPLATE_LASTMOD },
+  { path: "/locations/golf-course-extension-road", priority: "0.8", lastmod: SEO_TEMPLATE_LASTMOD },
+  { path: "/locations/dwarka-expressway", priority: "0.7", lastmod: SEO_TEMPLATE_LASTMOD },
+  { path: "/locations/southern-peripheral-road", priority: "0.7", lastmod: SEO_TEMPLATE_LASTMOD },
+  { path: "/locations/sohna-road", priority: "0.7", lastmod: SEO_TEMPLATE_LASTMOD },
+  { path: "/locations/new-gurgaon", priority: "0.7", lastmod: SEO_TEMPLATE_LASTMOD },
+  { path: "/home-loans", priority: "0.7", lastmod: SEO_TEMPLATE_LASTMOD },
   { path: "/emi-calculator", priority: "0.6" },
   { path: "/gurugram-growth-story", priority: "0.6", lastmod: "2026-08-12" },
-  { path: "/about", priority: "0.5", lastmod: "2026-08-12" },
-  { path: "/contact", priority: "0.5" },
+  { path: "/about", priority: "0.5", lastmod: SEO_TEMPLATE_LASTMOD },
+  { path: "/contact", priority: "0.5", lastmod: SEO_TEMPLATE_LASTMOD },
 ];
 
 const PROJECT_HUB_SITEMAP_EXCLUSIONS = new Set([
@@ -172,6 +174,14 @@ function absoluteUrl(value: string) {
     : `${SITE_ORIGIN}${value.startsWith("/") ? value : `/${value}`}`;
 }
 
+function latestLastmod(value: string | null | undefined, baseline = SEO_TEMPLATE_LASTMOD) {
+  if (!value) return baseline;
+  const parsed = new Date(value);
+  const baselineDate = new Date(`${baseline}T00:00:00Z`);
+  if (Number.isNaN(parsed.getTime())) return baseline;
+  return parsed > baselineDate ? value : baseline;
+}
+
 function safeLastmod(value: string | null | undefined) {
   if (!value) return "";
   const date = new Date(value);
@@ -198,7 +208,7 @@ export const Route = createFileRoute("/sitemap.xml")({
             )
             .map(
               (hub) =>
-                `  <url>\n    <loc>${escapeXml(`${SITE_ORIGIN}/projects/${hub.slug}`)}</loc>${safeLastmod(hub.updated_at)}\n    <priority>0.8</priority>\n  </url>`,
+                `  <url>\n    <loc>${escapeXml(`${SITE_ORIGIN}/projects/${hub.slug}`)}</loc>${safeLastmod(latestLastmod(hub.updated_at))}\n    <priority>0.8</priority>\n  </url>`,
             ),
           ...properties
             .filter((p) => Boolean(p.slug?.trim()))
@@ -206,7 +216,7 @@ export const Route = createFileRoute("/sitemap.xml")({
               const image = p.cover_image_url
                 ? `\n    <image:image>\n      <image:loc>${escapeXml(absoluteUrl(p.cover_image_url))}</image:loc>\n    </image:image>`
                 : "";
-              return `  <url>\n    <loc>${escapeXml(`${SITE_ORIGIN}/property/${p.slug}`)}</loc>${safeLastmod(p.updated_at)}\n    <priority>0.8</priority>${image}\n  </url>`;
+              return `  <url>\n    <loc>${escapeXml(`${SITE_ORIGIN}/property/${p.slug}`)}</loc>${safeLastmod(latestLastmod(p.updated_at))}\n    <priority>0.8</priority>${image}\n  </url>`;
             }),
         ].join("\n");
 

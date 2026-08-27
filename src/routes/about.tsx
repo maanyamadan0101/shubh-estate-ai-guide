@@ -9,19 +9,17 @@ const ARUN_LINKEDIN = "https://in.linkedin.com/in/arun-madan-94ab4224";
 export const Route = createFileRoute("/about")({
   head: () => {
     const canonical = `${SITE_ORIGIN}/about`;
-    const title = "Arun Madaan | Founder, Shubh Estate Brokers | Gurugram Real Estate";
+    const title = "Arun Madaan | Founder, Shubh Estate Brokers Gurgaon";
     const description =
-      "Arun Madaan, MBA, LLB, is Founder & Promoter of Shubh Estate Brokers in Gurugram and a former senior banking professional specialising in real estate advisory, mortgages, property valuation, title assessment and investment safety.";
+      "Meet Arun Madaan, Founder of Shubh Estate Brokers in Gurugram, with banking, mortgage, property valuation, title assessment and real-estate advisory experience.";
 
     return {
       meta: [
         { title },
         { name: "description", content: description },
-        { property: "og:title", content: "Arun Madaan | Founder of Shubh Estate Brokers, Gurugram" },
-        {
-          property: "og:description",
-          content: "Meet Arun Madaan, Founder & Promoter of Shubh Estate Brokers — Gurugram real estate advisory backed by senior banking, mortgage, valuation and title-assessment experience.",
-        },
+        { name: "robots", content: "index,follow,max-image-preview:large" },
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
         { property: "og:type", content: "profile" },
         { property: "og:url", content: canonical },
       ],
@@ -36,7 +34,7 @@ export const Route = createFileRoute("/about")({
             url: canonical,
             name: "Arun Madaan — Founder of Shubh Estate Brokers, Gurugram",
             description,
-            dateModified: "2026-08-24T09:21:00+05:30",
+            dateModified: "2026-08-27T08:44:00+05:30",
             mainEntity: {
               "@type": "Person",
               "@id": `${canonical}#arun-madan`,

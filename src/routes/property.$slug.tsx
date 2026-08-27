@@ -7,7 +7,16 @@ import { projectIdentityFor } from "@/lib/project-hubs";
 import { getPublicPropertyDetail } from "@/lib/public-property-detail.functions";
 import { listPublicProperties } from "@/lib/properties.functions";
 import { representativeProjectImageFor } from "@/lib/project-image-catalog";
-import { buildCanonical, formatArea, formatINR, PROPERTY_TYPE_LABEL, SITE_ORIGIN } from "@/lib/seo";
+import {
+  buildCanonical,
+  buildMetaDescription,
+  buildSeoTitle,
+  listingReference,
+  PROPERTY_TYPE_LABEL,
+  SITE_ORIGIN,
+  stripInternalListingReference,
+  wordSafeText,
+} from "@/lib/seo";
 
 const DEDICATED_PROJECT_GUIDES: Record<string, string> = {
   "dlf-skycourt": "/dlf-skycourt-sector-86-gurgaon",
@@ -15,16 +24,6 @@ const DEDICATED_PROJECT_GUIDES: Record<string, string> = {
   "godrej-101": "/godrej-101-sector-79-gurgaon",
   "godrej-101-sector-79": "/godrej-101-sector-79-gurgaon",
 };
-
-function wordSafeMetaDescription(value: string, maxLength = 158) {
-  const compact = value.replace(/\s+/g, " ").trim();
-  if (compact.length <= maxLength) return compact;
-
-  const candidate = compact.slice(0, maxLength - 1);
-  const lastSpace = candidate.lastIndexOf(" ");
-  const safe = lastSpace > 100 ? candidate.slice(0, lastSpace) : candidate;
-  return `${safe.replace(/[,:;\-–—]+$/g, "")}…`;
-}
 
 function storedDescriptionLooksUsable(value: string | null | undefined) {
   if (!value?.trim()) return false;
@@ -36,35 +35,6 @@ function storedDescriptionLooksUsable(value: string | null | undefined) {
   // text to search engines and social previews.
   if (compact.length >= 150 && !/[.!?…]$/.test(compact)) return false;
   return true;
-}
-
-function listingReference(id: string) {
-  const compact = id.replace(/-/g, "").toUpperCase();
-  return `SEB-${compact.slice(0, 8)}`;
-}
-
-function titleWithListingReference(base: string, reference: string, maxLength = 70) {
-  const compact = base.replace(/\s+/g, " ").trim();
-  const suffix = ` | ${reference}`;
-  if (`${compact}${suffix}`.length <= maxLength) return `${compact}${suffix}`;
-
-  const available = Math.max(20, maxLength - suffix.length);
-  const candidate = compact.slice(0, available);
-  const lastSpace = candidate.lastIndexOf(" ");
-  const safe = lastSpace > 20 ? candidate.slice(0, lastSpace) : candidate;
-  return `${safe.replace(/[,:;\-–—|]+$/g, "").trim()}${suffix}`;
-}
-
-function descriptionWithListingReference(base: string, reference: string, maxLength = 158) {
-  const compact = base.replace(/\s+/g, " ").trim();
-  const suffix = ` Ref ${reference}.`;
-  if (`${compact}${suffix}`.length <= maxLength) return `${compact}${suffix}`;
-
-  const available = Math.max(90, maxLength - suffix.length);
-  const candidate = compact.slice(0, available);
-  const lastSpace = candidate.lastIndexOf(" ");
-  const safe = lastSpace > 80 ? candidate.slice(0, lastSpace) : candidate;
-  return `${safe.replace(/[,:;\-–—.]+$/g, "").trim()}.${suffix}`.replace("..", ".");
 }
 
 export const Route = createFileRoute("/property/$slug")({
@@ -117,32 +87,47 @@ export const Route = createFileRoute("/property/$slug")({
     const p = loaderData.property;
     const typeLabel = PROPERTY_TYPE_LABEL[p.property_type] ?? "Property";
     const listingRef = listingReference(String(p.id));
-    const titleBase = p.meta_title || `${p.bhk ?? ""} ${typeLabel} in ${p.sector ?? p.city}`;
-    const title = titleWithListingReference(titleBase, listingRef);
-    const listingIntent = p.listing_type === "rent" ? "for rent" : "for sale";
-    const locationLabel = [p.sector, p.city].filter(Boolean).join(", ");
-    const generatedDescription = wordSafeMetaDescription(
-      [
-        p.bhk ? `${p.bhk} ${typeLabel}` : typeLabel,
-        listingIntent,
-        p.title ? `at ${p.title}` : null,
-        locationLabel ? `in ${locationLabel}` : null,
-        p.area_sqft ? formatArea(p.area_sqft) : null,
-        p.floor_number !== null && p.floor_number !== undefined ? `floor ${p.floor_number}` : null,
-        p.facing ? `${p.facing} facing` : null,
-        p.price ? formatINR(p.price) : null,
-      ]
-        .filter(Boolean)
-        .join(" · ") +
-        ". View photos, specifications, home-loan assistance and current availability.",
-    );
-    const descriptionBase = storedDescriptionLooksUsable(p.meta_description)
-      ? wordSafeMetaDescription(p.meta_description!)
+    const seoSource = {
+      title: p.title,
+      bhk: p.bhk,
+      propertyType: p.property_type,
+      listingType: p.listing_type,
+      projectName: p.project?.name ?? null,
+      builderName: p.builder?.name ?? null,
+      sector: p.project?.sector ?? p.sector,
+      locality: p.project?.locality ?? p.locality,
+      city: p.city,
+      price: p.price,
+      areaSqft: p.area_sqft,
+      floorNumber: p.floor_number,
+      facing: p.facing,
+      description: p.description,
+    };
+
+    // A linked project record is the most reliable source for a search-facing
+    // property title. Otherwise retain a useful manually-authored title after
+    // removing operational SEB identifiers, with the structured fallback last.
+    const generatedTitle = buildSeoTitle(seoSource);
+    const storedTitle = p.meta_title ? stripInternalListingReference(p.meta_title) : "";
+    const title = p.project?.name
+      ? generatedTitle
+      : storedTitle
+        ? wordSafeText(storedTitle, 68)
+        : generatedTitle;
+
+    const generatedDescription = buildMetaDescription(seoSource);
+    const storedDescription = storedDescriptionLooksUsable(p.meta_description)
+      ? stripInternalListingReference(p.meta_description!)
+      : "";
+    const description = storedDescription
+      ? wordSafeText(storedDescription, 158)
       : generatedDescription;
-    const description = descriptionWithListingReference(descriptionBase, listingRef);
     const ogDescription = storedDescriptionLooksUsable(p.og_description)
-      ? descriptionWithListingReference(wordSafeMetaDescription(p.og_description!), listingRef)
+      ? wordSafeText(stripInternalListingReference(p.og_description!), 158)
       : description;
+    const ogTitle = p.og_title
+      ? wordSafeText(stripInternalListingReference(p.og_title), 68)
+      : title;
 
     // Property detail pages are the canonical URL for their own listing.
     // Keeping this aligned with the sitemap avoids conflicting canonical signals
@@ -159,6 +144,8 @@ export const Route = createFileRoute("/property/$slug")({
       "@context": "https://schema.org",
       "@type": "Residence",
       "@id": `${canonical}#property`,
+      // The stable listing reference remains useful as a structured operational
+      // identifier without consuming search-title or snippet space.
       identifier: listingRef,
       name: p.title,
       description,
@@ -204,7 +191,7 @@ export const Route = createFileRoute("/property/$slug")({
         { title },
         { name: "description", content: description },
         { name: "robots", content: "index,follow,max-image-preview:large" },
-        { property: "og:title", content: titleWithListingReference(p.og_title || titleBase, listingRef) },
+        { property: "og:title", content: ogTitle },
         { property: "og:description", content: ogDescription },
         { property: "og:type", content: "article" },
         { property: "og:url", content: canonical },
