@@ -2,6 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { DWARKA_CATALOGUE_LISTINGS } from "@/data/dwarka-catalogue-listings";
 import { projectIdentityFor } from "@/lib/project-hubs";
+import { isPublicSlug } from "@/lib/public-slug";
 
 export type ProjectHubListing = {
   id: string;
@@ -137,6 +138,8 @@ function mergeHub(
   listing: ProjectHubListing,
   details?: Partial<Omit<ProjectHub, "name" | "slug" | "sector" | "listings">>,
 ) {
+  if (!isPublicSlug(identity.slug) || !isPublicSlug(listing.slug)) return;
+
   const existing = map.get(identity.slug);
   if (existing) {
     if (!existing.listings.some((item) => item.id === listing.id)) existing.listings.push(listing);
@@ -168,6 +171,7 @@ async function loadProjectHubs(): Promise<ProjectHub[]> {
   const hubs = new Map<string, ProjectHub>();
 
   for (const row of DWARKA_CATALOGUE_LISTINGS) {
+    if (!isPublicSlug(row.slug)) continue;
     const identity = projectIdentityFor({ title: row.title, sector: row.sector });
     if (!identity) continue;
     mergeHub(hubs, identity, staticListingToHubListing(row), {
@@ -211,13 +215,17 @@ async function loadProjectHubs(): Promise<ProjectHub[]> {
     }
 
     const projects = new Map(
-      ((projectResult.data ?? []) as unknown as ProjectRow[]).map((row) => [row.id, row]),
+      ((projectResult.data ?? []) as unknown as ProjectRow[])
+        .filter((row) => isPublicSlug(row.slug))
+        .map((row) => [row.id, row]),
     );
     const builders = new Map(
       ((builderResult.data ?? []) as unknown as BuilderRow[]).map((row) => [row.id, row]),
     );
 
     for (const row of (propertyResult.data ?? []) as unknown as DbListing[]) {
+      if (!isPublicSlug(row.slug)) continue;
+
       const project = row.project_id ? projects.get(row.project_id) ?? null : null;
       const identity = projectIdentityFor({
         title: row.title,
@@ -241,14 +249,16 @@ async function loadProjectHubs(): Promise<ProjectHub[]> {
   }
 
   return [...hubs.values()]
+    .filter((hub) => isPublicSlug(hub.slug))
     .map((hub) => ({
       ...hub,
-      listings: [...hub.listings].sort((a, b) => {
+      listings: [...hub.listings].filter((item) => isPublicSlug(item.slug)).sort((a, b) => {
         const aTime = a.updated_at ? new Date(a.updated_at).getTime() : 0;
         const bTime = b.updated_at ? new Date(b.updated_at).getTime() : 0;
         return bTime - aTime;
       }),
     }))
+    .filter((hub) => hub.listings.length > 0)
     .sort((a, b) => {
       if (b.listings.length !== a.listings.length) return b.listings.length - a.listings.length;
       return a.name.localeCompare(b.name, "en-IN");
@@ -262,11 +272,14 @@ export const listPublicProjectHubs = createServerFn({ method: "GET" }).handler(a
 export const getPublicProjectHub = createServerFn({ method: "GET" })
   .inputValidator((input: unknown) => z.object({ slug: z.string().trim().min(2) }).parse(input))
   .handler(async ({ data }) => {
+    if (!isPublicSlug(data.slug)) return null;
     const hubs = await loadProjectHubs();
     return hubs.find((hub) => hub.slug === data.slug) ?? null;
   });
 
 export const listProjectHubSitemapEntries = createServerFn({ method: "GET" }).handler(async () => {
   const hubs = await loadProjectHubs();
-  return hubs.map((hub) => ({ slug: hub.slug, updated_at: hub.updated_at }));
+  return hubs
+    .filter((hub) => isPublicSlug(hub.slug))
+    .map((hub) => ({ slug: hub.slug, updated_at: hub.updated_at }));
 });
