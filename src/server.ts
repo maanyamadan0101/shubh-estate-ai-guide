@@ -17,6 +17,17 @@ const CANONICAL_PATH_REDIRECTS: Record<string, string> = {
   "/home-loan": "/home-loans",
 };
 
+// These are framework route templates, not real public pages. If a crawler has
+// already discovered one from stale HTML, return 410 so it is removed quickly
+// instead of being mistaken for a property, project, location or NRI landing page.
+const STALE_ROUTE_TEMPLATE_PATHS = new Set([
+  "/property/$slug",
+  "/projects/$slug",
+  "/locations/$slug",
+  "/nri/$country",
+  "/nri_/$country",
+]);
+
 async function getServerEntry(): Promise<ServerEntry> {
   if (!serverEntryPromise) {
     serverEntryPromise = import("@tanstack/react-start/server-entry").then(
@@ -24,6 +35,28 @@ async function getServerEntry(): Promise<ServerEntry> {
     );
   }
   return serverEntryPromise;
+}
+
+function requestPathname(request: Request) {
+  const pathname = new URL(request.url).pathname;
+  try {
+    return decodeURIComponent(pathname);
+  } catch {
+    return pathname;
+  }
+}
+
+function staleRouteTemplateResponse(request: Request): Response | null {
+  if (request.method !== "GET" && request.method !== "HEAD") return null;
+  if (!STALE_ROUTE_TEMPLATE_PATHS.has(requestPathname(request))) return null;
+
+  return new Response(null, {
+    status: 410,
+    headers: {
+      "Cache-Control": "public, max-age=3600",
+      "X-Robots-Tag": "noindex, nofollow",
+    },
+  });
 }
 
 function canonicalRedirect(request: Request): Response | null {
@@ -133,6 +166,9 @@ function applyPublicHtmlCache(request: Request, response: Response): Response {
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
+      const staleTemplate = staleRouteTemplateResponse(request);
+      if (staleTemplate) return staleTemplate;
+
       const redirect = canonicalRedirect(request);
       if (redirect) return redirect;
 

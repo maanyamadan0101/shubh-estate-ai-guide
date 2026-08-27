@@ -2,6 +2,7 @@ import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { DWARKA_CATALOGUE_LISTINGS } from "@/data/dwarka-catalogue-listings";
 import { GURGAON_DIRECTORY_PROJECTS } from "@/data/gurgaon-project-directory";
+import { isPublicSlug } from "@/lib/public-slug";
 
 async function publishedClient() {
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
@@ -193,9 +194,9 @@ export const listPublicProperties = createServerFn({ method: "GET" })
         };
       }
 
-      const publicRows = ((rows ?? []) as unknown as ListingRow[]).map(
-        applyConfirmedInventoryCorrections,
-      );
+      const publicRows = ((rows ?? []) as unknown as ListingRow[])
+        .filter((row) => isPublicSlug(row.slug))
+        .map(applyConfirmedInventoryCorrections);
       const properties = data.locality
         ? dedupeLocationListings(publicRows).slice(0, requestedLimit)
         : publicRows;
@@ -251,6 +252,7 @@ export const listPublicCataloguePage = createServerFn({ method: "GET" })
       }
 
       const curatedDwarkaRows = (DWARKA_CATALOGUE_LISTINGS as unknown as ListingRow[])
+        .filter((row) => isPublicSlug(row.slug))
         .map(applyConfirmedInventoryCorrections)
         .filter((row) => {
           if (data.purpose && row.listing_type !== data.purpose) return false;
@@ -261,7 +263,9 @@ export const listPublicCataloguePage = createServerFn({ method: "GET" })
       const queryText = data.q?.trim().toLocaleLowerCase("en-IN") ?? "";
       const catalogueRows = [
         ...curatedDwarkaRows,
-        ...((rows ?? []) as unknown as ListingRow[]).map(applyConfirmedInventoryCorrections),
+        ...((rows ?? []) as unknown as ListingRow[])
+          .filter((row) => isPublicSlug(row.slug))
+          .map(applyConfirmedInventoryCorrections),
       ].filter((row) => {
         if (!queryText) return true;
         return [row.title, row.sector, row.locality, row.city, row.bhk]
@@ -308,6 +312,8 @@ export const getPublicProperty = createServerFn({ method: "GET" })
   .inputValidator((input: unknown) => z.object({ slug: z.string().min(1) }).parse(input))
   .handler(async ({ data }) => {
     try {
+      if (!isPublicSlug(data.slug)) return null;
+
       const supabase = await publishedClient();
       const { data: property, error } = await supabase
         .from("properties")
@@ -382,15 +388,16 @@ export const listSitemapProperties = createServerFn({ method: "GET" }).handler(a
       return [] as SitemapRow[];
     }
 
-    // Include every genuine published inventory unit. Search engines can then
-    // discover each self-canonical property URL even when multiple flats share
-    // the same society, size, configuration or asking price.
-    return ((data ?? []) as unknown as SitemapIdentityRow[]).map((row) => ({
-      slug: row.slug,
-      updated_at: row.updated_at,
-      status: row.status,
-      cover_image_url: row.cover_image_url,
-    }));
+    // Include every genuine published inventory unit, but never route-template
+    // tokens such as $slug. Search engines should only see concrete canonical URLs.
+    return ((data ?? []) as unknown as SitemapIdentityRow[])
+      .filter((row) => isPublicSlug(row.slug))
+      .map((row) => ({
+        slug: row.slug,
+        updated_at: row.updated_at,
+        status: row.status,
+        cover_image_url: row.cover_image_url,
+      }));
   } catch (error) {
     console.error("[Sitemap] Could not initialise published-property client:", error);
     return [] as SitemapRow[];
