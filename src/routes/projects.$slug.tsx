@@ -5,7 +5,8 @@ import { Button } from "@/components/ui/button";
 import { EnquiryForm } from "@/components/site/EnquiryForm";
 import { getPublicProjectHub } from "@/lib/project-hub.functions";
 import { corridorPath } from "@/lib/project-hubs";
-import { formatArea, formatINR, SITE_ORIGIN, STATUS_LABEL } from "@/lib/seo";
+import { vercelImageUrl, vercelSrcSet } from "@/lib/image-optimization";
+import { formatArea, formatINR, SITE_ORIGIN, STATUS_LABEL, wordSafeText } from "@/lib/seo";
 
 const PROJECT_REDIRECTS: Record<string, string> = {
   "dlf-skycourt-sector-86": "/dlf-skycourt-sector-86-gurgaon",
@@ -21,11 +22,15 @@ function priceRange(values: Array<number | null>) {
 }
 
 function compactDescription(value: string, max = 158) {
+  return wordSafeText(value, max);
+}
+
+function compactTitle(value: string, max = 68) {
   const text = value.replace(/\s+/g, " ").trim();
   if (text.length <= max) return text;
-  const cut = text.slice(0, max - 1);
+  const cut = text.slice(0, max);
   const lastSpace = cut.lastIndexOf(" ");
-  return `${cut.slice(0, lastSpace > 100 ? lastSpace : cut.length).trim()}…`;
+  return cut.slice(0, lastSpace > 42 ? lastSpace : cut.length).replace(/[,:;\-–—|]+$/g, "").trim();
 }
 
 export const Route = createFileRoute("/projects/$slug")({
@@ -45,10 +50,21 @@ export const Route = createFileRoute("/projects/$slug")({
     const location = [loaderData.sector, "Gurgaon"].filter(Boolean).join(" ");
     const canonical = `${SITE_ORIGIN}/projects/${loaderData.slug}`;
     const numericPrices = loaderData.listings.map((listing) => listing.price);
+    const hasAskingPrices = numericPrices.some((value) => Boolean(value && value > 0));
+    const saleCount = loaderData.listings.filter((listing) => listing.listing_type !== "rent").length;
+    const rentCount = loaderData.listings.filter((listing) => listing.listing_type === "rent").length;
+    const intent = saleCount
+      ? hasAskingPrices
+        ? "Flats for Sale & Prices"
+        : "Flats for Sale"
+      : rentCount
+        ? "Flats for Rent"
+        : "Project & Buyer Guide";
+    const title = compactTitle(`${loaderData.name} ${location} | ${intent}`);
+    const priceContext = hasAskingPrices ? ` Asking-price context: ${priceRange(numericPrices)}.` : "";
     const description = compactDescription(
-      `Explore ${loaderData.name}${loaderData.sector ? ` in ${loaderData.sector}, Gurgaon` : " in Gurgaon"}. Compare ${loaderData.listings.length} current Shubh Estate Brokers listing${loaderData.listings.length === 1 ? "" : "s"}, asking prices, sizes, possession status, location context and buyer checks.`,
+      `Explore ${loaderData.name}${loaderData.sector ? ` in ${loaderData.sector}, Gurgaon` : " in Gurgaon"}. Compare ${loaderData.listings.length} current listing${loaderData.listings.length === 1 ? "" : "s"}, sizes and possession status.${priceContext} Review buyer checks before shortlisting.`,
     );
-    const title = `${loaderData.name} ${location} | Current Listings & Buyer Guide`.slice(0, 68);
     const itemList = {
       "@context": "https://schema.org",
       "@type": "ItemList",
@@ -77,7 +93,7 @@ export const Route = createFileRoute("/projects/$slug")({
       },
       ...(loaderData.builder_name ? { brand: loaderData.builder_name } : {}),
       ...(loaderData.rera_number ? { identifier: loaderData.rera_number } : {}),
-      ...(numericPrices.some((value) => Boolean(value && value > 0))
+      ...(hasAskingPrices
         ? {
             offers: {
               "@type": "AggregateOffer",
@@ -232,7 +248,17 @@ function ProjectHubPage() {
               {hub.listings.map((listing) => (
                 <article key={listing.id} className="overflow-hidden rounded-xl border border-border bg-card">
                   {listing.cover_image_url ? (
-                    <img src={listing.cover_image_url} alt={listing.title} loading="lazy" className="aspect-[16/9] w-full object-cover" />
+                    <img
+                      src={vercelImageUrl(listing.cover_image_url, 768)}
+                      srcSet={vercelSrcSet(listing.cover_image_url, [480, 640, 768, 960, 1200])}
+                      sizes="(min-width: 768px) 50vw, 100vw"
+                      width={1200}
+                      height={675}
+                      alt={listing.title}
+                      loading="lazy"
+                      decoding="async"
+                      className="aspect-[16/9] w-full object-cover"
+                    />
                   ) : null}
                   <div className="p-5">
                     <div className="flex flex-wrap gap-2">
