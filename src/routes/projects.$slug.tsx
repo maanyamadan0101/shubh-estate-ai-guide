@@ -6,7 +6,14 @@ import { EnquiryForm } from "@/components/site/EnquiryForm";
 import { getPublicProjectHub } from "@/lib/project-hub.functions";
 import { corridorPath } from "@/lib/project-hubs";
 import { vercelImageUrl, vercelSrcSet } from "@/lib/image-optimization";
-import { formatArea, formatINR, SITE_ORIGIN, STATUS_LABEL, wordSafeText } from "@/lib/seo";
+import {
+  compactSeoTitle,
+  formatArea,
+  formatINR,
+  SITE_ORIGIN,
+  STATUS_LABEL,
+  wordSafeText,
+} from "@/lib/seo";
 
 const PROJECT_REDIRECTS: Record<string, string> = {
   "dlf-skycourt-sector-86": "/dlf-skycourt-sector-86-gurgaon",
@@ -23,14 +30,6 @@ function priceRange(values: Array<number | null>) {
 
 function compactDescription(value: string, max = 158) {
   return wordSafeText(value, max);
-}
-
-function compactTitle(value: string, max = 68) {
-  const text = value.replace(/\s+/g, " ").trim();
-  if (text.length <= max) return text;
-  const cut = text.slice(0, max);
-  const lastSpace = cut.lastIndexOf(" ");
-  return cut.slice(0, lastSpace > 42 ? lastSpace : cut.length).replace(/[,:;\-–—|]+$/g, "").trim();
 }
 
 export const Route = createFileRoute("/projects/$slug")({
@@ -53,14 +52,8 @@ export const Route = createFileRoute("/projects/$slug")({
     const hasAskingPrices = numericPrices.some((value) => Boolean(value && value > 0));
     const saleCount = loaderData.listings.filter((listing) => listing.listing_type !== "rent").length;
     const rentCount = loaderData.listings.filter((listing) => listing.listing_type === "rent").length;
-    const intent = saleCount
-      ? hasAskingPrices
-        ? "Flats for Sale & Prices"
-        : "Flats for Sale"
-      : rentCount
-        ? "Flats for Rent"
-        : "Project & Buyer Guide";
-    const title = compactTitle(`${loaderData.name} ${location} | ${intent}`);
+    const intent = saleCount ? "Flats for Sale" : rentCount ? "Flats for Rent" : "Project Guide";
+    const title = compactSeoTitle(`${loaderData.name} ${location} | ${intent}`);
     const priceContext = hasAskingPrices ? ` Asking-price context: ${priceRange(numericPrices)}.` : "";
     const description = compactDescription(
       `Explore ${loaderData.name}${loaderData.sector ? ` in ${loaderData.sector}, Gurgaon` : " in Gurgaon"}. Compare ${loaderData.listings.length} current listing${loaderData.listings.length === 1 ? "" : "s"}, sizes and possession status.${priceContext} Review buyer checks before shortlisting.`,
