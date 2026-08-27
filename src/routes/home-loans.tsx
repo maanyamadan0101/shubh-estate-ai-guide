@@ -56,14 +56,15 @@ const LOAN_FAQS = [
 export const Route = createFileRoute("/home-loans")({
   head: () => {
     const canonical = `${SITE_ORIGIN}/home-loans`;
-    const title = "Home Loan Assistance in Gurgaon | Bank & Mortgage Coordination";
+    const title = "Home Loan Assistance Gurgaon | Mortgage Coordination";
     const description =
-      "Home Loan Gurugram support for low-down-payment property purchase, eligibility analysis, balance transfer, takeover, smart overdraft options, valuation and documentation.";
+      "Get Gurgaon home-loan assistance for eligibility, lender comparison, valuation, documentation, balance transfer, takeover and mortgage coordination.";
 
     return {
       meta: [
         { title },
         { name: "description", content: description },
+        { name: "robots", content: "index,follow,max-image-preview:large" },
         { property: "og:title", content: title },
         { property: "og:description", content: description },
         { property: "og:url", content: canonical },
@@ -105,286 +106,123 @@ export const Route = createFileRoute("/home-loans")({
   component: HomeLoans,
 });
 
-const SERVICES = [
-  "Low-Down-Payment Purchase Planning",
-  "Maximum Eligible Loan Assessment",
-  "Home Loans up to 90% (subject to lender eligibility)",
-  "Lender and Rate Comparison",
-  "Applicant-Specific Document Checklist",
-  "Application Follow-Up",
-  "Property Valuation",
-  "Legal Verification",
-  "Title Assessment",
-  "Loan Structuring",
-  "Documentation Support",
-  "Gurugram Lender-Channel Coordination",
-  "Bank Coordination",
-  "Balance Transfer / Takeover Review",
-  "Overdraft-Linked Home Loan Options",
-  "Top-Up Loans",
-  "NRI Home Loans",
-  "Salaried & Self-Employed Solutions",
-];
-
-const inr = (n: number) =>
-  new Intl.NumberFormat("en-IN", {
-    style: "currency",
-    currency: "INR",
-    maximumFractionDigits: 0,
-  }).format(Math.round(n));
-
 function HomeLoans() {
-  const [income, setIncome] = useState(150000);
-  const [existingEmi, setExistingEmi] = useState(0);
-  const [age, setAge] = useState(35);
-  const [cost, setCost] = useState(15000000);
+  const [propertyValue, setPropertyValue] = useState(25000000);
+  const [loanAmount, setLoanAmount] = useState(20000000);
+  const [rate, setRate] = useState(8.5);
+  const [years, setYears] = useState(20);
 
-  const result = useMemo(() => {
-    const tenure = Math.min(30, Math.max(5, 60 - age));
-    const rate = 8.75;
-    const foir = income > 200000 ? 0.6 : income > 100000 ? 0.55 : 0.5;
-    const capacity = Math.max(income * foir - existingEmi, 0);
-    const r = rate / 12 / 100;
-    const n = tenure * 12;
-    const eligible = (capacity * (Math.pow(1 + r, n) - 1)) / (r * Math.pow(1 + r, n));
-    const capped = Math.min(eligible, cost * 0.9);
-    return { tenure, rate, capacity, eligible: capped, ltv: (capped / Math.max(cost, 1)) * 100 };
-  }, [income, existingEmi, age, cost]);
+  const emi = useMemo(() => {
+    const principal = Math.max(0, loanAmount);
+    const months = Math.max(1, Math.round(years * 12));
+    const monthlyRate = Math.max(0, rate) / 1200;
+    if (!principal) return 0;
+    if (!monthlyRate) return principal / months;
+    return (
+      (principal * monthlyRate * Math.pow(1 + monthlyRate, months)) /
+      (Math.pow(1 + monthlyRate, months) - 1)
+    );
+  }, [loanAmount, rate, years]);
+
+  const ltv = propertyValue > 0 ? Math.min(100, (loanAmount / propertyValue) * 100) : 0;
 
   return (
     <>
       <PageHero
-        eyebrow="Home Loan Assistance"
-        title="Home loans arranged the way a banker would structure them"
-        body="For buyers with a small down payment and existing borrowers seeking savings, we coordinate profile analysis, eligibility, valuation, documentation and lender follow-up through suitable authorised channels."
+        eyebrow="Home Loans & Mortgage Advisory"
+        title="Home loan support that starts with the property decision"
+        body="Understand affordability, loan eligibility, lender valuation, documentation and mortgage structure before committing to a Gurgaon property."
       />
 
       <section className="container-page py-16">
-        <div className="rounded-2xl border border-gold/30 bg-gold/5 p-7 md:p-10">
-          <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
-            <div>
-              <p className="eyebrow">Mortgage Structuring Expert · Gurugram</p>
-              <h2 className="mt-3 font-display text-3xl md:text-4xl">
-                A stronger financing plan for the property you actually want
-              </h2>
-              <p className="mt-4 max-w-3xl leading-7 text-muted-foreground">
-                Shubh Estate Brokers is led by an Ex-Banker and Law Graduate with practical
-                experience in mortgages, legal documentation, property valuation and banking
-                procedures. We look at the applicant profile and the property together before
-                recommending a financing route.
-              </p>
-            </div>
-            <div className="grid gap-3 text-sm">
-              <div className="rounded-xl border border-border bg-card p-4">
-                <p className="font-semibold">Small down payment buyers</p>
-                <p className="mt-1 text-muted-foreground">
-                  Review income, credit, obligations and property value to estimate practical
-                  maximum eligibility before shortlisting a Gurugram home.
-                </p>
-              </div>
-              <div className="rounded-xl border border-border bg-card p-4">
-                <p className="font-semibold">Existing home-loan holders</p>
-                <p className="mt-1 text-muted-foreground">
-                  Compare balance transfer, takeover, top-up and smart overdraft-linked options
-                  using net savings and break-even—not only a lower advertised rate.
-                </p>
-              </div>
+        <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
+          <div>
+            <SectionHead
+              eyebrow="Buyer Financing"
+              title="Coordinate the property and loan process together"
+              body="A property may fit your budget on paper but still create problems if the lender valuation, title documents, project approvals or repayment structure do not fit. We review financing early so these issues surface before a large token or payment."
+            />
+            <div className="mt-8 grid gap-4 sm:grid-cols-2">
+              <LoanCard icon={Landmark} title="Eligibility review" body="Review income, obligations, credit profile and target property budget before shortlisting." />
+              <LoanCard icon={WalletCards} title="Loan-to-value planning" body="Understand the likely own-contribution requirement and how lender valuation can differ from the purchase price." />
+              <LoanCard icon={ArrowRightLeft} title="Takeover & balance transfer" body="Compare the existing facility with available lender options after all applicable charges and remaining tenure." />
+              <LoanCard icon={PiggyBank} title="Overdraft-linked options" body="Evaluate eligible products that may reduce interest calculation when surplus funds remain linked, subject to lender rules." />
             </div>
           </div>
-          <p className="mt-6 border-t border-gold/20 pt-5 text-xs leading-5 text-muted-foreground">
-            We can help evaluate options through available authorised lender channels, which may
-            include public-sector and private lenders where applicable. Current empanelment,
-            eligibility, property approval and lender policy determine the final route.
-          </p>
-        </div>
-      </section>
 
-      <section className="container-page py-16">
-        <SectionHead eyebrow="What we handle" title="End-to-end mortgage support" />
-        <ul className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {SERVICES.map((s) => (
-            <li key={s} className="rounded-lg border border-border bg-card px-5 py-4 text-sm">
-              {s}
-            </li>
-          ))}
-        </ul>
-      </section>
+          <div className="rounded-2xl border border-border bg-card p-6 md:p-7">
+            <p className="eyebrow">Indicative EMI</p>
+            <h2 className="mt-2 font-display text-2xl">Affordability calculator</h2>
+            <p className="mt-2 text-xs leading-5 text-muted-foreground">Illustrative only. This is not a sanction, quotation or lender commitment.</p>
 
-      <section className="border-y border-border bg-secondary/60 py-16">
-        <div className="container-page">
-          <SectionHead
-            eyebrow="Existing Home-Loan Borrowers"
-            title="Takeover, top-up and smart overdraft-linked options"
-            body="A useful review compares the complete cost, remaining tenure, liquidity value and break-even period—not only the advertised rate or a lower EMI."
-          />
-
-          <div className="mt-10 grid gap-5 lg:grid-cols-3">
-            {[
-              {
-                icon: ArrowRightLeft,
-                title: "Balance transfer / takeover",
-                body: "Compare the current outstanding, rate, residual tenure and charges with eligible lender offers to estimate net savings.",
-                points: [
-                  "Current sanction and repayment review",
-                  "Net-savings and break-even comparison",
-                  "Closure and new-lender coordination",
-                ],
-              },
-              {
-                icon: PiggyBank,
-                title: "Overdraft-linked home loan",
-                body: "For eligible products, surplus funds kept in the linked account may reduce the daily balance used for interest calculation.",
-                points: [
-                  "Liquidity-versus-prepayment comparison",
-                  "Product rate and fee review",
-                  "Withdrawal and account-rule explanation",
-                ],
-              },
-              {
-                icon: WalletCards,
-                title: "Top-up and cash-flow review",
-                body: "Assess whether an eligible top-up, shorter tenure, higher EMI or periodic prepayment better supports the borrower's objective.",
-                points: [
-                  "Use-of-funds and eligibility context",
-                  "EMI and tenure scenarios",
-                  "Property-document coordination",
-                ],
-              },
-            ].map(({ icon: Icon, title, body, points }) => (
-              <article key={title} className="rounded-2xl border border-border bg-card p-6">
-                <span className="flex size-11 items-center justify-center rounded-xl bg-navy text-gold">
-                  <Icon className="size-5" aria-hidden="true" />
-                </span>
-                <h2 className="mt-5 font-display text-2xl">{title}</h2>
-                <p className="mt-3 text-sm leading-6 text-muted-foreground">{body}</p>
-                <ul className="mt-5 space-y-2 border-t border-border pt-5 text-sm text-muted-foreground">
-                  {points.map((point) => (
-                    <li key={point} className="flex items-start gap-2">
-                      <Landmark className="mt-0.5 size-4 shrink-0 text-gold" aria-hidden="true" />
-                      {point}
-                    </li>
-                  ))}
-                </ul>
-              </article>
-            ))}
-          </div>
-
-          <div className="mt-8 rounded-2xl surface-navy p-7 md:flex md:items-center md:justify-between md:gap-8">
-            <div>
-              <h2 className="font-display text-2xl">Request a home-loan health check</h2>
-              <p className="mt-2 max-w-3xl text-sm leading-6 text-navy-foreground/70">
-                Keep your latest loan statement, sanction terms, current rate, outstanding balance,
-                remaining tenure and property details ready for a meaningful comparison.
-              </p>
+            <div className="mt-6 grid gap-4">
+              <NumberField label="Property value (₹)" value={propertyValue} onChange={setPropertyValue} step={100000} />
+              <NumberField label="Desired loan amount (₹)" value={loanAmount} onChange={setLoanAmount} step={100000} />
+              <div className="grid grid-cols-2 gap-4">
+                <NumberField label="Interest rate (%)" value={rate} onChange={setRate} step={0.05} />
+                <NumberField label="Tenure (years)" value={years} onChange={setYears} step={1} />
+              </div>
             </div>
-            <Button asChild variant="gold" size="lg" className="mt-5 shrink-0 md:mt-0">
-              <Link to="/contact">Request a takeover review</Link>
-            </Button>
+
+            <div className="mt-6 grid gap-3 rounded-xl bg-secondary/60 p-5 sm:grid-cols-2">
+              <div>
+                <p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">Indicative EMI</p>
+                <p className="mt-1 font-display text-2xl">₹{Math.round(emi).toLocaleString("en-IN")}</p>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">Requested LTV</p>
+                <p className="mt-1 font-display text-2xl">{ltv.toFixed(1)}%</p>
+              </div>
+            </div>
+            <p className="mt-4 text-xs leading-5 text-muted-foreground">{LOAN_DISCLAIMER}</p>
           </div>
         </div>
       </section>
 
       <section className="bg-secondary/60 py-16">
-        <div className="container-page grid gap-10 lg:grid-cols-[1fr_1fr]">
-          <div>
-            <SectionHead
-              eyebrow="Eligibility Checker"
-              title="Estimate what you can borrow"
-              body="An indicative view based on income, obligations, age and property cost. Final sanction rests with the lender."
-            />
-            <div className="mt-8 space-y-5 rounded-xl border border-border bg-card p-6">
-              <Field
-                id="income"
-                label="Net monthly income (₹)"
-                value={income}
-                onChange={setIncome}
-                step={5000}
-              />
-              <Field
-                id="emi"
-                label="Existing monthly EMIs (₹)"
-                value={existingEmi}
-                onChange={setExistingEmi}
-                step={1000}
-              />
-              <Field id="age" label="Age (years)" value={age} onChange={setAge} step={1} />
-              <Field
-                id="cost"
-                label="Property cost (₹)"
-                value={cost}
-                onChange={setCost}
-                step={100000}
-              />
-            </div>
-          </div>
-
-          <div className="self-start rounded-2xl surface-navy p-8">
-            <p className="eyebrow">Indicative outcome</p>
-            <p className="mt-3 font-display text-4xl text-gradient-gold">{inr(result.eligible)}</p>
-            <p className="mt-2 text-sm text-navy-foreground/70">Estimated eligible loan amount</p>
-            <dl className="mt-8 space-y-3 text-sm">
-              {[
-                ["Suggested interest rate", `${result.rate.toFixed(2)}% p.a.`],
-                ["Recommended tenure", `${result.tenure} years`],
-                ["Monthly repayment capacity", inr(result.capacity)],
-                ["Recommended LTV", `${result.ltv.toFixed(0)}%`],
-              ].map(([k, v]) => (
-                <div
-                  key={k}
-                  className="flex justify-between border-b border-navy-foreground/15 pb-2"
-                >
-                  <dt className="text-navy-foreground/70">{k}</dt>
-                  <dd className="font-medium">{v}</dd>
-                </div>
-              ))}
-            </dl>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Button asChild variant="gold">
-                <a href={CONTACT.whatsapp} target="_blank" rel="noreferrer">
-                  Talk to a Mortgage Expert
-                </a>
-              </Button>
-              <Button asChild variant="goldOutline">
-                <Link to="/emi-calculator">Calculate EMI</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="container-page py-16">
-        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr]">
-          <SectionHead eyebrow="Loan FAQ" title="Before you apply" />
-          <Accordion type="single" collapsible>
-            {LOAN_FAQS.map((f) => (
-              <AccordionItem key={f.q} value={f.q}>
-                <AccordionTrigger className="text-left">{f.q}</AccordionTrigger>
-                <AccordionContent className="text-muted-foreground">{f.a}</AccordionContent>
+        <div className="container-page">
+          <SectionHead eyebrow="Mortgage Questions" title="What buyers and borrowers usually need to understand" />
+          <Accordion type="single" collapsible className="mt-8 rounded-xl border border-border bg-card px-5">
+            {LOAN_FAQS.map((faq, index) => (
+              <AccordionItem key={faq.q} value={`loan-faq-${index}`}>
+                <AccordionTrigger>{faq.q}</AccordionTrigger>
+                <AccordionContent className="leading-6 text-muted-foreground">{faq.a}</AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>
         </div>
-        <p className="mt-10 rounded-lg border border-border bg-secondary/60 p-5 text-xs leading-relaxed text-muted-foreground">
-          {LOAN_DISCLAIMER}
-        </p>
+      </section>
+
+      <section className="container-page py-16">
+        <div className="rounded-2xl surface-navy p-8 md:p-10">
+          <p className="eyebrow">Plan Financing Before Token Payment</p>
+          <h2 className="mt-3 font-display text-3xl">Discuss your budget, property and loan requirement together</h2>
+          <p className="mt-3 max-w-3xl text-sm leading-6 text-navy-foreground/75">
+            Share your target property value, own contribution, employment or business profile and preferred purchase timeline. We can coordinate the property-side information and lender process while final credit approval remains with the selected financial institution.
+          </p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Button asChild variant="gold"><a href={CONTACT.phoneHref}>Call {CONTACT.phone}</a></Button>
+            <Button asChild variant="goldOutline"><Link to="/flats-for-sale-in-gurgaon">Browse Gurgaon Properties</Link></Button>
+            <Button asChild variant="goldOutline"><Link to="/contact">Request Loan Assistance</Link></Button>
+          </div>
+        </div>
       </section>
     </>
   );
 }
 
-function Field({
-  id,
-  label,
-  value,
-  onChange,
-  step,
-}: {
-  id: string;
-  label: string;
-  value: number;
-  onChange: (v: number) => void;
-  step: number;
-}) {
+function LoanCard({ icon: Icon, title, body }: { icon: typeof Landmark; title: string; body: string }) {
+  return (
+    <div className="rounded-xl border border-border bg-card p-5">
+      <Icon className="size-5 text-gold" aria-hidden="true" />
+      <h3 className="mt-3 font-display text-lg">{title}</h3>
+      <p className="mt-2 text-sm leading-6 text-muted-foreground">{body}</p>
+    </div>
+  );
+}
+
+function NumberField({ label, value, onChange, step }: { label: string; value: number; onChange: (value: number) => void; step: number }) {
+  const id = label.toLowerCase().replace(/[^a-z0-9]+/g, "-");
   return (
     <div className="space-y-2">
       <Label htmlFor={id}>{label}</Label>
@@ -393,8 +231,8 @@ function Field({
         type="number"
         min={0}
         step={step}
-        value={value}
-        onChange={(e) => onChange(Number(e.target.value) || 0)}
+        value={Number.isFinite(value) ? value : 0}
+        onChange={(event) => onChange(Number(event.target.value))}
       />
     </div>
   );
