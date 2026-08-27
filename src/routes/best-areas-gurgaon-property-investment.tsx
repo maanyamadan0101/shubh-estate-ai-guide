@@ -2,15 +2,16 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SeoIntentLanding } from "@/components/site/SeoIntentLanding";
 import { SITE_ORIGIN } from "@/lib/seo";
 
-const title = "Best Areas in Gurgaon for Property Investment | 2026 Buyer Guide";
-const description = "Compare Gurgaon property investment areas including Golf Course Road, Golf Course Extension Road, Dwarka Expressway, SPR and New Gurugram using entry price, supply, rental demand, developer quality, financing and exit liquidity.";
+const title = "Best Areas to Buy Property in Gurgaon | 2026 Guide";
+const description = "Compare Gurgaon property areas for investment by entry price, supply, rental demand, developer quality, financing and resale liquidity before you shortlist.";
 const canonical = `${SITE_ORIGIN}/best-areas-gurgaon-property-investment`;
 
 export const Route = createFileRoute("/best-areas-gurgaon-property-investment")({
   head: () => ({
     meta: [
-      { title: `${title} | Shubh Estate Brokers` },
+      { title },
       { name: "description", content: description },
+      { name: "robots", content: "index,follow,max-image-preview:large" },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "article" },
