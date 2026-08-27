@@ -11,6 +11,7 @@ type Location = {
   name: string;
   localityFilter?: string;
   title: string;
+  heading: string;
   description: string;
   intro: string;
   body: string[];
@@ -21,9 +22,10 @@ const LOCATIONS: Record<string, Location> = {
   gurgaon: {
     slug: "gurgaon",
     name: "Gurgaon (Gurugram)",
-    title: "Gurgaon Residential Property Market & Buying Guide",
+    title: "Gurgaon Real Estate | Property Market & Buyer Guide",
+    heading: "Gurgaon Residential Property Market & Buying Guide",
     description:
-      "A practical Gurgaon residential-market guide covering corridors, due diligence, financing and buyer decision checks from Shubh Estate Brokers.",
+      "Explore the Gurgaon residential property market by corridor, project status and buyer priorities, with due-diligence and financing guidance from Shubh Estate Brokers.",
     intro:
       "Gurugram has several distinct residential corridors, each with a different mix of completed homes, new launches, connectivity and price points. Choosing the right micro-market is as important as choosing the project.",
     body: [
@@ -42,9 +44,10 @@ const LOCATIONS: Record<string, Location> = {
     slug: "golf-course-road",
     name: "Golf Course Road",
     localityFilter: "Golf Course Road",
-    title: "Apartments for Sale on Golf Course Road, Gurgaon",
+    title: "Golf Course Road Gurgaon | Luxury Flats for Sale",
+    heading: "Apartments for Sale on Golf Course Road, Gurgaon",
     description:
-      "Browse apartments and premium flats for sale on Golf Course Road, Gurugram, with resale, location, financing and title due-diligence guidance from Shubh Estate Brokers.",
+      "Browse premium flats and apartments for sale on Golf Course Road, Gurgaon, with current resale context, location guidance and property due diligence.",
     intro:
       "For buyers searching apartments for sale on Golf Course Road, Gurgaon, this established premium corridor offers a deep completed-home resale market where the actual unit, society, price and documentation can be evaluated before purchase.",
     body: [
@@ -57,9 +60,10 @@ const LOCATIONS: Record<string, Location> = {
     slug: "golf-course-extension-road",
     name: "Golf Course Extension Road",
     localityFilter: "Golf Course Extension Road",
-    title: "Apartments for Sale on Golf Course Extension Road, Gurgaon",
+    title: "Golf Course Extension Road | Property & Projects Gurgaon",
+    heading: "Apartments for Sale on Golf Course Extension Road, Gurgaon",
     description:
-      "Browse apartments and flats for sale on Golf Course Extension Road, Gurugram, with project, possession, NRI, financing and due-diligence guidance from Shubh Estate Brokers.",
+      "Compare property and residential projects on Golf Course Extension Road, Gurgaon, including completed, resale and under-construction options with buyer checks.",
     intro:
       "Buyers searching apartments for sale on Golf Course Extension Road can compare completed societies, resale flats, newer launches and under-construction projects across one of Gurugram's major premium residential corridors.",
     body: [
@@ -73,9 +77,10 @@ const LOCATIONS: Record<string, Location> = {
     slug: "dwarka-expressway",
     name: "Dwarka Expressway",
     localityFilter: "Dwarka Expressway",
-    title: "Property on Dwarka Expressway, Gurgaon | Current Listings",
+    title: "Dwarka Expressway Gurgaon | Property & Project Guide",
+    heading: "Property on Dwarka Expressway, Gurgaon",
     description:
-      "Browse current apartments on Dwarka Expressway, Gurugram, with connectivity, project, NRI, possession and home-loan guidance from Shubh Estate Brokers.",
+      "Understand Dwarka Expressway property by sector, project status and connectivity, with current listing context, financing guidance and practical buyer due diligence.",
     intro:
       "Dwarka Expressway has developed into a major residential corridor linking west Gurugram with Delhi-side connectivity and a large supply of newer housing.",
     body: [
@@ -89,9 +94,10 @@ const LOCATIONS: Record<string, Location> = {
     slug: "southern-peripheral-road",
     name: "Southern Peripheral Road (SPR)",
     localityFilter: "Southern Peripheral Road",
-    title: "Property on Southern Peripheral Road (SPR), Gurgaon",
+    title: "SPR Gurgaon | Property, Sectors & Project Guide",
+    heading: "Property on Southern Peripheral Road (SPR), Gurgaon",
     description:
-      "Homes and investment property along SPR, Gurugram, with connectivity, project-quality, financing and possession guidance.",
+      "Explore SPR Gurgaon property, sectors and residential projects with connectivity, possession, price-comparison and buyer due-diligence guidance.",
     intro:
       "The Southern Peripheral Road connects several fast-growing residential sectors in Gurugram and acts as an important link between Golf Course Extension Road, Sohna Road and NH-48-side areas.",
     body: [
@@ -104,9 +110,10 @@ const LOCATIONS: Record<string, Location> = {
     slug: "sohna-road",
     name: "Sohna Road",
     localityFilter: "Sohna Road",
-    title: "Property on Sohna Road, Gurgaon",
+    title: "Sohna Road Gurgaon | Flats, Property & Area Guide",
+    heading: "Property on Sohna Road, Gurgaon",
     description:
-      "Apartments and homes around Sohna Road, Gurugram, with location, resale, financing and due-diligence guidance.",
+      "Explore flats and property on Sohna Road, Gurgaon, with completed-society, resale, financing, location and due-diligence guidance for buyers.",
     intro:
       "Sohna Road is an established Gurugram residential and commercial corridor with a broad range of completed societies, offices, schools, hospitals and retail.",
     body: [
@@ -119,9 +126,10 @@ const LOCATIONS: Record<string, Location> = {
     slug: "new-gurgaon",
     name: "New Gurugram",
     localityFilter: "New Gurugram",
-    title: "Property in New Gurugram — Buying Guide & Current Listings",
+    title: "New Gurgaon Property | Projects, Prices & Buying Guide",
+    heading: "Property in New Gurugram – Buying Guide & Current Listings",
     description:
-      "Residential property in New Gurugram with current listings, project, possession, connectivity, financing and investment due-diligence guidance.",
+      "Compare New Gurgaon property, projects and current listings across developing sectors, with possession, connectivity, financing and investment due diligence.",
     intro:
       "New Gurugram covers a large cluster of developing sectors with substantial residential supply and a mix of ready, near-ready and under-construction projects.",
     body: [
@@ -163,8 +171,9 @@ export const Route = createFileRoute("/locations/$slug")({
     };
     return {
       meta: [
-        { title: `${location.title} | Shubh Estate Brokers` },
+        { title: location.title },
         { name: "description", content: location.description },
+        { name: "robots", content: "index,follow,max-image-preview:large" },
         { property: "og:title", content: location.title },
         { property: "og:description", content: location.description },
         { property: "og:type", content: "article" },
@@ -178,6 +187,7 @@ export const Route = createFileRoute("/locations/$slug")({
   errorComponent: () => (
     <div className="container-page py-24 text-center">
       <h1 className="font-display text-3xl">This page didn't load</h1>
+      <p className="mt-2 text-muted-foreground">Please refresh or browse another location.</p>
     </div>
   ),
   notFoundComponent: () => (
@@ -198,7 +208,7 @@ function LocationPage() {
 
   return (
     <>
-      <PageHero eyebrow="Location Guide" title={location.title} body={location.intro} />
+      <PageHero eyebrow="Location Guide" title={location.heading} body={location.intro} />
 
       <section className="container-page grid gap-10 py-12 lg:grid-cols-[1fr_20rem]">
         <div className="space-y-5">
