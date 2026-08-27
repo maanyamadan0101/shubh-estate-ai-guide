@@ -20,24 +20,37 @@ import { trackContact, trackEvent } from "@/lib/analytics";
 import { SITE_ORIGIN } from "@/lib/seo";
 
 export const Route = createFileRoute("/contact")({
-  head: () => ({
-    meta: [
-      { title: "Contact Shubh Estate Brokers | Property Consultant Sector 51 Gurugram" },
-      {
-        name: "description",
-        content:
-          "Visit Shubh Estate Brokers at Ocus Quantum Mall, Sector 51, Gurugram for property advisory, site visits, valuation, title review and home-loan assistance.",
-      },
-      { property: "og:title", content: "Contact Shubh Estate Brokers, Gurugram" },
-      {
-        property: "og:description",
-        content:
-          "Book a site visit, request a callback or speak with our property and mortgage advisory team.",
-      },
-      { property: "og:url", content: `${SITE_ORIGIN}/contact` },
-    ],
-    links: [{ rel: "canonical", href: `${SITE_ORIGIN}/contact` }],
-  }),
+  head: () => {
+    const canonical = `${SITE_ORIGIN}/contact`;
+    const title = "Contact Shubh Estate Brokers | Gurgaon Property Consultant";
+    const description =
+      "Contact Shubh Estate Brokers in Sector 51, Gurugram for property buying, selling, site visits, valuation, due diligence and home-loan assistance.";
+
+    return {
+      meta: [
+        { title },
+        { name: "description", content: description },
+        { name: "robots", content: "index,follow,max-image-preview:large" },
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
+        { property: "og:url", content: canonical },
+      ],
+      links: [{ rel: "canonical", href: canonical }],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ContactPage",
+            "@id": `${canonical}#contact-page`,
+            name: title,
+            url: canonical,
+            mainEntity: { "@id": `${SITE_ORIGIN}/#real-estate-agent` },
+          }),
+        },
+      ],
+    };
+  },
   component: Contact,
 });
 
