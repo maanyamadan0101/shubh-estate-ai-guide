@@ -53,14 +53,15 @@ const FAQS = [
 export const Route = createFileRoute("/sell-property-gurgaon")({
   head: () => {
     const canonical = `${SITE_ORIGIN}/sell-property-gurgaon`;
-    const title = "Sell Property in Gurgaon | Owner Sale Advisory | Shubh Estate Brokers";
+    const title = "Sell Property in Gurgaon | Owner Sale Advisory";
     const description =
-      "Sell property in Gurgaon or Gurugram with valuation guidance, professional marketing, buyer screening, negotiation, documentation and transaction coordination.";
+      "Sell property in Gurgaon with valuation guidance, professional marketing, buyer screening, negotiation, documentation and transaction coordination.";
 
     return {
       meta: [
         { title },
         { name: "description", content: description },
+        { name: "robots", content: "index,follow,max-image-preview:large" },
         { property: "og:title", content: title },
         { property: "og:description", content: description },
         { property: "og:type", content: "website" },
