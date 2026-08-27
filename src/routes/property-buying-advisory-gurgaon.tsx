@@ -93,14 +93,15 @@ const FAQS = [
 export const Route = createFileRoute("/property-buying-advisory-gurgaon")({
   head: () => {
     const canonical = `${SITE_ORIGIN}/property-buying-advisory-gurgaon`;
-    const title = "Property Buying Advisory in Gurgaon | Budget, Price & Due Diligence";
+    const title = "Property Buying Advisory Gurgaon | Price & Due Diligence";
     const description =
-      "Gurgaon property buying advice for budget-based shortlisting, realistic price comparison, site visits, document checks, home loans and transaction coordination.";
+      "Get Gurgaon property buying advice for budget-based shortlisting, price comparison, site visits, document checks, home loans and transaction coordination.";
 
     return {
       meta: [
         { title },
         { name: "description", content: description },
+        { name: "robots", content: "index,follow,max-image-preview:large" },
         { property: "og:title", content: title },
         { property: "og:description", content: description },
         { property: "og:type", content: "website" },
