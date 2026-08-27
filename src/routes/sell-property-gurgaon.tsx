@@ -194,6 +194,22 @@ function SellPropertyPage() {
         </div>
       </section>
 
+      <section className="border-b border-border bg-background">
+        <div className="container-page py-5 md:py-6">
+          <div className="flex flex-col gap-4 rounded-2xl border border-gold/30 bg-gold/5 p-5 sm:flex-row sm:items-center sm:justify-between md:p-6">
+            <div>
+              <p className="font-display text-xl md:text-2xl">Ready to sell your property?</p>
+              <p className="mt-1 text-sm leading-6 text-muted-foreground">
+                Submit the property details privately and upload photos or videos for our review.
+              </p>
+            </div>
+            <Button asChild variant="gold" size="lg" className="shrink-0">
+              <Link to="/seller-submit">Submit Your Property for Sale</Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
       <main className="container-page py-16 md:py-20">
         <section>
           <p className="eyebrow">A Clear Selling Process</p>
