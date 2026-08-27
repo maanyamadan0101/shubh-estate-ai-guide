@@ -46,13 +46,14 @@ const FAQS = [
 export const Route = createFileRoute("/rent-out-property-in-gurgaon")({
   head: () => {
     const canonical = `${SITE_ORIGIN}/rent-out-property-in-gurgaon`;
-    const title = "Rent Out Property in Gurgaon | Find a Tenant | Shubh Estate Brokers";
+    const title = "Rent Out Property in Gurgaon | Find a Tenant";
     const description =
-      "Rent out your property in Gurgaon or Gurugram with market rent assessment, tenant sourcing, screening, viewings, negotiation and rental coordination.";
+      "Rent out your Gurgaon property with market rent assessment, tenant sourcing, screening, viewings, negotiation, documentation and move-in coordination.";
     return {
       meta: [
         { title },
         { name: "description", content: description },
+        { name: "robots", content: "index,follow,max-image-preview:large" },
         { property: "og:title", content: title },
         { property: "og:description", content: description },
         { property: "og:type", content: "website" },
