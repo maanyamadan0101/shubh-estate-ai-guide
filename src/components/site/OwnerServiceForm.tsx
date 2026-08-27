@@ -53,9 +53,9 @@ const EMPTY: FormState = {
 
 const MODE_COPY: Record<OwnerServiceMode, { eyebrow: string; title: string; submit: string; priceLabel: string; success: string }> = {
   sell: {
-    eyebrow: "Sell My Property",
-    title: "Request a confidential property sale review",
-    submit: "Sell My Property",
+    eyebrow: "Property Valuation & Sale Review",
+    title: "Thinking of Selling Your Gurgaon Property?",
+    submit: "Get My Property Valuation",
     priceLabel: "Expected selling price",
     success: "Your sale enquiry has been received privately.",
   },
@@ -173,8 +173,10 @@ export function OwnerServiceForm({ mode, compact = false }: { mode: OwnerService
     <form onSubmit={submit} className="rounded-2xl border border-gold/30 bg-card p-6 md:p-8">
       <p className="eyebrow">{copy.eyebrow}</p>
       <h2 className="mt-3 font-display text-2xl md:text-3xl">{copy.title}</h2>
-      <p className="mt-3 text-sm leading-6 text-muted-foreground">
-        Share only what you are comfortable sharing at this stage. These details go to the Shubh Estate Brokers private enquiry system and are not displayed publicly.
+      <p className="mt-3 max-w-3xl text-sm leading-6 text-muted-foreground">
+        {mode === "sell"
+          ? "Share a few basic property details. We’ll review the current market position and contact you privately to discuss valuation and the best way to sell."
+          : "Share only what you are comfortable sharing at this stage. These details go to the Shubh Estate Brokers private enquiry system and are not displayed publicly."}
       </p>
 
       <div className={`mt-6 ${gridClass}`}>
