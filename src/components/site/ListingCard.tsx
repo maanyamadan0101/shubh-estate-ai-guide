@@ -1,4 +1,3 @@
-import { Link } from "@tanstack/react-router";
 import {
   BedDouble,
   Building2,
@@ -12,9 +11,10 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { CONTACT } from "@/data/site";
 import { trackContact } from "@/lib/analytics";
-import { formatArea, formatINR, PROPERTY_TYPE_LABEL, STATUS_LABEL } from "@/lib/seo";
-import { representativeProjectImageFor } from "@/lib/project-image-catalog";
 import { vercelSrcSet } from "@/lib/image-optimization";
+import { representativeProjectImageFor } from "@/lib/project-image-catalog";
+import { isPublicSlug } from "@/lib/public-slug";
+import { formatArea, formatINR, PROPERTY_TYPE_LABEL, STATUS_LABEL } from "@/lib/seo";
 import type { ListingRow } from "@/lib/properties.functions";
 
 const LISTING_DATE_FORMATTER = new Intl.DateTimeFormat("en-IN", {
@@ -66,6 +66,11 @@ export function ListingCard({
     : property.floor_number != null
       ? `${property.floor_number}${property.total_floors ? ` of ${property.total_floors}` : ""} floor`
       : null;
+  const propertyHref = property.detail_href
+    ? property.detail_href
+    : isPublicSlug(property.slug)
+      ? `/property/${property.slug}`
+      : "/flats-for-sale-in-gurgaon";
   const whatsappMessage = encodeURIComponent(
     `Hi Shubh Estate Brokers, please reconfirm the current price and availability for ${property.title}.`,
   );
@@ -123,15 +128,9 @@ export function ListingCard({
 
   return (
     <article className="group overflow-hidden rounded-xl border border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]">
-      {property.detail_href ? (
-        <a href={property.detail_href} className="block">
-          {visual}
-        </a>
-      ) : (
-        <Link to="/property/$slug" params={{ slug: property.slug }} className="block">
-          {visual}
-        </Link>
-      )}
+      <a href={propertyHref} className="block">
+        {visual}
+      </a>
 
       <div className="space-y-4 p-5">
         <div>
@@ -140,19 +139,9 @@ export function ListingCard({
             {property.listing_type === "rent" ? "For Rent" : "For Sale"}
           </p>
           <h3 className="mt-1 font-display text-xl">
-            {property.detail_href ? (
-              <a href={property.detail_href} className="hover:text-gold">
-                {property.title}
-              </a>
-            ) : (
-              <Link
-                to="/property/$slug"
-                params={{ slug: property.slug }}
-                className="hover:text-gold"
-              >
-                {property.title}
-              </Link>
-            )}
+            <a href={propertyHref} className="hover:text-gold">
+              {property.title}
+            </a>
           </h3>
           {place ? (
             <p className="mt-1 flex items-center gap-1.5 text-sm text-muted-foreground">
@@ -196,22 +185,12 @@ export function ListingCard({
 
         <div className="flex items-center justify-between border-t border-border pt-4">
           <p className="font-display text-2xl">{priceLabel}</p>
-          {property.detail_href ? (
-            <a
-              href={property.detail_href}
-              className="text-sm font-medium text-gold underline-offset-4 hover:underline"
-            >
-              View details
-            </a>
-          ) : (
-            <Link
-              to="/property/$slug"
-              params={{ slug: property.slug }}
-              className="text-sm font-medium text-gold underline-offset-4 hover:underline"
-            >
-              View details
-            </Link>
-          )}
+          <a
+            href={propertyHref}
+            className="text-sm font-medium text-gold underline-offset-4 hover:underline"
+          >
+            View details
+          </a>
         </div>
         {availabilityDate ? (
           <p className="flex items-center gap-1.5 text-[0.7rem] text-muted-foreground">
