@@ -11,6 +11,7 @@ import {
   buildCanonical,
   buildMetaDescription,
   buildSeoTitle,
+  compactSeoTitle,
   listingReference,
   PROPERTY_TYPE_LABEL,
   SITE_ORIGIN,
@@ -112,7 +113,7 @@ export const Route = createFileRoute("/property/$slug")({
     const title = p.project?.name
       ? generatedTitle
       : storedTitle
-        ? wordSafeText(storedTitle, 68)
+        ? compactSeoTitle(storedTitle)
         : generatedTitle;
 
     const generatedDescription = buildMetaDescription(seoSource);
@@ -126,7 +127,7 @@ export const Route = createFileRoute("/property/$slug")({
       ? wordSafeText(stripInternalListingReference(p.og_description!), 158)
       : description;
     const ogTitle = p.og_title
-      ? wordSafeText(stripInternalListingReference(p.og_title), 68)
+      ? compactSeoTitle(stripInternalListingReference(p.og_title))
       : title;
 
     // Property detail pages are the canonical URL for their own listing.

@@ -1,5 +1,6 @@
 // Use the canonical production host everywhere. The apex domain redirects to www, so emitting www URLs avoids redirect hops and duplicate URL signals.
 export const SITE_ORIGIN = "https://www.shubhestatebroker.in";
+export const SEO_TITLE_MAX = 60;
 
 export function slugify(input: string): string {
   return input
@@ -86,6 +87,21 @@ export function wordSafeText(value: string, maxLength: number): string {
 }
 
 /**
+ * Keeps title tags within a conservative crawler-friendly length without
+ * ending them with an ellipsis. Google does not mandate a character count,
+ * but this avoids repetitive audit flags while preserving complete words.
+ */
+export function compactSeoTitle(value: string, maxLength = SEO_TITLE_MAX): string {
+  const compact = stripInternalListingReference(value).replace(/\s+/g, " ").trim();
+  if (compact.length <= maxLength) return compact;
+
+  const candidate = compact.slice(0, maxLength);
+  const lastSpace = candidate.lastIndexOf(" ");
+  const safe = lastSpace > Math.max(28, maxLength - 22) ? candidate.slice(0, lastSpace) : candidate;
+  return safe.replace(/[,:;\-–—|]+$/g, "").trim();
+}
+
+/**
  * Builds the normal public inventory slug from stable, meaningful attributes.
  * Price is intentionally excluded because asking prices change. New listings
  * should not rely on meaningless -2/-3 collision suffixes; the save layer uses
@@ -125,9 +141,18 @@ export function buildSeoTitle(s: SeoSource): string {
   const head = [s.bhk, typeForTitle, action].filter(Boolean).join(" ");
   const project = s.projectName?.trim() || null;
   const sector = s.sector?.trim() || null;
-  const where = [project, sector].filter(Boolean).join(", ");
-  const base = where ? `${head} in ${where} ${searchCity}` : `${head} in ${searchCity}`;
-  return wordSafeText(stripInternalListingReference(base), 68);
+
+  const candidates = [
+    project && sector ? `${head} in ${project}, ${sector} ${searchCity}` : null,
+    project && sector ? `${head} in ${project}, ${sector}` : null,
+    project ? `${head} in ${project} ${searchCity}` : null,
+    sector ? `${head} in ${sector} ${searchCity}` : null,
+    `${head} in ${searchCity}`,
+  ].filter((value): value is string => Boolean(value));
+
+  return compactSeoTitle(
+    candidates.find((value) => stripInternalListingReference(value).length <= SEO_TITLE_MAX) ?? candidates[0],
+  );
 }
 
 export function buildMetaDescription(s: SeoSource): string {
