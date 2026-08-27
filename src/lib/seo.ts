@@ -64,6 +64,27 @@ function parts(s: SeoSource) {
   return { type, place, city, searchCity };
 }
 
+export function stripInternalListingReference(value: string): string {
+  return value
+    .replace(/\s*[|–—-]\s*SEB-[A-Z0-9-]+\b/gi, "")
+    .replace(/\bRef(?:erence)?\s*:?[ ]*SEB-[A-Z0-9-]+\.?/gi, "")
+    .replace(/\bSEB-[A-Z0-9-]+\b/gi, "")
+    .replace(/\s+([,.;:|])/g, "$1")
+    .replace(/\|\s*$/g, "")
+    .replace(/\s{2,}/g, " ")
+    .trim();
+}
+
+export function wordSafeText(value: string, maxLength: number): string {
+  const compact = value.replace(/\s+/g, " ").trim();
+  if (compact.length <= maxLength) return compact;
+
+  const candidate = compact.slice(0, Math.max(1, maxLength - 1));
+  const lastSpace = candidate.lastIndexOf(" ");
+  const safe = lastSpace > Math.max(20, maxLength - 30) ? candidate.slice(0, lastSpace) : candidate;
+  return `${safe.replace(/[,:;\-–—|]+$/g, "").trim()}…`;
+}
+
 /**
  * Builds the normal public inventory slug from stable, meaningful attributes.
  * Price is intentionally excluded because asking prices change. New listings
@@ -91,26 +112,44 @@ export function buildSlug(s: SeoSource): string {
   );
 }
 
+/**
+ * Public property SEO title. Apartment is omitted when the BHK already makes
+ * the residential intent clear, while non-apartment property types remain
+ * explicit. Internal SEB references are operational identifiers, not search
+ * terms, and are intentionally excluded from the title.
+ */
 export function buildSeoTitle(s: SeoSource): string {
   const { type, searchCity } = parts(s);
-  const action = s.listingType === "rent" ? "Rent" : "Sale";
-  const head = [s.bhk, type, "for", action].filter(Boolean).join(" ");
-  const where = [s.projectName, s.sector, searchCity].filter(Boolean).join(", ");
-  return `${head} in ${where}`.replace(/\s+/g, " ").trim().slice(0, 68);
+  const action = s.listingType === "rent" ? "for Rent" : "for Sale";
+  const typeForTitle = type === "Apartment" && s.bhk ? null : type;
+  const head = [s.bhk, typeForTitle, action].filter(Boolean).join(" ");
+  const project = s.projectName?.trim() || null;
+  const sector = s.sector?.trim() || null;
+  const where = [project, sector].filter(Boolean).join(", ");
+  const base = where ? `${head} in ${where} ${searchCity}` : `${head} in ${searchCity}`;
+  return wordSafeText(stripInternalListingReference(base), 68);
 }
 
 export function buildMetaDescription(s: SeoSource): string {
   const { type, searchCity } = parts(s);
-  const bits = [
-    `${s.bhk ?? ""} ${type}`.trim(),
-    s.projectName ? `at ${s.projectName}` : null,
-    s.sector ? `in ${s.sector}, ${searchCity}` : `in ${searchCity}`,
-    s.areaSqft ? `${formatArea(s.areaSqft)}` : null,
+  const listingIntent = s.listingType === "rent" ? "for rent" : "for sale";
+  const subject = [s.bhk, type].filter(Boolean).join(" ");
+  const location = [s.projectName ? `at ${s.projectName}` : null, s.sector ? `in ${s.sector}, ${searchCity}` : `in ${searchCity}`]
+    .filter(Boolean)
+    .join(" ");
+  const details = [
+    s.areaSqft ? formatArea(s.areaSqft) : null,
     s.floorNumber !== null && s.floorNumber !== undefined ? `floor ${s.floorNumber}` : null,
     s.facing ? `${s.facing} facing` : null,
-    s.price ? `${formatINR(s.price)}` : null,
+    s.price ? formatINR(s.price) : null,
   ].filter(Boolean);
-  return `${bits.join(" · ")}. View property details, location, home-loan assistance and availability from Shubh Estate Brokers, Gurugram.`.slice(0, 160);
+  const detailText = details.length ? ` ${details.join(" · ")}.` : "";
+  return wordSafeText(
+    `${subject} ${listingIntent} ${location}.${detailText} View photos, specifications, home-loan assistance and current availability from Shubh Estate Brokers.`
+      .replace(/\s+/g, " ")
+      .trim(),
+    158,
+  );
 }
 
 export function buildOgTitle(s: SeoSource): string {
