@@ -16,6 +16,7 @@ const LOCATION_LINKS = [
 
 const POPULAR_SEARCH_LINKS = [
   ["/projects", "Gurgaon Project Guides"],
+  ["/ready-to-move-flats-in-gurgaon", "Ready-to-Move Flats in Gurgaon"],
   ["/blog/gurgaon-property-due-diligence-checklist-2026", "Property Due Diligence Checklist"],
   ["/property-buying-advisory-gurgaon", "Gurgaon Buyer Advisory"],
   ["/dwarka-expressway-flats-for-sale-gurgaon", "Dwarka Expressway Flats for Sale"],
@@ -79,6 +80,7 @@ export function SiteFooter() {
             <p className="eyebrow">Buy & Finance</p>
             <ul className="mt-4 space-y-2 text-sm text-navy-foreground/80">
               <li><Link to="/flats-for-sale-in-gurgaon" className="hover:text-gold">Flats for Sale in Gurgaon</Link></li>
+              <li><Link to="/ready-to-move-flats-in-gurgaon" className="hover:text-gold">Ready-to-Move Flats in Gurgaon</Link></li>
               <li><Link to="/projects" className="hover:text-gold">Gurgaon Project Guides</Link></li>
               <li><Link to="/under-construction-projects-gurgaon" className="hover:text-gold">New & Under-Construction Projects</Link></li>
               <li><Link to="/luxury" className="hover:text-gold">Luxury Property Gurgaon</Link></li>
