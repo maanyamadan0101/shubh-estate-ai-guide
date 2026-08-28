@@ -256,7 +256,7 @@ export const Route = createFileRoute("/projects/aipl-riviera-resale-sector-103-g
 
 function AiplRivieraResalePage() {
   const whatsappMessage = encodeURIComponent(
-    "Hello Mr Arun Madan, I am interested in AIPL Riviera resale options around ₹12,000 per sq ft. Please share the available size, tower, seller payment status and total acquisition cost.",
+    "Hello Mr Arun Madaan, I am interested in AIPL Riviera resale options around ₹12,000 per sq ft. Please share the available size, tower, seller payment status and total acquisition cost.",
   );
 
   return (
@@ -457,7 +457,7 @@ function AiplRivieraResalePage() {
                 checks described on this page.
               </p>
               <p className="mt-4 text-xs leading-5 text-muted-foreground">
-                Reviewed by Arun Madan, MBA, LLB · Founder & Promoter · Former Senior Banking
+                Reviewed by Arun Madaan, MBA, LLB · Founder & Promoter · Former Senior Banking
                 Professional.
               </p>
             </aside>
@@ -829,7 +829,7 @@ function AiplRivieraResalePage() {
                     onClick={() => trackContact("whatsapp", "aipl_riviera_final_cta")}
                   >
                     <MessageCircle aria-hidden="true" />
-                    WhatsApp Arun Madan
+                    WhatsApp Arun Madaan
                   </a>
                 </Button>
                 <Button asChild variant="goldOutline" size="lg">
