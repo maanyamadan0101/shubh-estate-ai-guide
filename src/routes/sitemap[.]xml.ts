@@ -47,6 +47,11 @@ const STATIC_PATHS: StaticPath[] = [
     lastmod: "2026-08-20",
   },
   {
+    path: "/ireo-skyon-3-bhk-for-sale-sector-60-gurgaon",
+    priority: "0.9",
+    lastmod: "2026-08-29",
+  },
+  {
     path: "/emaar-emerald-hills-sector-65-gurgaon",
     priority: "0.9",
     lastmod: "2026-08-24",
@@ -108,7 +113,7 @@ const STATIC_PATHS: StaticPath[] = [
   },
   { path: "/property-sector-79-gurgaon", priority: "0.8", lastmod: SEO_TEMPLATE_LASTMOD },
   { path: "/property-sector-62-gurgaon", priority: "0.8", lastmod: "2026-08-23" },
-  { path: "/property-sector-60-gurgaon", priority: "0.8", lastmod: "2026-08-23" },
+  { path: "/property-sector-60-gurgaon", priority: "0.8", lastmod: "2026-08-29" },
   { path: "/property-sector-59-gurgaon", priority: "0.8", lastmod: "2026-08-23" },
   { path: "/projects/tata-raisina-residency-sector-59", priority: "0.8", lastmod: "2026-08-23" },
   { path: "/desperate-deals-gurgaon", priority: "0.8" },
@@ -165,7 +170,7 @@ function escapeXml(value: string) {
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
+    .replace(/\"/g, "&quot;")
     .replace(/'/g, "&apos;");
 }
 

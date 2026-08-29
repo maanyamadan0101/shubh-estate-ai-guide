@@ -50,7 +50,7 @@ function Sector60Page() {
         {
           title: "Ireo Skyon, Sector 60",
           paragraphs: [
-            "Ireo Skyon is an established residential project in Sector 60 on Golf Course Extension Road. The project hub connects current published units with unit-level details, helping buyers compare the exact apartment instead of treating all homes in the project as identical.",
+            "Ireo Skyon is an established residential project in Sector 60 on Golf Course Extension Road. Current published inventory includes a 2,045 sq ft 3 BHK middle-floor resale apartment at an owner-indicated asking price of ₹4.65 crore, negotiable. The dedicated unit page includes actual photographs and prominently explains the possibility of up to 90% home-loan funding, subject to lender eligibility and valuation.",
           ],
           bullets: [
             "Compare current units by size, floor, facing and condition.",
@@ -71,6 +71,10 @@ function Sector60Page() {
         },
       ]}
       related={[
+        {
+          href: "/ireo-skyon-3-bhk-for-sale-sector-60-gurgaon",
+          label: "Ireo Skyon 3 BHK · 2,045 sq ft · ₹4.65 Cr negotiable",
+        },
         { href: "/locations/golf-course-extension-road", label: "Golf Course Extension Road property guide" },
         { href: "/projects/ireo-skyon-sector-60", label: "Ireo Skyon current inventory" },
         { href: "/property-sector-62-gurgaon", label: "Sector 62 Gurgaon property guide" },
