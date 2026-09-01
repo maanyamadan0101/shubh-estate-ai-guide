@@ -11,7 +11,11 @@ const schema = z.object({
   full_name: z.string().trim().min(2, "Please enter your name").max(100),
   phone: z.string().trim().min(8, "Please enter a valid phone number").max(20),
   email: z.string().trim().email("Please enter a valid email").max(255).or(z.literal("")),
-  message: z.string().trim().max(1000),
+  preferred_area: z.string().trim().max(150),
+  budget: z.string().trim().max(80),
+  requirement: z.string().trim().max(80),
+  callback_time: z.string().trim().max(80),
+  message: z.string().trim().max(700),
 });
 
 function leadCategory(interest: string, propertyId?: string) {
@@ -38,15 +42,26 @@ export function EnquiryForm({
   interest = "Property enquiry",
   compact = false,
   quick = false,
+  includeRequirements = false,
   submitLabel,
 }: {
   propertyId?: string;
   interest?: string;
   compact?: boolean;
   quick?: boolean;
+  includeRequirements?: boolean;
   submitLabel?: string;
 }) {
-  const [form, setForm] = useState({ full_name: "", phone: "", email: "", message: "" });
+  const [form, setForm] = useState({
+    full_name: "",
+    phone: "",
+    email: "",
+    preferred_area: "",
+    budget: "",
+    requirement: "",
+    callback_time: "",
+    message: "",
+  });
   const [sending, setSending] = useState(false);
   const [done, setDone] = useState(false);
 
@@ -67,6 +82,17 @@ export function EnquiryForm({
       const attribution = getLeadAttribution();
       const category = leadCategory(interest, propertyId);
       const currentPage = typeof window !== "undefined" ? window.location.pathname : "";
+      const requirementSummary = [
+        parsed.data.preferred_area
+          ? `Preferred project / area: ${parsed.data.preferred_area}`
+          : null,
+        parsed.data.budget ? `Budget: ${parsed.data.budget}` : null,
+        parsed.data.requirement ? `Requirement: ${parsed.data.requirement}` : null,
+        parsed.data.callback_time ? `Preferred callback: ${parsed.data.callback_time}` : null,
+        parsed.data.message ? `Notes: ${parsed.data.message}` : null,
+      ]
+        .filter(Boolean)
+        .join("\n");
 
       const response = await fetch("/api/enquiry", {
         method: "POST",
@@ -75,7 +101,7 @@ export function EnquiryForm({
           full_name: parsed.data.full_name,
           phone: parsed.data.phone,
           email: parsed.data.email,
-          message: parsed.data.message,
+          message: requirementSummary,
           interest,
           property_id: propertyId ?? null,
           source: propertyId ? "property_enquiry" : "general_enquiry",
@@ -108,7 +134,11 @@ export function EnquiryForm({
       setDone(true);
       toast.success("Thank you — an advisor will contact you shortly.");
     } catch (error) {
-      toast.error(error instanceof Error ? error.message : "Could not send your enquiry. Please call us instead.");
+      toast.error(
+        error instanceof Error
+          ? error.message
+          : "Could not send your enquiry. Please call us instead.",
+      );
     } finally {
       setSending(false);
     }
@@ -159,13 +189,70 @@ export function EnquiryForm({
             autoComplete="email"
             maxLength={255}
           />
+          {includeRequirements ? (
+            <>
+              <Input
+                value={form.preferred_area}
+                onChange={(e) => setForm({ ...form, preferred_area: e.target.value })}
+                placeholder="Preferred project or area"
+                aria-label="Preferred project or area"
+                maxLength={150}
+              />
+              <label>
+                <span className="sr-only">Budget</span>
+                <select
+                  value={form.budget}
+                  onChange={(e) => setForm({ ...form, budget: e.target.value })}
+                  aria-label="Budget"
+                  className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
+                >
+                  <option value="">Budget</option>
+                  <option value="Under ₹2 Cr">Under ₹2 Cr</option>
+                  <option value="₹2–3 Cr">₹2–3 Cr</option>
+                  <option value="₹3–5 Cr">₹3–5 Cr</option>
+                  <option value="₹5–10 Cr">₹5–10 Cr</option>
+                  <option value="₹10 Cr+">₹10 Cr+</option>
+                </select>
+              </label>
+              <label>
+                <span className="sr-only">Requirement</span>
+                <select
+                  value={form.requirement}
+                  onChange={(e) => setForm({ ...form, requirement: e.target.value })}
+                  aria-label="Requirement"
+                  className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
+                >
+                  <option value="">Requirement</option>
+                  <option value="End use">End use</option>
+                  <option value="Investment">Investment</option>
+                  <option value="Current resale">Current resale</option>
+                  <option value="Fresh booking">Fresh booking</option>
+                  <option value="Home-loan guidance">Home-loan guidance</option>
+                </select>
+              </label>
+              <label>
+                <span className="sr-only">Preferred callback time</span>
+                <select
+                  value={form.callback_time}
+                  onChange={(e) => setForm({ ...form, callback_time: e.target.value })}
+                  aria-label="Preferred callback time"
+                  className="h-10 w-full rounded-md border border-input bg-background px-3 text-sm"
+                >
+                  <option value="">Preferred callback time</option>
+                  <option value="10 AM–1 PM">10 AM–1 PM</option>
+                  <option value="1 PM–4 PM">1 PM–4 PM</option>
+                  <option value="4 PM–8 PM">4 PM–8 PM</option>
+                </select>
+              </label>
+            </>
+          ) : null}
           <Textarea
             value={form.message}
             onChange={(e) => setForm({ ...form, message: e.target.value })}
             placeholder="Tell us what you're looking for (optional)"
             aria-label="Message"
             rows={3}
-            maxLength={1000}
+            maxLength={700}
           />
         </>
       ) : null}

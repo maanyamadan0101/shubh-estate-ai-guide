@@ -12,14 +12,14 @@ type StaticPath = {
 const SEO_TEMPLATE_LASTMOD = "2026-08-27";
 
 const STATIC_PATHS: StaticPath[] = [
-  { path: "/", priority: "1.0", lastmod: "2026-08-25" },
-  { path: "/flats-for-sale-in-gurgaon", priority: "0.9", lastmod: "2026-08-24" },
+  { path: "/", priority: "1.0", lastmod: "2026-09-01" },
+  { path: "/flats-for-sale-in-gurgaon", priority: "0.9", lastmod: "2026-09-01" },
   { path: "/ready-to-move-flats-in-gurgaon", priority: "0.9", lastmod: "2026-08-28" },
   { path: "/properties-for-sale-on-spr-gurgaon", priority: "0.9", lastmod: "2026-08-25" },
   { path: "/sell-property-gurgaon", priority: "0.9", lastmod: SEO_TEMPLATE_LASTMOD },
   { path: "/rent-out-property-in-gurgaon", priority: "0.9", lastmod: SEO_TEMPLATE_LASTMOD },
   { path: "/mandate-to-sell-property-in-gurgaon", priority: "0.9", lastmod: "2026-08-25" },
-  { path: "/projects", priority: "0.9", lastmod: "2026-08-25" },
+  { path: "/projects", priority: "0.9", lastmod: "2026-09-01" },
   { path: "/blog", priority: "0.9", lastmod: "2026-08-20" },
   {
     path: "/blog/gurgaon-property-due-diligence-checklist-2026",
@@ -31,7 +31,7 @@ const STATIC_PATHS: StaticPath[] = [
     priority: "0.9",
     lastmod: "2026-08-20",
   },
-  { path: "/under-construction-projects-gurgaon", priority: "0.9" },
+  { path: "/under-construction-projects-gurgaon", priority: "0.9", lastmod: "2026-09-01" },
   { path: "/property-services-gurgaon", priority: "0.9" },
   { path: "/luxury", priority: "0.8" },
   { path: "/property-buying-advisory-gurgaon", priority: "0.8", lastmod: SEO_TEMPLATE_LASTMOD },

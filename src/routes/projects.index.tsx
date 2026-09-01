@@ -1,10 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Building2, MapPin, ShieldCheck } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { ShieldCheck } from "lucide-react";
 import { EnquiryForm } from "@/components/site/EnquiryForm";
+import { GurgaonProjectDirectory } from "@/components/site/GurgaonProjectDirectory";
+import { Button } from "@/components/ui/button";
+import { GURGAON_PROJECT_COUNT } from "@/data/gurgaon-project-directory";
 import { listPublicProjectHubs } from "@/lib/project-hub.functions";
-import { formatArea, formatINR, SITE_ORIGIN, STATUS_LABEL } from "@/lib/seo";
+import { SITE_ORIGIN } from "@/lib/seo";
 
 const DEDICATED_PROJECT_PAGES: Record<string, string> = {
   "dlf-the-arbour": "/projects/dlf-the-arbour-sector-63-gurgaon",
@@ -28,131 +29,61 @@ const DEDICATED_PROJECT_PAGES: Record<string, string> = {
 };
 
 const FEATURED_RESEARCH_GUIDES = [
+  { name: "Emaar Emerald Hills", href: "/emaar-emerald-hills-sector-65-gurgaon" },
+  { name: "DLF The Arbour", href: "/projects/dlf-the-arbour-sector-63-gurgaon" },
+  { name: "DLF The Primus", href: "/projects/dlf-the-primus-sector-82a-gurgaon" },
+  { name: "M3M Golf Hills", href: "/projects/m3m-golf-hills-sector-79-gurgaon" },
   {
-    name: "Emaar Emerald Hills",
-    href: "/emaar-emerald-hills-sector-65-gurgaon",
-    sector: "Sector 65, Golf Course Extension Road",
-    configuration: "Ready-to-move floors, homes & plots",
-    sizes: "Featured 4 BHK on stated 4,000 sq ft plot",
-    price: "Featured east-facing 4 BHK asking ₹5 Cr",
-    badge: "Featured resale opportunity",
-    badgeNote: "Legacy and Phase 2 RERA separated",
-    summary:
-      "A current resale and plot guide featuring an east-facing corner 4 BHK with private half terrace, size-wise asking-price context, phase-specific RERA records and document-led buyer checks.",
-  },
-  {
-    name: "DLF The Arbour",
-    href: "/projects/dlf-the-arbour-sector-63-gurgaon",
-    sector: "Sector 63, Golf Course Extension Road",
-    configuration: "4 BHK + utility residences",
-    sizes: "Approx. 3,950-3,956 sq ft",
-    price: "Indicative resale asking range ₹10-12 Cr*",
-    badge: "Featured ultra-luxury guide",
-    badgeNote: "Official RERA facts verified",
-    summary:
-      "A dedicated resale and permitted-transfer guide covering current price context, low-density apartment planning, clubhouse scale, official disclosures and payment-led buyer checks.",
-  },
-  {
-    name: "DLF The Primus",
-    href: "/projects/dlf-the-primus-sector-82a-gurgaon",
-    sector: "Sector 82A, DLF Garden City, New Gurgaon",
-    configuration: "Ready-to-move 3 & 4 BHK homes",
-    sizes: "Principal layouts: 1,799-2,576 sq ft",
-    price: "Indicative resale guidance ₹2.80-4.60 Cr*",
-    badge: "Featured ready-to-move guide",
-    badgeNote: "Launch-era price corrected",
-    summary:
-      "A current resale and rental guide with corrected floor-plan sizes, unit-wise asking ranges, premium specifications, location context and document-led buyer checks.",
-  },
-  {
-    name: "M3M Golf Hills",
-    href: "/projects/m3m-golf-hills-sector-79-gurgaon",
-    sector: "Sector 79 & 79B, New Gurugram",
-    configuration: "2.5, 3.5 & 4.5 BHK homes",
-    sizes: "Illustrative examples: 1,420-2,685 sq ft",
-    price: "Select seller-held units from ₹13,000/sq ft*",
-    badge: "Featured NRI opportunity",
-    badgeNote: "Two RERA phases verified",
-    summary:
-      "An NRI-focused buyer guide with phase-specific Haryana RERA records, unit-wise cost examples, public project videos, transfer checks and transparent current-price context.",
-  },
-  {
-    name: "AIPL Riviera",
+    name: "AIPL Riviera at AIPL LakeCity",
     href: "/projects/aipl-riviera-resale-sector-103-gurgaon",
-    sector: "Sector 103, Dwarka Expressway",
-    configuration: "Spacious 3 & 4 BHK homes",
-    sizes: "Approx. 2,196-3,211 sq ft",
-    price: "Select resale options around ₹12,000/sq ft",
-    badge: "Featured resale opportunity",
-    badgeNote: "Approx. 31% value gap",
-    summary:
-      "A dedicated resale guide with the supplied project walkthrough, size-wise savings, NRI and end-user support, Haryana RERA facts and unit-level transfer checks.",
   },
-  {
-    name: "Ansals Highland Park",
-    href: "/projects/ansals-highland-park-sector-103-gurgaon",
-    sector: "Sector 103, Dwarka Expressway",
-    configuration: "2, 3 & large-format homes",
-    sizes: "1,361-2,670 sq ft",
-    price: "Current market price from ₹1.04 Cr",
-    badge: "Featured value guide",
-    badgeNote: "Price evidence reviewed",
-    summary:
-      "A dedicated buyer guide covering every brochure layout, current market prices, nearby Adani, Emaar, Godrej and Tata comparison, Haryana RERA details and home-loan guidance.",
-  },
+  { name: "Ansals Highland Park", href: "/projects/ansals-highland-park-sector-103-gurgaon" },
 ] as const;
 
 function projectHref(slug: string) {
   return DEDICATED_PROJECT_PAGES[slug] ?? `/projects/${slug}`;
 }
 
-function askingPrice(listings: Array<{ price: number | null; display_price: string | null }>) {
-  const numeric = listings
-    .map((listing) => listing.price)
-    .filter((value): value is number => Boolean(value && value > 0));
-  if (numeric.length) {
-    const min = Math.min(...numeric);
-    const max = Math.max(...numeric);
-    return min === max ? formatINR(min) : `${formatINR(min)} – ${formatINR(max)}`;
-  }
-  const stated = [...new Set(listings.map((listing) => listing.display_price).filter(Boolean))];
-  return stated.length === 1 ? stated[0]! : "View current asking prices";
-}
-
 export const Route = createFileRoute("/projects/")({
   loader: () => listPublicProjectHubs(),
   head: ({ loaderData }) => {
     const canonical = `${SITE_ORIGIN}/projects`;
-    const count = (loaderData?.length ?? 0) + FEATURED_RESEARCH_GUIDES.length;
-    const title = "Gurgaon Project Guides | Current Property Inventory";
-    const description = `Explore ${count || "current"} Gurgaon residential project guides with Shubh Estate Brokers inventory, asking prices, unit sizes, buyer checks and project-level comparisons.`;
+    const title = "Gurgaon Residential Projects | Shubh Estate Brokers";
+    const description = `Explore ${GURGAON_PROJECT_COUNT} Gurgaon residential projects by sector, corridor, developer, budget and possession stage, with transparent price and verification context.`;
+    const linkedProjects = [
+      ...FEATURED_RESEARCH_GUIDES,
+      ...(loaderData ?? []).map((hub) => ({
+        name: hub.name,
+        href: projectHref(hub.slug),
+      })),
+    ];
     const schema = {
       "@context": "https://schema.org",
-      "@type": "CollectionPage",
-      name: "Gurgaon Project Guides",
-      url: canonical,
-      description,
-      mainEntity: {
-        "@type": "ItemList",
-        numberOfItems: count,
-        itemListElement: [
-          ...FEATURED_RESEARCH_GUIDES.map((guide) => ({
-            name: guide.name,
-            url: `${SITE_ORIGIN}${guide.href}`,
-          })),
-          ...(loaderData ?? []).map((hub) => ({
-            name: hub.name,
-            url: `${SITE_ORIGIN}${projectHref(hub.slug)}`,
-          })),
-        ]
-          .slice(0, 50)
-          .map((item, index) => ({
-            "@type": "ListItem",
-            position: index + 1,
-            name: item.name,
-            url: item.url,
-          })),
-      },
+      "@graph": [
+        {
+          "@type": "CollectionPage",
+          name: "Gurgaon Residential Project Directory",
+          url: canonical,
+          description,
+          mainEntity: {
+            "@type": "ItemList",
+            numberOfItems: GURGAON_PROJECT_COUNT,
+            itemListElement: linkedProjects.slice(0, 50).map((project, index) => ({
+              "@type": "ListItem",
+              position: index + 1,
+              name: project.name,
+              url: `${SITE_ORIGIN}${project.href}`,
+            })),
+          },
+        },
+        {
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: SITE_ORIGIN },
+            { "@type": "ListItem", position: 2, name: "Projects", item: canonical },
+          ],
+        },
+      ],
     };
     return {
       meta: [
@@ -163,6 +94,15 @@ export const Route = createFileRoute("/projects/")({
         { property: "og:description", content: description },
         { property: "og:type", content: "website" },
         { property: "og:url", content: canonical },
+        { property: "og:image", content: `${SITE_ORIGIN}/shubh-estate-logo.png` },
+        {
+          property: "og:image:alt",
+          content: "Shubh Estate Brokers Gurgaon residential project directory",
+        },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: description },
+        { name: "twitter:image", content: `${SITE_ORIGIN}/shubh-estate-logo.png` },
       ],
       links: [{ rel: "canonical", href: canonical }],
       scripts: [{ type: "application/ld+json", children: JSON.stringify(schema) }],
@@ -173,6 +113,11 @@ export const Route = createFileRoute("/projects/")({
 
 function ProjectDirectoryPage() {
   const hubs = Route.useLoaderData();
+  const projectUnitCounts = Object.fromEntries(hubs.map((hub) => [hub.name, hub.listings.length]));
+  const projectGuideLinks: Record<string, string> = Object.fromEntries(
+    FEATURED_RESEARCH_GUIDES.map((guide) => [guide.name, guide.href]),
+  );
+  for (const hub of hubs) projectGuideLinks[hub.name] = projectHref(hub.slug);
 
   return (
     <>
@@ -185,178 +130,51 @@ function ProjectDirectoryPage() {
             <span className="px-2">/</span>
             <span className="text-foreground">Projects</span>
           </nav>
-          <div className="mt-6 max-w-4xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gold">
-              Gurgaon Project Intelligence
-            </p>
-            <h1 className="mt-3 font-display text-4xl leading-tight md:text-5xl">
-              Gurgaon Project Guides & Current Property Inventory
-            </h1>
-            <p className="mt-5 max-w-3xl text-base leading-7 text-muted-foreground">
-              Browse project-level guides built around actual published inventory. Each guide
-              connects the society or development with current unit options, asking-price context,
-              size ranges, location information and practical buyer checks.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Button asChild variant="gold">
-                <a href="#project-guides">Browse Project Guides</a>
-              </Button>
-              <Button asChild variant="goldOutline">
-                <Link to="/flats-for-sale-in-gurgaon">View All Listings</Link>
-              </Button>
+          <div className="mt-6 grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
+            <div className="max-w-4xl">
+              <p className="eyebrow">Gurgaon Project Intelligence</p>
+              <h1 className="mt-3 font-display text-4xl leading-tight md:text-5xl">
+                Gurgaon projects, compared with financial judgement
+              </h1>
+              <p className="mt-5 max-w-3xl text-base leading-7 text-muted-foreground">
+                Discover residential projects by sector, corridor, developer, budget and possession
+                stage. Price, RERA, area and inventory claims stay qualified until the exact unit
+                and phase are reconfirmed.
+              </p>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Button asChild variant="gold">
+                  <a href="#project-directory">Explore Gurgaon Projects</a>
+                </Button>
+                <Button asChild variant="goldOutline">
+                  <Link to="/flats-for-sale-in-gurgaon">View Current Inventory</Link>
+                </Button>
+              </div>
             </div>
+            <dl className="grid grid-cols-2 gap-3 sm:min-w-80">
+              <div className="rounded-xl border border-gold/30 bg-card p-4">
+                <dt className="text-xs text-muted-foreground">Projects indexed</dt>
+                <dd className="mt-1 font-display text-3xl text-gold">{GURGAON_PROJECT_COUNT}</dd>
+              </div>
+              <div className="rounded-xl border border-border bg-card p-4">
+                <dt className="text-xs text-muted-foreground">Live project hubs</dt>
+                <dd className="mt-1 font-display text-3xl">{hubs.length}</dd>
+              </div>
+            </dl>
           </div>
         </div>
       </section>
 
-      <section id="project-guides" className="container-page py-12 md:py-16">
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gold">
-              Project directory
-            </p>
-            <h2 className="mt-2 font-display text-3xl">
-              Projects represented in our published catalogue
-            </h2>
-          </div>
-          <p className="text-sm text-muted-foreground">
-            {hubs.length + FEATURED_RESEARCH_GUIDES.length} project guide
-            {hubs.length + FEATURED_RESEARCH_GUIDES.length === 1 ? "" : "s"}
-          </p>
-        </div>
-
-        <div className="mt-8 grid gap-6">
-          {FEATURED_RESEARCH_GUIDES.map((guide) => (
-            <article
-              key={guide.href}
-              className="grid gap-6 overflow-hidden rounded-2xl border border-gold/30 bg-card p-6 md:grid-cols-[minmax(0,1fr)_17rem] md:p-8"
-            >
-              <div>
-                <div className="flex flex-wrap gap-2">
-                  <Badge className="border-gold/30 bg-gold/10 text-gold hover:bg-gold/10">
-                    {guide.badge}
-                  </Badge>
-                  <Badge variant="secondary" className="font-normal">
-                    {guide.badgeNote}
-                  </Badge>
-                </div>
-                <h3 className="mt-4 font-display text-3xl leading-snug">{guide.name}</h3>
-                <p className="mt-2 flex items-center gap-1.5 text-sm text-muted-foreground">
-                  <MapPin className="size-4 text-gold" aria-hidden="true" />
-                  {guide.sector}
-                </p>
-                <p className="mt-4 max-w-3xl text-sm leading-7 text-muted-foreground">
-                  {guide.summary}
-                </p>
-              </div>
-              <div className="flex flex-col rounded-xl border border-border bg-muted/25 p-5">
-                <dl className="grid gap-3 text-sm">
-                  <div className="border-b border-border pb-3">
-                    <dt className="text-muted-foreground">Configuration</dt>
-                    <dd className="mt-1 font-medium">{guide.configuration}</dd>
-                  </div>
-                  <div className="border-b border-border pb-3">
-                    <dt className="text-muted-foreground">Published sizes</dt>
-                    <dd className="mt-1 font-medium">{guide.sizes}</dd>
-                  </div>
-                  <div>
-                    <dt className="text-muted-foreground">Asking-price context</dt>
-                    <dd className="mt-1 font-medium text-gold">{guide.price}</dd>
-                  </div>
-                </dl>
-                <Button asChild variant="gold" className="mt-5 w-full">
-                  <a href={guide.href}>Open {guide.name} guide</a>
-                </Button>
-              </div>
-            </article>
-          ))}
-        </div>
-
-        {hubs.length ? (
-          <div className="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            {hubs.map((hub) => {
-              const configurations = [
-                ...new Set(hub.listings.map((item) => item.bhk).filter(Boolean)),
-              ];
-              const areas = hub.listings
-                .map((item) => item.area_sqft)
-                .filter((value): value is number => Boolean(value && value > 0));
-              const statuses = [
-                ...new Set(hub.listings.map((item) => item.status).filter(Boolean)),
-              ];
-              const areaText = areas.length
-                ? Math.min(...areas) === Math.max(...areas)
-                  ? formatArea(Math.min(...areas))
-                  : `${formatArea(Math.min(...areas))} – ${formatArea(Math.max(...areas))}`
-                : "Unit-specific";
-
-              return (
-                <article
-                  key={hub.slug}
-                  className="flex h-full flex-col rounded-xl border border-border bg-card p-6"
-                >
-                  <div className="flex flex-wrap gap-2">
-                    {statuses.slice(0, 2).map((status) => (
-                      <Badge key={status} variant="secondary" className="font-normal">
-                        {STATUS_LABEL[status!] ?? status}
-                      </Badge>
-                    ))}
-                    <Badge variant="secondary" className="font-normal">
-                      {hub.listings.length} current option{hub.listings.length === 1 ? "" : "s"}
-                    </Badge>
-                  </div>
-                  <h3 className="mt-4 font-display text-2xl leading-snug">{hub.name}</h3>
-                  <p className="mt-2 flex items-center gap-1.5 text-sm text-muted-foreground">
-                    <MapPin className="size-4 text-gold" aria-hidden="true" />
-                    {[hub.sector, hub.locality, hub.city].filter(Boolean).join(", ")}
-                  </p>
-
-                  <dl className="mt-5 grid gap-3 text-sm">
-                    <div className="flex items-start justify-between gap-4 border-t border-border pt-3">
-                      <dt className="text-muted-foreground">Configuration</dt>
-                      <dd className="text-right font-medium">
-                        {configurations.slice(0, 3).join(", ") || "See listings"}
-                      </dd>
-                    </div>
-                    <div className="flex items-start justify-between gap-4 border-t border-border pt-3">
-                      <dt className="text-muted-foreground">Published sizes</dt>
-                      <dd className="text-right font-medium">{areaText}</dd>
-                    </div>
-                    <div className="flex items-start justify-between gap-4 border-t border-border pt-3">
-                      <dt className="text-muted-foreground">Asking-price context</dt>
-                      <dd className="text-right font-medium">{askingPrice(hub.listings)}</dd>
-                    </div>
-                  </dl>
-
-                  <div className="mt-auto pt-6">
-                    <Button asChild variant="goldOutline" className="w-full">
-                      <a href={projectHref(hub.slug)}>Open {hub.name} guide</a>
-                    </Button>
-                  </div>
-                </article>
-              );
-            })}
-          </div>
-        ) : (
-          <div className="mt-8 rounded-xl border border-border bg-card p-8 text-center">
-            <Building2 className="mx-auto size-8 text-gold" aria-hidden="true" />
-            <p className="mt-3 font-display text-xl">Project guides are being refreshed</p>
-            <p className="mt-2 text-sm text-muted-foreground">
-              Browse the live property catalogue while project inventory is loading.
-            </p>
-            <Button asChild variant="goldOutline" className="mt-5">
-              <Link to="/flats-for-sale-in-gurgaon">Browse Properties</Link>
-            </Button>
-          </div>
-        )}
+      <section id="project-directory" className="container-page scroll-mt-24 py-12 md:py-16">
+        <GurgaonProjectDirectory
+          projectUnitCounts={projectUnitCounts}
+          projectGuideLinks={projectGuideLinks}
+        />
       </section>
 
       <section className="border-y border-border bg-muted/30">
         <div className="container-page grid gap-8 py-12 lg:grid-cols-[1fr_22rem]">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gold">
-              Why project hubs matter
-            </p>
+            <p className="eyebrow">Advisory-first discovery</p>
             <h2 className="mt-2 font-display text-3xl">
               Compare the project and the exact unit together
             </h2>
@@ -364,26 +182,26 @@ function ProjectDirectoryPage() {
               {[
                 [
                   "Current inventory",
-                  "See the actual units presently published instead of relying only on project-wide brochure claims.",
+                  "Separate published resale units from broad project availability claims.",
                 ],
                 [
                   "Unit-level comparison",
-                  "Compare floor, facing, area, condition and asking price before shortlisting.",
+                  "Compare floor, view, area basis, payment status and asking price before shortlisting.",
                 ],
                 [
                   "Buyer due diligence",
-                  "Use project and property checks together for documents, valuation, transfer and financing.",
+                  "Review project registration, documents, valuation, transfer terms and financing together.",
                 ],
                 [
-                  "Better discovery",
-                  "Move naturally between project, sector, corridor and individual property pages.",
+                  "Transparent limitations",
+                  "See what is verified, what can change and what still needs phase- or unit-level confirmation.",
                 ],
-              ].map(([title, text]) => (
-                <div key={title} className="rounded-xl border border-border bg-card p-5">
+              ].map(([title, body]) => (
+                <article key={title} className="rounded-xl border border-border bg-card p-5">
                   <ShieldCheck className="size-5 text-gold" aria-hidden="true" />
                   <h3 className="mt-3 font-display text-xl">{title}</h3>
-                  <p className="mt-2 text-sm leading-6 text-muted-foreground">{text}</p>
-                </div>
+                  <p className="mt-2 text-sm leading-6 text-muted-foreground">{body}</p>
+                </article>
               ))}
             </div>
           </div>
@@ -391,13 +209,13 @@ function ProjectDirectoryPage() {
             <p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">
               Need a shortlist?
             </p>
-            <p className="mt-2 font-display text-2xl">Tell us your requirement</p>
+            <p className="mt-2 font-display text-2xl">Discuss your requirement</p>
             <p className="mt-2 text-sm leading-6 text-muted-foreground">
               Share budget, preferred sector, configuration and whether the purchase is for end use
               or investment.
             </p>
             <div className="mt-5">
-              <EnquiryForm interest="Gurgaon project shortlist" compact />
+              <EnquiryForm interest="Gurgaon project shortlist" compact includeRequirements />
             </div>
           </aside>
         </div>

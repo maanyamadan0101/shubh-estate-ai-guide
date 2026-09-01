@@ -1,11 +1,14 @@
 import { useDeferredValue, useMemo, useState } from "react";
 import {
+  ArrowUpRight,
   Building2,
   CalendarClock,
   CheckCircle2,
   IndianRupee,
+  Landmark,
   Layers3,
   MapPin,
+  MessageCircle,
   Scale,
   Search,
   ShieldCheck,
@@ -15,7 +18,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { CONTACT } from "@/data/site";
+import { CONTACT, LOAN_DISCLAIMER } from "@/data/site";
 import {
   GURGAON_DIRECTORY_PROJECTS,
   PROJECT_CORRIDORS,
@@ -25,6 +28,8 @@ import {
   type ProjectType,
 } from "@/data/gurgaon-project-directory";
 import { trackContact, trackEvent } from "@/lib/analytics";
+import { directoryProjectImageFor } from "@/lib/directory-project-images";
+import { vercelSrcSet } from "@/lib/image-optimization";
 
 const PAGE_INCREMENT = 24;
 
@@ -37,6 +42,7 @@ type SortOption = "featured" | "name" | "price" | "recent" | "size" | "possessio
 
 type DirectoryFilters = {
   query: string;
+  sector: string;
   corridor: "all" | ProjectCorridor;
   budget: BudgetFilter;
   bhk: BhkFilter;
@@ -46,13 +52,12 @@ type DirectoryFilters = {
   channel: ChannelFilter;
   minimumArea: string;
   maximumArea: string;
-  nriSupport: boolean;
-  loanSupport: boolean;
   sort: SortOption;
 };
 
 const DEFAULT_FILTERS: DirectoryFilters = {
   query: "",
+  sector: "all",
   corridor: "all",
   budget: "all",
   bhk: "all",
@@ -62,14 +67,36 @@ const DEFAULT_FILTERS: DirectoryFilters = {
   channel: "all",
   minimumArea: "",
   maximumArea: "",
-  nriSupport: false,
-  loanSupport: false,
   sort: "featured",
 };
+
+const QUICK_STATUS_FILTERS = [
+  ["All projects", "all"],
+  ["New launches", "New launch"],
+  ["Under construction", "Under construction"],
+  ["Ready to move", "Ready to move"],
+] as const;
 
 const DEVELOPERS = Array.from(
   new Set(GURGAON_DIRECTORY_PROJECTS.map((project) => project.developer)),
 ).sort((a, b) => a.localeCompare(b, "en-IN"));
+
+const SECTORS = Array.from(
+  new Set(GURGAON_DIRECTORY_PROJECTS.map((project) => project.sector)),
+).sort((a, b) => a.localeCompare(b, "en-IN", { numeric: true }));
+
+function corridorLabel(corridor: ProjectCorridor) {
+  if (corridor === "Golf Course Road & Central Luxury") {
+    return "Golf Course Road / Central Gurgaon";
+  }
+  if (corridor === "SPR, Sohna Road & South Gurgaon") {
+    return "Southern Peripheral Road / Sohna Road";
+  }
+  if (corridor === "Gwal Pahari & Other Luxury Locations") {
+    return "Gwal Pahari / Other luxury locations";
+  }
+  return corridor;
+}
 
 function budgetMatches(project: GurgaonDirectoryProject, budget: BudgetFilter) {
   if (budget === "all") return true;
@@ -125,87 +152,128 @@ function ProjectCard({
   comparisonLimitReached: boolean;
   onToggle: (project: GurgaonDirectoryProject) => void;
 }) {
+  const image = directoryProjectImageFor(project.name);
+  const responsiveSrcSet = image ? vercelSrcSet(image.src, [360, 540, 720, 960]) : undefined;
+  const projectHref = guideHref ?? `/contact?interest=${encodeURIComponent(project.name)}`;
   const message = encodeURIComponent(
     `Hi Shubh Estate Brokers, please share current price, availability and buyer checks for ${project.name}, ${project.sector}, Gurgaon.`,
   );
 
   return (
-    <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-gold/50 hover:shadow-[var(--shadow-elegant)]">
-      <div className="surface-navy relative flex min-h-36 items-end overflow-hidden p-5">
-        <div className="absolute right-4 top-4 flex size-11 items-center justify-center rounded-full border border-gold/30 bg-gold/10 text-gold">
-          <Building2 className="size-5" aria-hidden="true" />
+    <article className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-gold/60 hover:shadow-[var(--shadow-elegant)] focus-within:border-gold/60 focus-within:shadow-[var(--shadow-elegant)]">
+      <div className="relative aspect-[16/10] overflow-hidden bg-navy">
+        {image ? (
+          <img
+            src={image.src}
+            srcSet={responsiveSrcSet}
+            alt={image.alt}
+            loading="lazy"
+            decoding="async"
+            width={960}
+            height={600}
+            sizes="(min-width: 1280px) 31vw, (min-width: 768px) 47vw, 100vw"
+            className="size-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+        ) : (
+          <div className="surface-navy relative flex size-full flex-col items-center justify-center overflow-hidden px-6 text-center text-navy-foreground">
+            <div className="absolute -right-12 -top-14 size-44 rounded-full border border-gold/15" />
+            <div className="absolute -bottom-24 -left-12 size-52 rounded-full border border-gold/10" />
+            <div className="relative flex size-14 items-center justify-center rounded-full border border-gold/40 bg-gold/10 text-gold">
+              <Building2 className="size-7" aria-hidden="true" />
+            </div>
+            <p className="relative mt-4 max-w-xs font-display text-xl leading-snug">
+              {project.name}
+            </p>
+            <p className="relative mt-2 text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-gold">
+              Official project image awaited
+            </p>
+          </div>
+        )}
+
+        <div className="absolute inset-x-0 top-0 flex flex-wrap items-start justify-between gap-2 bg-gradient-to-b from-navy/75 to-transparent p-3">
+          <Badge className={statusTone(project.status)} variant="outline">
+            {project.status}
+          </Badge>
+          {unitCount > 0 ? (
+            <Badge className="border-0 bg-gold text-gold-foreground hover:bg-gold">
+              Current resale available
+            </Badge>
+          ) : null}
         </div>
-        <div className="relative">
-          <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-gold">
-            {project.developer}
-          </p>
-          <h3 className="mt-2 max-w-[17rem] font-display text-2xl leading-tight text-navy-foreground">
-            {project.name}
-          </h3>
-          <p className="mt-2 flex items-center gap-1.5 text-xs text-navy-foreground/70">
-            <MapPin className="size-3.5 text-gold" aria-hidden="true" />
-            {project.sector}, Gurugram
-          </p>
-        </div>
+
+        {image ? (
+          <span className="absolute bottom-3 left-3 rounded-full bg-navy/85 px-3 py-1 text-[0.62rem] font-semibold uppercase tracking-[0.14em] text-white backdrop-blur">
+            {image.imageType}
+          </span>
+        ) : null}
       </div>
 
       <div className="flex flex-1 flex-col p-5">
-        <div className="flex flex-wrap gap-2">
-          <Badge variant="outline" className={statusTone(project.status)}>
-            {project.status}
-          </Badge>
-          {project.priceBasis === "verified_inventory" ? (
-            <Badge className="bg-gold text-gold-foreground hover:bg-gold">Shubh inventory</Badge>
-          ) : project.priceBasis === "market_sample" ? (
-            <Badge variant="secondary">Market sample</Badge>
-          ) : null}
-          <Badge variant="outline">
-            {project.reraCheck === "guide_checked" ? "RERA guide checked" : "RERA phase check due"}
+        <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-gold">
+          {project.developer}
+        </p>
+        <h3 className="mt-2 font-display text-2xl leading-tight text-foreground">{project.name}</h3>
+        <p className="mt-2 flex items-start gap-1.5 text-sm text-muted-foreground">
+          <MapPin className="mt-0.5 size-4 shrink-0 text-gold" aria-hidden="true" />
+          {project.sector} · {project.corridor}
+        </p>
+
+        <div className="mt-4 flex flex-wrap gap-2">
+          {project.reraNumber ? (
+            <Badge
+              variant="outline"
+              className="border-emerald-600/30 bg-emerald-50 text-emerald-800"
+            >
+              <ShieldCheck className="size-3" aria-hidden="true" />
+              RERA registered
+            </Badge>
+          ) : (
+            <Badge variant="outline">Phase-level RERA check required</Badge>
+          )}
+          <Badge variant="outline" className="border-gold/35 bg-gold/5 text-foreground">
+            <Landmark className="size-3 text-gold" aria-hidden="true" />
+            Up to 90% Home Loan Available*
           </Badge>
         </div>
 
-        <dl className="mt-5 grid gap-3 text-sm">
-          <div className="flex items-start gap-2.5">
-            <Layers3 className="mt-0.5 size-4 shrink-0 text-gold" aria-hidden="true" />
-            <div>
-              <dt className="text-xs text-muted-foreground">Configuration</dt>
-              <dd className="mt-0.5 font-medium">{project.configuration}</dd>
-            </div>
+        <dl className="mt-4 grid grid-cols-2 gap-2 text-sm">
+          <div className="rounded-lg border border-border bg-muted/25 p-3">
+            <dt className="flex items-center gap-1.5 text-xs text-muted-foreground">
+              <Layers3 className="size-3.5 text-gold" aria-hidden="true" />
+              Configuration
+            </dt>
+            <dd className="mt-1 line-clamp-2 font-medium leading-5">{project.configuration}</dd>
           </div>
-          <div className="flex items-start gap-2.5">
-            <Building2 className="mt-0.5 size-4 shrink-0 text-gold" aria-hidden="true" />
-            <div>
-              <dt className="text-xs text-muted-foreground">Property type and size</dt>
-              <dd className="mt-0.5 font-medium">
-                {project.propertyType} · {project.sizeRange}
-              </dd>
-              <dd className="mt-1 text-xs text-muted-foreground">{areaBasisLabel(project)}</dd>
-            </div>
+          <div className="rounded-lg border border-border bg-muted/25 p-3">
+            <dt className="flex items-center gap-1.5 text-xs text-muted-foreground">
+              <Building2 className="size-3.5 text-gold" aria-hidden="true" />
+              Size range
+            </dt>
+            <dd className="mt-1 line-clamp-2 font-medium leading-5">{project.sizeRange}</dd>
           </div>
         </dl>
 
-        <div className="mt-5 rounded-xl border border-gold/25 bg-gold/5 p-4">
-          <p className="flex items-start gap-2 font-display text-lg leading-snug">
+        <div className="mt-3 rounded-xl border border-gold/25 bg-gold/5 p-3.5">
+          <p className="flex items-start gap-2 font-display text-lg leading-snug text-navy">
             <IndianRupee className="mt-0.5 size-4 shrink-0 text-gold" aria-hidden="true" />
             {project.priceLabel}
           </p>
-          {project.pricePerSqFt ? (
-            <p className="mt-1.5 text-xs leading-5 text-muted-foreground">{project.pricePerSqFt}</p>
-          ) : (
-            <p className="mt-1.5 text-xs leading-5 text-muted-foreground">
-              Approx. rate: request a unit-specific comparable
-            </p>
-          )}
+          <p className="mt-1.5 text-xs leading-5 text-muted-foreground">
+            {project.pricePerSqFt ?? "Request a unit-specific price comparison"}
+          </p>
           <p className="mt-2 flex items-center gap-1.5 text-[0.68rem] text-muted-foreground">
             <CalendarClock className="size-3.5 text-gold" aria-hidden="true" />
-            {project.reviewedOn
-              ? `Price reviewed ${project.reviewedOn}`
-              : "Current price verification requested"}
+            {project.factReviewedOn
+              ? `Project facts checked ${project.factReviewedOn}`
+              : project.reviewedOn
+                ? `Price reviewed ${project.reviewedOn}`
+                : "Current verification requested"}
           </p>
-          <p className="mt-1.5 text-[0.68rem] text-muted-foreground">
-            {unitCount} current published Shubh {unitCount === 1 ? "unit" : "units"}
-          </p>
-          <p className="mt-1 text-[0.68rem] text-muted-foreground">{priceScopeLabel(project)}</p>
+          <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-[0.68rem] text-muted-foreground">
+            <span>{project.propertyType}</span>
+            <span>{areaBasisLabel(project)}</span>
+            <span>{priceScopeLabel(project)}</span>
+          </div>
         </div>
 
         <div className="mt-auto pt-5">
@@ -221,15 +289,21 @@ function ProjectCard({
           </label>
 
           <div className="mt-3 grid grid-cols-2 gap-2">
-            {guideHref ? (
-              <Button asChild variant="goldOutline" className="w-full px-3">
-                <a href={guideHref}>View guide</a>
-              </Button>
-            ) : (
-              <Button asChild variant="outline" className="w-full px-3">
-                <a href={`/contact?interest=${encodeURIComponent(project.name)}`}>Buyer checks</a>
-              </Button>
-            )}
+            <Button asChild variant="goldOutline" className="w-full px-3">
+              <a
+                href={projectHref}
+                onClick={() =>
+                  trackEvent("project_card_click", {
+                    project_name: project.name,
+                    page_path: window.location.pathname,
+                    has_guide: Boolean(guideHref),
+                  })
+                }
+              >
+                View project
+                <ArrowUpRight className="size-4" aria-hidden="true" />
+              </a>
+            </Button>
             <Button asChild variant="gold" className="w-full px-3">
               <a
                 href={`${CONTACT.whatsapp}?text=${message}`}
@@ -241,7 +315,8 @@ function ProjectCard({
                   })
                 }
               >
-                Live price
+                <MessageCircle className="size-4" aria-hidden="true" />
+                WhatsApp
               </a>
             </Button>
           </div>
@@ -338,6 +413,7 @@ export function GurgaonProjectDirectory({
   }));
   const [visibleCount, setVisibleCount] = useState(PAGE_INCREMENT);
   const [selectedNames, setSelectedNames] = useState<string[]>([]);
+  const [advancedFiltersOpen, setAdvancedFiltersOpen] = useState(false);
   const deferredQuery = useDeferredValue(filters.query);
 
   const filteredProjects = useMemo(() => {
@@ -354,6 +430,7 @@ export function GurgaonProjectDirectory({
         ].join(" "),
       );
       if (query && !searchable.includes(query)) return false;
+      if (filters.sector !== "all" && project.sector !== filters.sector) return false;
       if (filters.corridor !== "all" && project.corridor !== filters.corridor) return false;
       if (!budgetMatches(project, filters.budget)) return false;
       if (filters.bhk !== "all" && !normalize(project.configuration).includes(filters.bhk)) {
@@ -364,8 +441,15 @@ export function GurgaonProjectDirectory({
         return false;
       }
       if (filters.developer !== "all" && project.developer !== filters.developer) return false;
-      if (filters.channel === "resale" && project.status === "New launch") return false;
-      if (filters.channel === "new-booking" && project.status === "Ready to move") return false;
+      const currentUnitCount = projectUnitCounts[project.name] ?? 0;
+      if (filters.channel === "resale" && currentUnitCount === 0) return false;
+      if (
+        filters.channel === "new-booking" &&
+        project.status !== "New launch" &&
+        project.status !== "Under construction"
+      ) {
+        return false;
+      }
       const minimumArea = Number(filters.minimumArea);
       if (
         filters.minimumArea &&
@@ -391,8 +475,10 @@ export function GurgaonProjectDirectory({
         );
       }
       if (filters.sort === "recent") {
-        if (a.reviewedOn && !b.reviewedOn) return -1;
-        if (!a.reviewedOn && b.reviewedOn) return 1;
+        const aReviewed = a.factReviewedOn ?? a.reviewedOn;
+        const bReviewed = b.factReviewedOn ?? b.reviewedOn;
+        if (aReviewed && !bReviewed) return -1;
+        if (!aReviewed && bReviewed) return 1;
       }
       if (filters.sort === "size") {
         return (
@@ -413,8 +499,10 @@ export function GurgaonProjectDirectory({
     filters.maximumArea,
     filters.minimumArea,
     filters.propertyType,
+    filters.sector,
     filters.sort,
     filters.status,
+    projectUnitCounts,
   ]);
 
   const selectedProjects = useMemo(() => {
@@ -425,11 +513,19 @@ export function GurgaonProjectDirectory({
   function updateFilter<K extends keyof DirectoryFilters>(key: K, value: DirectoryFilters[K]) {
     setFilters((current) => ({ ...current, [key]: value }));
     setVisibleCount(PAGE_INCREMENT);
+    if (key !== "query") {
+      trackEvent("project_filter_use", {
+        filter_name: key,
+        filter_value: String(value),
+        page_path: window.location.pathname,
+      });
+    }
   }
 
   function resetFilters() {
     setFilters(DEFAULT_FILTERS);
     setVisibleCount(PAGE_INCREMENT);
+    trackEvent("project_filters_clear", { page_path: window.location.pathname });
   }
 
   function toggleComparison(project: GurgaonDirectoryProject) {
@@ -447,6 +543,7 @@ export function GurgaonProjectDirectory({
   const visibleProjects = filteredProjects.slice(0, visibleCount);
   const hasFilters =
     filters.query !== "" ||
+    filters.sector !== "all" ||
     filters.corridor !== "all" ||
     filters.budget !== "all" ||
     filters.bhk !== "all" ||
@@ -455,9 +552,7 @@ export function GurgaonProjectDirectory({
     filters.developer !== "all" ||
     filters.channel !== "all" ||
     filters.minimumArea !== "" ||
-    filters.maximumArea !== "" ||
-    filters.nriSupport ||
-    filters.loanSupport;
+    filters.maximumArea !== "";
 
   return (
     <div>
@@ -488,6 +583,15 @@ export function GurgaonProjectDirectory({
             <Input
               value={filters.query}
               onChange={(event) => updateFilter("query", event.target.value)}
+              onBlur={() => {
+                if (filters.query.trim()) {
+                  trackEvent("project_filter_use", {
+                    filter_name: "query",
+                    filter_value: filters.query.trim(),
+                    page_path: window.location.pathname,
+                  });
+                }
+              }}
               placeholder="Search project, developer or sector"
               className="h-11 pl-10"
             />
@@ -505,7 +609,23 @@ export function GurgaonProjectDirectory({
               <option value="all">All Gurgaon corridors</option>
               {PROJECT_CORRIDORS.map((corridor) => (
                 <option key={corridor} value={corridor}>
-                  {corridor}
+                  {corridorLabel(corridor)}
+                </option>
+              ))}
+            </select>
+          </label>
+
+          <label>
+            <span className="sr-only">Select sector</span>
+            <select
+              value={filters.sector}
+              onChange={(event) => updateFilter("sector", event.target.value)}
+              className="h-11 w-full rounded-md border border-input bg-background px-3 text-sm"
+            >
+              <option value="all">All Gurgaon sectors</option>
+              {SECTORS.map((sector) => (
+                <option key={sector} value={sector}>
+                  {sector}
                 </option>
               ))}
             </select>
@@ -559,37 +679,6 @@ export function GurgaonProjectDirectory({
           </label>
 
           <label>
-            <span className="sr-only">Select property type</span>
-            <select
-              value={filters.propertyType}
-              onChange={(event) => updateFilter("propertyType", event.target.value as TypeFilter)}
-              className="h-11 w-full rounded-md border border-input bg-background px-3 text-sm"
-            >
-              <option value="all">All property types</option>
-              <option value="Apartment">Apartments</option>
-              <option value="Builder Floor">Builder floors</option>
-              <option value="Villa">Villas</option>
-              <option value="Mixed">Mixed developments</option>
-            </select>
-          </label>
-
-          <label>
-            <span className="sr-only">Select developer</span>
-            <select
-              value={filters.developer}
-              onChange={(event) => updateFilter("developer", event.target.value)}
-              className="h-11 w-full rounded-md border border-input bg-background px-3 text-sm"
-            >
-              <option value="all">All developers</option>
-              {DEVELOPERS.map((developer) => (
-                <option key={developer} value={developer}>
-                  {developer}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          <label>
             <span className="sr-only">Select resale or new booking</span>
             <select
               value={filters.channel}
@@ -597,35 +686,9 @@ export function GurgaonProjectDirectory({
               className="h-11 w-full rounded-md border border-input bg-background px-3 text-sm"
             >
               <option value="all">Resale and new booking</option>
-              <option value="resale">Resale opportunities</option>
-              <option value="new-booking">New booking opportunities</option>
+              <option value="resale">Published resale available</option>
+              <option value="new-booking">Fresh booking — verify inventory</option>
             </select>
-          </label>
-
-          <label>
-            <span className="sr-only">Minimum area in square feet</span>
-            <Input
-              type="number"
-              min="0"
-              inputMode="numeric"
-              value={filters.minimumArea}
-              onChange={(event) => updateFilter("minimumArea", event.target.value)}
-              placeholder="Minimum area (sq ft)"
-              className="h-11"
-            />
-          </label>
-
-          <label>
-            <span className="sr-only">Maximum area in square feet</span>
-            <Input
-              type="number"
-              min="0"
-              inputMode="numeric"
-              value={filters.maximumArea}
-              onChange={(event) => updateFilter("maximumArea", event.target.value)}
-              placeholder="Maximum area (sq ft)"
-              className="h-11"
-            />
           </label>
 
           <label>
@@ -636,46 +699,134 @@ export function GurgaonProjectDirectory({
               className="h-11 w-full rounded-md border border-input bg-background px-3 text-sm"
             >
               <option value="featured">Featured and relevant</option>
-              <option value="recent">Recently price-reviewed</option>
+              <option value="recent">Latest updated</option>
               <option value="price">Lowest indicative entry</option>
               <option value="size">Smallest published size</option>
               <option value="possession">Possession status</option>
               <option value="name">Project name A–Z</option>
             </select>
           </label>
-
-          <div className="flex flex-wrap gap-4 md:col-span-2 lg:col-span-3">
-            <label className="flex min-h-11 items-center gap-2 rounded-md border border-input px-3 text-sm">
-              <input
-                type="checkbox"
-                checked={filters.nriSupport}
-                onChange={(event) => updateFilter("nriSupport", event.target.checked)}
-                className="size-4 accent-[var(--gold)]"
-              />
-              NRI remote-buying support
-            </label>
-            <label className="flex min-h-11 items-center gap-2 rounded-md border border-input px-3 text-sm">
-              <input
-                type="checkbox"
-                checked={filters.loanSupport}
-                onChange={(event) => updateFilter("loanSupport", event.target.checked)}
-                className="size-4 accent-[var(--gold)]"
-              />
-              Home-loan assistance
-            </label>
-          </div>
         </div>
 
+        <div className="mt-4 flex flex-wrap items-center gap-2" aria-label="Quick project filters">
+          {QUICK_STATUS_FILTERS.map(([label, value]) => {
+            const active = filters.status === value;
+            return (
+              <button
+                key={value}
+                type="button"
+                aria-pressed={active}
+                onClick={() => updateFilter("status", value as StatusFilter)}
+                className={`min-h-10 rounded-full border px-4 text-sm font-medium transition-colors ${
+                  active
+                    ? "border-gold bg-gold text-gold-foreground"
+                    : "border-border bg-background text-foreground hover:border-gold/50 hover:bg-gold/5"
+                }`}
+              >
+                {label}
+              </button>
+            );
+          })}
+          <button
+            type="button"
+            aria-pressed={filters.channel === "resale"}
+            onClick={() => updateFilter("channel", filters.channel === "resale" ? "all" : "resale")}
+            className={`min-h-10 rounded-full border px-4 text-sm font-medium transition-colors ${
+              filters.channel === "resale"
+                ? "border-gold bg-gold text-gold-foreground"
+                : "border-border bg-background text-foreground hover:border-gold/50 hover:bg-gold/5"
+            }`}
+          >
+            Current resale
+          </button>
+        </div>
+
+        <div className="mt-4">
+          <button
+            type="button"
+            aria-expanded={advancedFiltersOpen}
+            onClick={() => setAdvancedFiltersOpen((current) => !current)}
+            className="inline-flex min-h-10 items-center gap-2 text-sm font-semibold text-navy underline-offset-4 hover:text-gold hover:underline"
+          >
+            <SlidersHorizontal className="size-4" aria-hidden="true" />
+            {advancedFiltersOpen
+              ? "Hide advanced filters"
+              : "More filters: developer, type and area"}
+          </button>
+        </div>
+
+        {advancedFiltersOpen ? (
+          <div className="mt-3 grid gap-3 rounded-xl border border-border bg-muted/25 p-4 md:grid-cols-2 lg:grid-cols-4">
+            <label>
+              <span className="sr-only">Select property type</span>
+              <select
+                value={filters.propertyType}
+                onChange={(event) => updateFilter("propertyType", event.target.value as TypeFilter)}
+                className="h-11 w-full rounded-md border border-input bg-background px-3 text-sm"
+              >
+                <option value="all">All property types</option>
+                <option value="Apartment">Apartments</option>
+                <option value="Builder Floor">Builder floors</option>
+                <option value="Villa">Villas</option>
+                <option value="Mixed">Mixed developments</option>
+              </select>
+            </label>
+
+            <label>
+              <span className="sr-only">Select developer</span>
+              <select
+                value={filters.developer}
+                onChange={(event) => updateFilter("developer", event.target.value)}
+                className="h-11 w-full rounded-md border border-input bg-background px-3 text-sm"
+              >
+                <option value="all">All developers</option>
+                {DEVELOPERS.map((developer) => (
+                  <option key={developer} value={developer}>
+                    {developer}
+                  </option>
+                ))}
+              </select>
+            </label>
+
+            <label>
+              <span className="sr-only">Minimum area in square feet</span>
+              <Input
+                type="number"
+                min="0"
+                inputMode="numeric"
+                value={filters.minimumArea}
+                onChange={(event) => updateFilter("minimumArea", event.target.value)}
+                placeholder="Minimum area (sq ft)"
+                className="h-11"
+              />
+            </label>
+
+            <label>
+              <span className="sr-only">Maximum area in square feet</span>
+              <Input
+                type="number"
+                min="0"
+                inputMode="numeric"
+                value={filters.maximumArea}
+                onChange={(event) => updateFilter("maximumArea", event.target.value)}
+                placeholder="Maximum area (sq ft)"
+                className="h-11"
+              />
+            </label>
+          </div>
+        ) : null}
+
         <p className="mt-3 text-xs text-muted-foreground">
-          NRI and loan filters identify advisory support, not legal suitability, lender approval or
-          a guaranteed loan sanction.
+          Fresh-booking results identify likely launch-stage projects; current developer inventory
+          is reconfirmed before any recommendation.
         </p>
 
         {hasFilters ? (
           <div className="mt-4 flex flex-wrap gap-2" aria-label="Active filters">
             {filters.query ? <Badge variant="secondary">Search: {filters.query}</Badge> : null}
+            {filters.sector !== "all" ? <Badge variant="secondary">{filters.sector}</Badge> : null}
             {filters.corridor !== "all" ? (
-              <Badge variant="secondary">{filters.corridor}</Badge>
+              <Badge variant="secondary">{corridorLabel(filters.corridor)}</Badge>
             ) : null}
             {filters.budget !== "all" ? (
               <Badge variant="secondary">Budget: {filters.budget}</Badge>
@@ -697,8 +848,6 @@ export function GurgaonProjectDirectory({
             {filters.maximumArea ? (
               <Badge variant="secondary">Max {filters.maximumArea} sq ft</Badge>
             ) : null}
-            {filters.nriSupport ? <Badge variant="secondary">NRI support</Badge> : null}
-            {filters.loanSupport ? <Badge variant="secondary">Loan assistance</Badge> : null}
           </div>
         ) : null}
 
@@ -714,7 +863,7 @@ export function GurgaonProjectDirectory({
               className="inline-flex min-h-10 items-center gap-2 font-medium text-gold underline-offset-4 hover:underline"
             >
               <X className="size-4" aria-hidden="true" />
-              Reset all filters
+              Clear all filters
             </button>
           ) : null}
         </div>
@@ -750,9 +899,26 @@ export function GurgaonProjectDirectory({
               Reset the filters or ask for a budget-based shortlist. Availability and prices can
               change before the directory is updated.
             </p>
-            <Button type="button" variant="goldOutline" className="mt-5" onClick={resetFilters}>
-              Show all projects
-            </Button>
+            <div className="mt-5 flex flex-wrap justify-center gap-3">
+              <Button type="button" variant="goldOutline" onClick={resetFilters}>
+                Show all projects
+              </Button>
+              <Button asChild variant="gold">
+                <a
+                  href={`${CONTACT.whatsapp}?text=${encodeURIComponent(
+                    "Hi Arun, I could not find an exact project match. Please prepare a Gurgaon shortlist for my requirement.",
+                  )}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => trackContact("whatsapp", "project_directory_no_results")}
+                >
+                  WhatsApp your requirement
+                </a>
+              </Button>
+              <Button asChild variant="outline">
+                <a href="/contact">Discuss your requirement</a>
+              </Button>
+            </div>
           </div>
         )}
 
@@ -769,6 +935,10 @@ export function GurgaonProjectDirectory({
             </Button>
           </div>
         ) : null}
+
+        <p className="mx-auto mt-8 max-w-4xl text-center text-xs leading-5 text-muted-foreground">
+          * {LOAN_DISCLAIMER}
+        </p>
       </div>
     </div>
   );

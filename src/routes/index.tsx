@@ -15,6 +15,7 @@ import {
   TrendingUp,
 } from "lucide-react";
 import heroImage from "@/assets/hero-gurugram.jpg";
+import { FeaturedProjectShowcase } from "@/components/site/FeaturedProjectShowcase";
 import { HomeActionPanel } from "@/components/site/HomeActionPanel";
 import { ListingCard } from "@/components/site/ListingCard";
 import { Button } from "@/components/ui/button";
@@ -377,6 +378,52 @@ function Home() {
         </div>
       </section>
 
+      <section className="border-y border-border bg-muted/30 py-16 md:py-20">
+        <div className="container-page">
+          <div className="flex flex-wrap items-end justify-between gap-5">
+            <SectionHead
+              eyebrow="Explore Gurgaon Projects"
+              title="A more visual way to build a financially sensible shortlist"
+              body="Start with project, sector and corridor context, then validate the exact unit, area basis, asking price, documents and finance before deciding."
+            />
+            <Button asChild variant="navy">
+              <Link to="/projects">View All Gurgaon Projects</Link>
+            </Button>
+          </div>
+
+          <nav aria-label="Popular Gurgaon project corridors" className="mt-7 flex flex-wrap gap-2">
+            {[
+              "Golf Course Road",
+              "Golf Course Extension Road",
+              "Southern Peripheral Road",
+              "Dwarka Expressway",
+              "New Gurgaon",
+            ].map((corridor) => (
+              <a
+                key={corridor}
+                href="/projects#project-directory"
+                className="inline-flex min-h-10 items-center rounded-full border border-border bg-card px-4 text-xs font-medium transition-colors hover:border-gold/60 hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+              >
+                {corridor}
+              </a>
+            ))}
+          </nav>
+
+          <div className="mt-8">
+            <FeaturedProjectShowcase
+              projectNames={[
+                "Godrej Miraya",
+                "Emaar Amaris",
+                "Ireo Skyon",
+                "Puri Emerald Bay",
+                "AIPL Riviera at AIPL LakeCity",
+                "Ansals Highland Park",
+              ]}
+            />
+          </div>
+        </div>
+      </section>
+
       <section className="container-page py-16 md:py-20">
         <div>
           <div className="flex flex-wrap items-end justify-between gap-5">
@@ -631,7 +678,10 @@ function Home() {
             </Link>
           </div>
           <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm">
-            <Link to="/flats-for-sale-in-gurgaon" className="text-gold underline-offset-4 hover:underline">
+            <Link
+              to="/flats-for-sale-in-gurgaon"
+              className="text-gold underline-offset-4 hover:underline"
+            >
               Flats for sale in Gurgaon
             </Link>
             <Link to="/luxury" className="text-gold underline-offset-4 hover:underline">

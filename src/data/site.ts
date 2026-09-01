@@ -25,7 +25,7 @@ export const CONTACT = {
 };
 
 export const LOAN_DISCLAIMER =
-  "Home loans are subject to the credit policies, eligibility criteria, documentation requirements, property eligibility, and final approval of the respective lending institution. Financing of up to 90% of the property value may be available for eligible applicants and qualifying properties, subject to lender policies and applicable regulations.";
+  "Home loans are subject to applicant eligibility, lender credit policy, property eligibility, valuation, documentation, applicable regulations and final approval by the lending institution.";
 
 export type Property = {
   id: string;
