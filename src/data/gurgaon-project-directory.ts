@@ -1,4 +1,5 @@
 export const PROJECT_PRICE_REVIEW_DATE = "24 Aug 2026";
+export const PROJECT_FACT_REVIEW_DATE = "1 Sep 2026";
 
 export const PROJECT_CORRIDORS = [
   "Golf Course Road & Central Luxury",
@@ -48,6 +49,9 @@ export type GurgaonDirectoryProject = {
   areaBasis: ProjectAreaBasis;
   priceScope: ProjectPriceScope;
   reviewedOn: string | null;
+  factReviewedOn: string | null;
+  reraNumber?: string;
+  officialSourceUrl?: string;
   internalSourceRecord: string;
   confidence: ProjectConfidence;
   reraCheck: ProjectReraCheck;
@@ -86,6 +90,7 @@ function project(
     areaBasis: "not_stated",
     priceScope: "not_stated",
     reviewedOn: null,
+    factReviewedOn: null,
     internalSourceRecord: "project_seed_pending_live_verification",
     confidence: "verification_pending",
     reraCheck: "phase_check_required",
@@ -189,6 +194,17 @@ const SEEDED_GURGAON_PROJECTS: GurgaonDirectoryProject[] = [
     configuration: "4 BHK residences",
     status: "Ready to move",
   }),
+  project("TREVOC Royal Residences", "TREVOC Group", "Sector 56", CENTRAL, {
+    configuration: "3 & 4 BHK residences",
+    sizeRange: "Official unit schedule to confirm",
+    status: "Under construction",
+    factReviewedOn: PROJECT_FACT_REVIEW_DATE,
+    reraNumber: "GGM/863/595/2024/90",
+    officialSourceUrl: "https://www.trevocgroup.com/",
+    internalSourceRecord: "official_developer_and_harera_review_2026-09-01",
+    confidence: "medium",
+    reraCheck: "guide_checked",
+  }),
   project("DLF West Park", "DLF", "Golf Course Road", CENTRAL),
   project("Suncity Platinum Towers", "Suncity", "Sector 28", CENTRAL, {
     configuration: "3 & 4 BHK residences",
@@ -209,6 +225,17 @@ const SEEDED_GURGAON_PROJECTS: GurgaonDirectoryProject[] = [
   project("Godrej Samaris", "Godrej Properties", "Sector 53", CENTRAL, {
     configuration: "3 & 4 BHK residences",
     status: "New launch",
+  }),
+  project("Godrej Miraya", "Godrej Properties", "Sector 43", CENTRAL, {
+    configuration: "3 & 4 BHK residences",
+    sizeRange: "Official unit schedule to confirm",
+    status: "Under construction",
+    factReviewedOn: PROJECT_FACT_REVIEW_DATE,
+    reraNumber: "GGM/870/602/2024/97",
+    officialSourceUrl: "https://www.godrejproperties.com/gurugram/residential/godrej-miraya",
+    internalSourceRecord: "official_developer_and_harera_review_2026-09-01",
+    confidence: "medium",
+    reraCheck: "guide_checked",
   }),
   project("Experion One 42", "Experion Developers", "Sector 42", CENTRAL, {
     configuration: "3 & 4 BHK residences",
@@ -262,6 +289,17 @@ const SEEDED_GURGAON_PROJECTS: GurgaonDirectoryProject[] = [
     configuration: "3 & 4 BHK residences",
     status: "New launch",
   }),
+  project("Silverglades The Legacy", "Silverglades", "Sector 63A", EXTENSION, {
+    configuration: "3 & 4 BHK residences and penthouses",
+    sizeRange: "Official layout schedule to confirm",
+    status: "Under construction",
+    factReviewedOn: PROJECT_FACT_REVIEW_DATE,
+    reraNumber: "GGM/861/593/2024/88",
+    officialSourceUrl: "https://silverglades.com/the-legacy/",
+    internalSourceRecord: "official_developer_and_harera_review_2026-09-01",
+    confidence: "medium",
+    reraCheck: "guide_checked",
+  }),
   project("Puri The Aravallis", "Puri Constructions", "Sector 61", EXTENSION, {
     configuration: "3 & 4 BHK residences",
     status: "Under construction",
@@ -274,6 +312,9 @@ const SEEDED_GURGAON_PROJECTS: GurgaonDirectoryProject[] = [
     priceMaxCr: 8.7,
     priceBasis: "market_sample",
     reviewedOn: PROJECT_PRICE_REVIEW_DATE,
+    factReviewedOn: PROJECT_FACT_REVIEW_DATE,
+    officialSourceUrl: "https://www.hines.com/properties/elevate-gurugram",
+    inventoryAliases: ["Conscient Hines Elevate", "Conscient Elevate", "Elevate"],
     featured: true,
   }),
   project("Mahindra Luminare", "Mahindra Lifespaces", "Sector 59", EXTENSION, {
@@ -311,6 +352,17 @@ const SEEDED_GURGAON_PROJECTS: GurgaonDirectoryProject[] = [
   project("Emaar DigiHomes", "Emaar India", "Sector 62", EXTENSION, {
     configuration: "2 & 3 BHK residences",
     status: "Ready to move",
+  }),
+  project("Emaar Amaris", "Emaar India", "Sector 62", EXTENSION, {
+    configuration: "2, 3 & 4 BHK residences",
+    sizeRange: "Official unit schedule to confirm",
+    status: "Under construction",
+    factReviewedOn: PROJECT_FACT_REVIEW_DATE,
+    reraNumber: "GGM/885/617/2024/112",
+    officialSourceUrl: "https://in.emaar.com/en/properties/amaris/",
+    internalSourceRecord: "official_developer_and_harera_review_2026-09-01",
+    confidence: "medium",
+    reraCheck: "guide_checked",
   }),
   project("Emaar Urban Oasis", "Emaar India", "Sector 62", EXTENSION, {
     configuration: "3 & 4 BHK residences",
@@ -364,6 +416,9 @@ const SEEDED_GURGAON_PROJECTS: GurgaonDirectoryProject[] = [
   project("M3M St. Andrews", "M3M India", "Sector 65", EXTENSION, {
     configuration: "4 & 5 BHK residences",
     status: "Ready to move",
+    factReviewedOn: PROJECT_FACT_REVIEW_DATE,
+    officialSourceUrl: "https://m3mindia.com/residential/m3m-st-andrews",
+    inventoryAliases: ["M3M St. Andrews", "M3M St Andrews", "M3M St Andrews Golf Residences"],
   }),
   project("M3M Latitude", "M3M India", "Sector 65", EXTENSION, {
     configuration: "3 & 4 BHK residences",
@@ -381,6 +436,9 @@ const SEEDED_GURGAON_PROJECTS: GurgaonDirectoryProject[] = [
   project("M3M Heights", "M3M India", "Sector 65", EXTENSION, {
     configuration: "2 & 3 BHK residences",
     status: "Ready to move",
+    factReviewedOn: PROJECT_FACT_REVIEW_DATE,
+    officialSourceUrl: "https://m3mindia.com/residential/m3m-heights",
+    inventoryAliases: ["M3M Heights", "M3M City Heights"],
   }),
   project("M3M Skycity", "M3M India", "Sector 65", EXTENSION, {
     configuration: "2 & 3 BHK residences",
@@ -735,6 +793,17 @@ const SEEDED_GURGAON_PROJECTS: GurgaonDirectoryProject[] = [
     configuration: "4 BHK residences",
     status: "Under construction",
   }),
+  project("Smartworld Sky Arc", "Smartworld Developers", "Sector 69", SOUTH, {
+    configuration: "3 & 4 BHK residences",
+    sizeRange: "Approved unit schedule to confirm",
+    status: "Under construction",
+    factReviewedOn: PROJECT_FACT_REVIEW_DATE,
+    reraNumber: "GGM/878/610/2024/105",
+    officialSourceUrl: "https://haryanarera.gov.in/view_project/searchprojectDetail/3075",
+    internalSourceRecord: "harera_project_review_2026-09-01",
+    confidence: "medium",
+    reraCheck: "guide_checked",
+  }),
   project("Tulip Melrose", "Tulip Infratech", "Sector 70", SOUTH, {
     configuration: "5 BHK residences",
     status: "Under construction",
@@ -857,6 +926,17 @@ const SEEDED_GURGAON_PROJECTS: GurgaonDirectoryProject[] = [
   project("Godrej Zenith", "Godrej Properties", "Sector 89", NEW_GURGAON, {
     configuration: "2–4 BHK residences",
     status: "Under construction",
+  }),
+  project("Eldeco Fairway Reserve", "Eldeco", "Sector 80", NEW_GURGAON, {
+    configuration: "3 & 4 BHK residences",
+    sizeRange: "Approved unit schedule to confirm",
+    status: "Under construction",
+    factReviewedOn: PROJECT_FACT_REVIEW_DATE,
+    reraNumber: "GGM/880/612/2024/107",
+    officialSourceUrl: "https://haryanarera.gov.in/view_project/searchprojectDetail/3003",
+    internalSourceRecord: "harera_project_review_2026-09-01",
+    confidence: "medium",
+    reraCheck: "guide_checked",
   }),
   project("Suncity Monarch", "Suncity", "Sector 78", NEW_GURGAON, {
     configuration: "3 & 4 BHK residences",

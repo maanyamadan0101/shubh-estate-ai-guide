@@ -17,6 +17,10 @@ export function LeadAssistant({ pathname }: { pathname: string }) {
     pathname === "/auth" ||
     pathname === "/forgot-password" ||
     pathname === "/reset-password";
+  const catalogueRoute =
+    pathname === "/projects" ||
+    pathname === "/flats-for-sale-in-gurgaon" ||
+    pathname === "/under-construction-projects-gurgaon";
 
   const whatsappHref = useMemo(() => {
     const page = `https://www.shubhestatebroker.in${pathname}`;
@@ -28,7 +32,7 @@ export function LeadAssistant({ pathname }: { pathname: string }) {
 
   useEffect(() => {
     setMounted(true);
-    if (hiddenRoute) return;
+    if (hiddenRoute || catalogueRoute) return;
 
     let alreadySeen = false;
     try {
@@ -53,7 +57,7 @@ export function LeadAssistant({ pathname }: { pathname: string }) {
     }, AUTO_OPEN_DELAY_MS);
 
     return () => window.clearTimeout(timer);
-  }, [hiddenRoute]);
+  }, [catalogueRoute, hiddenRoute]);
 
   if (!mounted || hiddenRoute) return null;
 
@@ -87,7 +91,9 @@ export function LeadAssistant({ pathname }: { pathname: string }) {
                 </span>
                 <div>
                   <p className="font-semibold">Property Assistant</p>
-                  <p className="mt-0.5 text-xs text-primary-foreground/75">Shubh Estate Brokers · Gurugram</p>
+                  <p className="mt-0.5 text-xs text-primary-foreground/75">
+                    Shubh Estate Brokers · Gurugram
+                  </p>
                 </div>
               </div>
               <button
@@ -163,7 +169,8 @@ export function LeadAssistant({ pathname }: { pathname: string }) {
             )}
 
             <p className="mt-4 text-[0.68rem] leading-5 text-muted-foreground">
-              No automated sales pressure. Your enquiry goes directly to the Shubh Estate Brokers team.
+              No automated sales pressure. Your enquiry goes directly to the Shubh Estate Brokers
+              team.
             </p>
           </div>
         </aside>

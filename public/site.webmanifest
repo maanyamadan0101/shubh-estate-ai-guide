@@ -1,0 +1,18 @@
+{
+  "name": "Shubh Estate Brokers",
+  "short_name": "Shubh Estate",
+  "description": "Gurgaon property decisions, backed by banking-grade judgement.",
+  "lang": "en-IN",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#ffffff",
+  "theme_color": "#0F2940",
+  "icons": [
+    {
+      "src": "/shubh-estate-logo.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 const DEFAULT_QUALITY = 72;
 
 function canUseVercelImageOptimization(src: string) {
-  return src.startsWith("/api/public/img/") || src.startsWith("/assets/");
+  return src.startsWith("/") && !src.startsWith("/_vercel/image");
 }
 
 export function vercelImageUrl(src: string, width: number, quality = DEFAULT_QUALITY) {

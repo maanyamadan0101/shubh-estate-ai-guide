@@ -22,6 +22,6 @@ The three previously flagged conflicts have now been resolved for public catalog
 
 ## Price-publication coverage
 
-- Seed projects checked: **143**
+- Seed projects checked: **149**
 - Projects with a dated Shubh-inventory or comparable-market price record: **26**
-- Projects intentionally held at **Price on request** pending current verification: **117**
+- Projects intentionally held at **Price on request** pending current verification: **123**

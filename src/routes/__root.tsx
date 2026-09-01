@@ -98,6 +98,7 @@ const localBusinessSchema = {
   email: CONTACT.email,
   url: SITE_ORIGIN,
   logo: `${SITE_ORIGIN}/shubh-estate-logo.png`,
+  image: `${SITE_ORIGIN}/shubh-estate-logo.png`,
   sameAs: [CONTACT.googleBusinessProfile, CONTACT.instagram, CONTACT.youtube],
   hasMap: CONTACT.googleBusinessProfile,
   contactPoint: {
@@ -175,6 +176,8 @@ const websiteSchema = {
   name: "Shubh Estate Brokers",
   alternateName: "Shubh Estate",
   url: SITE_ORIGIN,
+  inLanguage: "en-IN",
+  publisher: { "@id": `${SITE_ORIGIN}/#real-estate-agent` },
 };
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
@@ -207,7 +210,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:url", content: SITE_ORIGIN },
       { property: "og:site_name", content: "Shubh Estate Brokers" },
       { property: "og:locale", content: "en_IN" },
+      { property: "og:image", content: `${SITE_ORIGIN}/shubh-estate-logo.png` },
+      { property: "og:image:alt", content: "Shubh Estate Brokers" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: `${SITE_ORIGIN}/shubh-estate-logo.png` },
       { name: "theme-color", content: "#0A1128" },
     ],
     links: [
@@ -220,6 +226,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { rel: "icon", href: "/shubh-estate-logo.png", type: "image/png" },
       { rel: "apple-touch-icon", href: "/shubh-estate-logo.png" },
+      { rel: "manifest", href: "/site.webmanifest" },
     ],
     scripts: [
       { async: true, src: `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}` },

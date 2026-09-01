@@ -9,6 +9,7 @@ import {
   ShieldCheck,
   TrendingUp,
 } from "lucide-react";
+import { FeaturedProjectShowcase } from "@/components/site/FeaturedProjectShowcase";
 import { ListingCard } from "@/components/site/ListingCard";
 import { PageHero, SectionHead } from "@/components/site/SectionHead";
 import { Button } from "@/components/ui/button";
@@ -59,15 +60,27 @@ export const Route = createFileRoute("/under-construction-projects-gurgaon")({
     const title = "Under-Construction & New Launch Projects in Gurgaon";
     const description =
       "Explore current under-construction and new-launch Gurgaon property inventory with project videos where available, RERA context, financing and due-diligence support.";
+    const socialImage = `${SITE_ORIGIN}/shubh-estate-logo.png`;
     const properties = loaderData?.properties ?? [];
 
     return {
       meta: [
         { title },
         { name: "description", content: description },
+        { name: "robots", content: "index,follow,max-image-preview:large" },
         { property: "og:title", content: title },
         { property: "og:description", content: description },
+        { property: "og:type", content: "website" },
         { property: "og:url", content: canonical },
+        { property: "og:image", content: socialImage },
+        {
+          property: "og:image:alt",
+          content: "Shubh Estate Brokers — under-construction and new-launch projects in Gurgaon",
+        },
+        { name: "twitter:card", content: "summary_large_image" },
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: description },
+        { name: "twitter:image", content: socialImage },
       ],
       links: [{ rel: "canonical", href: canonical }],
       scripts: [
@@ -146,6 +159,33 @@ function UnderConstructionProjects() {
                 Request project comparison
               </a>
             </Button>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-y border-border bg-muted/30 py-12 md:py-16">
+        <div className="container-page">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <SectionHead
+              eyebrow="Project discovery"
+              title="New and construction-stage projects to compare"
+              body="This directory layer shows project context. Fresh-booking inventory, payment plans, construction stage and the applicable RERA phase are reconfirmed before a site visit."
+            />
+            <Button asChild variant="navy">
+              <Link to="/projects">Explore all Gurgaon projects</Link>
+            </Button>
+          </div>
+          <div className="mt-8">
+            <FeaturedProjectShowcase
+              projectNames={[
+                "Godrej Miraya",
+                "Emaar Amaris",
+                "Silverglades The Legacy",
+                "Smartworld Sky Arc",
+                "AIPL Riviera at AIPL LakeCity",
+                "Ansals Highland Park",
+              ]}
+            />
           </div>
         </div>
       </section>
