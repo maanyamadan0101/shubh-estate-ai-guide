@@ -13,6 +13,7 @@ const NAV = [
   { to: "/nri", label: "NRI" },
   { to: "/blog", label: "Blog" },
   { to: "/about", label: "About" },
+  { to: "/contact", label: "Locate Us" },
 ] as const;
 
 const PROPERTY_LINKS = [
