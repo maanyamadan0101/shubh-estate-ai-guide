@@ -11,7 +11,10 @@ export const CONTACT = {
   phoneHref: "tel:+919911050561",
   alternatePhone: "081307 85000",
   alternatePhoneHref: "tel:+918130785000",
-  whatsapp: "https://wa.me/919911050561",
+  // Keep WhatsApp CTAs on an internal noindex bridge. WhatsApp rate-limits
+  // automated crawlers with HTTP 429, which Semrush can misclassify as a
+  // broken external link even while the link works for real users.
+  whatsapp: "/whatsapp",
   email: "sales@shubhestatebroker.in",
   website: "shubhestatebroker.in",
   weekdayHours: "Sunday–Friday: 10:00 AM–8:00 PM",
