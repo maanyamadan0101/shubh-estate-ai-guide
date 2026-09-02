@@ -1,53 +1,9 @@
 import { useRouterState } from "@tanstack/react-router";
-import { ANSALS_HIGHLAND_2BHK_PREVIEW } from "@/data/video-previews/ansals-highland-2bhk";
-import { ANSALS_HIGHLAND_3BHK_PREVIEW } from "@/data/video-previews/ansals-highland-3bhk";
-import { ANSALS_HIGHLAND_4BHK_PREVIEW } from "@/data/video-previews/ansals-highland-4bhk";
-import { DLF_PRIMUS_PREVIEW } from "@/data/video-previews/dlf-primus";
-import { DLF_SKYCOURT_PREVIEW } from "@/data/video-previews/dlf-skycourt";
-
-type VideoPreview = {
-  title: string;
-  description: string;
-  src: string;
-};
-
-const PROJECT_VIDEOS: Record<string, readonly VideoPreview[]> = {
-  "/projects/ansals-highland-park-sector-103-gurgaon": [
-    {
-      title: "Ansals Highland Park - 2 BHK",
-      description: "Short walkthrough preview from the 2 BHK property video.",
-      src: ANSALS_HIGHLAND_2BHK_PREVIEW,
-    },
-    {
-      title: "Ansals Highland Park - 3 BHK",
-      description: "Short walkthrough preview from the 3 BHK property video.",
-      src: ANSALS_HIGHLAND_3BHK_PREVIEW,
-    },
-    {
-      title: "Ansals Highland Park - 4 BHK",
-      description: "Short walkthrough preview from the 4 BHK property video.",
-      src: ANSALS_HIGHLAND_4BHK_PREVIEW,
-    },
-  ],
-  "/projects/dlf-the-primus-sector-82a-gurgaon": [
-    {
-      title: "DLF The Primus - Sector 82A",
-      description: "Short walkthrough preview from the available DLF The Primus property video.",
-      src: DLF_PRIMUS_PREVIEW,
-    },
-  ],
-  "/dlf-skycourt-sector-86-gurgaon": [
-    {
-      title: "DLF Skycourt - Sector 86",
-      description: "Short walkthrough preview from the available DLF Skycourt property video.",
-      src: DLF_SKYCOURT_PREVIEW,
-    },
-  ],
-};
+import { PROJECT_VIDEO_WATCH_PAGES } from "@/data/video-watch-pages";
 
 export function ProjectVideoPreviews() {
   const pathname = useRouterState({ select: (state) => state.location.pathname });
-  const videos = PROJECT_VIDEOS[pathname];
+  const videos = PROJECT_VIDEO_WATCH_PAGES[pathname];
 
   if (!videos?.length) return null;
 
@@ -60,27 +16,34 @@ export function ProjectVideoPreviews() {
             Walkthrough previews
           </h2>
           <p className="mt-4 leading-7 text-muted-foreground">
-            These are lightweight web previews prepared from Shubh Estate Brokers' original property walkthroughs. Contact us for the full walkthrough and current unit availability.
+            Watch our property walkthrough previews here, or open the dedicated video page for a focused viewing experience. Contact Shubh Estate Brokers for current unit availability.
           </p>
         </div>
 
         <div className={`mt-8 grid gap-6 ${videos.length > 1 ? "md:grid-cols-2 xl:grid-cols-3" : "max-w-2xl"}`}>
           {videos.map((video) => (
-            <figure key={video.title} className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+            <figure key={video.slug} className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
               <video
                 controls
                 muted
                 playsInline
                 preload="metadata"
+                poster={video.thumbnailPath}
                 className="aspect-video w-full bg-black object-cover"
                 aria-label={`${video.title} walkthrough preview`}
               >
-                <source src={video.src} type="video/mp4" />
+                <source src={video.mediaPath} type="video/mp4" />
                 Your browser does not support embedded video.
               </video>
               <figcaption className="p-5">
-                <h3 className="font-display text-xl">{video.title}</h3>
+                <h3 className="font-display text-xl">{video.title.split(" | ")[0]}</h3>
                 <p className="mt-2 text-sm leading-6 text-muted-foreground">{video.description}</p>
+                <a
+                  href={`/videos/${video.slug}`}
+                  className="mt-4 inline-flex text-sm font-semibold text-primary underline-offset-4 hover:underline"
+                >
+                  Open dedicated video page
+                </a>
               </figcaption>
             </figure>
           ))}
