@@ -9,6 +9,7 @@ import {
   MessageCircle,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { verifiedProjectIntelligenceFor } from "@/data/project-intelligence";
 import { CONTACT } from "@/data/site";
 import { trackContact } from "@/lib/analytics";
 import { vercelSrcSet } from "@/lib/image-optimization";
@@ -46,6 +47,8 @@ export function ListingCard({
   showContactActions?: boolean;
 }) {
   const place = [property.sector, property.locality].filter(Boolean).join(", ");
+  const projectIntelligence = verifiedProjectIntelligenceFor({ title: property.title });
+  const cardAmenities = projectIntelligence?.amenities.slice(0, 5) ?? [];
   const fallbackProjectImage = property.cover_image_url
     ? null
     : representativeProjectImageFor(property.title);
@@ -99,7 +102,7 @@ export function ListingCard({
           </div>
           <p className="mt-4 font-display text-lg leading-snug">{property.title}</p>
           <p className="mt-2 text-[10px] uppercase tracking-[0.18em] text-navy-foreground/65">
-            Project photo on request
+            Project imagery being updated
           </p>
         </div>
       )}
@@ -120,7 +123,7 @@ export function ListingCard({
           variant="secondary"
           className="absolute bottom-3 left-3 bg-background/90 text-[10px] font-medium uppercase tracking-[0.12em] backdrop-blur"
         >
-          Photo on request
+          Image update pending
         </Badge>
       ) : null}
     </div>
@@ -174,11 +177,18 @@ export function ListingCard({
           {property.furnishing ? <div>Furnishing: {property.furnishing}</div> : null}
         </dl>
 
+        {cardAmenities.length ? (
+          <p className="text-xs leading-5 text-muted-foreground" aria-label="Verified project amenities">
+            <span className="font-semibold text-foreground">Project:</span>{" "}
+            {cardAmenities.join(" • ")}
+          </p>
+        ) : null}
+
         {forSale ? (
           <div className="rounded-lg border border-gold/25 bg-gold/5 px-3 py-2.5">
-            <p className="flex items-center gap-2 text-xs font-medium text-foreground">
+            <p className="flex items-center gap-2 text-xs font-semibold text-foreground">
               <Landmark className="size-4 shrink-0 text-gold" aria-hidden="true" />
-              Home-loan assistance available*
+              Up to 90% Home Loan Available*
             </p>
           </div>
         ) : null}
@@ -195,7 +205,7 @@ export function ListingCard({
         {availabilityDate ? (
           <p className="flex items-center gap-1.5 text-[0.7rem] text-muted-foreground">
             <CalendarClock className="size-3.5 text-gold" aria-hidden="true" />
-            Listing updated {availabilityDate}; reconfirm before visiting
+            Listing updated {availabilityDate}; current availability confirmed on enquiry
           </p>
         ) : null}
         {showContactActions ? (

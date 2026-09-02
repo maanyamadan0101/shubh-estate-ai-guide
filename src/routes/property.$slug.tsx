@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-router";
 import { Building2 } from "lucide-react";
 import { PropertyView } from "@/components/site/PropertyView";
+import { ProjectExperience } from "@/components/site/ProjectExperience";
 import { ProjectImageDisclosure } from "@/components/site/ProjectImageDisclosure";
 import { DWARKA_CATALOGUE_LISTINGS } from "@/data/dwarka-catalogue-listings";
 import { projectIdentityFor } from "@/lib/project-hubs";
@@ -29,11 +30,6 @@ const DEDICATED_PROJECT_GUIDES: Record<string, string> = {
 function storedDescriptionLooksUsable(value: string | null | undefined) {
   if (!value?.trim()) return false;
   const compact = value.trim();
-
-  // Imported descriptions that were previously cut at a fixed character count
-  // often end mid-word (for example "Shubh Estate B"). Prefer a fresh,
-  // sentence-complete description in that case rather than exposing the broken
-  // text to search engines and social previews.
   if (compact.length >= 150 && !/[.!?…]$/.test(compact)) return false;
   return true;
 }
@@ -68,8 +64,6 @@ export const Route = createFileRoute("/property/$slug")({
     });
     let related = localRelated.properties;
 
-    // Keep every live listing connected to the wider catalogue, even when it
-    // is the only published property in its micro-market.
     if (related.length < 3) {
       const catalogueRelated = await listPublicProperties({
         data: { limit: 6, excludeSlug: params.slug },
@@ -86,7 +80,6 @@ export const Route = createFileRoute("/property/$slug")({
       return { meta: [{ title: "Property unavailable" }, { name: "robots", content: "noindex" }] };
     }
     const p = loaderData.property;
-    const typeLabel = PROPERTY_TYPE_LABEL[p.property_type] ?? "Property";
     const listingRef = listingReference(String(p.id));
     const seoSource = {
       title: p.title,
@@ -105,9 +98,6 @@ export const Route = createFileRoute("/property/$slug")({
       description: p.description,
     };
 
-    // A linked project record is the most reliable source for a search-facing
-    // property title. Otherwise retain a useful manually-authored title after
-    // removing operational SEB identifiers, with the structured fallback last.
     const generatedTitle = buildSeoTitle(seoSource);
     const storedTitle = p.meta_title ? stripInternalListingReference(p.meta_title) : "";
     const title = p.project?.name
@@ -130,9 +120,6 @@ export const Route = createFileRoute("/property/$slug")({
       ? compactSeoTitle(stripInternalListingReference(p.og_title))
       : title;
 
-    // Property detail pages are the canonical URL for their own listing.
-    // Keeping this aligned with the sitemap avoids conflicting canonical signals
-    // from stale or manually-entered database values.
     const canonical = buildCanonical(params.slug);
     const fallback = representativeProjectImageFor(p.title);
     const image = p.cover_image_url?.startsWith("http")
@@ -145,8 +132,6 @@ export const Route = createFileRoute("/property/$slug")({
       "@context": "https://schema.org",
       "@type": "Residence",
       "@id": `${canonical}#property`,
-      // The stable listing reference remains useful as a structured operational
-      // identifier without consuming search-title or snippet space.
       identifier: listingRef,
       name: p.title,
       description,
@@ -274,6 +259,14 @@ function PropertyPage() {
         }}
         related={data.related}
       />
+      <section className="container-page pb-16">
+        <ProjectExperience
+          title={data.property.title}
+          project={data.property.project}
+          sector={data.property.project?.sector ?? data.property.sector}
+          locality={data.property.project?.locality ?? data.property.locality}
+        />
+      </section>
     </>
   );
 }
