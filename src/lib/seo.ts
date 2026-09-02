@@ -129,10 +129,10 @@ export function buildSlug(s: SeoSource): string {
 }
 
 /**
- * Public property SEO title. Apartment is omitted when the BHK already makes
- * the residential intent clear, while non-apartment property types remain
- * explicit. Internal SEB references are operational identifiers, not search
- * terms, and are intentionally excluded from the title.
+ * Public property SEO title. Genuine units in the same project can share the
+ * same BHK and project name, so stable search-useful differentiators (area,
+ * floor and facing) are brought into the title whenever they fit. This keeps
+ * separate inventory pages distinguishable without exposing internal listing IDs.
  */
 export function buildSeoTitle(s: SeoSource): string {
   const { type, searchCity } = parts(s);
@@ -141,8 +141,22 @@ export function buildSeoTitle(s: SeoSource): string {
   const head = [s.bhk, typeForTitle, action].filter(Boolean).join(" ");
   const project = s.projectName?.trim() || null;
   const sector = s.sector?.trim() || null;
+  const area = s.areaSqft ? `${Math.round(s.areaSqft).toLocaleString("en-IN")} Sq Ft` : null;
+  const floor = s.floorNumber !== null && s.floorNumber !== undefined ? `Floor ${s.floorNumber}` : null;
+  const facing = s.facing?.trim() ? `${s.facing.trim()} Facing` : null;
+  const allDetails = [area, floor, facing].filter(Boolean).join(" · ");
 
   const candidates = [
+    project && sector && allDetails ? `${head} | ${allDetails} | ${project}, ${sector}` : null,
+    project && sector && area && floor ? `${head} | ${area} · ${floor} | ${project}, ${sector}` : null,
+    project && sector && area ? `${head} | ${area} | ${project}, ${sector}` : null,
+    project && sector && floor ? `${head} | ${floor} | ${project}, ${sector}` : null,
+    project && sector && facing ? `${head} | ${facing} | ${project}, ${sector}` : null,
+    project && area && floor ? `${head} | ${area} · ${floor} | ${project}` : null,
+    project && area ? `${head} | ${area} | ${project}` : null,
+    project && floor ? `${head} | ${floor} | ${project}` : null,
+    sector && area && floor ? `${head} | ${area} · ${floor} | ${sector} ${searchCity}` : null,
+    sector && area ? `${head} | ${area} | ${sector} ${searchCity}` : null,
     project && sector ? `${head} in ${project}, ${sector} ${searchCity}` : null,
     project && sector ? `${head} in ${project}, ${sector}` : null,
     project ? `${head} in ${project} ${searchCity}` : null,
