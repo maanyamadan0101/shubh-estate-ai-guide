@@ -1,4 +1,5 @@
 import { useRouterState } from "@tanstack/react-router";
+import { SitewidePropertyContext } from "@/components/site/SitewidePropertyContext";
 import { ANSALS_HIGHLAND_2BHK_PREVIEW } from "@/data/video-previews/ansals-highland-2bhk";
 import { ANSALS_HIGHLAND_3BHK_PREVIEW } from "@/data/video-previews/ansals-highland-3bhk";
 import { ANSALS_HIGHLAND_4BHK_PREVIEW } from "@/data/video-previews/ansals-highland-4bhk";
@@ -48,44 +49,55 @@ const PROJECT_VIDEOS: Record<string, readonly VideoPreview[]> = {
 export function ProjectVideoPreviews() {
   const pathname = useRouterState({ select: (state) => state.location.pathname });
   const videos = PROJECT_VIDEOS[pathname];
+  const hiddenRoute =
+    pathname.startsWith("/admin") ||
+    pathname === "/auth" ||
+    pathname === "/forgot-password" ||
+    pathname === "/reset-password" ||
+    pathname === "/whatsapp";
 
-  if (!videos?.length) return null;
+  if (hiddenRoute) return null;
+
+  if (!videos?.length) return <SitewidePropertyContext />;
 
   return (
-    <section className="border-y border-border bg-muted/30" aria-labelledby="project-video-previews-title">
-      <div className="container-page py-14 md:py-16">
-        <div className="max-w-3xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.17em] text-gold">Property videos</p>
-          <h2 id="project-video-previews-title" className="mt-3 font-display text-3xl md:text-4xl">
-            Walkthrough previews
-          </h2>
-          <p className="mt-4 leading-7 text-muted-foreground">
-            These are lightweight web previews prepared from Shubh Estate Brokers' original property walkthroughs. Contact us for the full walkthrough and current unit availability.
-          </p>
-        </div>
+    <>
+      <section className="border-y border-border bg-muted/30" aria-labelledby="project-video-previews-title">
+        <div className="container-page py-14 md:py-16">
+          <div className="max-w-3xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.17em] text-gold">Property videos</p>
+            <h2 id="project-video-previews-title" className="mt-3 font-display text-3xl md:text-4xl">
+              Walkthrough previews
+            </h2>
+            <p className="mt-4 leading-7 text-muted-foreground">
+              These are lightweight web previews prepared from Shubh Estate Brokers' original property walkthroughs. Contact us for the full walkthrough and current unit availability.
+            </p>
+          </div>
 
-        <div className={`mt-8 grid gap-6 ${videos.length > 1 ? "md:grid-cols-2 xl:grid-cols-3" : "max-w-2xl"}`}>
-          {videos.map((video) => (
-            <figure key={video.title} className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
-              <video
-                controls
-                muted
-                playsInline
-                preload="metadata"
-                className="aspect-video w-full bg-black object-cover"
-                aria-label={`${video.title} walkthrough preview`}
-              >
-                <source src={video.src} type="video/mp4" />
-                Your browser does not support embedded video.
-              </video>
-              <figcaption className="p-5">
-                <h3 className="font-display text-xl">{video.title}</h3>
-                <p className="mt-2 text-sm leading-6 text-muted-foreground">{video.description}</p>
-              </figcaption>
-            </figure>
-          ))}
+          <div className={`mt-8 grid gap-6 ${videos.length > 1 ? "md:grid-cols-2 xl:grid-cols-3" : "max-w-2xl"}`}>
+            {videos.map((video) => (
+              <figure key={video.title} className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+                <video
+                  controls
+                  muted
+                  playsInline
+                  preload="metadata"
+                  className="aspect-video w-full bg-black object-cover"
+                  aria-label={`${video.title} walkthrough preview`}
+                >
+                  <source src={video.src} type="video/mp4" />
+                  Your browser does not support embedded video.
+                </video>
+                <figcaption className="p-5">
+                  <h3 className="font-display text-xl">{video.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-muted-foreground">{video.description}</p>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <SitewidePropertyContext />
+    </>
   );
 }
