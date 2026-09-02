@@ -4,8 +4,8 @@ import { EnquiryForm } from "@/components/site/EnquiryForm";
 import { CONTACT } from "@/data/site";
 import { trackContact, trackEvent } from "@/lib/analytics";
 
-const SESSION_KEY = "shubh_property_assistant_seen";
-const AUTO_OPEN_DELAY_MS = 6000;
+const DISMISSED_KEY = "shubh_property_assistant_dismissed";
+const AUTO_OPEN_DELAY_MS = 4500;
 
 export function LeadAssistant({ pathname }: { pathname: string }) {
   const [mounted, setMounted] = useState(false);
@@ -17,10 +17,6 @@ export function LeadAssistant({ pathname }: { pathname: string }) {
     pathname === "/auth" ||
     pathname === "/forgot-password" ||
     pathname === "/reset-password";
-  const catalogueRoute =
-    pathname === "/projects" ||
-    pathname === "/flats-for-sale-in-gurgaon" ||
-    pathname === "/under-construction-projects-gurgaon";
 
   const whatsappHref = useMemo(() => {
     const page = `https://www.shubhestatebroker.in${pathname}`;
@@ -32,24 +28,19 @@ export function LeadAssistant({ pathname }: { pathname: string }) {
 
   useEffect(() => {
     setMounted(true);
-    if (hiddenRoute || catalogueRoute) return;
+    if (hiddenRoute) return;
 
-    let alreadySeen = false;
+    let dismissed = false;
     try {
-      alreadySeen = sessionStorage.getItem(SESSION_KEY) === "1";
+      dismissed = sessionStorage.getItem(DISMISSED_KEY) === "1";
     } catch {
       // Ignore unavailable storage; the assistant can still work.
     }
 
-    if (alreadySeen) return;
+    if (dismissed) return;
 
     const timer = window.setTimeout(() => {
       setOpen(true);
-      try {
-        sessionStorage.setItem(SESSION_KEY, "1");
-      } catch {
-        // Ignore unavailable storage.
-      }
       trackEvent("lead_assistant_open", {
         page_path: window.location.pathname,
         open_method: "automatic_delay",
@@ -57,13 +48,18 @@ export function LeadAssistant({ pathname }: { pathname: string }) {
     }, AUTO_OPEN_DELAY_MS);
 
     return () => window.clearTimeout(timer);
-  }, [catalogueRoute, hiddenRoute]);
+  }, [hiddenRoute]);
 
   if (!mounted || hiddenRoute) return null;
 
   const closeAssistant = () => {
     setOpen(false);
     setShowCallback(false);
+    try {
+      sessionStorage.setItem(DISMISSED_KEY, "1");
+    } catch {
+      // Ignore unavailable storage.
+    }
     trackEvent("lead_assistant_close", { page_path: pathname });
   };
 
