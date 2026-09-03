@@ -1,0 +1,124 @@
+name: Notify search engines with IndexNow
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "src/routes/**"
+      - "src/components/site/**"
+      - "src/data/**"
+      - "src/lib/**"
+      - "public/robots.txt"
+      - "public/*.txt"
+  schedule:
+    - cron: "15 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: indexnow-search-engine-notifications
+  cancel-in-progress: true
+
+jobs:
+  notify-indexnow:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      SITE_ORIGIN: "https://www.shubhestatebroker.in"
+      INDEXNOW_KEY: "3447fe717da82304ebde9592796ad05b"
+      INDEXNOW_ENDPOINT: "https://api.indexnow.org/indexnow"
+    steps:
+      - name: Submit recently changed public URLs
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import datetime as dt
+          import json
+          import os
+          import sys
+          import urllib.error
+          import urllib.request
+          import xml.etree.ElementTree as ET
+
+          site = os.environ["SITE_ORIGIN"].rstrip("/")
+          key = os.environ["INDEXNOW_KEY"]
+          endpoint = os.environ["INDEXNOW_ENDPOINT"]
+          sitemap_url = f"{site}/sitemap.xml?indexnow={int(dt.datetime.now(dt.timezone.utc).timestamp())}"
+
+          request = urllib.request.Request(
+              sitemap_url,
+              headers={"User-Agent": "ShubhEstateBrokers-IndexNow/1.0"},
+          )
+          with urllib.request.urlopen(request, timeout=30) as response:
+              xml = response.read()
+
+          root = ET.fromstring(xml)
+          namespace = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+          today = dt.datetime.now(dt.timezone.utc).date()
+          cutoff = today - dt.timedelta(days=1)
+
+          recent_urls = []
+          for entry in root.findall("sm:url", namespace):
+              loc = entry.findtext("sm:loc", default="", namespaces=namespace).strip()
+              lastmod = entry.findtext("sm:lastmod", default="", namespaces=namespace).strip()
+              if not loc.startswith(site + "/") and loc != site:
+                  continue
+              if not lastmod:
+                  continue
+              try:
+                  changed = dt.date.fromisoformat(lastmod[:10])
+              except ValueError:
+                  continue
+              if changed >= cutoff:
+                  recent_urls.append(loc)
+
+          # These hub pages change whenever inventory or project content changes and
+          # help crawlers reach fresh listing URLs even when a static route lacks a
+          # same-day lastmod value.
+          discovery_hubs = [
+              f"{site}/",
+              f"{site}/flats-for-sale-in-gurgaon",
+              f"{site}/projects",
+          ]
+
+          urls = list(dict.fromkeys(recent_urls + discovery_hubs))[:10000]
+          if not urls:
+              print("No recently changed public URLs found; nothing to submit.")
+              sys.exit(0)
+
+          payload = json.dumps(
+              {
+                  "host": "www.shubhestatebroker.in",
+                  "key": key,
+                  "keyLocation": f"{site}/{key}.txt",
+                  "urlList": urls,
+              }
+          ).encode("utf-8")
+
+          submit = urllib.request.Request(
+              endpoint,
+              data=payload,
+              method="POST",
+              headers={
+                  "Content-Type": "application/json; charset=utf-8",
+                  "User-Agent": "ShubhEstateBrokers-IndexNow/1.0",
+              },
+          )
+
+          try:
+              with urllib.request.urlopen(submit, timeout=30) as response:
+                  status = response.status
+          except urllib.error.HTTPError as exc:
+              status = exc.code
+              body = exc.read().decode("utf-8", errors="replace")
+              print(f"IndexNow returned HTTP {status}: {body}", file=sys.stderr)
+              raise
+
+          if status not in (200, 202):
+              raise RuntimeError(f"Unexpected IndexNow response: HTTP {status}")
+
+          print(f"Submitted {len(urls)} changed/discovery URLs to IndexNow (HTTP {status}).")
+          PY
