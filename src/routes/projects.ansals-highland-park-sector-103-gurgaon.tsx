@@ -251,7 +251,7 @@ export const Route = createFileRoute("/projects/ansals-highland-park-sector-103-
 
 function AnsalsHighlandParkPage() {
   const whatsappMessage = encodeURIComponent(
-    "Hello Mr Arun Madan, I want current resale options and a site visit for Ansals Highland Park, Sector 103 Gurgaon.",
+    "Hello Mr Arun Madaan, I want current resale options and a site visit for Ansals Highland Park, Sector 103 Gurgaon.",
   );
 
   return (
@@ -434,7 +434,7 @@ function AnsalsHighlandParkPage() {
                 residential opportunity on Dwarka Expressway.
               </p>
               <p className="mt-4 text-xs leading-5 text-muted-foreground">
-                Reviewed by Arun Madan, MBA, LLB · Founder & Promoter · Former Senior Banking
+                Reviewed by Arun Madaan, MBA, LLB · Founder & Promoter · Former Senior Banking
                 Professional.
               </p>
             </aside>
