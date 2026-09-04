@@ -166,7 +166,7 @@ export const Route = createFileRoute("/dlf-skycourt-sector-86-gurgaon")({
 
 function DlfSkycourtPage() {
   const whatsappMessage = encodeURIComponent(
-    "Hello Mr Arun Madan, I want to check current resale options in DLF Skycourt, Sector 86 Gurgaon.",
+    "Hello Mr Arun Madaan, I want to check current resale options in DLF Skycourt, Sector 86 Gurgaon.",
   );
 
   return (
@@ -254,7 +254,7 @@ function DlfSkycourtPage() {
                       reconfirms the exact apartment before a buyer relies on them.
                     </p>
                     <p className="mt-3 text-xs text-muted-foreground">
-                      Reviewed by Arun Madan, MBA, LLB · Founder & Promoter, Shubh Estate Brokers · Former Senior Banking Professional.
+                      Reviewed by Arun Madaan, MBA, LLB · Founder & Promoter, Shubh Estate Brokers · Former Senior Banking Professional.
                     </p>
                   </div>
                 </div>
@@ -464,7 +464,7 @@ function DlfSkycourtPage() {
                 <p>
                   Advisory led by{" "}
                   <Link to="/about" className="font-medium text-gold hover:underline">
-                    Arun Madan, MBA, LLB
+                    Arun Madaan, MBA, LLB
                   </Link>
                   , Founder & Promoter and former senior banking professional.
                 </p>

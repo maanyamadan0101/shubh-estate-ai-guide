@@ -1037,7 +1037,7 @@ function EmaarEmeraldHillsPage() {
               Request the ₹5 crore 4 BHK video and private site visit
             </h2>
             <p className="mt-5 max-w-2xl leading-8 text-white/68">
-              Compare the exact home, documents, rights and negotiation position with Arun Madan.
+              Compare the exact home, documents, rights and negotiation position with Arun Madaan.
               Shubh Estate Brokers can coordinate inspection, valuation, loan planning and
               transaction follow-up.
             </p>
@@ -1065,7 +1065,7 @@ function EmaarEmeraldHillsPage() {
             </div>
             <div className="mt-10 border-t border-white/12 pt-7">
               <p className="text-xs uppercase tracking-[0.14em] text-gold">Reviewed by</p>
-              <p className="mt-2 font-display text-2xl">Arun Madan</p>
+              <p className="mt-2 font-display text-2xl">Arun Madaan</p>
               <p className="mt-2 max-w-xl text-sm leading-6 text-white/60">
                 Founder, Shubh Estate Brokers · Former banking professional and law graduate with
                 approximately two decades of mortgage, credit-evaluation and property-finance
