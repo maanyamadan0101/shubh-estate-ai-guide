@@ -24,11 +24,17 @@ const DEDICATED_PROJECT_PAGES: Record<string, string> = {
   "dlf-skycourt-sector-86": "/dlf-skycourt-sector-86-gurgaon",
   "godrej-101": "/godrej-101-sector-79-gurgaon",
   "godrej-101-sector-79": "/godrej-101-sector-79-gurgaon",
+  "emaar-emerald-estate": "/projects/emaar-emerald-estate-sector-65-gurgaon",
+  "emaar-emerald-estate-sector-65": "/projects/emaar-emerald-estate-sector-65-gurgaon",
   "emaar-emerald-hills": "/emaar-emerald-hills-sector-65-gurgaon",
   "emaar-emerald-hills-sector-65": "/emaar-emerald-hills-sector-65-gurgaon",
 };
 
 const FEATURED_RESEARCH_GUIDES = [
+  {
+    name: "Emaar Emerald Estate",
+    href: "/projects/emaar-emerald-estate-sector-65-gurgaon",
+  },
   { name: "Emaar Emerald Hills", href: "/emaar-emerald-hills-sector-65-gurgaon" },
   { name: "DLF The Arbour", href: "/projects/dlf-the-arbour-sector-63-gurgaon" },
   { name: "DLF The Primus", href: "/projects/dlf-the-primus-sector-82a-gurgaon" },
@@ -172,6 +178,29 @@ function ProjectDirectoryPage() {
       </section>
 
       <section className="border-y border-border bg-muted/30">
+        <div className="container-page py-12 md:py-14">
+          <div className="max-w-3xl">
+            <p className="eyebrow">Featured project guides</p>
+            <h2 className="mt-2 font-display text-3xl">Detailed research for high-interest Gurgaon projects</h2>
+            <p className="mt-3 text-sm leading-7 text-muted-foreground">
+              Open a project guide for project-level context, then move into current unit-level inventory where available.
+            </p>
+          </div>
+          <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {FEATURED_RESEARCH_GUIDES.map((guide) => (
+              <a
+                key={guide.href}
+                href={guide.href}
+                className="rounded-xl border border-border bg-card p-5 font-medium transition hover:border-gold/50 hover:text-gold"
+              >
+                {guide.name} →
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section>
         <div className="container-page grid gap-8 py-12 lg:grid-cols-[1fr_22rem]">
           <div>
             <p className="eyebrow">Advisory-first discovery</p>
