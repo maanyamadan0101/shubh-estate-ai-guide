@@ -47,6 +47,11 @@ const STATIC_PATHS: StaticPath[] = [
     lastmod: "2026-08-20",
   },
   {
+    path: "/3-bhk-for-sale-emaar-emerald-estate-sector-65-gurgaon-1395-sqft",
+    priority: "0.9",
+    lastmod: "2026-09-05",
+  },
+  {
     path: "/ireo-skyon-3-bhk-for-sale-sector-60-gurgaon",
     priority: "0.9",
     lastmod: "2026-08-29",
