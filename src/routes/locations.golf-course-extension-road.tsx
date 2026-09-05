@@ -9,7 +9,10 @@ import { SITE_ORIGIN } from "@/lib/seo";
 const canonical = `${SITE_ORIGIN}/locations/golf-course-extension-road`;
 const title = "Golf Course Extension Road Gurgaon | Sectors, Projects & Properties";
 const description =
-  "Explore Golf Course Extension Road Gurgaon by sector and project, including Emaar Emerald Hills Sector 65, DLF The Arbour and Emaar Urban Oasis.";
+  "Explore Golf Course Extension Road Gurgaon by sector and project, including Emaar Emerald Estate and Emerald Hills Sector 65, DLF The Arbour and Emaar Urban Oasis.";
+const EMERALD_ESTATE_PROJECT = "/projects/emaar-emerald-estate-sector-65-gurgaon";
+const EMERALD_ESTATE_LISTING =
+  "/3-bhk-for-sale-emaar-emerald-estate-sector-65-gurgaon-1395-sqft";
 
 export const Route = createFileRoute("/locations/golf-course-extension-road")({
   loader: async () => {
@@ -61,6 +64,10 @@ const clusters = [
     sector: "Sector 65",
     href: "/flats-for-sale-in-gurgaon?q=Sector%2065",
     projects: [
+      {
+        name: "Emaar Emerald Estate",
+        href: EMERALD_ESTATE_PROJECT,
+      },
       {
         name: "Emaar Emerald Hills",
         href: "/emaar-emerald-hills-sector-65-gurgaon",
@@ -154,10 +161,11 @@ function GolfCourseExtensionPage() {
             Explore Golf Course Extension Road by sector
           </h2>
           <p className="mt-4 leading-7 text-muted-foreground">
-            Sector accuracy matters. Emaar Emerald Hills is primarily associated with Sector 65,
-            while DLF The Arbour is in Sector 63. Conscient Heritage One and Emaar Urban Oasis are
-            in Sector 62, Ireo Skyon is in Sector 60 and Tata Raisina Residency is in Sector 59.
-            Keeping these relationships correct helps buyers compare the right micro-market.
+            Sector accuracy matters. Emaar Emerald Estate and Emaar Emerald Hills are associated
+            with Sector 65, while DLF The Arbour is in Sector 63. Conscient Heritage One and Emaar
+            Urban Oasis are in Sector 62, Ireo Skyon is in Sector 60 and Tata Raisina Residency is
+            in Sector 59. Keeping these relationships correct helps buyers compare the right
+            micro-market, then move from the project page to current available units.
           </p>
         </div>
 
@@ -195,7 +203,33 @@ function GolfCourseExtensionPage() {
         </div>
       </section>
 
-      <section className="border-y border-border bg-muted/30">
+      <section className="border-y border-gold/20 bg-card">
+        <div className="container-page py-10 md:py-12">
+          <div className="grid gap-6 rounded-2xl border border-gold/30 bg-muted/20 p-6 md:grid-cols-[1fr_auto] md:items-center md:p-8">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gold">
+                Current Sector 65 opportunity
+              </p>
+              <h2 className="mt-2 font-display text-2xl md:text-3xl">
+                Emaar Emerald Estate 3 BHK + 1 · 1,395 sq ft · Higher floor
+              </h2>
+              <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
+                Unused East-facing apartment currently offered at an asking price of ₹2.30 crore.
+                The dedicated listing page includes actual apartment photographs, project context
+                and site-visit enquiry.
+              </p>
+            </div>
+            <a
+              href={EMERALD_ESTATE_LISTING}
+              className="inline-flex min-h-11 items-center justify-center rounded-md bg-gold px-5 py-2 text-sm font-medium text-gold-foreground transition hover:bg-gold/90"
+            >
+              View Emerald Estate apartment
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-border bg-muted/30">
         <div className="container-page grid gap-8 py-12 lg:grid-cols-[1fr_22rem]">
           <div>
             <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gold">
