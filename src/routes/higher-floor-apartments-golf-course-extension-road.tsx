@@ -61,6 +61,10 @@ function HigherFloorPage() {
         },
       ]}
       related={[
+        {
+          href: "/3-bhk-for-sale-emaar-emerald-estate-sector-65-gurgaon-1395-sqft",
+          label: "Emaar Emerald Estate 1,395 sq ft higher-floor 3 BHK + 1",
+        },
         { href: "/locations/golf-course-extension-road", label: "All apartments on Golf Course Extension Road" },
         { href: "/desperate-deals-gurgaon", label: "Urgent-sale properties in Gurgaon" },
         { href: "/flats-for-sale-in-gurgaon", label: "Flats for sale in Gurgaon" },
