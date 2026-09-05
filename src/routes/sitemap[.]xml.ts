@@ -19,7 +19,7 @@ const STATIC_PATHS: StaticPath[] = [
   { path: "/sell-property-gurgaon", priority: "0.9", lastmod: SEO_TEMPLATE_LASTMOD },
   { path: "/rent-out-property-in-gurgaon", priority: "0.9", lastmod: SEO_TEMPLATE_LASTMOD },
   { path: "/mandate-to-sell-property-in-gurgaon", priority: "0.9", lastmod: "2026-08-25" },
-  { path: "/projects", priority: "0.9", lastmod: "2026-09-01" },
+  { path: "/projects", priority: "0.9", lastmod: "2026-09-05" },
   { path: "/blog", priority: "0.9", lastmod: "2026-08-20" },
   {
     path: "/blog/gurgaon-property-due-diligence-checklist-2026",
@@ -48,6 +48,11 @@ const STATIC_PATHS: StaticPath[] = [
   },
   {
     path: "/3-bhk-for-sale-emaar-emerald-estate-sector-65-gurgaon-1395-sqft",
+    priority: "0.9",
+    lastmod: "2026-09-05",
+  },
+  {
+    path: "/projects/emaar-emerald-estate-sector-65-gurgaon",
     priority: "0.9",
     lastmod: "2026-09-05",
   },
@@ -134,7 +139,7 @@ const STATIC_PATHS: StaticPath[] = [
   { path: "/nri/europe", priority: "0.8" },
   { path: "/locations/gurgaon", priority: "0.8", lastmod: SEO_TEMPLATE_LASTMOD },
   { path: "/locations/golf-course-road", priority: "0.7", lastmod: SEO_TEMPLATE_LASTMOD },
-  { path: "/locations/golf-course-extension-road", priority: "0.8", lastmod: SEO_TEMPLATE_LASTMOD },
+  { path: "/locations/golf-course-extension-road", priority: "0.8", lastmod: "2026-09-05" },
   { path: "/locations/dwarka-expressway", priority: "0.7", lastmod: SEO_TEMPLATE_LASTMOD },
   { path: "/locations/southern-peripheral-road", priority: "0.7", lastmod: SEO_TEMPLATE_LASTMOD },
   { path: "/locations/sohna-road", priority: "0.7", lastmod: SEO_TEMPLATE_LASTMOD },
@@ -165,6 +170,8 @@ const PROJECT_HUB_SITEMAP_EXCLUSIONS = new Set([
   "godrej-101",
   "godrej-101-sector-79",
   "emaar-urban-oasis-sector-62",
+  "emaar-emerald-estate",
+  "emaar-emerald-estate-sector-65",
   "emaar-emerald-hills",
   "emaar-emerald-hills-sector-65",
   "tata-raisina-residency-sector-59",
