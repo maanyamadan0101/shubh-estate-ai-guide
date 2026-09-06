@@ -9,12 +9,13 @@ export const Route = createFileRoute(
   head: () => {
     const canonical = `${SITE_ORIGIN}/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026`;
     const title = "Buy Property in Gurgaon With a Small Down Payment | Home Loan Guide 2026";
+    const seoTitle = "Small Down Payment Home Loan Guide | Shubh Estate Brokers";
     const description =
       "Learn how Gurgaon home buyers can plan a smaller upfront contribution through realistic property selection, loan eligibility, valuation and documentation.";
 
     return {
       meta: [
-        { title },
+        { title: seoTitle },
         { name: "description", content: description },
         { property: "og:title", content: title },
         { property: "og:description", content: description },
@@ -23,7 +24,7 @@ export const Route = createFileRoute(
         { property: "article:published_time", content: "2026-08-20" },
         { property: "article:modified_time", content: "2026-08-20" },
         { name: "twitter:card", content: "summary" },
-        { name: "twitter:title", content: title },
+        { name: "twitter:title", content: seoTitle },
         { name: "twitter:description", content: description },
       ],
       links: [{ rel: "canonical", href: canonical }],
@@ -38,7 +39,11 @@ export const Route = createFileRoute(
             datePublished: "2026-08-20",
             dateModified: "2026-08-20",
             mainEntityOfPage: canonical,
-            author: { "@type": "Person", name: "Arun Madan" },
+            author: {
+              "@type": "Person",
+              "@id": `${SITE_ORIGIN}/about#arun-madan`,
+              name: "Arun Madaan",
+            },
             publisher: {
               "@type": "RealEstateAgent",
               "@id": `${SITE_ORIGIN}/#real-estate-agent`,
