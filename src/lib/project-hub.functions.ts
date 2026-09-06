@@ -210,12 +210,14 @@ async function loadProjectHubs(): Promise<ProjectHub[]> {
         .neq("status", "sold_out")
         .order("updated_at", { ascending: false })
         .limit(500),
+      // Production still uses the original projects/builders schema. Keep hub and
+      // sitemap discovery compatible until the additive enrichment migration is
+      // applied through the normal reviewed database workflow.
       supabaseAdmin
         .from("projects")
-        .select("id,name,slug,sector,locality,description,rera_number,possession_date,builder_id")
-        .eq("is_published", true)
+        .select("id,name,slug,sector,locality,description,rera_number,builder_id")
         .limit(300),
-      supabaseAdmin.from("builders").select("id,name").eq("is_published", true).limit(200),
+      supabaseAdmin.from("builders").select("id,name").limit(200),
     ]);
 
     if (propertyResult.error) {
@@ -254,7 +256,7 @@ async function loadProjectHubs(): Promise<ProjectHub[]> {
         city: row.city,
         description: project?.description ?? null,
         rera_number: project?.rera_number ?? null,
-        possession_date: project?.possession_date ?? null,
+        possession_date: null,
         builder_name: project?.builder_id ? (builders.get(project.builder_id)?.name ?? null) : null,
         updated_at: row.updated_at,
       });
