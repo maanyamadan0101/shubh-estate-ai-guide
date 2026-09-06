@@ -127,7 +127,11 @@ const STATIC_PATHS: StaticPath[] = [
   { path: "/property-sector-59-gurgaon", priority: "0.8", lastmod: "2026-08-23" },
   { path: "/projects/tata-raisina-residency-sector-59", priority: "0.8", lastmod: "2026-08-23" },
   { path: "/desperate-deals-gurgaon", priority: "0.8" },
-  { path: "/best-areas-gurgaon-property-investment", priority: "0.8", lastmod: SEO_TEMPLATE_LASTMOD },
+  {
+    path: "/best-areas-gurgaon-property-investment",
+    priority: "0.8",
+    lastmod: SEO_TEMPLATE_LASTMOD,
+  },
   { path: "/apartments-for-sale-dlf-phase-1-gurgaon", priority: "0.7" },
   { path: "/higher-floor-apartments-golf-course-extension-road", priority: "0.7" },
   { path: "/senior-citizen-housing-gurgaon", priority: "0.7" },
@@ -139,7 +143,7 @@ const STATIC_PATHS: StaticPath[] = [
   { path: "/nri/europe", priority: "0.8" },
   { path: "/locations/gurgaon", priority: "0.8", lastmod: SEO_TEMPLATE_LASTMOD },
   { path: "/locations/golf-course-road", priority: "0.7", lastmod: SEO_TEMPLATE_LASTMOD },
-  { path: "/locations/golf-course-extension-road", priority: "0.8", lastmod: "2026-09-05" },
+  { path: "/locations/golf-course-extension-road", priority: "0.8", lastmod: "2026-09-06" },
   { path: "/locations/dwarka-expressway", priority: "0.7", lastmod: SEO_TEMPLATE_LASTMOD },
   { path: "/locations/southern-peripheral-road", priority: "0.7", lastmod: SEO_TEMPLATE_LASTMOD },
   { path: "/locations/sohna-road", priority: "0.7", lastmod: SEO_TEMPLATE_LASTMOD },
@@ -182,7 +186,7 @@ function escapeXml(value: string) {
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
-    .replace(/\"/g, "&quot;")
+    .replace(/"/g, "&quot;")
     .replace(/'/g, "&apos;");
 }
 
@@ -251,3 +255,4 @@ export const Route = createFileRoute("/sitemap.xml")({
     },
   },
 });
+
