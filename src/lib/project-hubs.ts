@@ -11,7 +11,10 @@ export type ProjectIdentity = {
 };
 
 const KNOWN_PROJECT_NAMES: Array<{ patterns: string[]; name: string }> = [
-  { patterns: ["conscient heritage one", "heritage one conscient"], name: "Conscient Heritage One" },
+  {
+    patterns: ["conscient heritage one", "heritage one conscient"],
+    name: "Conscient Heritage One",
+  },
   { patterns: ["ireo skyon"], name: "Ireo Skyon" },
   { patterns: ["emaar urban oasis"], name: "Emaar Urban Oasis" },
   { patterns: ["emaar emerald estate"], name: "Emaar Emerald Estate" },
@@ -45,7 +48,10 @@ const KNOWN_PROJECT_NAMES: Array<{ patterns: string[]; name: string }> = [
   { patterns: ["signature global city 79b"], name: "Signature Global City 79B" },
   { patterns: ["signature global city 81"], name: "Signature Global City 81" },
   { patterns: ["signature global city 63a"], name: "Signature Global City 63A" },
-  { patterns: ["signature global daxin vistas", "daxin vistas"], name: "Signature Global Daxin Vistas" },
+  {
+    patterns: ["signature global daxin vistas", "daxin vistas"],
+    name: "Signature Global Daxin Vistas",
+  },
   { patterns: ["mapsko casa bella"], name: "Mapsko Casa Bella" },
   { patterns: ["mapsko royale ville"], name: "Mapsko Royale Ville" },
   { patterns: ["green court"], name: "Green Court" },
@@ -54,7 +60,11 @@ const KNOWN_PROJECT_NAMES: Array<{ patterns: string[]; name: string }> = [
   { patterns: ["cosmos express 99"], name: "Cosmos Express 99" },
   { patterns: ["shree vardhman flora"], name: "Shree Vardhman Flora" },
   { patterns: ["ansal highland park", "ansals highland park"], name: "Ansals Highland Park" },
-  { patterns: ["aipl riviera", "riviera at aipl lakecity", "riviera at aipl lake city"], name: "AIPL Riviera" },
+  {
+    patterns: ["aipl riviera", "riviera at aipl lakecity", "riviera at aipl lake city"],
+    name: "AIPL Riviera",
+  },
+  { patterns: ["bptp astaire gardens", "astaire gardens"], name: "BPTP Astaire Gardens" },
   {
     patterns: ["tata raisina residency", "tata raisena residency", "raisina residency"],
     name: "Tata Raisina Residency",
@@ -90,6 +100,9 @@ export const DEDICATED_PROJECT_GUIDES: Record<string, string> = {
   "tata-raisina-residency-sector-59": "/projects/tata-raisina-residency-sector-59",
   "godrej-sora": "/projects/godrej-sora-sector-53-gurgaon",
   "godrej-sora-sector-53": "/projects/godrej-sora-sector-53-gurgaon",
+  "bptp-astaire-gardens": "/projects/bptp-astaire-gardens-sector-70a-gurgaon",
+  "bptp-astaire-gardens-sector-70a": "/projects/bptp-astaire-gardens-sector-70a-gurgaon",
+  "bptp-astaire-gardens-sector-70a-gurgaon": "/projects/bptp-astaire-gardens-sector-70a-gurgaon",
 };
 
 export function slugifyProject(value: string) {
@@ -112,7 +125,11 @@ function cleanProjectName(value: string) {
 
 function inferKnownProjectName(title: string) {
   const normalized = title.toLocaleLowerCase("en-IN").replace(/\s+/g, " ");
-  return KNOWN_PROJECT_NAMES.find((item) => item.patterns.some((pattern) => normalized.includes(pattern)))?.name ?? null;
+  return (
+    KNOWN_PROJECT_NAMES.find((item) =>
+      item.patterns.some((pattern) => normalized.includes(pattern)),
+    )?.name ?? null
+  );
 }
 
 function inferNameFromTitle(title: string) {
@@ -138,7 +155,8 @@ export function projectIdentityFor(input: ProjectIdentityInput): ProjectIdentity
   const sector = input.sector?.trim() || null;
   const explicitName = input.project?.name?.trim() || null;
   const explicitSlug = input.project?.slug?.trim() || null;
-  const inferredName = explicitName ?? inferKnownProjectName(input.title) ?? inferNameFromTitle(input.title);
+  const inferredName =
+    explicitName ?? inferKnownProjectName(input.title) ?? inferNameFromTitle(input.title);
 
   if (!inferredName || inferredName.length < 3) return null;
 
@@ -158,7 +176,8 @@ export function projectIdentityFor(input: ProjectIdentityInput): ProjectIdentity
   if (!base) return null;
 
   const sectorSlug = sector ? slugifyProject(sector) : "";
-  const slug = explicitSlug || !sectorSlug || base.endsWith(sectorSlug) ? base : `${base}-${sectorSlug}`;
+  const slug =
+    explicitSlug || !sectorSlug || base.endsWith(sectorSlug) ? base : `${base}-${sectorSlug}`;
 
   return { name: inferredName, slug, sector };
 }

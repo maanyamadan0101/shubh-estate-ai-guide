@@ -58,6 +58,11 @@ const STATIC_PATHS: StaticPath[] = [
     lastmod: "2026-09-05",
   },
   {
+    path: "/projects/bptp-astaire-gardens-sector-70a-gurgaon",
+    priority: "0.9",
+    lastmod: "2026-09-06",
+  },
+  {
     path: "/ireo-skyon-3-bhk-for-sale-sector-60-gurgaon",
     priority: "0.9",
     lastmod: "2026-08-29",
@@ -128,7 +133,11 @@ const STATIC_PATHS: StaticPath[] = [
   { path: "/property-sector-59-gurgaon", priority: "0.8", lastmod: "2026-08-23" },
   { path: "/projects/tata-raisina-residency-sector-59", priority: "0.8", lastmod: "2026-08-23" },
   { path: "/desperate-deals-gurgaon", priority: "0.8" },
-  { path: "/best-areas-gurgaon-property-investment", priority: "0.8", lastmod: SEO_TEMPLATE_LASTMOD },
+  {
+    path: "/best-areas-gurgaon-property-investment",
+    priority: "0.8",
+    lastmod: SEO_TEMPLATE_LASTMOD,
+  },
   { path: "/apartments-for-sale-dlf-phase-1-gurgaon", priority: "0.7" },
   { path: "/higher-floor-apartments-golf-course-extension-road", priority: "0.7" },
   { path: "/senior-citizen-housing-gurgaon", priority: "0.7" },
@@ -176,6 +185,9 @@ const PROJECT_HUB_SITEMAP_EXCLUSIONS = new Set([
   "emaar-emerald-hills",
   "emaar-emerald-hills-sector-65",
   "tata-raisina-residency-sector-59",
+  "bptp-astaire-gardens",
+  "bptp-astaire-gardens-sector-70a",
+  "bptp-astaire-gardens-sector-70a-gurgaon",
 ]);
 
 function escapeXml(value: string) {

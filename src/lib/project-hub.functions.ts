@@ -22,6 +22,9 @@ export type ProjectHubListing = {
   cover_image_url: string | null;
   floor: string | null;
   facing: string | null;
+  furnishing: string | null;
+  parking: number | null;
+  total_floors: number | null;
   updated_at: string | null;
 };
 
@@ -55,6 +58,8 @@ type DbListing = {
   cover_image_url: string | null;
   project_id: string | null;
   facing: string | null;
+  furnishing: string | null;
+  parking: number | null;
   floor_number: number | null;
   total_floors: number | null;
   updated_at: string;
@@ -97,6 +102,9 @@ function dbListingToHubListing(row: DbListing): ProjectHubListing {
     cover_image_url: row.cover_image_url,
     floor,
     facing: row.facing,
+    furnishing: row.furnishing,
+    parking: row.parking,
+    total_floors: row.total_floors,
     updated_at: row.updated_at,
   };
 }
@@ -122,14 +130,19 @@ function staticListingToHubListing(
     cover_image_url: row.cover_image_url,
     floor: row.floor,
     facing: row.facing,
+    furnishing: null,
+    parking: null,
+    total_floors: null,
     updated_at: "2026-08-21",
   };
 }
 
 function newestDate(values: Array<string | null | undefined>) {
-  return values
-    .filter((value): value is string => Boolean(value))
-    .sort((a, b) => new Date(b).getTime() - new Date(a).getTime())[0] ?? null;
+  return (
+    values
+      .filter((value): value is string => Boolean(value))
+      .sort((a, b) => new Date(b).getTime() - new Date(a).getTime())[0] ?? null
+  );
 }
 
 function mergeHub(
@@ -148,7 +161,11 @@ function mergeHub(
     existing.rera_number ||= details?.rera_number ?? null;
     existing.possession_date ||= details?.possession_date ?? null;
     existing.builder_name ||= details?.builder_name ?? null;
-    existing.updated_at = newestDate([existing.updated_at, details?.updated_at, listing.updated_at]);
+    existing.updated_at = newestDate([
+      existing.updated_at,
+      details?.updated_at,
+      listing.updated_at,
+    ]);
     return;
   }
 
@@ -187,7 +204,7 @@ async function loadProjectHubs(): Promise<ProjectHub[]> {
       supabaseAdmin
         .from("properties")
         .select(
-          "id,title,slug,bhk,property_type,listing_type,status,price,area_sqft,sector,locality,city,cover_image_url,project_id,facing,floor_number,total_floors,updated_at",
+          "id,title,slug,bhk,property_type,listing_type,status,price,area_sqft,sector,locality,city,cover_image_url,project_id,facing,furnishing,parking,floor_number,total_floors,updated_at",
         )
         .eq("is_published", true)
         .neq("status", "sold_out")
@@ -195,9 +212,7 @@ async function loadProjectHubs(): Promise<ProjectHub[]> {
         .limit(500),
       supabaseAdmin
         .from("projects")
-        .select(
-          "id,name,slug,sector,locality,description,rera_number,possession_date,builder_id",
-        )
+        .select("id,name,slug,sector,locality,description,rera_number,possession_date,builder_id")
         .eq("is_published", true)
         .limit(300),
       supabaseAdmin.from("builders").select("id,name").eq("is_published", true).limit(200),
@@ -226,7 +241,7 @@ async function loadProjectHubs(): Promise<ProjectHub[]> {
     for (const row of (propertyResult.data ?? []) as unknown as DbListing[]) {
       if (!isPublicSlug(row.slug)) continue;
 
-      const project = row.project_id ? projects.get(row.project_id) ?? null : null;
+      const project = row.project_id ? (projects.get(row.project_id) ?? null) : null;
       const identity = projectIdentityFor({
         title: row.title,
         sector: project?.sector ?? row.sector,
@@ -240,7 +255,7 @@ async function loadProjectHubs(): Promise<ProjectHub[]> {
         description: project?.description ?? null,
         rera_number: project?.rera_number ?? null,
         possession_date: project?.possession_date ?? null,
-        builder_name: project?.builder_id ? builders.get(project.builder_id)?.name ?? null : null,
+        builder_name: project?.builder_id ? (builders.get(project.builder_id)?.name ?? null) : null,
         updated_at: row.updated_at,
       });
     }
@@ -252,11 +267,13 @@ async function loadProjectHubs(): Promise<ProjectHub[]> {
     .filter((hub) => isPublicSlug(hub.slug))
     .map((hub) => ({
       ...hub,
-      listings: [...hub.listings].filter((item) => isPublicSlug(item.slug)).sort((a, b) => {
-        const aTime = a.updated_at ? new Date(a.updated_at).getTime() : 0;
-        const bTime = b.updated_at ? new Date(b.updated_at).getTime() : 0;
-        return bTime - aTime;
-      }),
+      listings: [...hub.listings]
+        .filter((item) => isPublicSlug(item.slug))
+        .sort((a, b) => {
+          const aTime = a.updated_at ? new Date(a.updated_at).getTime() : 0;
+          const bTime = b.updated_at ? new Date(b.updated_at).getTime() : 0;
+          return bTime - aTime;
+        }),
     }))
     .filter((hub) => hub.listings.length > 0)
     .sort((a, b) => {
