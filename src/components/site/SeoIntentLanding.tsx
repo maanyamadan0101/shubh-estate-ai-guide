@@ -42,6 +42,15 @@ export function SeoIntentLanding({
 }: Props) {
   return (
     <>
+      <nav aria-label="Breadcrumb" className="container-page py-4 text-sm text-muted-foreground">
+        <Link to="/" className="hover:text-foreground">
+          Home
+        </Link>
+        <span aria-hidden="true" className="mx-2">
+          /
+        </span>
+        <span aria-current="page">{title}</span>
+      </nav>
       <PageHero eyebrow={eyebrow} title={title} body={body} />
 
       <section className="container-page grid gap-10 py-14 lg:grid-cols-[1fr_20rem]">
@@ -78,16 +87,23 @@ export function SeoIntentLanding({
           </div>
 
           {related.length ? (
-            <div className="mt-12 rounded-2xl surface-navy p-7">
+            <nav
+              aria-label="Related property pages"
+              className="mt-12 rounded-2xl surface-navy p-7"
+            >
               <p className="eyebrow">Related Gurgaon Property Searches</p>
               <div className="mt-4 flex flex-wrap gap-x-5 gap-y-3 text-sm">
                 {related.map((item) => (
-                  <a key={item.href} href={item.href} className="text-gold underline-offset-4 hover:underline">
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    className="text-gold underline-offset-4 hover:underline"
+                  >
                     {item.label}
                   </a>
                 ))}
               </div>
-            </div>
+            </nav>
           ) : null}
 
           <p className="mt-8 text-sm text-muted-foreground">
