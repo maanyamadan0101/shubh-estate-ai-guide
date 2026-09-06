@@ -561,6 +561,12 @@ function AstairePage() {
               <Link to="/flats-for-sale-in-gurgaon" className="text-gold">
                 Flats for sale in Gurgaon
               </Link>
+              <a
+                href="/capital-residences-360-3-bhk-for-sale-sector-70a-gurgaon"
+                className="text-gold"
+              >
+                Capital Residences 360 resale in Sector 70A
+              </a>
             </div>
           </div>
           <iframe
