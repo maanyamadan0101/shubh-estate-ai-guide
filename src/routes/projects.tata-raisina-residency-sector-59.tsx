@@ -8,6 +8,7 @@ import { formatArea, formatINR, SITE_ORIGIN } from "@/lib/seo";
 const slug = "tata-raisina-residency-sector-59";
 const canonical = `${SITE_ORIGIN}/projects/${slug}`;
 const title = "Tata Raisina Residency Sector 59 Gurgaon | Project & Resale Guide";
+const seoTitle = "Tata Raisina Residency, Sector 59 | Shubh Estate Brokers";
 const description =
   "Tata Raisina Residency Sector 59 Gurgaon buyer guide with project context, 12-acre setting, 9 towers, resale checks, current inventory and home-loan guidance.";
 
@@ -15,13 +16,16 @@ export const Route = createFileRoute("/projects/tata-raisina-residency-sector-59
   loader: () => getPublicProjectHub({ data: { slug } }),
   head: () => ({
     meta: [
-      { title },
+      { title: seoTitle },
       { name: "description", content: description },
       { name: "robots", content: "index,follow,max-image-preview:large" },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
       { property: "og:url", content: canonical },
+      { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: seoTitle },
+      { name: "twitter:description", content: description },
     ],
     links: [{ rel: "canonical", href: canonical }],
     scripts: [
