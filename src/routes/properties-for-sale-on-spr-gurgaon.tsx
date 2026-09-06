@@ -30,6 +30,7 @@ const PROPERTIES = [
     facing: "Not stated",
     highlight: "3+ balconies · pooja room · private garden · roof rights",
     fit: "Value-led low-rise option for buyers who prefer independent-floor living over a high-rise.",
+    href: "/projects/bptp-astaire-gardens-sector-70a-gurgaon",
   },
   {
     project: "Pareena Mi Casa",
@@ -86,6 +87,7 @@ const PROPERTIES = [
     facing: "West",
     highlight: "Lift · roof rights · corner property · 3 covered/stilt parkings",
     fit: "Larger low-rise family home for buyers prioritising privacy, parking and utility spaces.",
+    href: "/projects/bptp-astaire-gardens-sector-70a-gurgaon",
   },
   {
     project: "Tulip Ivory",
@@ -166,7 +168,12 @@ export const Route = createFileRoute("/properties-for-sale-on-spr-gurgaon")({
               name: "Flats for sale in Gurgaon",
               item: `${SITE_ORIGIN}/flats-for-sale-in-gurgaon`,
             },
-            { "@type": "ListItem", position: 3, name: "Properties for sale on SPR Gurgaon", item: canonical },
+            {
+              "@type": "ListItem",
+              position: 3,
+              name: "Properties for sale on SPR Gurgaon",
+              item: canonical,
+            },
           ],
         }),
       },
@@ -222,7 +229,9 @@ function PropertyGrid() {
           >
             <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gold">{property.sector}</p>
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gold">
+                  {property.sector}
+                </p>
                 <h2 className="mt-2 font-display text-xl">{property.project}</h2>
                 <p className="mt-1 text-sm font-medium">{property.configuration}</p>
               </div>
@@ -261,14 +270,16 @@ function PropertyGrid() {
                 to={property.href}
                 className="mt-4 inline-flex text-sm font-semibold text-gold underline-offset-4 hover:underline"
               >
-                View detailed Vatika INXT listing
+                View {property.project} guide and current inventory
               </Link>
             ) : null}
           </article>
         ))}
       </div>
       <p className="mt-5 text-xs leading-5 text-muted-foreground">
-        Market-check date: 25 August 2026. Prices are indicative asking prices, not guaranteed closing prices. Reconfirm the specific unit, availability, negotiated value, charges, documents and possession status before paying a token.
+        Market-check date: 25 August 2026. Prices are indicative asking prices, not guaranteed
+        closing prices. Reconfirm the specific unit, availability, negotiated value, charges,
+        documents and possession status before paying a token.
       </p>
     </div>
   );
@@ -336,9 +347,22 @@ function SprPropertyComboPage() {
         },
       ]}
       related={[
-        { href: "/flats-for-sale-in-gurgaon", label: "All flats and properties for sale in Gurgaon" },
-        { href: "/locations/southern-peripheral-road", label: "Southern Peripheral Road Gurgaon guide" },
-        { href: "/under-construction-projects-gurgaon", label: "Under-construction projects in Gurgaon" },
+        {
+          href: "/projects/bptp-astaire-gardens-sector-70a-gurgaon",
+          label: "BPTP Astaire Gardens project guide and current inventory",
+        },
+        {
+          href: "/flats-for-sale-in-gurgaon",
+          label: "All flats and properties for sale in Gurgaon",
+        },
+        {
+          href: "/locations/southern-peripheral-road",
+          label: "Southern Peripheral Road Gurgaon guide",
+        },
+        {
+          href: "/under-construction-projects-gurgaon",
+          label: "Under-construction projects in Gurgaon",
+        },
         { href: "/property-buying-advisory-gurgaon", label: "Property buying advisory" },
         { href: "/home-loans", label: "Home-loan assistance" },
         { href: "/emi-calculator", label: "Home-loan EMI calculator" },

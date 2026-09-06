@@ -28,9 +28,16 @@ const DEDICATED_PROJECT_PAGES: Record<string, string> = {
   "emaar-emerald-estate-sector-65": "/projects/emaar-emerald-estate-sector-65-gurgaon",
   "emaar-emerald-hills": "/emaar-emerald-hills-sector-65-gurgaon",
   "emaar-emerald-hills-sector-65": "/emaar-emerald-hills-sector-65-gurgaon",
+  "bptp-astaire-gardens": "/projects/bptp-astaire-gardens-sector-70a-gurgaon",
+  "bptp-astaire-gardens-sector-70a": "/projects/bptp-astaire-gardens-sector-70a-gurgaon",
+  "bptp-astaire-gardens-sector-70a-gurgaon": "/projects/bptp-astaire-gardens-sector-70a-gurgaon",
 };
 
 const FEATURED_RESEARCH_GUIDES = [
+  {
+    name: "BPTP Astaire Gardens",
+    href: "/projects/bptp-astaire-gardens-sector-70a-gurgaon",
+  },
   {
     name: "Emaar Emerald Estate",
     href: "/projects/emaar-emerald-estate-sector-65-gurgaon",
@@ -181,9 +188,12 @@ function ProjectDirectoryPage() {
         <div className="container-page py-12 md:py-14">
           <div className="max-w-3xl">
             <p className="eyebrow">Featured project guides</p>
-            <h2 className="mt-2 font-display text-3xl">Detailed research for high-interest Gurgaon projects</h2>
+            <h2 className="mt-2 font-display text-3xl">
+              Detailed research for high-interest Gurgaon projects
+            </h2>
             <p className="mt-3 text-sm leading-7 text-muted-foreground">
-              Open a project guide for project-level context, then move into current unit-level inventory where available.
+              Open a project guide for project-level context, then move into current unit-level
+              inventory where available.
             </p>
           </div>
           <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
