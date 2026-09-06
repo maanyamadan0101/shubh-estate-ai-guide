@@ -5,18 +5,41 @@ import { SITE_ORIGIN } from "@/lib/seo";
 const title = "Desperate Deals in Gurgaon | Urgent Sale Flats & Apartments";
 const description = "Explore urgent-sale and genuine desperate-deal property opportunities in Gurgaon and Gurugram. Shubh Estate Brokers reviews price, seller urgency, documents, financing and exit before presenting a deal.";
 const canonical = `${SITE_ORIGIN}/desperate-deals-gurgaon`;
+const seoTitle = "Urgent-Sale Property in Gurgaon | Shubh Estate Brokers";
 
 export const Route = createFileRoute("/desperate-deals-gurgaon")({
   head: () => ({
     meta: [
-      { title: `${title} | Shubh Estate Brokers` },
+      { title: seoTitle },
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
       { property: "og:url", content: canonical },
+      { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: seoTitle },
+      { name: "twitter:description", content: description },
     ],
     links: [{ rel: "canonical", href: canonical }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: SITE_ORIGIN },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "Gurgaon properties",
+              item: `${SITE_ORIGIN}/flats-for-sale-in-gurgaon`,
+            },
+            { "@type": "ListItem", position: 3, name: title, item: canonical },
+          ],
+        }),
+      },
+    ],
   }),
   component: DesperateDealsPage,
 });

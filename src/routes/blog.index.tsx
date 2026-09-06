@@ -3,9 +3,9 @@ import { ArrowRight, BookOpen, Landmark, Scale, TrendingUp } from "lucide-react"
 import { Button } from "@/components/ui/button";
 import { SITE_ORIGIN } from "@/lib/seo";
 
-export const Route = createFileRoute("/blog")({
+export const Route = createFileRoute("/blog/")({
   head: ({ matches }) => {
-    const isBlogIndex = matches.at(-1)?.routeId === "/blog";
+    const isBlogIndex = matches.at(-1)?.routeId === "/blog/";
 
     return {
       meta: [

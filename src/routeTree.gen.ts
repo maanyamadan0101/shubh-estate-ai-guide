@@ -17,7 +17,6 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as ApartmentsForSaleDlfPhase1GurgaonRouteImport } from './routes/apartments-for-sale-dlf-phase-1-gurgaon'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as BestAreasGurgaonPropertyInvestmentRouteImport } from './routes/best-areas-gurgaon-property-investment'
-import { Route as BlogRouteImport } from './routes/blog'
 import { Route as CapitalResidences3603BhkForSaleSector70aGurgaonRouteImport } from './routes/capital-residences-360-3-bhk-for-sale-sector-70a-gurgaon'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DesperateDealsGurgaonRouteImport } from './routes/desperate-deals-gurgaon'
@@ -59,6 +58,7 @@ import { Route as UnderConstructionProjectsGurgaonRouteImport } from './routes/u
 import { Route as WhatsappRouteImport } from './routes/whatsapp'
 import { Route as ApiEnquiryRouteImport } from './routes/api/enquiry'
 import { Route as ApiSellerSubmissionRouteImport } from './routes/api/seller-submission'
+import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026RouteImport } from './routes/blog.buy-property-gurgaon-small-down-payment-home-loan-guide-2026'
 import { Route as BlogGurgaonPropertyDueDiligenceChecklist2026RouteImport } from './routes/blog.gurgaon-property-due-diligence-checklist-2026'
 import { Route as LocationsSlugRouteImport } from './routes/locations.$slug'
@@ -137,11 +137,6 @@ const BestAreasGurgaonPropertyInvestmentRoute =
     path: '/best-areas-gurgaon-property-investment',
     getParentRoute: () => rootRouteImport,
   } as any)
-const BlogRoute = BlogRouteImport.update({
-  id: '/blog',
-  path: '/blog',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const CapitalResidences3603BhkForSaleSector70aGurgaonRoute =
   CapitalResidences3603BhkForSaleSector70aGurgaonRouteImport.update({
     id: '/capital-residences-360-3-bhk-for-sale-sector-70a-gurgaon',
@@ -363,17 +358,22 @@ const ApiSellerSubmissionRoute = ApiSellerSubmissionRouteImport.update({
   path: '/api/seller-submission',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route =
   BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026RouteImport.update({
-    id: '/buy-property-gurgaon-small-down-payment-home-loan-guide-2026',
-    path: '/buy-property-gurgaon-small-down-payment-home-loan-guide-2026',
-    getParentRoute: () => BlogRoute,
+    id: '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026',
+    path: '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026',
+    getParentRoute: () => rootRouteImport,
   } as any)
 const BlogGurgaonPropertyDueDiligenceChecklist2026Route =
   BlogGurgaonPropertyDueDiligenceChecklist2026RouteImport.update({
-    id: '/gurgaon-property-due-diligence-checklist-2026',
-    path: '/gurgaon-property-due-diligence-checklist-2026',
-    getParentRoute: () => BlogRoute,
+    id: '/blog/gurgaon-property-due-diligence-checklist-2026',
+    path: '/blog/gurgaon-property-due-diligence-checklist-2026',
+    getParentRoute: () => rootRouteImport,
   } as any)
 const LocationsSlugRoute = LocationsSlugRouteImport.update({
   id: '/locations/$slug',
@@ -564,7 +564,6 @@ export interface FileRoutesByFullPath {
   '/apartments-for-sale-dlf-phase-1-gurgaon': typeof ApartmentsForSaleDlfPhase1GurgaonRoute
   '/auth': typeof AuthRoute
   '/best-areas-gurgaon-property-investment': typeof BestAreasGurgaonPropertyInvestmentRoute
-  '/blog': typeof BlogRouteWithChildren
   '/capital-residences-360-3-bhk-for-sale-sector-70a-gurgaon': typeof CapitalResidences3603BhkForSaleSector70aGurgaonRoute
   '/contact': typeof ContactRoute
   '/desperate-deals-gurgaon': typeof DesperateDealsGurgaonRoute
@@ -625,6 +624,7 @@ export interface FileRoutesByFullPath {
   '/projects/tata-raisina-residency-sector-59': typeof ProjectsTataRaisinaResidencySector59Route
   '/property/$slug': typeof PropertySlugRoute
   '/property/dlf-the-primus-sector-82a-gurgaon': typeof PropertyDlfThePrimusSector82aGurgaonRoute
+  '/blog/': typeof BlogIndexRoute
   '/projects/': typeof ProjectsIndexRoute
   '/admin/$id': typeof AuthenticatedAdminIdRoute
   '/admin/enquiries': typeof AuthenticatedAdminEnquiriesRoute
@@ -649,7 +649,6 @@ export interface FileRoutesByTo {
   '/apartments-for-sale-dlf-phase-1-gurgaon': typeof ApartmentsForSaleDlfPhase1GurgaonRoute
   '/auth': typeof AuthRoute
   '/best-areas-gurgaon-property-investment': typeof BestAreasGurgaonPropertyInvestmentRoute
-  '/blog': typeof BlogRouteWithChildren
   '/capital-residences-360-3-bhk-for-sale-sector-70a-gurgaon': typeof CapitalResidences3603BhkForSaleSector70aGurgaonRoute
   '/contact': typeof ContactRoute
   '/desperate-deals-gurgaon': typeof DesperateDealsGurgaonRoute
@@ -709,6 +708,7 @@ export interface FileRoutesByTo {
   '/projects/tata-raisina-residency-sector-59': typeof ProjectsTataRaisinaResidencySector59Route
   '/property/$slug': typeof PropertySlugRoute
   '/property/dlf-the-primus-sector-82a-gurgaon': typeof PropertyDlfThePrimusSector82aGurgaonRoute
+  '/blog': typeof BlogIndexRoute
   '/projects': typeof ProjectsIndexRoute
   '/admin/$id': typeof AuthenticatedAdminIdRoute
   '/admin/enquiries': typeof AuthenticatedAdminEnquiriesRoute
@@ -735,7 +735,6 @@ export interface FileRoutesById {
   '/apartments-for-sale-dlf-phase-1-gurgaon': typeof ApartmentsForSaleDlfPhase1GurgaonRoute
   '/auth': typeof AuthRoute
   '/best-areas-gurgaon-property-investment': typeof BestAreasGurgaonPropertyInvestmentRoute
-  '/blog': typeof BlogRouteWithChildren
   '/capital-residences-360-3-bhk-for-sale-sector-70a-gurgaon': typeof CapitalResidences3603BhkForSaleSector70aGurgaonRoute
   '/contact': typeof ContactRoute
   '/desperate-deals-gurgaon': typeof DesperateDealsGurgaonRoute
@@ -796,6 +795,7 @@ export interface FileRoutesById {
   '/projects/tata-raisina-residency-sector-59': typeof ProjectsTataRaisinaResidencySector59Route
   '/property/$slug': typeof PropertySlugRoute
   '/property/dlf-the-primus-sector-82a-gurgaon': typeof PropertyDlfThePrimusSector82aGurgaonRoute
+  '/blog/': typeof BlogIndexRoute
   '/projects/': typeof ProjectsIndexRoute
   '/_authenticated/admin/$id': typeof AuthenticatedAdminIdRoute
   '/_authenticated/admin/enquiries': typeof AuthenticatedAdminEnquiriesRoute
@@ -822,7 +822,6 @@ export interface FileRouteTypes {
     | '/apartments-for-sale-dlf-phase-1-gurgaon'
     | '/auth'
     | '/best-areas-gurgaon-property-investment'
-    | '/blog'
     | '/capital-residences-360-3-bhk-for-sale-sector-70a-gurgaon'
     | '/contact'
     | '/desperate-deals-gurgaon'
@@ -883,6 +882,7 @@ export interface FileRouteTypes {
     | '/projects/tata-raisina-residency-sector-59'
     | '/property/$slug'
     | '/property/dlf-the-primus-sector-82a-gurgaon'
+    | '/blog/'
     | '/projects/'
     | '/admin/$id'
     | '/admin/enquiries'
@@ -907,7 +907,6 @@ export interface FileRouteTypes {
     | '/apartments-for-sale-dlf-phase-1-gurgaon'
     | '/auth'
     | '/best-areas-gurgaon-property-investment'
-    | '/blog'
     | '/capital-residences-360-3-bhk-for-sale-sector-70a-gurgaon'
     | '/contact'
     | '/desperate-deals-gurgaon'
@@ -967,6 +966,7 @@ export interface FileRouteTypes {
     | '/projects/tata-raisina-residency-sector-59'
     | '/property/$slug'
     | '/property/dlf-the-primus-sector-82a-gurgaon'
+    | '/blog'
     | '/projects'
     | '/admin/$id'
     | '/admin/enquiries'
@@ -992,7 +992,6 @@ export interface FileRouteTypes {
     | '/apartments-for-sale-dlf-phase-1-gurgaon'
     | '/auth'
     | '/best-areas-gurgaon-property-investment'
-    | '/blog'
     | '/capital-residences-360-3-bhk-for-sale-sector-70a-gurgaon'
     | '/contact'
     | '/desperate-deals-gurgaon'
@@ -1053,6 +1052,7 @@ export interface FileRouteTypes {
     | '/projects/tata-raisina-residency-sector-59'
     | '/property/$slug'
     | '/property/dlf-the-primus-sector-82a-gurgaon'
+    | '/blog/'
     | '/projects/'
     | '/_authenticated/admin/$id'
     | '/_authenticated/admin/enquiries'
@@ -1079,7 +1079,6 @@ export interface RootRouteChildren {
   ApartmentsForSaleDlfPhase1GurgaonRoute: typeof ApartmentsForSaleDlfPhase1GurgaonRoute
   AuthRoute: typeof AuthRoute
   BestAreasGurgaonPropertyInvestmentRoute: typeof BestAreasGurgaonPropertyInvestmentRoute
-  BlogRoute: typeof BlogRouteWithChildren
   CapitalResidences3603BhkForSaleSector70aGurgaonRoute: typeof CapitalResidences3603BhkForSaleSector70aGurgaonRoute
   ContactRoute: typeof ContactRoute
   DesperateDealsGurgaonRoute: typeof DesperateDealsGurgaonRoute
@@ -1121,11 +1120,14 @@ export interface RootRouteChildren {
   WhatsappRoute: typeof WhatsappRoute
   ApiEnquiryRoute: typeof ApiEnquiryRoute
   ApiSellerSubmissionRoute: typeof ApiSellerSubmissionRoute
+  BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route: typeof BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route
+  BlogGurgaonPropertyDueDiligenceChecklist2026Route: typeof BlogGurgaonPropertyDueDiligenceChecklist2026Route
   LocationsSlugRoute: typeof LocationsSlugRoute
   LocationsGolfCourseExtensionRoadRoute: typeof LocationsGolfCourseExtensionRoadRoute
   NriCountryRoute: typeof NriCountryRoute
   PropertySlugRoute: typeof PropertySlugRoute
   PropertyDlfThePrimusSector82aGurgaonRoute: typeof PropertyDlfThePrimusSector82aGurgaonRoute
+  BlogIndexRoute: typeof BlogIndexRoute
   ApiPublicPropertyHealthRoute: typeof ApiPublicPropertyHealthRoute
   ApiPublicImgSplatRoute: typeof ApiPublicImgSplatRoute
 }
@@ -1186,13 +1188,6 @@ declare module '@tanstack/react-router' {
       path: '/best-areas-gurgaon-property-investment'
       fullPath: '/best-areas-gurgaon-property-investment'
       preLoaderRoute: typeof BestAreasGurgaonPropertyInvestmentRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/blog': {
-      id: '/blog'
-      path: '/blog'
-      fullPath: '/blog'
-      preLoaderRoute: typeof BlogRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/capital-residences-360-3-bhk-for-sale-sector-70a-gurgaon': {
@@ -1482,19 +1477,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiSellerSubmissionRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/': {
+      id: '/blog/'
+      path: '/blog'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026': {
       id: '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026'
-      path: '/buy-property-gurgaon-small-down-payment-home-loan-guide-2026'
+      path: '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026'
       fullPath: '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026'
       preLoaderRoute: typeof BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026RouteImport
-      parentRoute: typeof BlogRoute
+      parentRoute: typeof rootRouteImport
     }
     '/blog/gurgaon-property-due-diligence-checklist-2026': {
       id: '/blog/gurgaon-property-due-diligence-checklist-2026'
-      path: '/gurgaon-property-due-diligence-checklist-2026'
+      path: '/blog/gurgaon-property-due-diligence-checklist-2026'
       fullPath: '/blog/gurgaon-property-due-diligence-checklist-2026'
       preLoaderRoute: typeof BlogGurgaonPropertyDueDiligenceChecklist2026RouteImport
-      parentRoute: typeof BlogRoute
+      parentRoute: typeof rootRouteImport
     }
     '/locations/$slug': {
       id: '/locations/$slug'
@@ -1757,20 +1759,6 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
 const AuthenticatedRouteRouteWithChildren =
   AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
-interface BlogRouteChildren {
-  BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route: typeof BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route
-  BlogGurgaonPropertyDueDiligenceChecklist2026Route: typeof BlogGurgaonPropertyDueDiligenceChecklist2026Route
-}
-
-const BlogRouteChildren: BlogRouteChildren = {
-  BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route:
-    BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route,
-  BlogGurgaonPropertyDueDiligenceChecklist2026Route:
-    BlogGurgaonPropertyDueDiligenceChecklist2026Route,
-}
-
-const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
-
 interface ProjectsRouteChildren {
   ProjectsSlugRoute: typeof ProjectsSlugRoute
   ProjectsAiplRivieraResaleSector103GurgaonRoute: typeof ProjectsAiplRivieraResaleSector103GurgaonRoute
@@ -1829,7 +1817,6 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   BestAreasGurgaonPropertyInvestmentRoute:
     BestAreasGurgaonPropertyInvestmentRoute,
-  BlogRoute: BlogRouteWithChildren,
   CapitalResidences3603BhkForSaleSector70aGurgaonRoute:
     CapitalResidences3603BhkForSaleSector70aGurgaonRoute,
   ContactRoute: ContactRoute,
@@ -1877,12 +1864,17 @@ const rootRouteChildren: RootRouteChildren = {
   WhatsappRoute: WhatsappRoute,
   ApiEnquiryRoute: ApiEnquiryRoute,
   ApiSellerSubmissionRoute: ApiSellerSubmissionRoute,
+  BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route:
+    BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route,
+  BlogGurgaonPropertyDueDiligenceChecklist2026Route:
+    BlogGurgaonPropertyDueDiligenceChecklist2026Route,
   LocationsSlugRoute: LocationsSlugRoute,
   LocationsGolfCourseExtensionRoadRoute: LocationsGolfCourseExtensionRoadRoute,
   NriCountryRoute: NriCountryRoute,
   PropertySlugRoute: PropertySlugRoute,
   PropertyDlfThePrimusSector82aGurgaonRoute:
     PropertyDlfThePrimusSector82aGurgaonRoute,
+  BlogIndexRoute: BlogIndexRoute,
   ApiPublicPropertyHealthRoute: ApiPublicPropertyHealthRoute,
   ApiPublicImgSplatRoute: ApiPublicImgSplatRoute,
 }

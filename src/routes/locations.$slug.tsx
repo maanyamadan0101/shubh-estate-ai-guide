@@ -16,6 +16,7 @@ type Location = {
   intro: string;
   body: string[];
   highlights: string[];
+  related?: { href: string; label: string }[];
 };
 
 const LOCATIONS: Record<string, Location> = {
@@ -55,6 +56,12 @@ const LOCATIONS: Record<string, Location> = {
       "For end users and NRI buyers, we focus on liveability, title and approval checks, maintenance quality, rental demand and realistic resale comparables rather than brochure pricing.",
     ],
     highlights: ["Established social infrastructure", "Rapid Metro access in parts of the corridor", "Deep completed-home resale market"],
+    related: [
+      {
+        href: "/apartments-for-sale-dlf-phase-1-gurgaon",
+        label: "Apartments and flats for sale in DLF Phase 1",
+      },
+    ],
   },
   "golf-course-extension-road": {
     slug: "golf-course-extension-road",
@@ -254,6 +261,26 @@ function LocationPage() {
               ))}
             </ul>
           </div>
+
+          {location.related?.length ? (
+            <nav
+              aria-label={`Related ${location.name} property pages`}
+              className="rounded-xl border border-border bg-card p-6"
+            >
+              <h2 className="font-display text-xl">Related property pages</h2>
+              <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-sm">
+                {location.related.map((item) => (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    className="font-medium text-gold underline-offset-4 hover:underline"
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </div>
+            </nav>
+          ) : null}
 
           <div className="rounded-xl border border-border bg-card p-6">
             <h2 className="font-display text-xl">Explore Gurgaon property corridors</h2>

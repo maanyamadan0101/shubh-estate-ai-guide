@@ -5,18 +5,41 @@ import { SITE_ORIGIN } from "@/lib/seo";
 const title = "Higher Floor Apartments for Sale on Golf Course Extension Road";
 const description = "Search higher-floor apartments for sale on Golf Course Extension Road, Gurgaon. Compare views, ventilation, lift dependence, floor premium, project quality, financing and resale suitability with Shubh Estate Brokers.";
 const canonical = `${SITE_ORIGIN}/higher-floor-apartments-golf-course-extension-road`;
+const seoTitle = "Higher-Floor Flats on Golf Course Ext Road | Shubh Estate";
 
 export const Route = createFileRoute("/higher-floor-apartments-golf-course-extension-road")({
   head: () => ({
     meta: [
-      { title: `${title} | Shubh Estate Brokers` },
+      { title: seoTitle },
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
       { property: "og:url", content: canonical },
+      { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: seoTitle },
+      { name: "twitter:description", content: description },
     ],
     links: [{ rel: "canonical", href: canonical }],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: SITE_ORIGIN },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "Golf Course Extension Road",
+              item: `${SITE_ORIGIN}/locations/golf-course-extension-road`,
+            },
+            { "@type": "ListItem", position: 3, name: title, item: canonical },
+          ],
+        }),
+      },
+    ],
   }),
   component: HigherFloorPage,
 });

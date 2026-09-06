@@ -6,6 +6,7 @@ const canonical = `${SITE_ORIGIN}/3-bhk-builder-floor-for-sale-vatika-inxt-floor
 const title = "3 BHK Builder Floor for Sale in Vatika INXT Floors Sector 82A Gurgaon";
 const description =
   "3 BHK independent builder floor for sale in Vatika INXT Floors, Sector 82A Gurgaon. 360 sq yd plot, 1st floor, north-east facing, park and main-road facing. Asking ₹2.40 crore negotiable.";
+const seoTitle = "Vatika INXT 3 BHK Floor, Sector 82A | Shubh Estate Brokers";
 
 const FAQS = [
   {
@@ -35,12 +36,15 @@ export const Route = createFileRoute(
 )({
   head: () => ({
     meta: [
-      { title: `${title} | Shubh Estate Brokers` },
+      { title: seoTitle },
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "product" },
       { property: "og:url", content: canonical },
+      { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: seoTitle },
+      { name: "twitter:description", content: description },
     ],
     links: [{ rel: "canonical", href: canonical }],
     scripts: [

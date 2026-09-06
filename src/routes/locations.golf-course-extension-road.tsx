@@ -13,6 +13,7 @@ const description =
 const EMERALD_ESTATE_PROJECT = "/projects/emaar-emerald-estate-sector-65-gurgaon";
 const EMERALD_ESTATE_LISTING =
   "/3-bhk-for-sale-emaar-emerald-estate-sector-65-gurgaon-1395-sqft";
+const seoTitle = "Golf Course Extension Road Gurgaon | Shubh Estate Brokers";
 
 export const Route = createFileRoute("/locations/golf-course-extension-road")({
   loader: async () => {
@@ -23,12 +24,15 @@ export const Route = createFileRoute("/locations/golf-course-extension-road")({
   },
   head: () => ({
     meta: [
-      { title: `${title} | Shubh Estate Brokers` },
+      { title: seoTitle },
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
       { property: "og:url", content: canonical },
+      { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: seoTitle },
+      { name: "twitter:description", content: description },
     ],
     links: [{ rel: "canonical", href: canonical }],
     scripts: [
@@ -62,7 +66,7 @@ export const Route = createFileRoute("/locations/golf-course-extension-road")({
 const clusters = [
   {
     sector: "Sector 65",
-    href: "/flats-for-sale-in-gurgaon?q=Sector%2065",
+    href: EMERALD_ESTATE_PROJECT,
     projects: [
       {
         name: "Emaar Emerald Estate",
@@ -76,7 +80,7 @@ const clusters = [
   },
   {
     sector: "Sector 63",
-    href: "/flats-for-sale-in-gurgaon?q=Sector%2063",
+    href: "/projects/dlf-the-arbour-sector-63-gurgaon",
     projects: [
       {
         name: "DLF The Arbour",
@@ -175,8 +179,8 @@ function GolfCourseExtensionPage() {
               <MapPin className="size-5 text-gold" aria-hidden="true" />
               <h3 className="mt-3 font-display text-2xl">{cluster.sector} Gurgaon</h3>
               <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                Open the sector guide first, then compare project pages and individual property
-                inventory.
+                Open the most relevant canonical sector or project guide, then compare project
+                pages and individual property inventory.
               </p>
               <div className="mt-5 border-t border-border pt-4">
                 <a

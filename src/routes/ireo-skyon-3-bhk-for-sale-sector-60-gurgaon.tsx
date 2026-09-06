@@ -8,6 +8,7 @@ const description =
   "3 BHK apartment for sale in Ireo Skyon, Sector 60 Gurgaon. 2,045 sq ft, middle floor, ₹4.65 crore negotiable. Up to 90% home loan available, subject to lender eligibility.";
 const mediaPath = "/properties/ireo-skyon-2045-sector-60";
 const coverImage = `${SITE_ORIGIN}${mediaPath}/01-ireo-skyon-3bhk-living-dining.webp`;
+const seoTitle = "Ireo Skyon 3 BHK, Sector 60 Gurgaon | Shubh Estate Brokers";
 
 const GALLERY = [
   ["01-ireo-skyon-3bhk-living-dining.webp", "Spacious living and dining area"],
@@ -46,13 +47,17 @@ export const Route = createFileRoute(
 )({
   head: () => ({
     meta: [
-      { title: `${title} | Shubh Estate Brokers` },
+      { title: seoTitle },
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "product" },
       { property: "og:url", content: canonical },
       { property: "og:image", content: coverImage },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: seoTitle },
+      { name: "twitter:description", content: description },
+      { name: "twitter:image", content: coverImage },
       {
         property: "og:image:alt",
         content: "Living and dining area in the Ireo Skyon 3 BHK apartment for sale in Sector 60 Gurgaon",
