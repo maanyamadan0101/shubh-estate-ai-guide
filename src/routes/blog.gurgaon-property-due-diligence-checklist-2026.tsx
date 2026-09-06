@@ -34,7 +34,8 @@ const articleSchema = {
   ],
   author: {
     "@type": "Person",
-    name: "Arun Madan",
+    "@id": `${SITE_ORIGIN}/about#arun-madan`,
+    name: "Arun Madaan",
     jobTitle: "Founder, Shubh Estate Brokers",
   },
   publisher: {
