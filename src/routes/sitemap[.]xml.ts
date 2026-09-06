@@ -11,7 +11,8 @@ type StaticPath = {
 
 const SEO_TEMPLATE_LASTMOD = "2026-08-27";
 
-const STATIC_PATHS: StaticPath[] = [\n  { path: "/jms-the-majestic-manesar", priority: "0.9", lastmod: "2026-09-06" },
+const STATIC_PATHS: StaticPath[] = [
+  { path: "/jms-the-majestic-manesar", priority: "0.9", lastmod: "2026-09-06" },
   { path: "/", priority: "1.0", lastmod: "2026-09-01" },
   { path: "/flats-for-sale-in-gurgaon", priority: "0.9", lastmod: "2026-09-01" },
   { path: "/ready-to-move-flats-in-gurgaon", priority: "0.9", lastmod: "2026-08-28" },
