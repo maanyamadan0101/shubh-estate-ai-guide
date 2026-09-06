@@ -6,6 +6,7 @@ const canonical = `${SITE_ORIGIN}/capital-residences-360-3-bhk-for-sale-sector-7
 const title = "3 BHK for Sale in Capital Residences 360 Sector 70A Gurgaon";
 const description =
   "3 BHK flat for sale in Capital Residences 360, Sector 70A Gurgaon. 2,137 sq ft built-up area, 8th floor, ready to move. Asking ₹3.15 crore negotiable.";
+const seoTitle = "Capital Residences 360 3 BHK, Sector 70A | Shubh Estate";
 
 const FAQS = [
   {
@@ -31,12 +32,15 @@ export const Route = createFileRoute(
 )({
   head: () => ({
     meta: [
-      { title: `${title} | Shubh Estate Brokers` },
+      { title: seoTitle },
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "product" },
       { property: "og:url", content: canonical },
+      { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: seoTitle },
+      { name: "twitter:description", content: description },
     ],
     links: [{ rel: "canonical", href: canonical }],
     scripts: [
