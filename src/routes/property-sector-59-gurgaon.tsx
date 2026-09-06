@@ -6,16 +6,20 @@ const canonical = `${SITE_ORIGIN}/property-sector-59-gurgaon`;
 const title = "Property in Sector 59 Gurgaon | Tata Raisina Residency Guide";
 const description =
   "Explore property in Sector 59 Gurgaon on Golf Course Extension Road, including Tata Raisina Residency, resale checks, project context and home-loan guidance.";
+const seoTitle = "Sector 59 Gurgaon & Tata Raisina | Shubh Estate Brokers";
 
 export const Route = createFileRoute("/property-sector-59-gurgaon")({
   head: () => ({
     meta: [
-      { title: `${title} | Shubh Estate Brokers` },
+      { title: seoTitle },
       { name: "description", content: description },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
       { property: "og:url", content: canonical },
+      { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: seoTitle },
+      { name: "twitter:description", content: description },
     ],
     links: [{ rel: "canonical", href: canonical }],
     scripts: [
