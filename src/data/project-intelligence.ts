@@ -23,6 +23,66 @@ export type VerifiedProjectIntelligence = {
 
 const VERIFIED_PROJECTS: readonly VerifiedProjectIntelligence[] = [
   {
+    name: "Conscient Heritage One",
+    aliases: ["conscient heritage one", "heritage one"],
+    developer: "Conscient",
+    sector: "Sector 62",
+    corridor: "Golf Course Extension Road",
+    status: "Ready to move",
+    configurations: "3 & 4 BHK",
+    projectDescription:
+      "Conscient Heritage One is a delivered residential community in Sector 62, Gurugram, in the Golf Course Extension Road belt. Conscient describes landscaped spaces, sports facilities and three-tier security. Compare the sector-road approach and actual apartment layout with other corridor options.",
+    amenities: [
+      "Clubhouse",
+      "Swimming Pool",
+      "Gymnasium",
+      "Indoor Badminton Court",
+      "Indoor Squash Court",
+      "Multipurpose Playground",
+      "Jogging Trail",
+      "Landscaped Greens",
+      "Three-tier Security",
+    ],
+    highlights: [
+      "3 and 4 BHK residences",
+      "Developer-listed clubhouse and pool",
+      "Indoor and outdoor sports facilities",
+    ],
+    officialSourceUrls: [
+      "https://conscient.in/heritage-one/",
+      "https://conscient.in/residential-delhi-ncr/",
+    ],
+    lastVerifiedDate: "2026-09-06",
+  },
+  {
+    name: "Tata Raisina Residency",
+    aliases: ["tata raisina residency", "raisina residency"],
+    developer: "Tata Housing (joint development)",
+    sector: "Sector 59",
+    corridor: "Golf Course Extension Road",
+    status: "Completed; phased occupation certificates disclosed by Tata",
+    projectDescription:
+      "Tata Raisina Residency is an established residential community in adjoining Sector 59, near the Aravalli foothills. Tata describes a 12-acre setting with nine towers and discloses occupation certificates received in phases. Its current developer page focuses on duplex residences; the configuration, finish and area of any resale apartment must be checked separately.",
+    landArea: "12 acres",
+    towerFloorSummary: "9 towers",
+    amenities: [
+      "Swimming Pools",
+      "Gymnasium",
+      "Squash Courts",
+      "Steam and Sauna",
+      "Landscaped Setting",
+    ],
+    highlights: [
+      "Aravalli foothill setting in adjoining Sector 59",
+      "Completed community with phased occupation certificates",
+      "Pool, fitness and squash facilities listed by Tata",
+    ],
+    officialSourceUrls: [
+      "https://www.tatahousing.com/residential-property-in-gurgaon/tata-raisina-residency",
+    ],
+    lastVerifiedDate: "2026-09-06",
+  },
+  {
     name: "ATS Triumph",
     aliases: ["ats triumph", "ats triumph sector 104"],
     developer: "ATS / Great Value HPL Infratech",
@@ -51,8 +111,15 @@ const VERIFIED_PROJECTS: readonly VerifiedProjectIntelligence[] = [
       "Sports and children's recreation facilities",
       "Dwarka Expressway address in Sector 104",
     ],
-    roadConnectivity: ["Dwarka Expressway", "Delhi-Gurugram road network", "NH-48 connectivity via the wider corridor"],
-    businessHubsNearby: ["Udyog Vihar", "Cyber City / Cyber Hub via the Delhi-Gurugram road network"],
+    roadConnectivity: [
+      "Dwarka Expressway",
+      "Delhi-Gurugram road network",
+      "NH-48 connectivity via the wider corridor",
+    ],
+    businessHubsNearby: [
+      "Udyog Vihar",
+      "Cyber City / Cyber Hub via the Delhi-Gurugram road network",
+    ],
     officialSourceUrls: ["https://www.atsgreens.com/projects/ats-triumph/"],
     lastVerifiedDate: "2026-09-02",
   },
@@ -92,7 +159,9 @@ const VERIFIED_PROJECTS: readonly VerifiedProjectIntelligence[] = [
     businessHubsNearby: ["Udyog Vihar", "Cyber Hub"],
     hospitalsNearby: ["Major Gurugram hospitals are accessible through the city road network"],
     shoppingNearby: ["Cyber Hub and retail destinations across Gurugram"],
-    officialSourceUrls: ["https://www.herohomes.in/projects/apartments/gurugram-haryana/gurugram-by-hero-homes"],
+    officialSourceUrls: [
+      "https://www.herohomes.in/projects/apartments/gurugram-haryana/gurugram-by-hero-homes",
+    ],
     lastVerifiedDate: "2026-09-02",
   },
   {
@@ -131,7 +200,10 @@ const VERIFIED_PROJECTS: readonly VerifiedProjectIntelligence[] = [
       "Large green/open-space component",
     ],
     roadConnectivity: ["Dwarka Expressway / Upper Dwarka Expressway corridor"],
-    officialSourceUrls: ["https://www.sobha.com/sobha-city-gurgaon/", "https://citygurgaon.sobha.com/"],
+    officialSourceUrls: [
+      "https://www.sobha.com/sobha-city-gurgaon/",
+      "https://citygurgaon.sobha.com/",
+    ],
     lastVerifiedDate: "2026-09-02",
   },
   {
@@ -171,7 +243,10 @@ const VERIFIED_PROJECTS: readonly VerifiedProjectIntelligence[] = [
       "Sector 36A location with Dwarka Expressway / NH-48 access",
     ],
     roadConnectivity: ["Dwarka Expressway", "NH-48"],
-    officialSourceUrls: ["https://krisumi.com/project/waterfall-residences/", "https://krisumi.com/project/lp/index.php"],
+    officialSourceUrls: [
+      "https://krisumi.com/project/waterfall-residences/",
+      "https://krisumi.com/project/lp/index.php",
+    ],
     lastVerifiedDate: "2026-09-02",
   },
   {
@@ -203,7 +278,9 @@ const VERIFIED_PROJECTS: readonly VerifiedProjectIntelligence[] = [
       "Dwarka Expressway-side Gurugram location",
     ],
     roadConnectivity: ["Dwarka Expressway corridor"],
-    officialSourceUrls: ["https://www.godrejproperties.com/gurugram/residential/godrej-meridien/amenities"],
+    officialSourceUrls: [
+      "https://www.godrejproperties.com/gurugram/residential/godrej-meridien/amenities",
+    ],
     lastVerifiedDate: "2026-09-02",
   },
   {
@@ -240,7 +317,12 @@ const VERIFIED_PROJECTS: readonly VerifiedProjectIntelligence[] = [
   },
   {
     name: "Riviera at AIPL LakeCity",
-    aliases: ["aipl riviera", "riviera at aipl lakecity", "riviera at aipl lake city", "aipl lakecity riviera"],
+    aliases: [
+      "aipl riviera",
+      "riviera at aipl lakecity",
+      "riviera at aipl lake city",
+      "aipl lakecity riviera",
+    ],
     developer: "AIPL",
     sector: "Sector 103",
     corridor: "Dwarka Expressway",
@@ -335,9 +417,15 @@ const VERIFIED_PROJECTS: readonly VerifiedProjectIntelligence[] = [
       "Landscaped green spaces",
       "Dedicated recreation zones for different age groups",
     ],
-    roadConnectivity: ["Dwarka Expressway", "NH-48 / Delhi connectivity via the wider Gurugram road network"],
+    roadConnectivity: [
+      "Dwarka Expressway",
+      "NH-48 / Delhi connectivity via the wider Gurugram road network",
+    ],
     businessHubsNearby: ["Cyber City and major Gurugram commercial hubs via the city road network"],
-    officialSourceUrls: ["https://www.elanlimited.com/elan-presidential/", "https://elannew.elanlimited.com/elan-the-presidential/"],
+    officialSourceUrls: [
+      "https://www.elanlimited.com/elan-presidential/",
+      "https://elannew.elanlimited.com/elan-the-presidential/",
+    ],
     lastVerifiedDate: "2026-09-02",
   },
 ];
@@ -370,3 +458,4 @@ export function verifiedProjectIntelligenceFor(input: {
 }
 
 export const VERIFIED_PROJECT_INTELLIGENCE = VERIFIED_PROJECTS;
+
