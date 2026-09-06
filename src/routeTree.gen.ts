@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as R3BhkBuilderFloorForSaleVatikaInxtFloorsSector82aGurgaonRouteImport } from './routes/3-bhk-builder-floor-for-sale-vatika-inxt-floors-sector-82a-gurgaon'
+import { Route as R3BhkForSaleEmaarEmeraldEstateSector65Gurgaon1395SqftRouteImport } from './routes/3-bhk-for-sale-emaar-emerald-estate-sector-65-gurgaon-1395-sqft'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as ApartmentsForSaleDlfPhase1GurgaonRouteImport } from './routes/apartments-for-sale-dlf-phase-1-gurgaon'
@@ -54,6 +55,7 @@ import { Route as SeniorCitizenHousingGurgaonRouteImport } from './routes/senior
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ToninoLamborghiniResidencesSector71GurgaonRouteImport } from './routes/tonino-lamborghini-residences-sector-71-gurgaon'
 import { Route as UnderConstructionProjectsGurgaonRouteImport } from './routes/under-construction-projects-gurgaon'
+import { Route as WhatsappRouteImport } from './routes/whatsapp'
 import { Route as ApiEnquiryRouteImport } from './routes/api/enquiry'
 import { Route as ApiSellerSubmissionRouteImport } from './routes/api/seller-submission'
 import { Route as BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026RouteImport } from './routes/blog.buy-property-gurgaon-small-down-payment-home-loan-guide-2026'
@@ -68,6 +70,7 @@ import { Route as ProjectsAnsalsHighlandParkSector103GurgaonRouteImport } from '
 import { Route as ProjectsDlfTheArbourSector63GurgaonRouteImport } from './routes/projects.dlf-the-arbour-sector-63-gurgaon'
 import { Route as ProjectsDlfThePrimusSector82aGurgaonRouteImport } from './routes/projects.dlf-the-primus-sector-82a-gurgaon'
 import { Route as ProjectsDlfTheSkycourtSector86RouteImport } from './routes/projects.dlf-the-skycourt-sector-86'
+import { Route as ProjectsEmaarEmeraldEstateSector65GurgaonRouteImport } from './routes/projects.emaar-emerald-estate-sector-65-gurgaon'
 import { Route as ProjectsEmaarUrbanOasisSector62RouteImport } from './routes/projects.emaar-urban-oasis-sector-62'
 import { Route as ProjectsGodrejSoraSector53GurgaonRouteImport } from './routes/projects.godrej-sora-sector-53-gurgaon'
 import { Route as ProjectsM3mGolfHillsSector79GurgaonRouteImport } from './routes/projects.m3m-golf-hills-sector-79-gurgaon'
@@ -98,6 +101,12 @@ const R3BhkBuilderFloorForSaleVatikaInxtFloorsSector82aGurgaonRoute =
   R3BhkBuilderFloorForSaleVatikaInxtFloorsSector82aGurgaonRouteImport.update({
     id: '/3-bhk-builder-floor-for-sale-vatika-inxt-floors-sector-82a-gurgaon',
     path: '/3-bhk-builder-floor-for-sale-vatika-inxt-floors-sector-82a-gurgaon',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const R3BhkForSaleEmaarEmeraldEstateSector65Gurgaon1395SqftRoute =
+  R3BhkForSaleEmaarEmeraldEstateSector65Gurgaon1395SqftRouteImport.update({
+    id: '/3-bhk-for-sale-emaar-emerald-estate-sector-65-gurgaon-1395-sqft',
+    path: '/3-bhk-for-sale-emaar-emerald-estate-sector-65-gurgaon-1395-sqft',
     getParentRoute: () => rootRouteImport,
   } as any)
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
@@ -332,6 +341,11 @@ const UnderConstructionProjectsGurgaonRoute =
     path: '/under-construction-projects-gurgaon',
     getParentRoute: () => rootRouteImport,
   } as any)
+const WhatsappRoute = WhatsappRouteImport.update({
+  id: '/whatsapp',
+  path: '/whatsapp',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiEnquiryRoute = ApiEnquiryRouteImport.update({
   id: '/api/enquiry',
   path: '/api/enquiry',
@@ -408,6 +422,12 @@ const ProjectsDlfTheSkycourtSector86Route =
   ProjectsDlfTheSkycourtSector86RouteImport.update({
     id: '/dlf-the-skycourt-sector-86',
     path: '/dlf-the-skycourt-sector-86',
+    getParentRoute: () => ProjectsRoute,
+  } as any)
+const ProjectsEmaarEmeraldEstateSector65GurgaonRoute =
+  ProjectsEmaarEmeraldEstateSector65GurgaonRouteImport.update({
+    id: '/emaar-emerald-estate-sector-65-gurgaon',
+    path: '/emaar-emerald-estate-sector-65-gurgaon',
     getParentRoute: () => ProjectsRoute,
   } as any)
 const ProjectsEmaarUrbanOasisSector62Route =
@@ -526,6 +546,7 @@ const ApiPublicImgSplatRoute = ApiPublicImgSplatRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/3-bhk-builder-floor-for-sale-vatika-inxt-floors-sector-82a-gurgaon': typeof R3BhkBuilderFloorForSaleVatikaInxtFloorsSector82aGurgaonRoute
+  '/3-bhk-for-sale-emaar-emerald-estate-sector-65-gurgaon-1395-sqft': typeof R3BhkForSaleEmaarEmeraldEstateSector65Gurgaon1395SqftRoute
   '/about': typeof AboutRoute
   '/apartments-for-sale-dlf-phase-1-gurgaon': typeof ApartmentsForSaleDlfPhase1GurgaonRoute
   '/auth': typeof AuthRoute
@@ -568,6 +589,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tonino-lamborghini-residences-sector-71-gurgaon': typeof ToninoLamborghiniResidencesSector71GurgaonRoute
   '/under-construction-projects-gurgaon': typeof UnderConstructionProjectsGurgaonRoute
+  '/whatsapp': typeof WhatsappRoute
   '/api/enquiry': typeof ApiEnquiryRoute
   '/api/seller-submission': typeof ApiSellerSubmissionRoute
   '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026': typeof BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route
@@ -581,6 +603,7 @@ export interface FileRoutesByFullPath {
   '/projects/dlf-the-arbour-sector-63-gurgaon': typeof ProjectsDlfTheArbourSector63GurgaonRoute
   '/projects/dlf-the-primus-sector-82a-gurgaon': typeof ProjectsDlfThePrimusSector82aGurgaonRoute
   '/projects/dlf-the-skycourt-sector-86': typeof ProjectsDlfTheSkycourtSector86Route
+  '/projects/emaar-emerald-estate-sector-65-gurgaon': typeof ProjectsEmaarEmeraldEstateSector65GurgaonRoute
   '/projects/emaar-urban-oasis-sector-62': typeof ProjectsEmaarUrbanOasisSector62Route
   '/projects/godrej-sora-sector-53-gurgaon': typeof ProjectsGodrejSoraSector53GurgaonRoute
   '/projects/m3m-golf-hills-sector-79-gurgaon': typeof ProjectsM3mGolfHillsSector79GurgaonRoute
@@ -606,6 +629,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/3-bhk-builder-floor-for-sale-vatika-inxt-floors-sector-82a-gurgaon': typeof R3BhkBuilderFloorForSaleVatikaInxtFloorsSector82aGurgaonRoute
+  '/3-bhk-for-sale-emaar-emerald-estate-sector-65-gurgaon-1395-sqft': typeof R3BhkForSaleEmaarEmeraldEstateSector65Gurgaon1395SqftRoute
   '/about': typeof AboutRoute
   '/apartments-for-sale-dlf-phase-1-gurgaon': typeof ApartmentsForSaleDlfPhase1GurgaonRoute
   '/auth': typeof AuthRoute
@@ -647,6 +671,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tonino-lamborghini-residences-sector-71-gurgaon': typeof ToninoLamborghiniResidencesSector71GurgaonRoute
   '/under-construction-projects-gurgaon': typeof UnderConstructionProjectsGurgaonRoute
+  '/whatsapp': typeof WhatsappRoute
   '/api/enquiry': typeof ApiEnquiryRoute
   '/api/seller-submission': typeof ApiSellerSubmissionRoute
   '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026': typeof BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route
@@ -660,6 +685,7 @@ export interface FileRoutesByTo {
   '/projects/dlf-the-arbour-sector-63-gurgaon': typeof ProjectsDlfTheArbourSector63GurgaonRoute
   '/projects/dlf-the-primus-sector-82a-gurgaon': typeof ProjectsDlfThePrimusSector82aGurgaonRoute
   '/projects/dlf-the-skycourt-sector-86': typeof ProjectsDlfTheSkycourtSector86Route
+  '/projects/emaar-emerald-estate-sector-65-gurgaon': typeof ProjectsEmaarEmeraldEstateSector65GurgaonRoute
   '/projects/emaar-urban-oasis-sector-62': typeof ProjectsEmaarUrbanOasisSector62Route
   '/projects/godrej-sora-sector-53-gurgaon': typeof ProjectsGodrejSoraSector53GurgaonRoute
   '/projects/m3m-golf-hills-sector-79-gurgaon': typeof ProjectsM3mGolfHillsSector79GurgaonRoute
@@ -687,6 +713,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/3-bhk-builder-floor-for-sale-vatika-inxt-floors-sector-82a-gurgaon': typeof R3BhkBuilderFloorForSaleVatikaInxtFloorsSector82aGurgaonRoute
+  '/3-bhk-for-sale-emaar-emerald-estate-sector-65-gurgaon-1395-sqft': typeof R3BhkForSaleEmaarEmeraldEstateSector65Gurgaon1395SqftRoute
   '/about': typeof AboutRoute
   '/apartments-for-sale-dlf-phase-1-gurgaon': typeof ApartmentsForSaleDlfPhase1GurgaonRoute
   '/auth': typeof AuthRoute
@@ -729,6 +756,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tonino-lamborghini-residences-sector-71-gurgaon': typeof ToninoLamborghiniResidencesSector71GurgaonRoute
   '/under-construction-projects-gurgaon': typeof UnderConstructionProjectsGurgaonRoute
+  '/whatsapp': typeof WhatsappRoute
   '/api/enquiry': typeof ApiEnquiryRoute
   '/api/seller-submission': typeof ApiSellerSubmissionRoute
   '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026': typeof BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route
@@ -742,6 +770,7 @@ export interface FileRoutesById {
   '/projects/dlf-the-arbour-sector-63-gurgaon': typeof ProjectsDlfTheArbourSector63GurgaonRoute
   '/projects/dlf-the-primus-sector-82a-gurgaon': typeof ProjectsDlfThePrimusSector82aGurgaonRoute
   '/projects/dlf-the-skycourt-sector-86': typeof ProjectsDlfTheSkycourtSector86Route
+  '/projects/emaar-emerald-estate-sector-65-gurgaon': typeof ProjectsEmaarEmeraldEstateSector65GurgaonRoute
   '/projects/emaar-urban-oasis-sector-62': typeof ProjectsEmaarUrbanOasisSector62Route
   '/projects/godrej-sora-sector-53-gurgaon': typeof ProjectsGodrejSoraSector53GurgaonRoute
   '/projects/m3m-golf-hills-sector-79-gurgaon': typeof ProjectsM3mGolfHillsSector79GurgaonRoute
@@ -769,6 +798,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/3-bhk-builder-floor-for-sale-vatika-inxt-floors-sector-82a-gurgaon'
+    | '/3-bhk-for-sale-emaar-emerald-estate-sector-65-gurgaon-1395-sqft'
     | '/about'
     | '/apartments-for-sale-dlf-phase-1-gurgaon'
     | '/auth'
@@ -811,6 +841,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/tonino-lamborghini-residences-sector-71-gurgaon'
     | '/under-construction-projects-gurgaon'
+    | '/whatsapp'
     | '/api/enquiry'
     | '/api/seller-submission'
     | '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026'
@@ -824,6 +855,7 @@ export interface FileRouteTypes {
     | '/projects/dlf-the-arbour-sector-63-gurgaon'
     | '/projects/dlf-the-primus-sector-82a-gurgaon'
     | '/projects/dlf-the-skycourt-sector-86'
+    | '/projects/emaar-emerald-estate-sector-65-gurgaon'
     | '/projects/emaar-urban-oasis-sector-62'
     | '/projects/godrej-sora-sector-53-gurgaon'
     | '/projects/m3m-golf-hills-sector-79-gurgaon'
@@ -849,6 +881,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/3-bhk-builder-floor-for-sale-vatika-inxt-floors-sector-82a-gurgaon'
+    | '/3-bhk-for-sale-emaar-emerald-estate-sector-65-gurgaon-1395-sqft'
     | '/about'
     | '/apartments-for-sale-dlf-phase-1-gurgaon'
     | '/auth'
@@ -890,6 +923,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/tonino-lamborghini-residences-sector-71-gurgaon'
     | '/under-construction-projects-gurgaon'
+    | '/whatsapp'
     | '/api/enquiry'
     | '/api/seller-submission'
     | '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026'
@@ -903,6 +937,7 @@ export interface FileRouteTypes {
     | '/projects/dlf-the-arbour-sector-63-gurgaon'
     | '/projects/dlf-the-primus-sector-82a-gurgaon'
     | '/projects/dlf-the-skycourt-sector-86'
+    | '/projects/emaar-emerald-estate-sector-65-gurgaon'
     | '/projects/emaar-urban-oasis-sector-62'
     | '/projects/godrej-sora-sector-53-gurgaon'
     | '/projects/m3m-golf-hills-sector-79-gurgaon'
@@ -929,6 +964,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/3-bhk-builder-floor-for-sale-vatika-inxt-floors-sector-82a-gurgaon'
+    | '/3-bhk-for-sale-emaar-emerald-estate-sector-65-gurgaon-1395-sqft'
     | '/about'
     | '/apartments-for-sale-dlf-phase-1-gurgaon'
     | '/auth'
@@ -971,6 +1007,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/tonino-lamborghini-residences-sector-71-gurgaon'
     | '/under-construction-projects-gurgaon'
+    | '/whatsapp'
     | '/api/enquiry'
     | '/api/seller-submission'
     | '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026'
@@ -984,6 +1021,7 @@ export interface FileRouteTypes {
     | '/projects/dlf-the-arbour-sector-63-gurgaon'
     | '/projects/dlf-the-primus-sector-82a-gurgaon'
     | '/projects/dlf-the-skycourt-sector-86'
+    | '/projects/emaar-emerald-estate-sector-65-gurgaon'
     | '/projects/emaar-urban-oasis-sector-62'
     | '/projects/godrej-sora-sector-53-gurgaon'
     | '/projects/m3m-golf-hills-sector-79-gurgaon'
@@ -1011,6 +1049,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   R3BhkBuilderFloorForSaleVatikaInxtFloorsSector82aGurgaonRoute: typeof R3BhkBuilderFloorForSaleVatikaInxtFloorsSector82aGurgaonRoute
+  R3BhkForSaleEmaarEmeraldEstateSector65Gurgaon1395SqftRoute: typeof R3BhkForSaleEmaarEmeraldEstateSector65Gurgaon1395SqftRoute
   AboutRoute: typeof AboutRoute
   ApartmentsForSaleDlfPhase1GurgaonRoute: typeof ApartmentsForSaleDlfPhase1GurgaonRoute
   AuthRoute: typeof AuthRoute
@@ -1053,6 +1092,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ToninoLamborghiniResidencesSector71GurgaonRoute: typeof ToninoLamborghiniResidencesSector71GurgaonRoute
   UnderConstructionProjectsGurgaonRoute: typeof UnderConstructionProjectsGurgaonRoute
+  WhatsappRoute: typeof WhatsappRoute
   ApiEnquiryRoute: typeof ApiEnquiryRoute
   ApiSellerSubmissionRoute: typeof ApiSellerSubmissionRoute
   LocationsSlugRoute: typeof LocationsSlugRoute
@@ -1078,6 +1118,13 @@ declare module '@tanstack/react-router' {
       path: '/3-bhk-builder-floor-for-sale-vatika-inxt-floors-sector-82a-gurgaon'
       fullPath: '/3-bhk-builder-floor-for-sale-vatika-inxt-floors-sector-82a-gurgaon'
       preLoaderRoute: typeof R3BhkBuilderFloorForSaleVatikaInxtFloorsSector82aGurgaonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/3-bhk-for-sale-emaar-emerald-estate-sector-65-gurgaon-1395-sqft': {
+      id: '/3-bhk-for-sale-emaar-emerald-estate-sector-65-gurgaon-1395-sqft'
+      path: '/3-bhk-for-sale-emaar-emerald-estate-sector-65-gurgaon-1395-sqft'
+      fullPath: '/3-bhk-for-sale-emaar-emerald-estate-sector-65-gurgaon-1395-sqft'
+      preLoaderRoute: typeof R3BhkForSaleEmaarEmeraldEstateSector65Gurgaon1395SqftRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated': {
@@ -1381,6 +1428,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UnderConstructionProjectsGurgaonRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/whatsapp': {
+      id: '/whatsapp'
+      path: '/whatsapp'
+      fullPath: '/whatsapp'
+      preLoaderRoute: typeof WhatsappRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/enquiry': {
       id: '/api/enquiry'
       path: '/api/enquiry'
@@ -1477,6 +1531,13 @@ declare module '@tanstack/react-router' {
       path: '/dlf-the-skycourt-sector-86'
       fullPath: '/projects/dlf-the-skycourt-sector-86'
       preLoaderRoute: typeof ProjectsDlfTheSkycourtSector86RouteImport
+      parentRoute: typeof ProjectsRoute
+    }
+    '/projects/emaar-emerald-estate-sector-65-gurgaon': {
+      id: '/projects/emaar-emerald-estate-sector-65-gurgaon'
+      path: '/emaar-emerald-estate-sector-65-gurgaon'
+      fullPath: '/projects/emaar-emerald-estate-sector-65-gurgaon'
+      preLoaderRoute: typeof ProjectsEmaarEmeraldEstateSector65GurgaonRouteImport
       parentRoute: typeof ProjectsRoute
     }
     '/projects/emaar-urban-oasis-sector-62': {
@@ -1677,6 +1738,7 @@ interface ProjectsRouteChildren {
   ProjectsDlfTheArbourSector63GurgaonRoute: typeof ProjectsDlfTheArbourSector63GurgaonRoute
   ProjectsDlfThePrimusSector82aGurgaonRoute: typeof ProjectsDlfThePrimusSector82aGurgaonRoute
   ProjectsDlfTheSkycourtSector86Route: typeof ProjectsDlfTheSkycourtSector86Route
+  ProjectsEmaarEmeraldEstateSector65GurgaonRoute: typeof ProjectsEmaarEmeraldEstateSector65GurgaonRoute
   ProjectsEmaarUrbanOasisSector62Route: typeof ProjectsEmaarUrbanOasisSector62Route
   ProjectsGodrejSoraSector53GurgaonRoute: typeof ProjectsGodrejSoraSector53GurgaonRoute
   ProjectsM3mGolfHillsSector79GurgaonRoute: typeof ProjectsM3mGolfHillsSector79GurgaonRoute
@@ -1695,6 +1757,8 @@ const ProjectsRouteChildren: ProjectsRouteChildren = {
   ProjectsDlfThePrimusSector82aGurgaonRoute:
     ProjectsDlfThePrimusSector82aGurgaonRoute,
   ProjectsDlfTheSkycourtSector86Route: ProjectsDlfTheSkycourtSector86Route,
+  ProjectsEmaarEmeraldEstateSector65GurgaonRoute:
+    ProjectsEmaarEmeraldEstateSector65GurgaonRoute,
   ProjectsEmaarUrbanOasisSector62Route: ProjectsEmaarUrbanOasisSector62Route,
   ProjectsGodrejSoraSector53GurgaonRoute:
     ProjectsGodrejSoraSector53GurgaonRoute,
@@ -1714,6 +1778,8 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   R3BhkBuilderFloorForSaleVatikaInxtFloorsSector82aGurgaonRoute:
     R3BhkBuilderFloorForSaleVatikaInxtFloorsSector82aGurgaonRoute,
+  R3BhkForSaleEmaarEmeraldEstateSector65Gurgaon1395SqftRoute:
+    R3BhkForSaleEmaarEmeraldEstateSector65Gurgaon1395SqftRoute,
   AboutRoute: AboutRoute,
   ApartmentsForSaleDlfPhase1GurgaonRoute:
     ApartmentsForSaleDlfPhase1GurgaonRoute,
@@ -1764,6 +1830,7 @@ const rootRouteChildren: RootRouteChildren = {
   ToninoLamborghiniResidencesSector71GurgaonRoute:
     ToninoLamborghiniResidencesSector71GurgaonRoute,
   UnderConstructionProjectsGurgaonRoute: UnderConstructionProjectsGurgaonRoute,
+  WhatsappRoute: WhatsappRoute,
   ApiEnquiryRoute: ApiEnquiryRoute,
   ApiSellerSubmissionRoute: ApiSellerSubmissionRoute,
   LocationsSlugRoute: LocationsSlugRoute,
@@ -1788,3 +1855,4 @@ declare module '@tanstack/react-start' {
     config: Awaited<ReturnType<typeof startInstance.getOptions>>
   }
 }
+
