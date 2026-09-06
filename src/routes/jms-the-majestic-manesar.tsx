@@ -17,7 +17,7 @@ const features = ["3 bedrooms and 3 bathrooms*", "Puja room, lounge and private 
 const amenities = ["Pedestrian areas*", "Swimming pool*", "Jogging track*", "Yoga terrace*", "Gymnasium*", "Indoor games*", "Retail / mall facility*", "Community open spaces*"] as const;
 const faqs = [["What is the location of JMS The Majestic?", "Available project material places it in Sector M9, IMT Manesar, Gurugram. Confirm the exact site pin before visiting."], ["What configuration and size are shown?", "The accessible lead page shows 3 BHK low-rise floors of approximately 150–179 square yards. Confirm the approved area basis and available variants."], ["What is the price?", "A reference page displays ₹1.30 crore onwards. This is indicative only; obtain a current written cost sheet before booking."], ["Can Shubh Estate Brokers assist with finance and documents?", "Yes. We coordinate project evaluation, price assessment, lender discussions, title/document review, site visits and transaction steps. Loan approval remains subject to the lender."]] as const;
 
-export const Route = createFileRoute(PAGE_PATH)({
+export const Route = createFileRoute("/jms-the-majestic-manesar")({
   head: () => ({ meta: [
     { title }, { name: "description", content: description }, { name: "robots", content: "index,follow,max-image-preview:large" },
     { property: "og:title", content: title }, { property: "og:description", content: description }, { property: "og:type", content: "website" }, { property: "og:url", content: canonical },
