@@ -12,9 +12,9 @@ export type PublicFeatureRow = { feature_name: string; category: string };
 export const getPublicPropertyDetail = createServerFn({ method: "GET" })
   .inputValidator((input: unknown) => z.object({ slug: z.string().trim().min(1) }).parse(input))
   .handler(async ({ data }) => {
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { supabasePublicServer } = await import("@/integrations/supabase/client.server");
 
-    const { data: property, error: propertyError } = await supabaseAdmin
+    const { data: property, error: propertyError } = await supabasePublicServer
       .from("properties")
       .select("*")
       .eq("slug", data.slug)
@@ -38,24 +38,24 @@ export const getPublicPropertyDetail = createServerFn({ method: "GET" })
     ) as typeof property;
 
     const [imagesResult, featuresResult, builderResult, projectResult] = await Promise.all([
-      supabaseAdmin
+      supabasePublicServer
         .from("property_images")
         .select("id,image_url,alt_text,sort_order,is_primary")
         .eq("property_id", correctedProperty.id)
         .order("sort_order", { ascending: true }),
-      supabaseAdmin
+      supabasePublicServer
         .from("property_features")
         .select("feature_name,category")
         .eq("property_id", correctedProperty.id),
       correctedProperty.builder_id
-        ? supabaseAdmin
+        ? supabasePublicServer
             .from("builders")
             .select("*")
             .eq("id", correctedProperty.builder_id)
             .maybeSingle()
         : Promise.resolve({ data: null, error: null }),
       correctedProperty.project_id
-        ? supabaseAdmin
+        ? supabasePublicServer
             .from("projects")
             .select("*")
             .eq("id", correctedProperty.project_id)

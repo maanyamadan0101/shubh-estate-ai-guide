@@ -5,8 +5,8 @@ import { GURGAON_DIRECTORY_PROJECTS } from "@/data/gurgaon-project-directory";
 import { isPublicSlug } from "@/lib/public-slug";
 
 async function publishedClient() {
-  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-  return supabaseAdmin;
+  const { supabasePublicServer } = await import("@/integrations/supabase/client.server");
+  return supabasePublicServer;
 }
 
 // Keep public property queries deliberately limited to columns already proven

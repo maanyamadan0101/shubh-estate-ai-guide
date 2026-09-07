@@ -223,9 +223,9 @@ async function loadProjectHubs(): Promise<ProjectHub[]> {
   }
 
   try {
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { supabasePublicServer } = await import("@/integrations/supabase/client.server");
     const [propertyResult, projectResult, builderResult] = await Promise.all([
-      supabaseAdmin
+      supabasePublicServer
         .from("properties")
         .select(
           "id,title,slug,bhk,property_type,listing_type,status,price,area_sqft,carpet_area_sqft,features,sector,locality,city,cover_image_url,project_id,facing,furnishing,parking,floor_number,total_floors,bathrooms,balconies,servant_room,study_room,updated_at",
@@ -234,11 +234,11 @@ async function loadProjectHubs(): Promise<ProjectHub[]> {
         .neq("status", "sold_out")
         .order("updated_at", { ascending: false })
         .limit(500),
-      supabaseAdmin
+      supabasePublicServer
         .from("projects")
         .select("id,name,slug,sector,locality,description,rera_number,builder_id")
         .limit(300),
-      supabaseAdmin.from("builders").select("id,name").limit(200),
+      supabasePublicServer.from("builders").select("id,name").limit(200),
     ]);
 
     if (propertyResult.error) {
