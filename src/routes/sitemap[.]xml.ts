@@ -60,7 +60,7 @@ const STATIC_PATHS: StaticPath[] = [
   {
     path: "/projects/bptp-astaire-gardens-sector-70a-gurgaon",
     priority: "0.9",
-    lastmod: "2026-09-06",
+    lastmod: "2026-09-07",
   },
   {
     path: "/ireo-skyon-3-bhk-for-sale-sector-60-gurgaon",
@@ -195,7 +195,7 @@ function escapeXml(value: string) {
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
-    .replace(/\"/g, "&quot;")
+    .replace(/"/g, "&quot;")
     .replace(/'/g, "&apos;");
 }
 

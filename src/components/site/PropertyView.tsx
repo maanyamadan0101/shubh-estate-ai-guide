@@ -18,7 +18,7 @@ import { Button } from "@/components/ui/button";
 import { EnquiryForm } from "@/components/site/EnquiryForm";
 import { ListingCard } from "@/components/site/ListingCard";
 import { CONTACT } from "@/data/site";
-import { trackContact } from "@/lib/analytics";
+import { trackContact, trackEvent } from "@/lib/analytics";
 import { vercelSrcSet } from "@/lib/image-optimization";
 import { formatArea, formatINR, PROPERTY_TYPE_LABEL, STATUS_LABEL } from "@/lib/seo";
 import type { ListingRow } from "@/lib/properties.functions";
@@ -137,10 +137,17 @@ export function PropertyView({
     `Hi Shubh Estate Brokers, I am interested in ${property.title} (${place}). Please share current availability and arrange a call.`,
   );
   const forSale = property.listing_type !== "rent";
+  const superBuiltUpBasis = features.some(
+    (feature) => feature.toLocaleLowerCase("en-IN") === "super built-up area basis",
+  );
 
   const specs = [
     property.bhk ? { icon: Building2, label: "Configuration", value: property.bhk } : null,
-    { icon: Ruler, label: "Built-up area", value: formatArea(property.area_sqft) },
+    {
+      icon: Ruler,
+      label: superBuiltUpBasis ? "Super built-up area" : "Built-up area",
+      value: formatArea(property.area_sqft),
+    },
     property.carpet_area_sqft
       ? { icon: Ruler, label: "Carpet area", value: formatArea(property.carpet_area_sqft) }
       : null,
@@ -207,6 +214,9 @@ export function PropertyView({
                 {PROPERTY_TYPE_LABEL[property.property_type] ?? "Property"} ·{" "}
                 {property.listing_type === "rent" ? "For Rent" : "For Sale"}
               </Badge>
+              <Badge variant="secondary" className="font-normal">
+                Available through Shubh Estate Brokers
+              </Badge>
               {forSale ? (
                 <Badge variant="secondary" className="font-normal">
                   Home loan up to 90%*
@@ -228,6 +238,9 @@ export function PropertyView({
           </div>
           <p className="font-display text-3xl md:text-4xl">{formatINR(property.price)}</p>
         </div>
+        <p className="mt-3 text-xs text-muted-foreground">
+          Published asking price · Shubh property ID {property.id.slice(0, 8).toUpperCase()}
+        </p>
       </section>
 
       {gallery.length ? (
@@ -272,7 +285,14 @@ export function PropertyView({
             </ul>
           ) : null}
         </section>
-      ) : null}
+      ) : (
+        <section className="container-page mt-6">
+          <div className="flex aspect-[16/6] min-h-52 items-center justify-center rounded-xl border border-border bg-muted px-6 text-center text-sm text-muted-foreground">
+            Authorised property photographs are available on request. Arrange a verified site visit
+            with Shubh Estate Brokers.
+          </div>
+        </section>
+      )}
 
       {videos.length ? (
         <section className="container-page mt-8">
@@ -496,7 +516,7 @@ export function PropertyView({
                 </a>
               </Button>
             </div>
-            <div className="mt-6 border-t border-border pt-5">
+            <div id="property-enquiry" className="scroll-mt-32 mt-6 border-t border-border pt-5">
               <p className="font-display text-lg">Request a private viewing</p>
               <p className="mt-1 text-xs text-muted-foreground">
                 Discreet, appointment-only visits for serious buyers and NRI clients.
@@ -529,6 +549,33 @@ export function PropertyView({
             ))}
           </div>
         </section>
+      ) : null}
+      {!isPreview ? (
+        <div className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-3 border-t border-border bg-background p-2 shadow-[0_-8px_24px_rgba(0,0,0,.08)] md:hidden">
+          <a
+            href={`${CONTACT.whatsapp}?text=${whatsappText}`}
+            target="_blank"
+            rel="noreferrer"
+            onClick={() => trackContact("whatsapp", "property_mobile_bar")}
+            className="flex min-h-11 items-center justify-center gap-1 text-xs font-medium"
+          >
+            <MessageCircle className="size-4" /> WhatsApp
+          </a>
+          <a
+            href="#property-enquiry"
+            onClick={() => trackEvent("site_visit_request", { property_id: property.id })}
+            className="flex min-h-11 items-center justify-center border-x border-border px-2 text-center text-xs font-medium"
+          >
+            Schedule Visit
+          </a>
+          <a
+            href={CONTACT.phoneHref}
+            onClick={() => trackContact("phone", "property_mobile_bar")}
+            className="flex min-h-11 items-center justify-center gap-1 text-xs font-medium"
+          >
+            <Phone className="size-4" /> Call
+          </a>
+        </div>
       ) : null}
     </>
   );

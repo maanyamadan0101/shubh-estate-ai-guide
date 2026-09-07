@@ -16,6 +16,8 @@ export type ProjectHubListing = {
   price: number | null;
   display_price: string | null;
   area_sqft: number | null;
+  carpet_area_sqft: number | null;
+  features: string | null;
   sector: string | null;
   locality: string | null;
   city: string;
@@ -25,6 +27,10 @@ export type ProjectHubListing = {
   furnishing: string | null;
   parking: number | null;
   total_floors: number | null;
+  bathrooms: number | null;
+  balconies: number | null;
+  servant_room: boolean;
+  study_room: boolean;
   updated_at: string | null;
 };
 
@@ -52,6 +58,8 @@ type DbListing = {
   status: string;
   price: number;
   area_sqft: number | null;
+  carpet_area_sqft: number | null;
+  features: string | null;
   sector: string | null;
   locality: string | null;
   city: string;
@@ -62,6 +70,10 @@ type DbListing = {
   parking: number | null;
   floor_number: number | null;
   total_floors: number | null;
+  bathrooms: number | null;
+  balconies: number | null;
+  servant_room: boolean;
+  study_room: boolean;
   updated_at: string;
 };
 
@@ -96,6 +108,8 @@ function dbListingToHubListing(row: DbListing): ProjectHubListing {
     price: row.price,
     display_price: null,
     area_sqft: row.area_sqft,
+    carpet_area_sqft: row.carpet_area_sqft,
+    features: row.features,
     sector: row.sector,
     locality: row.locality,
     city: row.city,
@@ -105,6 +119,10 @@ function dbListingToHubListing(row: DbListing): ProjectHubListing {
     furnishing: row.furnishing,
     parking: row.parking,
     total_floors: row.total_floors,
+    bathrooms: row.bathrooms,
+    balconies: row.balconies,
+    servant_room: row.servant_room,
+    study_room: row.study_room,
     updated_at: row.updated_at,
   };
 }
@@ -124,6 +142,8 @@ function staticListingToHubListing(
     price: row.price,
     display_price: row.display_price,
     area_sqft: row.area_sqft,
+    carpet_area_sqft: null,
+    features: null,
     sector: row.sector,
     locality: row.locality,
     city: row.city,
@@ -133,6 +153,10 @@ function staticListingToHubListing(
     furnishing: null,
     parking: null,
     total_floors: null,
+    bathrooms: null,
+    balconies: null,
+    servant_room: false,
+    study_room: false,
     updated_at: "2026-08-21",
   };
 }
@@ -199,23 +223,22 @@ async function loadProjectHubs(): Promise<ProjectHub[]> {
   }
 
   try {
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { supabasePublicServer } = await import("@/integrations/supabase/client.server");
     const [propertyResult, projectResult, builderResult] = await Promise.all([
-      supabaseAdmin
+      supabasePublicServer
         .from("properties")
         .select(
-          "id,title,slug,bhk,property_type,listing_type,status,price,area_sqft,sector,locality,city,cover_image_url,project_id,facing,furnishing,parking,floor_number,total_floors,updated_at",
+          "id,title,slug,bhk,property_type,listing_type,status,price,area_sqft,carpet_area_sqft,features,sector,locality,city,cover_image_url,project_id,facing,furnishing,parking,floor_number,total_floors,bathrooms,balconies,servant_room,study_room,updated_at",
         )
         .eq("is_published", true)
         .neq("status", "sold_out")
         .order("updated_at", { ascending: false })
         .limit(500),
-      supabaseAdmin
+      supabasePublicServer
         .from("projects")
-        .select("id,name,slug,sector,locality,description,rera_number,possession_date,builder_id")
-        .eq("is_published", true)
+        .select("id,name,slug,sector,locality,description,rera_number,builder_id")
         .limit(300),
-      supabaseAdmin.from("builders").select("id,name").eq("is_published", true).limit(200),
+      supabasePublicServer.from("builders").select("id,name").limit(200),
     ]);
 
     if (propertyResult.error) {
@@ -254,7 +277,7 @@ async function loadProjectHubs(): Promise<ProjectHub[]> {
         city: row.city,
         description: project?.description ?? null,
         rera_number: project?.rera_number ?? null,
-        possession_date: project?.possession_date ?? null,
+        possession_date: null,
         builder_name: project?.builder_id ? (builders.get(project.builder_id)?.name ?? null) : null,
         updated_at: row.updated_at,
       });

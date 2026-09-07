@@ -24,9 +24,9 @@ import { formatArea, formatINR, SITE_ORIGIN } from "@/lib/seo";
 const SLUG = "bptp-astaire-gardens-sector-70a";
 const PATH = "/projects/bptp-astaire-gardens-sector-70a-gurgaon";
 const canonical = `${SITE_ORIGIN}${PATH}`;
-const title = "BPTP Astaire Gardens Sector 70A Gurgaon | Resale Properties";
+const title = "BPTP Astaire Gardens Sector 70A Gurgaon | Properties for Sale";
 const description =
-  "View current BPTP Astaire Gardens Sector 70A Gurgaon resale properties, asking prices, sizes, amenities and buyer checks. Compare verified Shubh inventory.";
+  "Compare current BPTP Astaire Gardens Sector 70A Gurgaon builder floors for sale, asking prices, areas, floors, features and buyer checks with Shubh Estate Brokers.";
 const LAST_VERIFIED = "6 September 2026";
 
 const fallbackHub: ProjectHub = {
@@ -122,7 +122,7 @@ export const Route = createFileRoute("/projects/bptp-astaire-gardens-sector-70a-
             name: title,
             description,
             url: canonical,
-            dateModified: "2026-09-06",
+            dateModified: "2026-09-07",
             about: {
               "@type": "Place",
               name: "BPTP Astaire Gardens",
@@ -206,9 +206,11 @@ function areaRange(listings: ProjectHub["listings"]) {
 
 function AstairePage() {
   const hub = Route.useLoaderData();
-  const asking = priceRange(hub.listings);
-  const areas = areaRange(hub.listings);
-  const configs = [...new Set(hub.listings.map((item) => item.bhk).filter(Boolean))].join(", ");
+  const saleListings = hub.listings.filter((item) => item.listing_type !== "rent");
+  const rentListings = hub.listings.filter((item) => item.listing_type === "rent");
+  const asking = priceRange(saleListings);
+  const areas = areaRange(saleListings);
+  const configs = [...new Set(saleListings.map((item) => item.bhk).filter(Boolean))].join(", ");
   const updated = hub.updated_at
     ? new Intl.DateTimeFormat("en-IN", { day: "numeric", month: "short", year: "numeric" }).format(
         new Date(hub.updated_at),
@@ -271,7 +273,10 @@ function AstairePage() {
             ["Location", "Sector 70A, Gurugram"],
             ["Developer brand", "BPTP"],
             ["Property character", "Plots, floors & villas"],
-            ["Current inventory", `${hub.listings.length} published`],
+            ["Current sale inventory", `${saleListings.length} published`],
+            ...(rentListings.length
+              ? [["Current rental inventory", `${rentListings.length} published`]]
+              : []),
             ...(asking ? [["Published asking range", asking]] : []),
             ...(areas ? [["Published size range", areas]] : []),
             ...(configs ? [["Published configurations", configs]] : []),
@@ -356,9 +361,7 @@ function AstairePage() {
             Only published Shubh Estate Brokers records appear below. Filters change the on-page
             view and do not create crawlable query-string duplicates.
           </p>
-          <AstaireInventory
-            listings={hub.listings.filter((item) => item.listing_type !== "rent")}
-          />
+          <AstaireInventory listings={hub.listings} />
         </section>
 
         <section id="price-sizes" className="scroll-mt-36">
@@ -366,7 +369,7 @@ function AstairePage() {
             Inventory intelligence
           </p>
           <h2 className="mt-2 font-display text-3xl">BPTP Astaire Gardens Current Asking Prices</h2>
-          {hub.listings.length ? (
+          {saleListings.length ? (
             <div className="mt-6 overflow-x-auto rounded-xl border border-border">
               <table className="min-w-[620px] w-full text-left text-sm">
                 <thead className="bg-muted">
@@ -381,7 +384,7 @@ function AstairePage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {hub.listings.map((item) => (
+                  {saleListings.map((item) => (
                     <tr key={item.id} className="border-t border-border">
                       <td className="p-4">{item.bhk ?? "Property"}</td>
                       <td className="p-4">

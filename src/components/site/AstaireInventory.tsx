@@ -9,6 +9,32 @@ import { vercelImageUrl, vercelSrcSet } from "@/lib/image-optimization";
 import { Button } from "@/components/ui/button";
 
 type Sort = "newest" | "price-low" | "price-high" | "area";
+type Transaction = "all" | "sale" | "rent";
+
+function featureItems(value: string | null) {
+  return (value ?? "")
+    .split("|")
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+function featureValue(value: string | null, label: string) {
+  const prefix = `${label.toLocaleLowerCase("en-IN")}:`;
+  return (
+    featureItems(value)
+      .find((item) => item.toLocaleLowerCase("en-IN").startsWith(prefix))
+      ?.split(":")
+      .slice(1)
+      .join(":")
+      .trim() ?? null
+  );
+}
+
+function hasFeature(value: string | null, label: string) {
+  return featureItems(value).some(
+    (item) => item.toLocaleLowerCase("en-IN") === label.toLocaleLowerCase("en-IN"),
+  );
+}
 
 function updatedLabel(value: string | null) {
   if (!value) return "Reconfirm before visit";
@@ -22,14 +48,19 @@ function updatedLabel(value: string | null) {
 export function AstaireInventory({ listings }: { listings: ProjectHubListing[] }) {
   const [configuration, setConfiguration] = useState("all");
   const [propertyType, setPropertyType] = useState("all");
+  const [transaction, setTransaction] = useState<Transaction>("all");
   const [sort, setSort] = useState<Sort>("newest");
   const [compare, setCompare] = useState<string[]>([]);
 
   const configurations = [...new Set(listings.map((item) => item.bhk).filter(Boolean))] as string[];
   const propertyTypes = [...new Set(listings.map((item) => item.property_type).filter(Boolean))];
+  const hasRent = listings.some((item) => item.listing_type === "rent");
+  const hasSale = listings.some((item) => item.listing_type !== "rent");
   const visible = useMemo(() => {
     const rows = listings.filter(
       (item) =>
+        (transaction === "all" ||
+          (transaction === "rent" ? item.listing_type === "rent" : item.listing_type !== "rent")) &&
         (configuration === "all" || item.bhk === configuration) &&
         (propertyType === "all" || item.property_type === propertyType),
     );
@@ -40,7 +71,7 @@ export function AstaireInventory({ listings }: { listings: ProjectHubListing[] }
       if (sort === "area") return (b.area_sqft ?? 0) - (a.area_sqft ?? 0);
       return new Date(b.updated_at ?? 0).getTime() - new Date(a.updated_at ?? 0).getTime();
     });
-  }, [configuration, propertyType, sort, listings]);
+  }, [configuration, propertyType, transaction, sort, listings]);
   const selected = listings.filter((item) => compare.includes(item.id));
 
   function toggleCompare(id: string) {
@@ -60,6 +91,26 @@ export function AstaireInventory({ listings }: { listings: ProjectHubListing[] }
 
   return (
     <>
+      {hasRent ? (
+        <div className="mt-6 flex gap-2 overflow-x-auto" aria-label="Inventory transaction type">
+          {(
+            [
+              ["all", "All Properties"],
+              ...(hasSale ? [["sale", "For Sale"]] : []),
+              ["rent", "For Rent"],
+            ] as Array<[Transaction, string]>
+          ).map(([value, label]) => (
+            <button
+              key={value}
+              type="button"
+              onClick={() => setTransaction(value)}
+              className={`min-h-11 whitespace-nowrap rounded-full border px-4 text-sm font-medium ${transaction === value ? "border-gold bg-gold text-gold-foreground" : "border-border bg-card"}`}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+      ) : null}
       <div className="mt-6 grid gap-3 rounded-xl border border-border bg-card p-4 sm:grid-cols-3">
         <label className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
           Configuration
@@ -154,7 +205,9 @@ export function AstaireInventory({ listings }: { listings: ProjectHubListing[] }
               )}
               <div className="p-5">
                 <div className="flex flex-wrap gap-2 text-xs">
-                  <span className="rounded-full bg-gold/10 px-2.5 py-1 text-gold">For Sale</span>
+                  <span className="rounded-full bg-gold/10 px-2.5 py-1 text-gold">
+                    {listing.listing_type === "rent" ? "For Rent" : "For Sale"}
+                  </span>
                   {listing.status ? (
                     <span className="rounded-full bg-muted px-2.5 py-1">
                       {STATUS_LABEL[listing.status] ?? listing.status}
@@ -171,7 +224,7 @@ export function AstaireInventory({ listings }: { listings: ProjectHubListing[] }
                   ) : null}
                   {listing.area_sqft ? (
                     <div>
-                      <dt className="text-muted-foreground">Area</dt>
+                      <dt className="text-muted-foreground">Super built-up area</dt>
                       <dd className="font-medium">{formatArea(listing.area_sqft)}</dd>
                     </div>
                   ) : null}
@@ -202,11 +255,31 @@ export function AstaireInventory({ listings }: { listings: ProjectHubListing[] }
                     </div>
                   ) : null}
                 </dl>
+                {featureItems(listing.features).length ? (
+                  <ul className="mt-4 flex flex-wrap gap-2">
+                    {featureItems(listing.features)
+                      .slice(0, 5)
+                      .map((feature) => (
+                        <li
+                          key={feature}
+                          className="rounded-full bg-muted px-2.5 py-1 text-xs text-muted-foreground"
+                        >
+                          {feature}
+                        </li>
+                      ))}
+                  </ul>
+                ) : null}
                 <div className="mt-5 flex items-end justify-between gap-3 border-t border-border pt-4">
                   <div>
+                    <p className="text-[11px] uppercase tracking-wide text-muted-foreground">
+                      Published asking price
+                    </p>
                     <p className="font-display text-2xl">
                       {listing.display_price || formatINR(listing.price)}
                     </p>
+                    {hasFeature(listing.features, "Price negotiable") ? (
+                      <p className="text-xs text-muted-foreground">Negotiable</p>
+                    ) : null}
                     <p className="text-xs text-muted-foreground">
                       Updated {updatedLabel(listing.updated_at)}
                     </p>
@@ -285,11 +358,17 @@ export function AstaireInventory({ listings }: { listings: ProjectHubListing[] }
                   {[
                     "Property",
                     "Price",
-                    "Area",
+                    "Plot area",
+                    "Carpet area",
+                    "Super built-up area",
                     "Floor",
                     "Facing",
                     "Parking",
                     "Furnishing",
+                    "Property age",
+                    "Roof rights",
+                    "Corner / view",
+                    "Negotiable",
                     "Updated",
                   ].map((h) => (
                     <th key={h} className="p-3 font-medium">
@@ -303,11 +382,32 @@ export function AstaireInventory({ listings }: { listings: ProjectHubListing[] }
                   <tr key={item.id} className="border-b border-border last:border-0">
                     <td className="p-3 font-medium">{item.bhk ?? item.title}</td>
                     <td className="p-3">{item.display_price || formatINR(item.price)}</td>
+                    <td className="p-3">{featureValue(item.features, "Plot area") ?? "—"}</td>
+                    <td className="p-3">
+                      {item.carpet_area_sqft ? formatArea(item.carpet_area_sqft) : "—"}
+                    </td>
                     <td className="p-3">{item.area_sqft ? formatArea(item.area_sqft) : "—"}</td>
                     <td className="p-3">{item.floor ?? "—"}</td>
                     <td className="p-3">{item.facing ?? "—"}</td>
-                    <td className="p-3">{item.parking ?? "—"}</td>
+                    <td className="p-3">
+                      {featureValue(item.features, "Parking") ?? item.parking ?? "—"}
+                    </td>
                     <td className="p-3">{item.furnishing ?? "—"}</td>
+                    <td className="p-3">{featureValue(item.features, "Property age") ?? "—"}</td>
+                    <td className="p-3">
+                      {hasFeature(item.features, "Roof rights") ? "Yes" : "—"}
+                    </td>
+                    <td className="p-3">
+                      {[
+                        hasFeature(item.features, "Corner property") ? "Corner" : null,
+                        featureValue(item.features, "View"),
+                      ]
+                        .filter(Boolean)
+                        .join(" · ") || "—"}
+                    </td>
+                    <td className="p-3">
+                      {hasFeature(item.features, "Price negotiable") ? "Yes" : "—"}
+                    </td>
                     <td className="p-3">{updatedLabel(item.updated_at)}</td>
                   </tr>
                 ))}
