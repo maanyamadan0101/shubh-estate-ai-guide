@@ -1,9 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
-import {
-  applyConfirmedInventoryCorrections,
-  type ListingRow,
-} from "@/lib/properties.functions";
+import { applyConfirmedInventoryCorrections, type ListingRow } from "@/lib/properties.functions";
 
 export type PublicFeatureRow = { feature_name: string; category: string };
 
@@ -53,43 +50,70 @@ export const getPublicPropertyDetail = createServerFn({ method: "GET" })
       correctedProperty.builder_id
         ? supabaseAdmin
             .from("builders")
-            .select("id,name,slug,description,website")
+            .select("*")
             .eq("id", correctedProperty.builder_id)
             .maybeSingle()
         : Promise.resolve({ data: null, error: null }),
       correctedProperty.project_id
         ? supabaseAdmin
             .from("projects")
-            .select("id,name,slug,locality,sector,rera_number,possession_date,description")
+            .select("*")
             .eq("id", correctedProperty.project_id)
             .maybeSingle()
         : Promise.resolve({ data: null, error: null }),
     ]);
 
     if (imagesResult.error) {
-      console.error(`[Public property detail] Could not load images for ${data.slug}:`, imagesResult.error.message);
+      console.error(
+        `[Public property detail] Could not load images for ${data.slug}:`,
+        imagesResult.error.message,
+      );
     }
     if (featuresResult.error) {
-      console.error(`[Public property detail] Could not load features for ${data.slug}:`, featuresResult.error.message);
+      console.error(
+        `[Public property detail] Could not load features for ${data.slug}:`,
+        featuresResult.error.message,
+      );
     }
     if (builderResult.error) {
-      console.error(`[Public property detail] Could not load builder for ${data.slug}:`, builderResult.error.message);
+      console.error(
+        `[Public property detail] Could not load builder for ${data.slug}:`,
+        builderResult.error.message,
+      );
     }
     if (projectResult.error) {
-      console.error(`[Public property detail] Could not load project for ${data.slug}:`, projectResult.error.message);
+      console.error(
+        `[Public property detail] Could not load project for ${data.slug}:`,
+        projectResult.error.message,
+      );
     }
 
     const featureRows = (featuresResult.data ?? []) as PublicFeatureRow[];
 
+    const builder = builderResult.data as unknown as {
+      id: string;
+      name: string;
+      slug: string;
+      description: string | null;
+      website_url?: string | null;
+      website?: string | null;
+    } | null;
+
     return {
       property: {
         ...correctedProperty,
-        builder: builderResult.data ?? null,
-        project: projectResult.data ?? null,
+        builder: builder
+          ? { ...builder, website: builder.website_url ?? builder.website ?? null }
+          : null,
+        project: projectResult.data ? { ...projectResult.data, possession_date: null } : null,
       },
       images: imagesResult.data ?? [],
-      amenities: featureRows.filter((row) => row.category === "amenity").map((row) => row.feature_name),
-      features: featureRows.filter((row) => row.category === "feature").map((row) => row.feature_name),
+      amenities: featureRows
+        .filter((row) => row.category === "amenity")
+        .map((row) => row.feature_name),
+      features: featureRows
+        .filter((row) => row.category === "feature")
+        .map((row) => row.feature_name),
       videos: featureRows.filter((row) => row.category === "video").map((row) => row.feature_name),
     };
   });
