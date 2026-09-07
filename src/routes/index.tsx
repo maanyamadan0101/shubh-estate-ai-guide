@@ -37,6 +37,7 @@ export const Route = createFileRoute("/")({
       data: { limit: 6, statuses: ["under_construction", "new_launch"] },
     }),
   head: () => {
+    const homepageUrl = `${SITE_ORIGIN}/`;
     const title = "Property in Gurgaon | Shubh Estate Brokers";
     const description =
       "Make safer Gurgaon property decisions with founder-led, banking-grade advice covering verified listings, price context, title assessment, due diligence and mortgage structuring.";
@@ -54,14 +55,28 @@ export const Route = createFileRoute("/")({
           content:
             "Verified Gurgaon properties with objective valuation, title assessment, mortgage structuring and transaction-risk guidance.",
         },
-        { property: "og:url", content: SITE_ORIGIN },
+        { property: "og:url", content: homepageUrl },
         { property: "og:image", content: `${SITE_ORIGIN}${heroImage}` },
         { name: "twitter:card", content: "summary_large_image" },
         { name: "twitter:title", content: title },
         { name: "twitter:description", content: description },
       ],
-      links: [{ rel: "canonical", href: SITE_ORIGIN }],
+      links: [{ rel: "canonical", href: homepageUrl }],
       scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "@id": `${homepageUrl}#webpage`,
+            url: homepageUrl,
+            name: title,
+            description,
+            isPartOf: { "@id": `${SITE_ORIGIN}/#website` },
+            about: { "@id": `${SITE_ORIGIN}/#real-estate-agent` },
+            inLanguage: "en-IN",
+          }),
+        },
         {
           type: "application/ld+json",
           children: JSON.stringify({

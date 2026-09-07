@@ -173,6 +173,7 @@ const localBusinessSchema = {
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
+  "@id": `${SITE_ORIGIN}/#website`,
   name: "Shubh Estate Brokers",
   alternateName: "Shubh Estate",
   url: SITE_ORIGIN,

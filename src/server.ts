@@ -62,6 +62,17 @@ function staleRouteTemplateResponse(request: Request): Response | null {
 function canonicalRedirect(request: Request): Response | null {
   if (request.method !== "GET" && request.method !== "HEAD") return null;
   const url = new URL(request.url);
+
+  // Consolidate the legacy static-document form into the only public homepage.
+  // Vercel otherwise lets the application return a crawlable 404 for this URL.
+  if (url.pathname === "/index.html") {
+    url.pathname = "/";
+    return new Response(null, {
+      status: 308,
+      headers: { Location: url.toString(), "Cache-Control": "public, max-age=3600" },
+    });
+  }
+
   const mapped = CANONICAL_PATH_REDIRECTS[url.pathname];
 
   if (mapped) {
