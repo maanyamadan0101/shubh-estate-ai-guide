@@ -109,12 +109,10 @@ export function AstaireInventory({ listings }: { listings: ProjectHubListing[] }
       {!listings.length ? (
         <div className="mt-6 rounded-2xl border border-gold/30 bg-gold/5 p-6 md:p-8">
           <SlidersHorizontal className="size-6 text-gold" aria-hidden="true" />
-          <h3 className="mt-3 font-display text-2xl">
-            No verified Shubh inventory is currently published
-          </h3>
+          <h3 className="mt-3 font-display text-2xl">Request current available properties</h3>
           <p className="mt-2 max-w-2xl leading-7 text-muted-foreground">
-            Share your preferred configuration, budget, floor and area. We can check current owner
-            inventory without presenting unverified portal listings as our own.
+            Share your preferred configuration, budget, floor and area for the latest BPTP Astaire
+            Gardens options and unit-wise details.
           </p>
           <Button asChild variant="gold" className="mt-5">
             <a href="#enquire">Send Requirement</a>

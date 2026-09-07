@@ -401,8 +401,8 @@ function AstairePage() {
             </div>
           ) : (
             <p className="mt-4 leading-7 text-muted-foreground">
-              No asking-price table is shown because there is no active published Shubh inventory.
-              We do not substitute third-party portal quotes or label them as market value.
+              Contact Shubh Estate Brokers for current unit-wise asking prices, areas, floor
+              positions and availability in BPTP Astaire Gardens.
             </p>
           )}
           <p className="mt-4 text-sm leading-6 text-muted-foreground">
