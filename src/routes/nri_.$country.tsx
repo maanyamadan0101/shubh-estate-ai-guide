@@ -117,6 +117,7 @@ export const Route = createFileRoute("/nri_/$country")({
       meta: [
         { title: market.title },
         { name: "description", content: market.description },
+        { name: "robots", content: "index,follow,max-image-preview:large" },
         { property: "og:title", content: market.title },
         { property: "og:description", content: market.description },
         { property: "og:type", content: "website" },

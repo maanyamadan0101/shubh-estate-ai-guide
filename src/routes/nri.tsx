@@ -109,6 +109,7 @@ export const Route = createFileRoute("/nri")({
         content:
           "NRI property services in Gurgaon for overseas buyers and sellers: property search, remote walkthroughs, resale marketing, buyer sourcing, financing and transaction coordination.",
       },
+      { name: "robots", content: "index,follow,max-image-preview:large" },
       { property: "og:title", content: "NRI Property Services in Gurgaon | Buyers & Sellers" },
       {
         property: "og:description",
