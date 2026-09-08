@@ -205,10 +205,10 @@ function Home() {
               Gurgaon property decisions, backed by
               <span className="text-gradient-gold"> banking-grade judgement.</span>
             </h1>
-            <h2 className="mt-7 max-w-3xl font-sans text-sm font-semibold uppercase leading-7 tracking-[0.14em] text-gold md:text-base">
+            <p className="mt-7 max-w-3xl font-sans text-sm font-semibold uppercase leading-7 tracking-[0.14em] text-gold md:text-base">
               Objective valuation · Title assessment · Mortgage structuring · Due-diligence
               coordination
-            </h2>
+            </p>
             <p className="mt-5 max-w-3xl text-base leading-7 text-white/85 md:text-lg md:leading-8">
               Shubh Estate Brokers helps buyers, sellers and NRI owners understand a property's
               price, paperwork, financing and transaction risks before booking funds are committed.
