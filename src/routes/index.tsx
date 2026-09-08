@@ -39,7 +39,7 @@ export const Route = createFileRoute("/")({
   head: () => {
     const title = "Property in Gurgaon | Shubh Estate Brokers";
     const description =
-      "Make safer Gurgaon property decisions with founder-led, banking-grade advice covering verified listings, price context, title assessment, due diligence and mortgage structuring.";
+      "Visit Shubh Estate Brokers in Sector 51 Gurugram for Gurgaon property advice, verified listings, price assessment, due diligence and home-loan support.";
 
     return {
       meta: [

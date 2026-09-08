@@ -7,9 +7,9 @@ import { SITE_ORIGIN } from "@/lib/seo";
 export const Route = createFileRoute("/gurugram-growth-story")({
   head: () => {
     const canonical = `${SITE_ORIGIN}/gurugram-growth-story`;
-    const title = "The Growth Story of Gurugram – India's Millennium City";
+    const title = "History of Gurgaon & Gurugram Growth Story | Timeline";
     const description =
-      "From Sanskrit villages to Cyber City: how DLF, Golf Course Road, Dwarka Expressway, SPR, the Metro and major infrastructure shaped Gurugram's property market.";
+      "Explore Gurgaon's history and Gurugram's growth from early villages to Cyber City, including DLF, Metro, Golf Course Road, SPR and Dwarka Expressway.";
 
     return {
       meta: [
@@ -18,7 +18,8 @@ export const Route = createFileRoute("/gurugram-growth-story")({
         { property: "og:title", content: title },
         {
           property: "og:description",
-          content: "A deep dive into Gurugram's infrastructure, property corridors, housing market and investment considerations.",
+          content:
+            "A deep dive into Gurugram's infrastructure, property corridors, housing market and investment considerations.",
         },
         { property: "og:type", content: "article" },
         { property: "og:url", content: canonical },
@@ -65,15 +66,36 @@ export const Route = createFileRoute("/gurugram-growth-story")({
 });
 
 const TIMELINE = [
-  ["1980s", "DLF begins aggregating farmland in Gurgaon, laying out DLF Phases I–V and inventing India's first large private township."],
-  ["1997", "GE's captive centre lands in Gurgaon, seeding the BPO and IT boom that would define the district."],
-  ["2002", "Cyber City takes shape; global occupiers anchor Gurgaon as the NCR's corporate address."],
-  ["2008", "Golf Course Road densifies with premium condominiums; the city's luxury benchmark is set."],
-  ["2013", "Rapid Metro opens, linking Cyber City with the Delhi Metro Yellow Line at Sikanderpur."],
-  ["2016", "Golf Course Extension Road and Sohna Road mature into mid-to-premium residential corridors."],
+  [
+    "1980s",
+    "DLF begins aggregating farmland in Gurgaon, laying out DLF Phases I–V and inventing India's first large private township.",
+  ],
+  [
+    "1997",
+    "GE's captive centre lands in Gurgaon, seeding the BPO and IT boom that would define the district.",
+  ],
+  [
+    "2002",
+    "Cyber City takes shape; global occupiers anchor Gurgaon as the NCR's corporate address.",
+  ],
+  [
+    "2008",
+    "Golf Course Road densifies with premium condominiums; the city's luxury benchmark is set.",
+  ],
+  [
+    "2013",
+    "Rapid Metro opens, linking Cyber City with the Delhi Metro Yellow Line at Sikanderpur.",
+  ],
+  [
+    "2016",
+    "Golf Course Extension Road and Sohna Road mature into mid-to-premium residential corridors.",
+  ],
   ["2021", "Southern Peripheral Road completes key stretches, unlocking Sectors 68–80."],
   ["2024", "Dwarka Expressway opens, cutting airport travel time and re-rating Sectors 99–113."],
-  ["Next", "Global City, DMIC nodes, metro extension to Old Gurugram and broader NCR connectivity."],
+  [
+    "Next",
+    "Global City, DMIC nodes, metro extension to Old Gurugram and broader NCR connectivity.",
+  ],
 ];
 
 const CORRIDORS = [
@@ -114,8 +136,8 @@ function GrowthStory() {
     <>
       <PageHero
         eyebrow="Market Pillar"
-        title="The Growth Story of Gurugram – India's Millennium City"
-        body="How a cluster of farmland villages on the Delhi border became one of India's most important private-sector business centres — and what that means for property buyers today."
+        title="History of Gurgaon and Gurugram's Growth Story"
+        body="Follow the Gurgaon-to-Gurugram timeline from early villages to Cyber City, major residential corridors and one of India's most important private-sector business centres."
       />
 
       <article className="container-page py-16">
@@ -126,29 +148,33 @@ function GrowthStory() {
             </p>
 
             <section>
-              <h2 className="font-display text-3xl">From Guru Dronacharya's village to Cyber City</h2>
+              <h2 className="font-display text-3xl">
+                From Guru Dronacharya's village to Cyber City
+              </h2>
               <p className="mt-4 text-muted-foreground">
-                Gurugram takes its name from Guru Dronacharya, the teacher of the Pandavas, and for most of the
-                twentieth century it remained an agrarian district on Delhi's south-western edge. The transformation
-                accelerated from the 1980s as private development, industrial growth and proximity to Delhi reshaped
-                the district.
+                Gurugram takes its name from Guru Dronacharya, the teacher of the Pandavas, and for
+                most of the twentieth century it remained an agrarian district on Delhi's
+                south-western edge. The transformation accelerated from the 1980s as private
+                development, industrial growth and proximity to Delhi reshaped the district.
               </p>
               <p className="mt-4 text-muted-foreground">
-                What followed was unusual in Indian urbanism: large parts of the modern city were delivered through
-                private townships and commercial developments, while public infrastructure expanded in parallel. That
-                model helps explain both Gurugram's speed of growth and its infrastructure asymmetries — and why
-                location and project-level diligence remain important here.
+                What followed was unusual in Indian urbanism: large parts of the modern city were
+                delivered through private townships and commercial developments, while public
+                infrastructure expanded in parallel. That model helps explain both Gurugram's speed
+                of growth and its infrastructure asymmetries — and why location and project-level
+                diligence remain important here.
               </p>
             </section>
 
             <section>
               <h2 className="font-display text-3xl">The corporate engine</h2>
               <p className="mt-4 text-muted-foreground">
-                Global services companies and large Indian employers helped establish Gurgaon as a major office market.
-                Cyber City, Udyog Vihar, Golf Course Road's office clusters and newer commercial corridors support a
-                substantial employment base. Residential demand is closely connected to this occupier ecosystem, which
-                is why serious property analysis should consider office absorption, commute patterns and rental depth —
-                not only launch prices.
+                Global services companies and large Indian employers helped establish Gurgaon as a
+                major office market. Cyber City, Udyog Vihar, Golf Course Road's office clusters and
+                newer commercial corridors support a substantial employment base. Residential demand
+                is closely connected to this occupier ecosystem, which is why serious property
+                analysis should consider office absorption, commute patterns and rental depth — not
+                only launch prices.
               </p>
             </section>
 
@@ -176,24 +202,30 @@ function GrowthStory() {
                   >
                     <h3 className="font-display text-xl">{c.name}</h3>
                     <p className="mt-2 text-sm text-muted-foreground">{c.body}</p>
-                    <span className="mt-4 inline-block text-sm font-medium text-gold">Explore this Gurugram corridor →</span>
+                    <span className="mt-4 inline-block text-sm font-medium text-gold">
+                      Explore this Gurugram corridor →
+                    </span>
                   </a>
                 ))}
               </div>
             </section>
 
             <section>
-              <h2 className="font-display text-3xl">Connectivity: how infrastructure changes the decision</h2>
+              <h2 className="font-display text-3xl">
+                Connectivity: how infrastructure changes the decision
+              </h2>
               <p className="mt-4 text-muted-foreground">
-                Metro expansion, expressway connectivity, new commercial districts and wider NCR infrastructure can
-                change travel times, occupier interest and the relative appeal of different Gurugram sectors. These
-                projects should be evaluated by current construction status, actual access, delivery risk and the price
-                premium already reflected in a property.
+                Metro expansion, expressway connectivity, new commercial districts and wider NCR
+                infrastructure can change travel times, occupier interest and the relative appeal of
+                different Gurugram sectors. These projects should be evaluated by current
+                construction status, actual access, delivery risk and the price premium already
+                reflected in a property.
               </p>
               <p className="mt-4 text-muted-foreground">
-                Infrastructure announcements do not guarantee property appreciation. A disciplined buyer should compare
-                title and approvals, developer execution, surrounding supply, financing cost, rental demand and a
-                realistic holding period before paying an infrastructure-led premium.
+                Infrastructure announcements do not guarantee property appreciation. A disciplined
+                buyer should compare title and approvals, developer execution, surrounding supply,
+                financing cost, rental demand and a realistic holding period before paying an
+                infrastructure-led premium.
               </p>
             </section>
 
@@ -201,12 +233,20 @@ function GrowthStory() {
               <h2 className="font-display text-3xl">Where the market stands today</h2>
               <div className="mt-6 overflow-x-auto">
                 <table className="w-full min-w-md text-left text-sm">
-                  <caption className="sr-only">Indicative average prices and annual growth by Gurugram corridor</caption>
+                  <caption className="sr-only">
+                    Indicative average prices and annual growth by Gurugram corridor
+                  </caption>
                   <thead>
                     <tr className="border-b border-border text-xs uppercase tracking-[0.14em] text-muted-foreground">
-                      <th scope="col" className="py-3">Corridor</th>
-                      <th scope="col" className="py-3">Indicative price</th>
-                      <th scope="col" className="py-3">Observed trend</th>
+                      <th scope="col" className="py-3">
+                        Corridor
+                      </th>
+                      <th scope="col" className="py-3">
+                        Indicative price
+                      </th>
+                      <th scope="col" className="py-3">
+                        Observed trend
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -221,19 +261,20 @@ function GrowthStory() {
                 </table>
               </div>
               <p className="mt-4 text-xs text-muted-foreground">
-                Indicative market observations only; corridor averages can hide large differences between projects and
-                individual units. Verify current asking prices, recent comparable transactions and project-specific
-                conditions before transacting.
+                Indicative market observations only; corridor averages can hide large differences
+                between projects and individual units. Verify current asking prices, recent
+                comparable transactions and project-specific conditions before transacting.
               </p>
             </section>
 
             <section>
               <h2 className="font-display text-3xl">What this means for you</h2>
               <p className="mt-4 text-muted-foreground">
-                Gurugram is not a single property market. A Golf Course Road apartment, a Dwarka Expressway launch, a New
-                Gurgaon apartment and an SPR commercial asset can have different liquidity, financing profiles, supply
-                dynamics and holding periods. Choosing between them requires project-specific analysis rather than a
-                city-wide appreciation assumption.
+                Gurugram is not a single property market. A Golf Course Road apartment, a Dwarka
+                Expressway launch, a New Gurgaon apartment and an SPR commercial asset can have
+                different liquidity, financing profiles, supply dynamics and holding periods.
+                Choosing between them requires project-specific analysis rather than a city-wide
+                appreciation assumption.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Button asChild variant="gold" size="lg">

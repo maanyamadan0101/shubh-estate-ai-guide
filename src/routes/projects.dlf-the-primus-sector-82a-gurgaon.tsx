@@ -642,6 +642,35 @@ function DLFThePrimusPage() {
         </div>
       </section>
 
+      <nav aria-label="Related DLF The Primus property guides" className="container-page pb-4">
+        <div className="rounded-2xl border border-border bg-card p-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gold">
+            Continue your research
+          </p>
+          <div className="mt-4 flex flex-wrap gap-x-5 gap-y-3 text-sm">
+            <Link
+              to="/locations/$slug"
+              params={{ slug: "new-gurgaon" }}
+              className="font-medium text-gold hover:underline"
+            >
+              New Gurgaon property guide
+            </Link>
+            <Link
+              to="/ready-to-move-flats-in-gurgaon"
+              className="font-medium text-gold hover:underline"
+            >
+              Ready-to-move flats in Gurgaon
+            </Link>
+            <Link to="/flats-for-sale-in-gurgaon" className="font-medium text-gold hover:underline">
+              Current Gurgaon resale inventory
+            </Link>
+            <Link to="/home-loans" className="font-medium text-gold hover:underline">
+              Home-loan assistance
+            </Link>
+          </div>
+        </div>
+      </nav>
+
       <section id="enquire" className="container-page py-14 md:py-20">
         <div className="grid gap-10 rounded-[2rem] border border-border bg-card p-7 shadow-sm md:p-10 lg:grid-cols-[minmax(0,1fr)_minmax(330px,.72fr)]">
           <div>

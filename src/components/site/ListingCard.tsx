@@ -11,7 +11,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { verifiedProjectIntelligenceFor } from "@/data/project-intelligence";
 import { CONTACT } from "@/data/site";
-import { trackContact } from "@/lib/analytics";
+import { trackContact, trackEvent } from "@/lib/analytics";
 import { vercelSrcSet } from "@/lib/image-optimization";
 import { representativeProjectImageFor } from "@/lib/project-image-catalog";
 import { isPublicSlug } from "@/lib/public-slug";
@@ -77,6 +77,13 @@ export function ListingCard({
   const whatsappMessage = encodeURIComponent(
     `Hi Shubh Estate Brokers, please reconfirm the current price and availability for ${property.title}.`,
   );
+  const trackPropertyCardClick = (linkLocation: "image" | "title" | "details") =>
+    trackEvent("property_card_click", {
+      property_slug: property.slug,
+      property_title: property.title,
+      link_location: linkLocation,
+      destination_path: propertyHref,
+    });
 
   const visual = (
     <div className="relative aspect-[4/3] overflow-hidden bg-muted">
@@ -131,7 +138,7 @@ export function ListingCard({
 
   return (
     <article className="group overflow-hidden rounded-xl border border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]">
-      <a href={propertyHref} className="block">
+      <a href={propertyHref} className="block" onClick={() => trackPropertyCardClick("image")}>
         {visual}
       </a>
 
@@ -142,7 +149,11 @@ export function ListingCard({
             {property.listing_type === "rent" ? "For Rent" : "For Sale"}
           </p>
           <h3 className="mt-1 font-display text-xl">
-            <a href={propertyHref} className="hover:text-gold">
+            <a
+              href={propertyHref}
+              className="hover:text-gold"
+              onClick={() => trackPropertyCardClick("title")}
+            >
               {property.title}
             </a>
           </h3>
@@ -178,7 +189,10 @@ export function ListingCard({
         </dl>
 
         {cardAmenities.length ? (
-          <p className="text-xs leading-5 text-muted-foreground" aria-label="Verified project amenities">
+          <p
+            className="text-xs leading-5 text-muted-foreground"
+            aria-label="Verified project amenities"
+          >
             <span className="font-semibold text-foreground">Project:</span>{" "}
             {cardAmenities.join(" • ")}
           </p>
@@ -197,6 +211,7 @@ export function ListingCard({
           <p className="font-display text-2xl">{priceLabel}</p>
           <a
             href={propertyHref}
+            onClick={() => trackPropertyCardClick("details")}
             className="text-sm font-medium text-gold underline-offset-4 hover:underline"
           >
             View details

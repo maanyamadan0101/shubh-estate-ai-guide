@@ -13,7 +13,7 @@ const SEO_TEMPLATE_LASTMOD = "2026-08-27";
 
 const STATIC_PATHS: StaticPath[] = [
   { path: "/jms-the-majestic-manesar", priority: "0.9", lastmod: "2026-09-06" },
-  { path: "/", priority: "1.0", lastmod: "2026-09-01" },
+  { path: "/", priority: "1.0", lastmod: "2026-09-08" },
   { path: "/flats-for-sale-in-gurgaon", priority: "0.9", lastmod: "2026-09-01" },
   { path: "/ready-to-move-flats-in-gurgaon", priority: "0.9", lastmod: "2026-08-28" },
   { path: "/properties-for-sale-on-spr-gurgaon", priority: "0.9", lastmod: "2026-08-25" },
@@ -156,7 +156,7 @@ const STATIC_PATHS: StaticPath[] = [
   { path: "/locations/new-gurgaon", priority: "0.7", lastmod: SEO_TEMPLATE_LASTMOD },
   { path: "/home-loans", priority: "0.7", lastmod: SEO_TEMPLATE_LASTMOD },
   { path: "/emi-calculator", priority: "0.6" },
-  { path: "/gurugram-growth-story", priority: "0.6", lastmod: "2026-08-12" },
+  { path: "/gurugram-growth-story", priority: "0.6", lastmod: "2026-09-08" },
   { path: "/about", priority: "0.5", lastmod: SEO_TEMPLATE_LASTMOD },
   { path: "/contact", priority: "0.5", lastmod: SEO_TEMPLATE_LASTMOD },
 ];

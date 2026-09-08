@@ -55,7 +55,11 @@ const LOCATIONS: Record<string, Location> = {
       "The corridor is dominated by completed developments, so buyers can compare the actual apartment, society maintenance, traffic pattern and surrounding infrastructure before committing.",
       "For end users and NRI buyers, we focus on liveability, title and approval checks, maintenance quality, rental demand and realistic resale comparables rather than brochure pricing.",
     ],
-    highlights: ["Established social infrastructure", "Rapid Metro access in parts of the corridor", "Deep completed-home resale market"],
+    highlights: [
+      "Established social infrastructure",
+      "Rapid Metro access in parts of the corridor",
+      "Deep completed-home resale market",
+    ],
     related: [
       {
         href: "/apartments-for-sale-dlf-phase-1-gurgaon",
@@ -78,7 +82,11 @@ const LOCATIONS: Record<string, Location> = {
       "For investors, project selection matters more than simply buying the newest launch. We compare developer execution, construction progress and likely end-user demand before recommending an entry point.",
       "For NRI and end-user buyers, financing can be coordinated alongside legal and project due diligence. Home loans of up to 90% may be available subject to buyer eligibility, lender approval and property/document verification.",
     ],
-    highlights: ["Wide choice of premium projects", "Access to SPR and Sohna Road catchments", "Mix of completed and under-construction inventory"],
+    highlights: [
+      "Wide choice of premium projects",
+      "Access to SPR and Sohna Road catchments",
+      "Mix of completed and under-construction inventory",
+    ],
   },
   "dwarka-expressway": {
     slug: "dwarka-expressway",
@@ -95,7 +103,11 @@ const LOCATIONS: Record<string, Location> = {
       "For investors, we focus on actual construction progress, end-user demand and realistic resale competition within the same sector rather than relying only on launch-stage appreciation projections.",
       "For NRI and end-user buyers, we can coordinate financing and documentation review together. Home loans of up to 90% may be available subject to buyer eligibility, lender approval and property/document verification.",
     ],
-    highlights: ["Delhi-side connectivity", "Large choice of newer residential projects", "Project and sector selection are especially important"],
+    highlights: [
+      "Delhi-side connectivity",
+      "Large choice of newer residential projects",
+      "Project and sector selection are especially important",
+    ],
   },
   "southern-peripheral-road": {
     slug: "southern-peripheral-road",
@@ -111,7 +123,11 @@ const LOCATIONS: Record<string, Location> = {
       "SPR offers a mix of completed societies and newer development. Buyers should compare the approach road to the project, surrounding construction, tower density, possession status and everyday access to schools, healthcare and retail.",
       "For investors, we compare competing supply within the same sector and nearby corridors so the decision is based on likely end-user demand and resale liquidity rather than a single launch price.",
     ],
-    highlights: ["Connects multiple Gurugram growth corridors", "Mix of completed and new inventory", "Strong need for project-level due diligence"],
+    highlights: [
+      "Connects multiple Gurugram growth corridors",
+      "Mix of completed and new inventory",
+      "Strong need for project-level due diligence",
+    ],
   },
   "sohna-road": {
     slug: "sohna-road",
@@ -127,7 +143,11 @@ const LOCATIONS: Record<string, Location> = {
       "The corridor offers a wide spread of apartment sizes and budgets, making project condition and society management important differentiators. We compare actual maintenance, parking, access, occupancy and resale evidence before recommending a property.",
       "For buyers considering newer projects nearby, we also compare the same budget against Golf Course Extension Road and SPR so the trade-off between maturity, configuration and future supply is clear.",
     ],
-    highlights: ["Established residential catchment", "Broad range of completed inventory", "Useful benchmark against newer nearby corridors"],
+    highlights: [
+      "Established residential catchment",
+      "Broad range of completed inventory",
+      "Useful benchmark against newer nearby corridors",
+    ],
   },
   "new-gurgaon": {
     slug: "new-gurgaon",
@@ -143,7 +163,25 @@ const LOCATIONS: Record<string, Location> = {
       "Because the area contains many competing projects, buyers should compare the exact sector, access roads, occupancy, nearby commercial development, developer delivery record and the amount of future supply still to come.",
       "For end users, we prioritise liveability and possession certainty. For investors, we compare realistic rental demand and resale competition before recommending a project or unit.",
     ],
-    highlights: ["Large choice across multiple sectors", "Wide range of budgets and configurations", "Developer and sector selection are critical"],
+    highlights: [
+      "Large choice across multiple sectors",
+      "Wide range of budgets and configurations",
+      "Developer and sector selection are critical",
+    ],
+    related: [
+      {
+        href: "/projects/dlf-the-primus-sector-82a-gurgaon",
+        label: "DLF The Primus Sector 82A resale and price guide",
+      },
+      {
+        href: "/dlf-skycourt-sector-86-gurgaon",
+        label: "DLF Skycourt Sector 86 resale guide",
+      },
+      {
+        href: "/flats-for-sale-in-gurgaon",
+        label: "Current flats for sale across Gurgaon",
+      },
+    ],
   },
 };
 
@@ -172,7 +210,12 @@ export const Route = createFileRoute("/locations/$slug")({
       "@type": "BreadcrumbList",
       itemListElement: [
         { "@type": "ListItem", position: 1, name: "Home", item: SITE_ORIGIN },
-        { "@type": "ListItem", position: 2, name: "Gurgaon Property", item: `${SITE_ORIGIN}/locations/gurgaon` },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Gurgaon Property",
+          item: `${SITE_ORIGIN}/locations/gurgaon`,
+        },
         { "@type": "ListItem", position: 3, name: location.name, item: url },
       ],
     };
@@ -201,7 +244,12 @@ export const Route = createFileRoute("/locations/$slug")({
     <div className="container-page py-24 text-center">
       <h1 className="font-display text-3xl">Location not found</h1>
       <p className="mt-2 text-muted-foreground">
-        <Link to="/flats-for-sale-in-gurgaon" className="text-gold underline-offset-4 hover:underline">Browse all properties</Link>
+        <Link
+          to="/flats-for-sale-in-gurgaon"
+          className="text-gold underline-offset-4 hover:underline"
+        >
+          Browse all properties
+        </Link>
       </p>
     </div>
   ),
@@ -220,7 +268,9 @@ function LocationPage() {
       <section className="container-page grid gap-10 py-12 lg:grid-cols-[1fr_20rem]">
         <div className="space-y-5">
           {location.body.map((paragraph: string, i: number) => (
-            <p key={i} className="text-muted-foreground">{paragraph}</p>
+            <p key={i} className="text-muted-foreground">
+              {paragraph}
+            </p>
           ))}
 
           <div className="rounded-xl border border-gold/30 bg-gold/5 p-5">
@@ -229,9 +279,13 @@ function LocationPage() {
               <div>
                 <h2 className="font-display text-xl">Home-loan assistance</h2>
                 <p className="mt-1 text-sm leading-6 text-muted-foreground">
-                  Home loans of up to 90% may be available for eligible buyers, subject to lender approval and property/document verification.
+                  Home loans of up to 90% may be available for eligible buyers, subject to lender
+                  approval and property/document verification.
                 </p>
-                <Link to="/home-loans" className="mt-2 inline-block text-sm font-medium text-gold underline-offset-4 hover:underline">
+                <Link
+                  to="/home-loans"
+                  className="mt-2 inline-block text-sm font-medium text-gold underline-offset-4 hover:underline"
+                >
                   Understand home-loan support
                 </Link>
               </div>
@@ -241,13 +295,20 @@ function LocationPage() {
           <div className="rounded-xl border border-gold/30 bg-card p-6">
             <h2 className="font-display text-xl">Own property in {location.name}?</h2>
             <p className="mt-2 text-sm leading-6 text-muted-foreground">
-              Get pricing guidance, listing preparation and qualified buyer follow-up. Overseas owners can coordinate the sale remotely through our NRI seller desk.
+              Get pricing guidance, listing preparation and qualified buyer follow-up. Overseas
+              owners can coordinate the sale remotely through our NRI seller desk.
             </p>
             <div className="mt-4 flex flex-wrap gap-4 text-sm">
-              <Link to="/sell-property-gurgaon" className="font-medium text-gold underline-offset-4 hover:underline">
+              <Link
+                to="/sell-property-gurgaon"
+                className="font-medium text-gold underline-offset-4 hover:underline"
+              >
                 Sell property in Gurgaon
               </Link>
-              <Link to="/nri-sell-property-gurgaon" className="font-medium text-gold underline-offset-4 hover:underline">
+              <Link
+                to="/nri-sell-property-gurgaon"
+                className="font-medium text-gold underline-offset-4 hover:underline"
+              >
                 NRI owner selling support
               </Link>
             </div>
@@ -299,17 +360,53 @@ function LocationPage() {
           </div>
 
           <p className="text-sm text-muted-foreground">
-            Related: <Link to="/flats-for-sale-in-gurgaon" className="text-gold underline-offset-4 hover:underline">Flats for sale in Gurgaon</Link>{" "}
-            · <Link to="/nri" className="text-gold underline-offset-4 hover:underline">NRI property buying guide</Link>{" "}
-            · <Link to="/home-loans" className="text-gold underline-offset-4 hover:underline">Home loan assistance</Link>{" "}
-            · <a href="/best-areas-gurgaon-property-investment" className="text-gold underline-offset-4 hover:underline">Investment-area guide</a>{" "}
-            · <Link to="/sell-property-gurgaon" className="text-gold underline-offset-4 hover:underline">Sell property in Gurgaon</Link>
-            {location.slug === "golf-course-extension-road" ? <>{" · "}<a href="/higher-floor-apartments-golf-course-extension-road" className="text-gold underline-offset-4 hover:underline">Higher-floor apartments</a></> : null}
+            Related:{" "}
+            <Link
+              to="/flats-for-sale-in-gurgaon"
+              className="text-gold underline-offset-4 hover:underline"
+            >
+              Flats for sale in Gurgaon
+            </Link>{" "}
+            ·{" "}
+            <Link to="/nri" className="text-gold underline-offset-4 hover:underline">
+              NRI property buying guide
+            </Link>{" "}
+            ·{" "}
+            <Link to="/home-loans" className="text-gold underline-offset-4 hover:underline">
+              Home loan assistance
+            </Link>{" "}
+            ·{" "}
+            <a
+              href="/best-areas-gurgaon-property-investment"
+              className="text-gold underline-offset-4 hover:underline"
+            >
+              Investment-area guide
+            </a>{" "}
+            ·{" "}
+            <Link
+              to="/sell-property-gurgaon"
+              className="text-gold underline-offset-4 hover:underline"
+            >
+              Sell property in Gurgaon
+            </Link>
+            {location.slug === "golf-course-extension-road" ? (
+              <>
+                {" · "}
+                <a
+                  href="/higher-floor-apartments-golf-course-extension-road"
+                  className="text-gold underline-offset-4 hover:underline"
+                >
+                  Higher-floor apartments
+                </a>
+              </>
+            ) : null}
           </p>
         </div>
         <aside className="rounded-xl border border-border bg-card p-6 lg:sticky lg:top-24 lg:self-start">
           <h2 className="font-display text-xl">Speak to an advisor</h2>
-          <p className="mt-1 text-xs text-muted-foreground">Local pricing, availability, financing and practical guidance.</p>
+          <p className="mt-1 text-xs text-muted-foreground">
+            Local pricing, availability, financing and practical guidance.
+          </p>
           <div className="mt-4">
             <EnquiryForm interest={`Location enquiry — ${location.name}`} compact />
           </div>
@@ -320,10 +417,15 @@ function LocationPage() {
         <section className="container-page pb-16">
           <div className="flex flex-wrap items-end justify-between gap-3">
             <div>
-              <p className="text-xs font-medium uppercase tracking-[0.18em] text-gold">Current Inventory</p>
+              <p className="text-xs font-medium uppercase tracking-[0.18em] text-gold">
+                Current Inventory
+              </p>
               <h2 className="mt-1 font-display text-2xl">Available in {location.name}</h2>
             </div>
-            <Link to="/flats-for-sale-in-gurgaon" className="text-sm font-medium text-gold underline-offset-4 hover:underline">
+            <Link
+              to="/flats-for-sale-in-gurgaon"
+              className="text-sm font-medium text-gold underline-offset-4 hover:underline"
+            >
               View all properties
             </Link>
           </div>
