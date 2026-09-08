@@ -8,15 +8,13 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { lazy, Suspense, useEffect, useState, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { FloatingActions } from "@/components/site/FloatingActions";
-import { LeadAssistant } from "@/components/site/LeadAssistant";
-import { Toaster } from "@/components/ui/sonner";
 import { CONTACT } from "@/data/site";
 import { initWebVitals, trackEvent } from "@/lib/analytics";
 
@@ -24,6 +22,15 @@ const GA_MEASUREMENT_ID = "G-8EWLZD8V5H";
 const GTM_CONTAINER_ID = "GTM-TX7ZPXC5";
 const SITE_ORIGIN = "https://www.shubhestatebroker.in";
 const ARUN_LINKEDIN = "https://in.linkedin.com/in/arun-madan-94ab4224";
+
+const LazyLeadAssistant = lazy(() =>
+  import("@/components/site/LeadAssistant").then((module) => ({
+    default: module.LeadAssistant,
+  })),
+);
+const LazyToaster = lazy(() =>
+  import("@/components/ui/sonner").then((module) => ({ default: module.Toaster })),
+);
 
 function NotFoundComponent() {
   return (
@@ -229,9 +236,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "manifest", href: "/site.webmanifest" },
     ],
     scripts: [
-      { async: true, src: `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}` },
       {
-        children: `window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${GA_MEASUREMENT_ID}', { send_page_view: false });`,
+        children: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_MEASUREMENT_ID}',{send_page_view:false});(function(w,d){var loaded=false;function loadAnalytics(){if(loaded)return;loaded=true;var ga=d.createElement('script');ga.async=true;ga.src='https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}';d.head.appendChild(ga);w.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});var gtm=d.createElement('script');gtm.async=true;gtm.src='https://www.googletagmanager.com/gtm.js?id=${GTM_CONTAINER_ID}';d.head.appendChild(gtm);}function schedule(){if('requestIdleCallback'in w){w.requestIdleCallback(loadAnalytics,{timeout:2500});}else{w.setTimeout(loadAnalytics,1500);}}if(d.readyState==='complete'){schedule();}else{w.addEventListener('load',schedule,{once:true});}})(window,document);`,
       },
       { type: "application/ld+json", children: JSON.stringify(localBusinessSchema) },
       { type: "application/ld+json", children: JSON.stringify(websiteSchema) },
@@ -247,15 +253,6 @@ function RootShell({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','${GTM_CONTAINER_ID}');`,
-          }}
-        />
         <HeadContent />
       </head>
       <body>
@@ -299,8 +296,39 @@ function RootComponent() {
       </main>
       <SiteFooter />
       <FloatingActions />
-      <LeadAssistant pathname={pathname} />
-      <Toaster />
+      <DeferredClientTools pathname={pathname} />
     </QueryClientProvider>
+  );
+}
+
+function DeferredClientTools({ pathname }: { pathname: string }) {
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    let timeoutId: ReturnType<typeof setTimeout> | undefined;
+    let idleId: number | undefined;
+    const show = () => setReady(true);
+
+    if ("requestIdleCallback" in window) {
+      idleId = window.requestIdleCallback(show, { timeout: 2000 });
+    } else {
+      timeoutId = setTimeout(show, 1200);
+    }
+
+    return () => {
+      if (idleId !== undefined && "cancelIdleCallback" in window) {
+        window.cancelIdleCallback(idleId);
+      }
+      if (timeoutId !== undefined) clearTimeout(timeoutId);
+    };
+  }, []);
+
+  if (!ready) return null;
+
+  return (
+    <Suspense fallback={null}>
+      <LazyLeadAssistant pathname={pathname} />
+      <LazyToaster />
+    </Suspense>
   );
 }
