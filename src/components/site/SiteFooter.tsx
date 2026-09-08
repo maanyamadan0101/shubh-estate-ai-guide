@@ -14,17 +14,11 @@ const LOCATION_LINKS = [
   ["new-gurgaon", "New Gurgaon"],
 ] as const;
 
+// Keep only search-intent URLs that are not already linked elsewhere in this footer.
 const POPULAR_SEARCH_LINKS = [
-  ["/projects", "Gurgaon Project Guides"],
-  ["/ready-to-move-flats-in-gurgaon", "Ready-to-Move Flats in Gurgaon"],
   ["/blog/gurgaon-property-due-diligence-checklist-2026", "Property Due Diligence Checklist"],
-  ["/property-buying-advisory-gurgaon", "Gurgaon Buyer Advisory"],
   ["/dwarka-expressway-flats-for-sale-gurgaon", "Dwarka Expressway Flats for Sale"],
-  ["/under-construction-projects-gurgaon", "Under-Construction Projects"],
   ["/best-areas-gurgaon-property-investment", "Property Investment Areas"],
-  ["/sell-property-gurgaon", "Sell Property in Gurgaon"],
-  ["/rent-out-property-in-gurgaon", "Rent Out Property in Gurgaon"],
-  ["/mandate-to-sell-property-in-gurgaon", "Selling Mandate Gurgaon"],
 ] as const;
 
 export function SiteFooter() {
@@ -96,8 +90,7 @@ export function SiteFooter() {
               <li><Link to="/sell-property-gurgaon" className="hover:text-gold">Sell Property in Gurgaon</Link></li>
               <li><Link to="/rent-out-property-in-gurgaon" className="hover:text-gold">Rent Out Property in Gurgaon</Link></li>
               <li><Link to="/mandate-to-sell-property-in-gurgaon" className="hover:text-gold">Give Selling Mandate</Link></li>
-              <li><Link to="/property-services-gurgaon" className="hover:text-gold">Property Management & Valuation</Link></li>
-              <li><Link to="/property-services-gurgaon" className="hover:text-gold">Due Diligence & Owner Support</Link></li>
+              <li><Link to="/property-services-gurgaon" className="hover:text-gold">Property Management, Valuation & Due Diligence</Link></li>
               <li><Link to="/nri" className="hover:text-gold">NRI & Overseas Property Services</Link></li>
               <li><Link to="/nri-sell-property-gurgaon" className="hover:text-gold">Remote Sale Support</Link></li>
             </ul>
@@ -128,7 +121,7 @@ export function SiteFooter() {
               ))}
             </p>
             <p className="text-xs text-navy-foreground/65">
-              International property resources: <Link to="/nri" className="hover:text-gold">owners and buyers outside India</Link>. Core Gurgaon buying, selling, rent-out and mandate pages remain the primary site experience for visitors in every country.
+              International property resources are available for owners and buyers outside India. Core Gurgaon buying, selling, rent-out and mandate pages remain the primary site experience for visitors in every country.
             </p>
             <p className="text-xs leading-relaxed text-navy-foreground/55">{LOAN_DISCLAIMER}</p>
             <p className="text-xs text-navy-foreground/55">© {new Date().getFullYear()} Shubh Estate Brokers, Gurugram. All rights reserved.</p>
