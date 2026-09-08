@@ -62,21 +62,36 @@ function staleRouteTemplateResponse(request: Request): Response | null {
 function canonicalRedirect(request: Request): Response | null {
   if (request.method !== "GET" && request.method !== "HEAD") return null;
   const url = new URL(request.url);
-  const mapped = CANONICAL_PATH_REDIRECTS[url.pathname];
+  let shouldRedirect = false;
 
-  if (mapped) {
-    url.pathname = mapped;
-    return new Response(null, {
-      status: 308,
-      headers: { Location: url.toString(), "Cache-Control": "public, max-age=3600" },
-    });
+  // Keep every public URL on one canonical origin. Restrict this to the real
+  // custom domains so local and preview deployments continue to work normally.
+  if (url.hostname === "shubhestatebroker.in") {
+    url.hostname = "www.shubhestatebroker.in";
+    url.protocol = "https:";
+    shouldRedirect = true;
+  } else if (url.hostname === "www.shubhestatebroker.in" && url.protocol !== "https:") {
+    url.protocol = "https:";
+    shouldRedirect = true;
   }
 
-  if (url.pathname !== "/" && url.pathname.endsWith("/")) {
+  const mapped = CANONICAL_PATH_REDIRECTS[url.pathname];
+  if (mapped) {
+    url.pathname = mapped;
+    shouldRedirect = true;
+  } else if (url.pathname !== "/" && url.pathname.endsWith("/")) {
     url.pathname = url.pathname.replace(/\/+$/, "");
+    shouldRedirect = true;
+  }
+
+  if (shouldRedirect) {
     return new Response(null, {
-      status: 308,
-      headers: { Location: url.toString(), "Cache-Control": "public, max-age=3600" },
+      status: 301,
+      headers: {
+        Location: url.toString(),
+        "Cache-Control": "public, max-age=86400",
+        "Vercel-CDN-Cache-Control": "public, s-maxage=86400",
+      },
     });
   }
 
