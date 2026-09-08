@@ -144,6 +144,11 @@ const localBusinessSchema = {
     postalCode: "122003",
     addressCountry: "IN",
   },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: 28.423985,
+    longitude: 77.078972,
+  },
   areaServed: "Gurugram, Haryana, India",
   knowsLanguage: ["English", "Hindi"],
   hasOfferCatalog: {
