@@ -481,7 +481,7 @@ function ProjectHubPage() {
             </div>
             <div className="mt-5 border-t border-border pt-4 text-xs leading-5 text-muted-foreground">
               Buying remotely?{" "}
-              <Link to="/nri" className="font-medium text-gold hover:underline">
+              <Link to="/nri-sell-property-gurgaon" className="font-medium text-gold hover:underline">
                 See NRI property assistance
               </Link>
               .

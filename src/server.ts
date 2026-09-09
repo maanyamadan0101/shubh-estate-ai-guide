@@ -75,13 +75,22 @@ function canonicalRedirect(request: Request): Response | null {
     shouldRedirect = true;
   }
 
-  const mapped = CANONICAL_PATH_REDIRECTS[url.pathname];
-  if (mapped) {
-    url.pathname = mapped;
+  // Consolidate every legacy NRI landing/country URL and any query-string
+  // variant onto one permanent seller-service URL. The query is deliberately
+  // removed so tracking/filter parameters cannot create duplicate canonicals.
+  if (url.pathname === "/nri" || url.pathname.startsWith("/nri/")) {
+    url.pathname = "/nri-sell-property-gurgaon";
+    url.search = "";
     shouldRedirect = true;
-  } else if (url.pathname !== "/" && url.pathname.endsWith("/")) {
-    url.pathname = url.pathname.replace(/\/+$/, "");
-    shouldRedirect = true;
+  } else {
+    const mapped = CANONICAL_PATH_REDIRECTS[url.pathname];
+    if (mapped) {
+      url.pathname = mapped;
+      shouldRedirect = true;
+    } else if (url.pathname !== "/" && url.pathname.endsWith("/")) {
+      url.pathname = url.pathname.replace(/\/+$/, "");
+      shouldRedirect = true;
+    }
   }
 
   if (shouldRedirect) {

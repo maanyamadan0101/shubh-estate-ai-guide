@@ -169,7 +169,7 @@ function LuxuryPage() {
               </p>
             </div>
             <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm">
-              <Link to="/nri" className="text-gold hover:underline">
+              <Link to="/nri-sell-property-gurgaon" className="text-gold hover:underline">
                 NRI property services
               </Link>
               <Link to="/home-loans" className="text-gold hover:underline">

@@ -676,7 +676,7 @@ function GurgaonCatalogue() {
           Submit a property for sale
         </Link>
         <Link
-          to="/nri"
+          to="/nri-sell-property-gurgaon"
           className="rounded-lg border border-border bg-card px-4 py-3 text-sm font-medium hover:border-gold/50"
         >
           Request an NRI consultation

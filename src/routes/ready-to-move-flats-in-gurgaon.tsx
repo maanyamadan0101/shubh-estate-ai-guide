@@ -261,7 +261,7 @@ function ReadyToMoveGurgaonPage() {
           <Link to="/property-buying-advisory-gurgaon" className="font-medium text-gold underline-offset-4 hover:underline">
             Buyer advisory
           </Link>
-          <Link to="/nri" className="font-medium text-gold underline-offset-4 hover:underline">
+          <Link to="/nri-sell-property-gurgaon" className="font-medium text-gold underline-offset-4 hover:underline">
             Overseas buyer support
           </Link>
         </div>
