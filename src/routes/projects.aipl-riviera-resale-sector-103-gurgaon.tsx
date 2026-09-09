@@ -25,9 +25,9 @@ import { SITE_ORIGIN } from "@/lib/seo";
 
 const PAGE_PATH = "/projects/aipl-riviera-resale-sector-103-gurgaon";
 const canonical = `${SITE_ORIGIN}${PAGE_PATH}`;
-const title = "AIPL Riviera Resale Sector 103 | ₹12,000/Sq Ft";
+const title = "AIPL Riviera Sector 103 Resale | Get Best Price";
 const description =
-  "Explore select AIPL Riviera resale units in Sector 103 Gurgaon around ₹12,000/sq ft, approximately 31% below the published launch reference. NRI and end-user assistance.";
+  "Explore AIPL Riviera Sector 103 resale apartments near Dwarka Expressway. Compare verified options, floor plans and pricing. Enquire for the best price.";
 const LAST_REVIEWED = "24 August 2026";
 const REFERENCE_RATE = 17_450;
 const OPPORTUNITY_RATE = 12_000;
@@ -607,7 +607,7 @@ function AiplRivieraResalePage() {
                   ))}
                 </ul>
                 <Button asChild variant="goldOutline" className="mt-6">
-                  <Link to="/nri">View NRI Property Services</Link>
+                  <Link to="/nri-sell-property-gurgaon">View NRI Property Services</Link>
                 </Button>
               </article>
             </div>

@@ -10,7 +10,7 @@ const NAV = [
   { to: "/", label: "Home" },
   { to: "/under-construction-projects-gurgaon", label: "New Projects" },
   { to: "/property-services-gurgaon", label: "Services" },
-  { to: "/nri", label: "NRI" },
+  { to: "/nri-sell-property-gurgaon", label: "NRI" },
   { to: "/blog", label: "Blog" },
   { to: "/about", label: "About" },
   { to: "/contact", label: "Locate Us" },

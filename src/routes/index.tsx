@@ -37,9 +37,9 @@ export const Route = createFileRoute("/")({
       data: { limit: 6, statuses: ["under_construction", "new_launch"] },
     }),
   head: () => {
-    const title = "Property in Gurgaon | Shubh Estate Brokers";
+    const title = "Real Estate Broker Sector 51 Gurgaon | Shubh Estate";
     const description =
-      "Visit Shubh Estate Brokers in Sector 51 Gurugram for Gurgaon property advice, verified listings, price assessment, due diligence and home-loan support.";
+      "Meet a trusted Sector 51 Gurgaon real estate broker for verified resale property, valuations and mortgage guidance. Call Shubh Estate Brokers.";
 
     return {
       meta: [
@@ -651,7 +651,7 @@ function Home() {
               </span>
             </Link>
             <Link
-              to="/nri"
+              to="/nri-sell-property-gurgaon"
               className="rounded-2xl border border-border bg-card p-6 transition-shadow hover:shadow-[var(--shadow-elegant)]"
             >
               <p className="eyebrow">Overseas Buyers</p>

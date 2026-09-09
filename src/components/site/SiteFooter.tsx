@@ -91,8 +91,7 @@ export function SiteFooter() {
               <li><Link to="/rent-out-property-in-gurgaon" className="hover:text-gold">Rent Out Property in Gurgaon</Link></li>
               <li><Link to="/mandate-to-sell-property-in-gurgaon" className="hover:text-gold">Give Selling Mandate</Link></li>
               <li><Link to="/property-services-gurgaon" className="hover:text-gold">Property Management, Valuation & Due Diligence</Link></li>
-              <li><Link to="/nri" className="hover:text-gold">NRI & Overseas Property Services</Link></li>
-              <li><Link to="/nri-sell-property-gurgaon" className="hover:text-gold">Remote Sale Support</Link></li>
+              <li><Link to="/nri-sell-property-gurgaon" className="hover:text-gold">NRI Property Services</Link></li>
             </ul>
           </nav>
 

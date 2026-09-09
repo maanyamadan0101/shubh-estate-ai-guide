@@ -54,7 +54,7 @@ export function SitewidePropertyContext() {
         </div>
 
         <p className="mt-6 text-xs leading-5 text-muted-foreground">
-          Explore <Link to="/flats-for-sale-in-gurgaon" className="font-medium text-gold hover:underline">current Gurgaon properties</Link>, <Link to="/projects" className="font-medium text-gold hover:underline">project guides</Link>, <Link to="/sell-property-gurgaon" className="font-medium text-gold hover:underline">owner sale support</Link>, <Link to="/rent-out-property-in-gurgaon" className="font-medium text-gold hover:underline">rent-out assistance</Link> and <Link to="/nri" className="font-medium text-gold hover:underline">remote property services</Link>. Final legal, tax and lender decisions should be confirmed with the appropriate qualified professional or institution.
+          Explore <Link to="/flats-for-sale-in-gurgaon" className="font-medium text-gold hover:underline">current Gurgaon properties</Link>, <Link to="/projects" className="font-medium text-gold hover:underline">project guides</Link>, <Link to="/sell-property-gurgaon" className="font-medium text-gold hover:underline">owner sale support</Link>, <Link to="/rent-out-property-in-gurgaon" className="font-medium text-gold hover:underline">rent-out assistance</Link> and <Link to="/nri-sell-property-gurgaon" className="font-medium text-gold hover:underline">remote property services</Link>. Final legal, tax and lender decisions should be confirmed with the appropriate qualified professional or institution.
         </p>
       </div>
     </section>

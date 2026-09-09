@@ -945,7 +945,7 @@ function EmaarEmeraldHillsPage() {
               </p>
               <div className="mt-6 flex flex-wrap gap-3">
                 <Button asChild variant="gold">
-                  <Link to="/nri">NRI Buyer Services</Link>
+                  <Link to="/nri-sell-property-gurgaon">NRI Property Services</Link>
                 </Button>
                 <Button asChild variant="goldOutline">
                   <Link to="/nri-sell-property-gurgaon">NRI Seller Services</Link>

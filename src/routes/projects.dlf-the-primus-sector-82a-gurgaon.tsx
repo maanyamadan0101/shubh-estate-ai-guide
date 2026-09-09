@@ -25,9 +25,9 @@ import { SITE_ORIGIN } from "@/lib/seo";
 
 const PAGE_PATH = "/projects/dlf-the-primus-sector-82a-gurgaon";
 const canonical = `${SITE_ORIGIN}${PAGE_PATH}`;
-const title = "DLF The Primus Sector 82A Gurgaon | 3 & 4 BHK Resale";
+const title = "DLF Primus Sector 82A Resale | Verified 3 & 4 BHK";
 const description =
-  "Explore DLF The Primus Sector 82A Gurgaon resale prices, 3 & 4 BHK sizes, rent guidance, amenities, buyer checks and current verified availability.";
+  "View verified DLF Primus Sector 82A resale inventory, 3 & 4 BHK prices, floor plans, amenities and buyer checks. Request current units.";
 const LAST_REVIEWED = "24 August 2026";
 
 const DLF_CORPORATE_PAGE = "https://www.dlf.in/";

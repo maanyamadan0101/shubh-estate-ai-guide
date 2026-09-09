@@ -255,7 +255,7 @@ function PropertyServices() {
               </Button>
             </div>
             <div className="mt-8 flex flex-wrap gap-x-5 gap-y-2 text-sm text-navy-foreground/70">
-              <Link to="/nri" className="inline-flex items-center gap-1.5 hover:text-gold">
+              <Link to="/nri-sell-property-gurgaon" className="inline-flex items-center gap-1.5 hover:text-gold">
                 NRI services <ArrowRight className="size-3.5" aria-hidden="true" />
               </Link>
               <Link to="/home-loans" className="inline-flex items-center gap-1.5 hover:text-gold">

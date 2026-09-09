@@ -261,7 +261,7 @@ function Article() {
               >
                 12-Point Property Due-Diligence Checklist
               </Link>
-              <Link to="/nri" className="hover:text-gold">
+              <Link to="/nri-sell-property-gurgaon" className="hover:text-gold">
                 NRI Property Services
               </Link>
               <Link to="/blog" className="hover:text-gold">

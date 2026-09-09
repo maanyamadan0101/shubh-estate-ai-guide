@@ -531,7 +531,7 @@ export function PropertyView({
             </div>
             <div className="mt-5 border-t border-border pt-4 text-xs leading-5 text-muted-foreground">
               Buying from overseas?{" "}
-              <Link to="/nri" className="font-medium text-gold underline-offset-4 hover:underline">
+              <Link to="/nri-sell-property-gurgaon" className="font-medium text-gold underline-offset-4 hover:underline">
                 View NRI property assistance
               </Link>{" "}
               for remote review and transaction coordination.

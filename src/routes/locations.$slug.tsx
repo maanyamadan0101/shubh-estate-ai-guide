@@ -368,7 +368,7 @@ function LocationPage() {
               Flats for sale in Gurgaon
             </Link>{" "}
             ·{" "}
-            <Link to="/nri" className="text-gold underline-offset-4 hover:underline">
+            <Link to="/nri-sell-property-gurgaon" className="text-gold underline-offset-4 hover:underline">
               NRI property buying guide
             </Link>{" "}
             ·{" "}
