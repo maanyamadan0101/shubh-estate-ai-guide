@@ -19,7 +19,7 @@ export function LeadAssistant({ pathname }: { pathname: string }) {
     pathname === "/reset-password";
 
   const whatsappHref = useMemo(() => {
-    const page = `https://www.shubhestatebroker.in${pathname}`;
+    const page = `https://shubhestatebroker.in${pathname}`;
     const text = encodeURIComponent(
       `Hi Shubh Estate Brokers, I am viewing ${page} and would like help choosing the right property in Gurugram. Please guide me on suitable options, current pricing and availability.`,
     );

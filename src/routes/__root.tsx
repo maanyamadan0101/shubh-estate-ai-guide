@@ -20,7 +20,7 @@ import { initWebVitals, trackEvent } from "@/lib/analytics";
 
 const GA_MEASUREMENT_ID = "G-8EWLZD8V5H";
 const GTM_CONTAINER_ID = "GTM-TX7ZPXC5";
-const SITE_ORIGIN = "https://www.shubhestatebroker.in";
+import { SITE_ORIGIN } from "@/lib/seo";
 const ARUN_LINKEDIN = "https://in.linkedin.com/in/arun-madan-94ab4224";
 
 const LazyLeadAssistant = lazy(() =>

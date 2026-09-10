@@ -1,3 +1,4 @@
+import { PROJECT_REDIRECTS } from "@/lib/url-routing";
 import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-router";
 import { Building2, CheckCircle2, MapPin, Ruler, ShieldCheck } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -14,13 +15,6 @@ import {
   STATUS_LABEL,
   wordSafeText,
 } from "@/lib/seo";
-
-const PROJECT_REDIRECTS: Record<string, string> = {
-  "dlf-skycourt-sector-86": "/dlf-skycourt-sector-86-gurgaon",
-  "godrej-101-sector-79": "/godrej-101-sector-79-gurgaon",
-  "bptp-astaire-gardens": "/projects/bptp-astaire-gardens-sector-70a-gurgaon",
-  "bptp-astaire-gardens-sector-70a": "/projects/bptp-astaire-gardens-sector-70a-gurgaon",
-};
 
 function priceRange(values: Array<number | null>) {
   const prices = values.filter((value): value is number => Boolean(value && value > 0));

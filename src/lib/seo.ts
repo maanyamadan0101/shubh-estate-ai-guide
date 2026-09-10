@@ -1,5 +1,5 @@
-// Use the canonical production host everywhere. The apex domain redirects to www, so emitting www URLs avoids redirect hops and duplicate URL signals.
-export const SITE_ORIGIN = "https://www.shubhestatebroker.in";
+// Production URLs must match the Vercel domain assignment; see docs/non-www-seo-rollout.md.
+export const SITE_ORIGIN = "https://shubhestatebroker.in";
 export const SEO_TITLE_MAX = 60;
 
 export function slugify(input: string): string {
