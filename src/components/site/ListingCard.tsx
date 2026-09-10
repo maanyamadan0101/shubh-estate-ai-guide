@@ -1,3 +1,4 @@
+import { internalHref } from "@/lib/url-routing";
 import {
   BedDouble,
   Building2,
@@ -69,11 +70,13 @@ export function ListingCard({
     : property.floor_number != null
       ? `${property.floor_number}${property.total_floors ? ` of ${property.total_floors}` : ""} floor`
       : null;
-  const propertyHref = property.detail_href
-    ? property.detail_href
-    : isPublicSlug(property.slug)
-      ? `/property/${property.slug}`
-      : "/flats-for-sale-in-gurgaon";
+  const propertyHref = internalHref(
+    property.detail_href
+      ? property.detail_href
+      : isPublicSlug(property.slug)
+        ? `/property/${property.slug}`
+        : "/flats-for-sale-in-gurgaon",
+  );
   const whatsappMessage = encodeURIComponent(
     `Hi Shubh Estate Brokers, please reconfirm the current price and availability for ${property.title}.`,
   );

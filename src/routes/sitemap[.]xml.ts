@@ -1,3 +1,4 @@
+import { internalHref } from "@/lib/url-routing";
 import { createFileRoute } from "@tanstack/react-router";
 import { listProjectHubSitemapEntries } from "@/lib/project-hub.functions";
 import { listSitemapProperties } from "@/lib/properties.functions";
@@ -223,28 +224,44 @@ export const Route = createFileRoute("/sitemap.xml")({
           listSitemapProperties(),
           listProjectHubSitemapEntries(),
         ]);
-        const urls = [
+        const entries = [
           ...STATIC_PATHS.map(
             (p) =>
               `  <url>\n    <loc>${escapeXml(`${SITE_ORIGIN}${p.path}`)}</loc>${safeLastmod(p.lastmod)}\n    <priority>${p.priority}</priority>\n  </url>`,
           ),
           ...projectHubs
             .filter(
-              (hub) => Boolean(hub.slug?.trim()) && !PROJECT_HUB_SITEMAP_EXCLUSIONS.has(hub.slug),
+              (hub) =>
+                Boolean(hub.slug?.trim()) &&
+                !PROJECT_HUB_SITEMAP_EXCLUSIONS.has(hub.slug) &&
+                internalHref(`/projects/${hub.slug}`) === `/projects/${hub.slug}`,
             )
             .map(
               (hub) =>
                 `  <url>\n    <loc>${escapeXml(`${SITE_ORIGIN}/projects/${hub.slug}`)}</loc>${safeLastmod(latestLastmod(hub.updated_at))}\n    <priority>0.8</priority>\n  </url>`,
             ),
           ...properties
-            .filter((p) => Boolean(p.slug?.trim()))
+            .filter(
+              (p) =>
+                Boolean(p.slug?.trim()) &&
+                internalHref(`/property/${p.slug}`) === `/property/${p.slug}`,
+            )
             .map((p) => {
               const image = p.cover_image_url
                 ? `\n    <image:image>\n      <image:loc>${escapeXml(absoluteUrl(p.cover_image_url))}</image:loc>\n    </image:image>`
                 : "";
               return `  <url>\n    <loc>${escapeXml(`${SITE_ORIGIN}/property/${p.slug}`)}</loc>${safeLastmod(latestLastmod(p.updated_at))}\n    <priority>0.8</priority>${image}\n  </url>`;
             }),
-        ].join("\n");
+        ];
+        const seen = new Set<string>();
+        const urls = entries
+          .filter((entry) => {
+            const loc = entry.match(/<loc>(.*?)<\/loc>/)?.[1];
+            if (!loc || seen.has(loc)) return false;
+            seen.add(loc);
+            return true;
+          })
+          .join("\n");
 
         const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n${urls}\n</urlset>`;
         return new Response(xml, {

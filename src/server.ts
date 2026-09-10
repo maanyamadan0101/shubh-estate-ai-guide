@@ -1,4 +1,5 @@
 import "./lib/error-capture";
+import { canonicalRedirect } from "./lib/url-routing";
 
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
@@ -8,14 +9,6 @@ type ServerEntry = {
 };
 
 let serverEntryPromise: Promise<ServerEntry> | undefined;
-
-const CANONICAL_PATH_REDIRECTS: Record<string, string> = {
-  "/sell-property-in-gurgaon": "/sell-property-gurgaon",
-  "/property-for-sale-in-gurgaon": "/flats-for-sale-in-gurgaon",
-  "/properties": "/flats-for-sale-in-gurgaon",
-  "/property-valuation-gurgaon": "/property-services-gurgaon",
-  "/home-loan": "/home-loans",
-};
 
 // These are framework route templates, not real public pages. If a crawler has
 // already discovered one from stale HTML, return 410 so it is removed quickly
@@ -57,54 +50,6 @@ function staleRouteTemplateResponse(request: Request): Response | null {
       "X-Robots-Tag": "noindex, nofollow",
     },
   });
-}
-
-function canonicalRedirect(request: Request): Response | null {
-  if (request.method !== "GET" && request.method !== "HEAD") return null;
-  const url = new URL(request.url);
-  let shouldRedirect = false;
-
-  // Keep every public URL on one canonical origin. Restrict this to the real
-  // custom domains so local and preview deployments continue to work normally.
-  if (url.hostname === "shubhestatebroker.in") {
-    url.hostname = "www.shubhestatebroker.in";
-    url.protocol = "https:";
-    shouldRedirect = true;
-  } else if (url.hostname === "www.shubhestatebroker.in" && url.protocol !== "https:") {
-    url.protocol = "https:";
-    shouldRedirect = true;
-  }
-
-  // Consolidate every legacy NRI landing/country URL and any query-string
-  // variant onto one permanent seller-service URL. The query is deliberately
-  // removed so tracking/filter parameters cannot create duplicate canonicals.
-  if (url.pathname === "/nri" || url.pathname.startsWith("/nri/")) {
-    url.pathname = "/nri-sell-property-gurgaon";
-    url.search = "";
-    shouldRedirect = true;
-  } else {
-    const mapped = CANONICAL_PATH_REDIRECTS[url.pathname];
-    if (mapped) {
-      url.pathname = mapped;
-      shouldRedirect = true;
-    } else if (url.pathname !== "/" && url.pathname.endsWith("/")) {
-      url.pathname = url.pathname.replace(/\/+$/, "");
-      shouldRedirect = true;
-    }
-  }
-
-  if (shouldRedirect) {
-    return new Response(null, {
-      status: 301,
-      headers: {
-        Location: url.toString(),
-        "Cache-Control": "public, max-age=86400",
-        "Vercel-CDN-Cache-Control": "public, s-maxage=86400",
-      },
-    });
-  }
-
-  return null;
 }
 
 // h3 swallows in-handler throws into a normal 500 Response with body
