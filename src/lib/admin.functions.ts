@@ -286,6 +286,14 @@ export const savePropertyDraft = createServerFn({ method: "POST" })
         fields.sector === null
           ? duplicateQuery.is("sector", null)
           : duplicateQuery.eq("sector", fields.sector);
+      duplicateQuery =
+        fields.floor_number === null
+          ? duplicateQuery.is("floor_number", null)
+          : duplicateQuery.eq("floor_number", fields.floor_number);
+      duplicateQuery =
+        fields.facing === null
+          ? duplicateQuery.is("facing", null)
+          : duplicateQuery.eq("facing", fields.facing);
       const { data: existing, error: duplicateError } = await duplicateQuery.limit(1).maybeSingle();
       if (duplicateError) throw new Error(duplicateError.message);
       if (existing) {
