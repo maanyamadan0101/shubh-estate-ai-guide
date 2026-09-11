@@ -8,6 +8,61 @@ export const PROJECT_REDIRECTS: Record<string, string> = {
   "bptp-astaire-gardens-sector-70a": "/projects/bptp-astaire-gardens-sector-70a-gurgaon",
 };
 
+const DUPLICATE_PROPERTY_REDIRECTS: Record<string, string> = {
+  "/property/1-bhk-lotus-homz-apartment-sector-111-gurgaon-2":
+    "/property/1-bhk-lotus-homz-apartment-sector-111-gurgaon",
+  "/property/2-bhk-antriksh-heights-apartment-sector-84-gurgaon-2":
+    "/property/2-bhk-antriksh-heights-apartment-sector-84-gurgaon",
+  "/property/2-bhk-godrej-zenith-apartment-sector-89-gurgaon-2":
+    "/property/2-bhk-godrej-zenith-apartment-sector-89-gurgaon",
+  "/property/2-bhk-green-court-apartment-sector-90-gurgaon-2":
+    "/property/2-bhk-green-court-apartment-sector-90-gurgaon",
+  "/property/2-bhk-pareena-laxmi-apartments-apartment-sector-99a-gurgaon-2":
+    "/property/2-bhk-pareena-laxmi-apartments-apartment-sector-99a-gurgaon",
+  "/property/2-bhk-sector-71-residential-apartment-apartment-sector-71-gurgaon-2":
+    "/property/2-bhk-sector-71-residential-apartment-apartment-sector-71-gurgaon",
+  "/property/3-bhk-bestech-park-view-ananda-apartment-sector-81-gurgaon-2":
+    "/property/3-bhk-bestech-park-view-ananda-apartment-sector-81-gurgaon",
+  "/property/3-bhk-godrej-air-apartment-sector-85-gurgaon-2":
+    "/property/3-bhk-godrej-air-apartment-sector-85-gurgaon",
+  "/property/3-bhk-godrej-air-apartment-sector-85-gurgaon-4":
+    "/property/3-bhk-godrej-air-apartment-sector-85-gurgaon-3",
+  "/property/3-bhk-godrej-summit-apartment-sector-104-gurgaon-2":
+    "/property/3-bhk-godrej-summit-apartment-sector-104-gurgaon",
+  "/property/3-bhk-ireo-skyon-apartment-sector-60-gurgaon-2":
+    "/property/3-bhk-ireo-skyon-apartment-sector-60-gurgaon",
+  "/property/3-bhk-m3m-antalya-hills-apartment-sector-79-gurgaon-2":
+    "/property/3-bhk-m3m-antalya-hills-apartment-sector-79-gurgaon",
+  "/property/3-bhk-m3m-crown-apartment-sector-111-gurgaon-2":
+    "/property/3-bhk-m3m-crown-apartment-sector-111-gurgaon",
+  "/property/3-bhk-m3m-golf-hills-apartment-sector-79-gurgaon-2":
+    "/property/3-bhk-m3m-golf-hills-apartment-sector-79-gurgaon",
+  "/property/3-bhk-mapsko-casa-bella-apartment-sector-82-gurgaon-2":
+    "/property/3-bhk-mapsko-casa-bella-apartment-sector-82-gurgaon",
+  "/property/3-bhk-microtek-greenburg-apartment-sector-86-gurgaon-2":
+    "/property/3-bhk-microtek-greenburg-apartment-sector-86-gurgaon",
+  "/property/3-bhk-signature-global-city-79b-apartment-sector-79-gurgaon-2":
+    "/property/3-bhk-signature-global-city-79b-apartment-sector-79-gurgaon",
+  "/property/3-bhk-ss-residential-condominium-apartment-sector-83-gurgaon-2":
+    "/property/3-bhk-ss-residential-condominium-apartment-sector-83-gurgaon",
+  "/property/3-bhk-suncity-essel-towers-apartment-sector-28-gurgaon-2":
+    "/property/3-bhk-suncity-essel-towers-apartment-sector-28-gurgaon",
+  "/property/3-bhk-tata-primanti-apartment-sector-72-gurgaon-2":
+    "/property/3-bhk-tata-primanti-apartment-sector-72-gurgaon",
+  "/property/4-bhk-antriksh-heights-apartment-sector-84-gurgaon-2":
+    "/property/4-bhk-antriksh-heights-apartment-sector-84-gurgaon",
+  "/property/4-bhk-sobha-city-apartment-sector-108-gurgaon-2":
+    "/property/4-bhk-sobha-city-apartment-sector-108-gurgaon",
+  "/property/4-bhk-tata-primanti-apartment-sector-72-gurgaon-2":
+    "/property/4-bhk-tata-primanti-apartment-sector-72-gurgaon",
+  "/property/4-bhk-vatika-city-acacia-apartment-sector-49-gurgaon-2":
+    "/property/4-bhk-vatika-city-acacia-apartment-sector-49-gurgaon",
+  "/property/4-bhk-whiteland-the-aspen-apartment-sector-76-gurgaon-2":
+    "/property/4-bhk-whiteland-the-aspen-apartment-sector-76-gurgaon",
+  "/property/5-bhk-tulip-melrose-apartment-sector-70-gurgaon-2":
+    "/property/5-bhk-tulip-melrose-apartment-sector-70-gurgaon",
+};
+
 const PATH_REDIRECTS: Record<string, string> = {
   "/sell-property-in-gurgaon": "/sell-property-gurgaon",
   "/property-for-sale-in-gurgaon": "/flats-for-sale-in-gurgaon",
@@ -16,6 +71,7 @@ const PATH_REDIRECTS: Record<string, string> = {
   "/home-loan": "/home-loans",
   "/property/dlf-the-primus-sector-82a-gurgaon": "/projects/dlf-the-primus-sector-82a-gurgaon",
   "/projects/dlf-the-skycourt-sector-86": "/dlf-skycourt-sector-86-gurgaon",
+  ...DUPLICATE_PROPERTY_REDIRECTS,
   ...Object.fromEntries(
     Object.entries(PROJECT_REDIRECTS).map(([slug, path]) => [`/projects/${slug}`, path]),
   ),
