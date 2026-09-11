@@ -46,7 +46,13 @@ export type AdminPropertyRow = {
   updated_at: string;
   cover_image_url: string | null;
 };
-export type AdminImageRow = { id: string; image_url: string; alt_text: string | null; sort_order: number; is_primary: boolean };
+export type AdminImageRow = {
+  id: string;
+  image_url: string;
+  alt_text: string | null;
+  sort_order: number;
+  is_primary: boolean;
+};
 export type FeatureRow = { feature_name: string; category: string };
 
 export const listAdminProperties = createServerFn({ method: "GET" })
@@ -54,7 +60,9 @@ export const listAdminProperties = createServerFn({ method: "GET" })
   .handler(async ({ context }) => {
     const { data, error } = await context.supabase
       .from("properties")
-      .select("id,title,slug,bhk,sector,locality,price,status,listing_type,is_published,is_luxury,updated_at,cover_image_url")
+      .select(
+        "id,title,slug,bhk,sector,locality,price,status,listing_type,is_published,is_luxury,updated_at,cover_image_url",
+      )
       .order("updated_at", { ascending: false });
     if (error) throw new Error(error.message);
     return (data ?? []) as AdminPropertyRow[];
@@ -77,7 +85,10 @@ export const getAdminProperty = createServerFn({ method: "GET" })
         .select("id,image_url,alt_text,sort_order,is_primary")
         .eq("property_id", data.id)
         .order("sort_order", { ascending: true }),
-      context.supabase.from("property_features").select("feature_name,category").eq("property_id", data.id),
+      context.supabase
+        .from("property_features")
+        .select("feature_name,category")
+        .eq("property_id", data.id),
     ]);
     const rows = (features ?? []) as FeatureRow[];
     return {
@@ -102,7 +113,15 @@ export const listTaxonomy = createServerFn({ method: "GET" })
 const duplicateCheckSchema = z.object({
   id: z.string().uuid().nullable().optional(),
   listing_type: z.enum(["sale", "rent"]),
-  property_type: z.enum(["apartment", "builder_floor", "villa", "plot", "commercial", "office", "retail"]),
+  property_type: z.enum([
+    "apartment",
+    "builder_floor",
+    "villa",
+    "plot",
+    "commercial",
+    "office",
+    "retail",
+  ]),
   bhk: z.string().max(40).nullable(),
   project_id: z.string().uuid().nullable(),
   sector: z.string().max(80).nullable(),
@@ -117,7 +136,9 @@ export const findPotentialPropertyDuplicates = createServerFn({ method: "POST" }
   .handler(async ({ context, data }) => {
     let query = context.supabase
       .from("properties")
-      .select("id,title,slug,bhk,project_id,sector,area_sqft,floor_number,facing,listing_type,property_type,is_published")
+      .select(
+        "id,title,slug,bhk,project_id,sector,area_sqft,floor_number,facing,listing_type,property_type,is_published",
+      )
       .eq("listing_type", data.listing_type)
       .eq("property_type", data.property_type)
       .limit(20);
@@ -145,11 +166,19 @@ export const findPotentialPropertyDuplicates = createServerFn({ method: "POST" }
           score += 2;
           reasons.push("same configuration");
         }
-        if (data.area_sqft && row.area_sqft && Math.abs(Number(row.area_sqft) - data.area_sqft) <= 10) {
+        if (
+          data.area_sqft &&
+          row.area_sqft &&
+          Math.abs(Number(row.area_sqft) - data.area_sqft) <= 10
+        ) {
           score += 2;
           reasons.push("same area");
         }
-        if (data.floor_number !== null && data.floor_number !== undefined && row.floor_number === data.floor_number) {
+        if (
+          data.floor_number !== null &&
+          data.floor_number !== undefined &&
+          row.floor_number === data.floor_number
+        ) {
           score += 2;
           reasons.push("same floor");
         }
@@ -179,7 +208,15 @@ const propertySchema = z.object({
   title: z.string().trim().min(3).max(160),
   slug: z.string().trim().min(3).max(120),
   listing_type: z.enum(["sale", "rent"]),
-  property_type: z.enum(["apartment", "builder_floor", "villa", "plot", "commercial", "office", "retail"]),
+  property_type: z.enum([
+    "apartment",
+    "builder_floor",
+    "villa",
+    "plot",
+    "commercial",
+    "office",
+    "retail",
+  ]),
   status: z.enum(["ready_to_move", "under_construction", "new_launch", "sold_out"]),
   bhk: z.string().max(40).nullable(),
   project_id: z.string().uuid().nullable(),
@@ -229,17 +266,63 @@ export const savePropertyDraft = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => propertySchema.parse(input))
   .handler(async ({ context, data }) => {
     const { id, amenities, features, videos, images, ...fields } = data;
-    const propertyId = id ?? crypto.randomUUID();
+    let propertyId = id ?? crypto.randomUUID();
+    let matchedExistingListing = false;
 
-    const baseSlug = slugify(fields.slug.replace(/-+$/g, "")).slice(0, 120);
-    if (!baseSlug) throw new Error("Could not create a property URL. Please add more property details and try again.");
+    // Bulk imports and repeated form submissions must update the same physical
+    // listing instead of minting a numeric-suffix duplicate URL.
+    if (!id) {
+      let duplicateQuery = context.supabase
+        .from("properties")
+        .select("id,slug")
+        .eq("title", fields.title)
+        .eq("listing_type", fields.listing_type)
+        .eq("property_type", fields.property_type);
+      duplicateQuery =
+        fields.area_sqft === null
+          ? duplicateQuery.is("area_sqft", null)
+          : duplicateQuery.eq("area_sqft", fields.area_sqft);
+      duplicateQuery =
+        fields.sector === null
+          ? duplicateQuery.is("sector", null)
+          : duplicateQuery.eq("sector", fields.sector);
+      const { data: existing, error: duplicateError } = await duplicateQuery.limit(1).maybeSingle();
+      if (duplicateError) throw new Error(duplicateError.message);
+      if (existing) {
+        propertyId = existing.id;
+        matchedExistingListing = true;
+      }
+    }
+
+    let requestedSlug = fields.slug;
+    if (id) {
+      const { data: current, error: currentError } = await context.supabase
+        .from("properties")
+        .select("slug")
+        .eq("id", id)
+        .single();
+      if (currentError) throw new Error(currentError.message);
+      requestedSlug = current.slug;
+    }
+    const baseSlug = slugify(requestedSlug.replace(/-+$/g, "")).slice(0, 120);
+    if (!baseSlug)
+      throw new Error(
+        "Could not create a property URL. Please add more property details and try again.",
+      );
 
     const stableSuffix = listingReferenceSlug(propertyId);
-    const candidates = [baseSlug, `${baseSlug.slice(0, 120 - stableSuffix.length - 1)}-${stableSuffix}`];
+    const candidates = [
+      baseSlug,
+      `${baseSlug.slice(0, 120 - stableSuffix.length - 1)}-${stableSuffix}`,
+    ];
     let uniqueSlug = "";
 
     for (const candidate of candidates) {
-      let conflictQuery = context.supabase.from("properties").select("id").eq("slug", candidate).limit(1);
+      let conflictQuery = context.supabase
+        .from("properties")
+        .select("id")
+        .eq("slug", candidate)
+        .limit(1);
       conflictQuery = conflictQuery.neq("id", propertyId);
       const { data: conflicts, error: conflictError } = await conflictQuery;
       if (conflictError) throw new Error(conflictError.message);
@@ -250,7 +333,9 @@ export const savePropertyDraft = createServerFn({ method: "POST" })
     }
 
     if (!uniqueSlug) {
-      throw new Error("Could not create a unique property URL. Please add a distinguishing floor, area, facing or project detail and try again.");
+      throw new Error(
+        "Could not create a unique property URL. Please add a distinguishing floor, area, facing or project detail and try again.",
+      );
     }
 
     const normalizedFields = {
@@ -260,7 +345,7 @@ export const savePropertyDraft = createServerFn({ method: "POST" })
     };
     const row = { ...normalizedFields } as never;
 
-    if (id) {
+    if (id || matchedExistingListing) {
       const { error } = await context.supabase.from("properties").update(row).eq("id", propertyId);
       if (error) throw new Error(error.message);
     } else {
@@ -286,8 +371,16 @@ export const savePropertyDraft = createServerFn({ method: "POST" })
 
     await context.supabase.from("property_features").delete().eq("property_id", propertyId);
     const featureRows = [
-      ...amenities.map((name) => ({ property_id: propertyId, feature_name: name, category: "amenity" })),
-      ...features.map((name) => ({ property_id: propertyId, feature_name: name, category: "feature" })),
+      ...amenities.map((name) => ({
+        property_id: propertyId,
+        feature_name: name,
+        category: "amenity",
+      })),
+      ...features.map((name) => ({
+        property_id: propertyId,
+        feature_name: name,
+        category: "feature",
+      })),
       ...videos.map((url) => ({ property_id: propertyId, feature_name: url, category: "video" })),
     ];
     if (featureRows.length) {
@@ -305,7 +398,9 @@ export const setPropertyState = createServerFn({ method: "POST" })
       .object({
         id: z.string().uuid(),
         is_published: z.boolean().optional(),
-        status: z.enum(["ready_to_move", "under_construction", "new_launch", "sold_out"]).optional(),
+        status: z
+          .enum(["ready_to_move", "under_construction", "new_launch", "sold_out"])
+          .optional(),
       })
       .parse(input),
   )
@@ -316,7 +411,10 @@ export const setPropertyState = createServerFn({ method: "POST" })
       if (data.is_published) patch["published_at"] = new Date().toISOString();
     }
     if (data.status) patch["status"] = data.status;
-    const { error } = await context.supabase.from("properties").update(patch as never).eq("id", data.id);
+    const { error } = await context.supabase
+      .from("properties")
+      .update(patch as never)
+      .eq("id", data.id);
     if (error) throw new Error(error.message);
     return { ok: true };
   });
@@ -357,7 +455,9 @@ export const generateDescription = createServerFn({ method: "POST" })
         }),
       });
       if (!response.ok) return { text: "", error: "AI service unavailable right now." };
-      const json = (await response.json()) as { choices?: Array<{ message?: { content?: string } }> };
+      const json = (await response.json()) as {
+        choices?: Array<{ message?: { content?: string } }>;
+      };
       return { text: json.choices?.[0]?.message?.content?.trim() ?? "", error: null };
     } catch {
       return { text: "", error: "AI service unavailable right now." };
