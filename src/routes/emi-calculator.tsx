@@ -44,6 +44,9 @@ function EmiPage() {
               EMI from a longer tenure can increase the total interest paid over the life of the
               loan.
             </p>
+            <a href="/haryana-stamp-duty-registration-calculator" className="mt-4 inline-block text-sm text-gold hover:underline">
+              Calculate Haryana stamp duty & registration fees
+            </a>
           </div>
           <div className="rounded-xl border border-gold/30 bg-gold/5 p-6">
             <h2 className="font-display text-2xl">Need a lender-ready property shortlist?</h2>
