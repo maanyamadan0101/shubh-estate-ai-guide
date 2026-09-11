@@ -24,10 +24,39 @@ const PATH_REDIRECTS: Record<string, string> = {
   ),
 };
 
+const TRACKING_PARAMETERS = new Set([
+  "utm_source",
+  "utm_medium",
+  "utm_campaign",
+  "utm_term",
+  "utm_content",
+  "utm_id",
+  "gclid",
+  "dclid",
+  "fbclid",
+  "msclkid",
+  "mc_cid",
+  "mc_eid",
+  "ref",
+]);
+
+/** Removes attribution-only parameters without changing functional filters. */
+export function stripTrackingParameters(searchParams: URLSearchParams): boolean {
+  let changed = false;
+  for (const key of [...searchParams.keys()]) {
+    if (TRACKING_PARAMETERS.has(key.toLowerCase())) {
+      searchParams.delete(key);
+      changed = true;
+    }
+  }
+  return changed;
+}
+
 /** Keep public navigation relative and resolve known aliases before emitting links. */
 export function internalHref(value: string): string {
   const url = new URL(value, SITE_ORIGIN);
   if (!["shubhestatebroker.in", "www.shubhestatebroker.in"].includes(url.hostname)) return value;
+  stripTrackingParameters(url.searchParams);
   url.pathname = url.pathname.replace(/\/+$/, "") || "/";
   if (url.pathname === "/nri" || url.pathname.startsWith("/nri/")) {
     return "/nri-sell-property-gurgaon";
@@ -45,11 +74,13 @@ export function internalHref(value: string): string {
 export function canonicalRedirect(request: Request): Response | null {
   if (!["GET", "HEAD"].includes(request.method)) return null;
   const url = new URL(request.url);
+  const requestedHref = url.href;
+  stripTrackingParameters(url.searchParams);
   const production = ["shubhestatebroker.in", "www.shubhestatebroker.in"].includes(url.hostname);
   // Keep local and preview hosts local, while applying the same path redirects.
   const relative = internalHref(`${SITE_ORIGIN}${url.pathname}${url.search}${url.hash}`);
   const destination = new URL(relative, production ? SITE_ORIGIN : url.origin);
-  if (destination.href === url.href) return null;
+  if (destination.href === requestedHref) return null;
   return new Response(null, {
     status: 301,
     headers: {

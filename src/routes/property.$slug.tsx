@@ -18,6 +18,7 @@ import {
   SITE_ORIGIN,
   stripInternalListingReference,
   wordSafeText,
+  hasLegacyNumericSlugSuffix,
 } from "@/lib/seo";
 
 function storedDescriptionLooksUsable(value: string | null | undefined) {
@@ -49,6 +50,42 @@ export const Route = createFileRoute("/property/$slug")({
 
     const data = await getPublicPropertyDetail({ data: { slug: params.slug } });
     if (!data) throw notFound();
+
+    // Legacy imports appended -2/-3/-4. Redirect only when the earlier record
+    // represents the same unit; a meaningful floor/facing variation is kept.
+    if (hasLegacyNumericSlugSuffix(params.slug)) {
+      const match = params.slug.match(/^(.*)-(\d+)$/);
+      const suffix = Number(match?.[2]);
+      const candidateSlugs = match
+        ? [suffix > 2 ? `${match[1]}-${suffix - 1}` : "", match[1]].filter(Boolean)
+        : [];
+      const fingerprint = (property: typeof data.property) =>
+        [
+          property.title,
+          property.listing_type,
+          property.property_type,
+          property.area_sqft,
+          property.price,
+          property.floor_number,
+          property.facing,
+          property.furnishing,
+          property.bathrooms,
+          property.balconies,
+          property.parking,
+        ]
+          .map((value) =>
+            String(value ?? "")
+              .trim()
+              .toLowerCase(),
+          )
+          .join("|");
+      for (const candidateSlug of candidateSlugs) {
+        const candidate = await getPublicPropertyDetail({ data: { slug: candidateSlug } });
+        if (candidate && fingerprint(candidate.property) === fingerprint(data.property)) {
+          throw redirect({ href: `/property/${candidateSlug}`, statusCode: 301 });
+        }
+      }
+    }
 
     const fallbackProjectImage =
       data.images.length || data.property.cover_image_url
@@ -122,9 +159,7 @@ export const Route = createFileRoute("/property/$slug")({
     const ogDescription = storedDescriptionLooksUsable(p.og_description)
       ? wordSafeText(stripInternalListingReference(p.og_description!), 158)
       : description;
-    const ogTitle = p.og_title
-      ? compactSeoTitle(stripInternalListingReference(p.og_title))
-      : title;
+    const ogTitle = p.og_title ? compactSeoTitle(stripInternalListingReference(p.og_title)) : title;
 
     const canonical = buildCanonical(params.slug);
     const fallback = representativeProjectImageFor(p.title);
@@ -158,7 +193,14 @@ export const Route = createFileRoute("/property/$slug")({
         addressCountry: "IN",
       },
       ...(p.area_sqft
-        ? { floorSize: { "@type": "QuantitativeValue", value: p.area_sqft, unitCode: "FTK", unitText: "square feet" } }
+        ? {
+            floorSize: {
+              "@type": "QuantitativeValue",
+              value: p.area_sqft,
+              unitCode: "FTK",
+              unitText: "square feet",
+            },
+          }
         : {}),
       ...(p.bathrooms ? { numberOfBathroomsTotal: p.bathrooms } : {}),
       ...(p.bhk ? { numberOfRooms: Number.parseFloat(p.bhk) || undefined } : {}),
@@ -225,7 +267,10 @@ export const Route = createFileRoute("/property/$slug")({
       meta: [
         { title },
         { name: "description", content: description },
-        { name: "robots", content: "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" },
+        {
+          name: "robots",
+          content: "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1",
+        },
         { property: "og:title", content: ogTitle },
         { property: "og:description", content: ogDescription },
         { property: "og:type", content: "product" },
@@ -316,7 +361,8 @@ function PropertyPage() {
                 </p>
                 <p className="mt-1 font-display text-xl">{projectIdentity.name}</p>
                 <p className="mt-1 text-sm text-muted-foreground">
-                  Compare this exact unit with project information, other published inventory and location context before shortlisting.
+                  Compare this exact unit with project information, other published inventory and
+                  location context before shortlisting.
                 </p>
               </div>
             </div>
@@ -353,38 +399,65 @@ function PropertyPage() {
           <div className="flex items-start gap-3">
             <Landmark className="mt-1 size-5 shrink-0 text-gold" aria-hidden="true" />
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gold">Related property research</p>
-              <h2 className="mt-2 font-display text-2xl">Continue from this listing to the right project and location pages</h2>
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gold">
+                Related property research
+              </p>
+              <h2 className="mt-2 font-display text-2xl">
+                Continue from this listing to the right project and location pages
+              </h2>
               <p className="mt-3 max-w-4xl text-sm leading-6 text-muted-foreground">
-                Internal links below connect the individual apartment to its project, corridor, Gurgaon inventory and financing resources. This makes it easier for buyers to compare the exact unit in context instead of viewing an isolated listing.
+                Internal links below connect the individual apartment to its project, corridor,
+                Gurgaon inventory and financing resources. This makes it easier for buyers to
+                compare the exact unit in context instead of viewing an isolated listing.
               </p>
               <div className="mt-5 flex flex-wrap gap-x-5 gap-y-3 text-sm">
                 {projectIdentity && projectGuideHrefValue ? (
-                  <a href={projectGuideHrefValue} className="font-semibold text-gold underline-offset-4 hover:underline">
+                  <a
+                    href={projectGuideHrefValue}
+                    className="font-semibold text-gold underline-offset-4 hover:underline"
+                  >
                     {projectIdentity.name} project guide
                   </a>
                 ) : null}
-                <Link to={corridorHref} className="font-semibold text-gold underline-offset-4 hover:underline">
+                <Link
+                  to={corridorHref}
+                  className="font-semibold text-gold underline-offset-4 hover:underline"
+                >
                   <MapPin className="mr-1 inline size-3.5" aria-hidden="true" />
                   {locationName}
                 </Link>
                 {statusHref && statusLabel ? (
-                  <a href={statusHref} className="font-semibold text-gold underline-offset-4 hover:underline">
+                  <a
+                    href={statusHref}
+                    className="font-semibold text-gold underline-offset-4 hover:underline"
+                  >
                     {statusLabel}
                   </a>
                 ) : null}
-                <Link to="/flats-for-sale-in-gurgaon" className="font-semibold text-gold underline-offset-4 hover:underline">
+                <Link
+                  to="/flats-for-sale-in-gurgaon"
+                  className="font-semibold text-gold underline-offset-4 hover:underline"
+                >
                   Flats for sale in Gurgaon
                 </Link>
-                <Link to="/home-loans" className="font-semibold text-gold underline-offset-4 hover:underline">
+                <Link
+                  to="/home-loans"
+                  className="font-semibold text-gold underline-offset-4 hover:underline"
+                >
                   Home-loan assistance
                 </Link>
-                <Link to="/property-buying-advisory-gurgaon" className="font-semibold text-gold underline-offset-4 hover:underline">
+                <Link
+                  to="/property-buying-advisory-gurgaon"
+                  className="font-semibold text-gold underline-offset-4 hover:underline"
+                >
                   Gurgaon buyer advisory
                 </Link>
               </div>
               {updated ? (
-                <p className="mt-5 text-xs text-muted-foreground">Listing information last updated {updated}. Current price and availability should be reconfirmed at enquiry.</p>
+                <p className="mt-5 text-xs text-muted-foreground">
+                  Listing information last updated {updated}. Current price and availability should
+                  be reconfirmed at enquiry.
+                </p>
               ) : null}
             </div>
           </div>
