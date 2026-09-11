@@ -41,6 +41,8 @@ const DUPLICATE_PROPERTY_REDIRECTS: Record<string, string> = {
     "/property/3-bhk-mapsko-casa-bella-apartment-sector-82-gurgaon",
   "/property/3-bhk-microtek-greenburg-apartment-sector-86-gurgaon-2":
     "/property/3-bhk-microtek-greenburg-apartment-sector-86-gurgaon",
+  "/property/3-bhk-servant-room-conscient-heritage-one-apartment-sector-62-gurugram-2":
+    "/property/3-bhk-servant-room-conscient-heritage-one-apartment-sector-62-gurugram",
   "/property/3-bhk-signature-global-city-79b-apartment-sector-79-gurgaon-2":
     "/property/3-bhk-signature-global-city-79b-apartment-sector-79-gurgaon",
   "/property/3-bhk-ss-residential-condominium-apartment-sector-83-gurgaon-2":
