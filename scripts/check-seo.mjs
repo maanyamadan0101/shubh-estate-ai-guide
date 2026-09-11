@@ -63,6 +63,22 @@ assert.equal(
   null,
 );
 assert.equal(internalHref("https://www.shubhestatebroker.in/home-loan/"), "/home-loans");
+assert.equal(
+  internalHref(
+    "https://shubhestatebroker.in/projects/emaar-urban-oasis-sector-62?utm_source=chatgpt.com",
+  ),
+  "/projects/emaar-urban-oasis-sector-62",
+);
+assert.equal(
+  internalHref("/flats-for-sale-in-gurgaon?purpose=sale&page=2&utm_campaign=test"),
+  "/flats-for-sale-in-gurgaon?purpose=sale&page=2",
+);
+assert.equal(
+  canonicalRedirect(
+    new Request("https://shubhestatebroker.in/contact?interest=site-visit&utm_source=google"),
+  )?.headers.get("location"),
+  "https://shubhestatebroker.in/contact?interest=site-visit",
+);
 assert.equal(internalHref("https://example.com/a/"), "https://example.com/a/");
 console.log(
   "PASS: canonical origin, one-hop legacy redirects, destination stability, relative links, preview hosts and POST preservation",
