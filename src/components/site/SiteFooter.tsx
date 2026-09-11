@@ -81,6 +81,7 @@ export function SiteFooter() {
               <li><Link to="/property-buying-advisory-gurgaon" className="hover:text-gold">Property Buying Advisory</Link></li>
               <li><Link to="/home-loans" className="hover:text-gold">Home Loan & Mortgage Assistance</Link></li>
               <li><Link to="/emi-calculator" className="hover:text-gold">EMI Calculator</Link></li>
+              <li><a href="/haryana-stamp-duty-registration-calculator" className="hover:text-gold">Haryana Stamp Duty Calculator</a></li>
             </ul>
           </nav>
 

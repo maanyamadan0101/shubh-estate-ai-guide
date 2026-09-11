@@ -152,6 +152,11 @@ const STATIC_PATHS: StaticPath[] = [
   { path: "/locations/new-gurgaon", priority: "0.7", lastmod: SEO_TEMPLATE_LASTMOD },
   { path: "/home-loans", priority: "0.7", lastmod: SEO_TEMPLATE_LASTMOD },
   { path: "/emi-calculator", priority: "0.6" },
+  {
+    path: "/haryana-stamp-duty-registration-calculator",
+    priority: "0.9",
+    lastmod: "2026-09-11",
+  },
   { path: "/gurugram-growth-story", priority: "0.6", lastmod: "2026-09-08" },
   { path: "/about", priority: "0.5", lastmod: SEO_TEMPLATE_LASTMOD },
   { path: "/contact", priority: "0.5", lastmod: SEO_TEMPLATE_LASTMOD },
