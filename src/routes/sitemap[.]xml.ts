@@ -16,6 +16,11 @@ const STATIC_PATHS: StaticPath[] = [
   { path: "/jms-the-majestic-manesar", priority: "0.9", lastmod: "2026-09-06" },
   { path: "/", priority: "1.0", lastmod: "2026-09-08" },
   { path: "/flats-for-sale-in-gurgaon", priority: "0.9", lastmod: "2026-09-01" },
+  {
+    path: "/emaar-palm-hills-sector-77-gurgaon-flats-for-sale",
+    priority: "0.9",
+    lastmod: "2026-09-13",
+  },
   { path: "/ready-to-move-flats-in-gurgaon", priority: "0.9", lastmod: "2026-08-28" },
   { path: "/properties-for-sale-on-spr-gurgaon", priority: "0.9", lastmod: "2026-08-25" },
   { path: "/sell-property-gurgaon", priority: "0.9", lastmod: SEO_TEMPLATE_LASTMOD },
@@ -258,6 +263,7 @@ export const Route = createFileRoute("/sitemap.xml")({
               return `  <url>\n    <loc>${escapeXml(`${SITE_ORIGIN}/property/${p.slug}`)}</loc>${safeLastmod(latestLastmod(p.updated_at))}\n    <priority>0.8</priority>${image}\n  </url>`;
             }),
         ];
+
         const seen = new Set<string>();
         const urls = entries
           .filter((entry) => {
