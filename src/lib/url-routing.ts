@@ -73,6 +73,8 @@ const PATH_REDIRECTS: Record<string, string> = {
   "/home-loan": "/home-loans",
   "/property/dlf-the-primus-sector-82a-gurgaon": "/projects/dlf-the-primus-sector-82a-gurgaon",
   "/projects/dlf-the-skycourt-sector-86": "/dlf-skycourt-sector-86-gurgaon",
+  "/property/3-bhk-servant-room-emaar-mgf-palm-hills-apartment-sector-77-gurugram":
+    "/emaar-palm-hills-sector-77-gurgaon-flats-for-sale",
   ...DUPLICATE_PROPERTY_REDIRECTS,
   ...Object.fromEntries(
     Object.entries(PROJECT_REDIRECTS).map(([slug, path]) => [`/projects/${slug}`, path]),
