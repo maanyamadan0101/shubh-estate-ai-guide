@@ -19,6 +19,10 @@ const POPULAR_SEARCH_LINKS = [
   ["/blog/gurgaon-property-due-diligence-checklist-2026", "Property Due Diligence Checklist"],
   ["/dwarka-expressway-flats-for-sale-gurgaon", "Dwarka Expressway Flats for Sale"],
   ["/best-areas-gurgaon-property-investment", "Property Investment Areas"],
+  ["/ready-to-move-flats-in-gurgaon", "Ready-to-Move Flats in Gurgaon"],
+  ["/3-bhk-builder-floor-for-sale-vatika-inxt-floors-sector-82a-gurgaon", "Builder Floors in Gurgaon"],
+  ["/3-bhk-for-sale-emaar-emerald-estate-sector-65-gurgaon-1395-sqft", "3 BHK Resale Sector 65"],
+  ["/puri-emerald-bay-3-bhk-for-sale-sector-104-gurgaon", "3 BHK Dwarka Expressway"],
 ] as const;
 
 export function SiteFooter() {
@@ -121,7 +125,7 @@ export function SiteFooter() {
               ))}
             </p>
             <p className="text-xs text-navy-foreground/65">
-              International property resources are available for owners and buyers outside India. Core Gurgaon buying, selling, rent-out and mandate pages remain the primary site experience for visitors in every country.
+              Search by intent: ready-to-move flats, resale apartments, builder floors and project-specific homes are linked above so visitors can move from a corridor guide to current inventory, financing and seller support.
             </p>
             <p className="text-xs leading-relaxed text-navy-foreground/55">{LOAN_DISCLAIMER}</p>
             <p className="text-xs text-navy-foreground/55">© {new Date().getFullYear()} Shubh Estate Brokers, Gurugram. All rights reserved.</p>
