@@ -159,46 +159,89 @@ export const Route = createFileRoute("/properties-for-sale-on-spr-gurgaon")({
         type: "application/ld+json",
         children: JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: SITE_ORIGIN },
+          "@graph": [
             {
-              "@type": "ListItem",
-              position: 2,
-              name: "Flats for sale in Gurgaon",
-              item: `${SITE_ORIGIN}/flats-for-sale-in-gurgaon`,
+              "@type": "WebSite",
+              "@id": `${SITE_ORIGIN}/#website`,
+              url: SITE_ORIGIN,
+              name: "Shubh Estate Brokers",
+              publisher: { "@id": `${SITE_ORIGIN}/#organization` },
             },
             {
-              "@type": "ListItem",
-              position: 3,
-              name: "Properties for sale on SPR Gurgaon",
-              item: canonical,
+              "@type": "RealEstateAgent",
+              "@id": `${SITE_ORIGIN}/#organization`,
+              name: "Shubh Estate Brokers",
+              url: SITE_ORIGIN,
+              areaServed: { "@type": "City", name: "Gurugram" },
+            },
+            {
+              "@type": "CollectionPage",
+              "@id": `${canonical}#webpage`,
+              url: canonical,
+              name: "Properties for Sale on SPR Gurgaon: 2, 3, 4 & 5 BHK Shortlist",
+              description:
+                "Compare selected apartments and builder floors near Southern Peripheral Road, Gurugram, with indicative asking prices, configurations and buyer-focused property guidance.",
+              inLanguage: "en-IN",
+              isPartOf: { "@id": `${SITE_ORIGIN}/#website` },
+              publisher: { "@id": `${SITE_ORIGIN}/#organization` },
+              about: {
+                "@type": "Place",
+                name: "Southern Peripheral Road",
+                address: {
+                  "@type": "PostalAddress",
+                  addressLocality: "Gurugram",
+                  addressRegion: "Haryana",
+                  addressCountry: "IN",
+                },
+              },
+              breadcrumb: { "@id": `${canonical}#breadcrumb` },
+              mainEntity: { "@id": `${canonical}#property-list` },
+              dateModified: "2026-09-14",
+            },
+            {
+              "@type": "BreadcrumbList",
+              "@id": `${canonical}#breadcrumb`,
+              itemListElement: [
+                { "@type": "ListItem", position: 1, name: "Home", item: SITE_ORIGIN },
+                {
+                  "@type": "ListItem",
+                  position: 2,
+                  name: "Flats for sale in Gurgaon",
+                  item: `${SITE_ORIGIN}/flats-for-sale-in-gurgaon`,
+                },
+                {
+                  "@type": "ListItem",
+                  position: 3,
+                  name: "Properties for sale on SPR Gurgaon",
+                  item: canonical,
+                },
+              ],
+            },
+            {
+              "@type": "ItemList",
+              "@id": `${canonical}#property-list`,
+              name: "Selected properties for sale near Southern Peripheral Road Gurgaon",
+              numberOfItems: PROPERTIES.length,
+              itemListElement: PROPERTIES.map((property, index) => ({
+                "@type": "ListItem",
+                position: index + 1,
+                item: {
+                  "@type": "Residence",
+                  name: `${property.project} ${property.configuration} for sale in ${property.sector}, Gurgaon`,
+                  description: `${property.size}; ${property.floor}; ${property.facing} facing; indicative asking price ${property.price}.`,
+                  address: {
+                    "@type": "PostalAddress",
+                    addressLocality: "Gurugram",
+                    addressRegion: "Haryana",
+                    addressCountry: "IN",
+                  },
+                  ...(property.href
+                    ? { url: `${SITE_ORIGIN}${property.href}` }
+                    : {}),
+                },
+              })),
             },
           ],
-        }),
-      },
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "ItemList",
-          name: "Selected properties for sale near Southern Peripheral Road Gurgaon",
-          numberOfItems: PROPERTIES.length,
-          itemListElement: PROPERTIES.map((property, index) => ({
-            "@type": "ListItem",
-            position: index + 1,
-            item: {
-              "@type": "Residence",
-              name: `${property.project} ${property.configuration} for sale in ${property.sector}, Gurgaon`,
-              description: `${property.size}; ${property.floor}; ${property.facing} facing; indicative asking price ${property.price}.`,
-              address: {
-                "@type": "PostalAddress",
-                addressLocality: "Gurugram",
-                addressRegion: "Haryana",
-                addressCountry: "IN",
-              },
-            },
-          })),
         }),
       },
       {
