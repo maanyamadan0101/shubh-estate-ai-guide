@@ -276,7 +276,10 @@ export const Route = createFileRoute("/dwarka-expressway-flats-for-sale-gurgaon"
       { property: "og:image", content: corridorImage.url },
     ],
     links: [{ rel: "canonical", href: PAGE_URL }],
-    scripts: [\n      { type: "application/ld+json", children: JSON.stringify(collectionPageSchema) },\n      { type: "application/ld+json", children: JSON.stringify(itemListSchema) },\n    ],
+    scripts: [
+      { type: "application/ld+json", children: JSON.stringify(collectionPageSchema) },
+      { type: "application/ld+json", children: JSON.stringify(itemListSchema) },
+    ],
   }),
   component: DwarkaExpresswayInventory,
 });
