@@ -28,7 +28,7 @@ insert into public.properties (
   price, price_text, bedrooms, bathrooms, bhk, area_sqft,
   balconies, parking, status, description, features,
   cover_image_url, meta_title, meta_description, og_title, og_description,
-  canonical_url, is_published, is_featured, published_at, updated_at
+  canonical_url, is_published, is_featured, image_license_confirmed, published_at, updated_at
 )
 values (
   'f2b3cc85-53b7-4c46-a2b9-7dc3ef35e27c',
@@ -42,8 +42,8 @@ values (
   'Sector 56',
   'Golf Course Extension Road',
   (select id from public.projects where slug = 'gail-cghs-sector-56-gurgaon' limit 1),
-  0,
-  'Price on request',
+  19000000,
+  '₹1.90 Cr',
   3,
   2,
   '3 BHK',
@@ -59,6 +59,7 @@ values (
   '3 BHK Apartment for Sale in GAIL CGHS, Sector 56 Gurugram',
   'Shubh Estate Brokers listing: 3 BHK, 2 washrooms and approximately 1,800 sq ft in GAIL CGHS, Sector 56 Gurugram, near Shalom Presidency School, HUDA Market and Rapid Metro.',
   'https://shubhestatebroker.in/property/3-bhk-apartment-for-sale-gail-cghs-sector-56-gurugram-1800-sq-ft',
+  true,
   true,
   true,
   now(),
