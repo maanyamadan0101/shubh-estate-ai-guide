@@ -241,7 +241,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     scripts: [
       {
-        children: "window.dataLayer=window.dataLayer||[];window.gtag=window.gtag||function(){window.dataLayer.push(arguments);};gtag('js',new Date());gtag('config','\" + GA_MEASUREMENT_ID + \"',{send_page_view:false});(function(w,d){var loaded=false;function loadAnalytics(){if(loaded)return;loaded=true;var script=d.createElement('script');script.async=true;script.src='https://www.googletagmanager.com/gtag/js?id=\" + GA_MEASUREMENT_ID + \"';d.head.appendChild(script);}function schedule(){if('requestIdleCallback'in w){w.requestIdleCallback(loadAnalytics,{timeout:5000});}else{w.setTimeout(loadAnalytics,4000);}}if(d.readyState==='complete'){schedule();}else{w.addEventListener('load',schedule,{once:true});}})(window,document);",
+        children: "window.dataLayer=window.dataLayer||[];window.gtag=window.gtag||function(){window.dataLayer.push(arguments);};gtag('js',new Date());gtag('config','" + GA_MEASUREMENT_ID + "',{send_page_view:false});(function(w,d){var loaded=false;function loadAnalytics(){if(loaded)return;loaded=true;var script=d.createElement('script');script.async=true;script.src='https://www.googletagmanager.com/gtag/js?id=" + GA_MEASUREMENT_ID + "';d.head.appendChild(script);}function schedule(){if('requestIdleCallback'in w){w.requestIdleCallback(loadAnalytics,{timeout:5000});}else{w.setTimeout(loadAnalytics,4000);}}if(d.readyState==='complete'){schedule();}else{w.addEventListener('load',schedule,{once:true});}})(window,document);",
       },
       { type: "application/ld+json", children: JSON.stringify(localBusinessSchema) },
       { type: "application/ld+json", children: JSON.stringify(websiteSchema) },
