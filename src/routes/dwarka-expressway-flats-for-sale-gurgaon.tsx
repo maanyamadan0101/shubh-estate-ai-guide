@@ -199,6 +199,68 @@ const itemListSchema = {
   ).map((item, index) => ({ ...item, position: index + 1 })),
 };
 
+
+const collectionPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": `${PAGE_URL}#webpage`,
+  url: PAGE_URL,
+  name: "Dwarka Expressway Property Hub: Luxury Apartments & New Launches",
+  description:
+    "Explore luxury apartments, price trends, resale opportunities and RERA-approved residential projects across Sectors 99–113 on Dwarka Expressway, Gurugram.",
+  inLanguage: "en-IN",
+  isPartOf: {
+    "@type": "WebSite",
+    "@id": `${SITE_ORIGIN}/#website`,
+    name: "Shubh Estate Brokers",
+    url: SITE_ORIGIN,
+  },
+  publisher: {
+    "@type": "Organization",
+    "@id": `${SITE_ORIGIN}/#organization`,
+    name: "Shubh Estate Brokers",
+    url: SITE_ORIGIN,
+  },
+  about: {
+    "@type": "Place",
+    name: "Dwarka Expressway",
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Gurugram",
+      addressRegion: "Haryana",
+      addressCountry: "IN",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 28.5134,
+      longitude: 77.0266,
+    },
+  },
+  breadcrumb: {
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: `${SITE_ORIGIN}/`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Dwarka Expressway Flats for Sale",
+        item: PAGE_URL,
+      },
+    ],
+  },
+  mainEntity: {
+    "@type": "ItemList",
+    name: itemListSchema.name,
+    numberOfItems: itemListSchema.numberOfItems,
+    itemListElement: itemListSchema.itemListElement,
+  },
+};
+
 export const Route = createFileRoute("/dwarka-expressway-flats-for-sale-gurgaon")({
   head: () => ({
     meta: [
@@ -219,7 +281,10 @@ export const Route = createFileRoute("/dwarka-expressway-flats-for-sale-gurgaon"
       { property: "og:image", content: corridorImage.url },
     ],
     links: [{ rel: "canonical", href: PAGE_URL }],
-    scripts: [{ type: "application/ld+json", children: JSON.stringify(itemListSchema) }],
+    scripts: [
+      { type: "application/ld+json", children: JSON.stringify(collectionPageSchema) },
+      { type: "application/ld+json", children: JSON.stringify(itemListSchema) },
+    ],
   }),
   component: DwarkaExpresswayInventory,
 });
