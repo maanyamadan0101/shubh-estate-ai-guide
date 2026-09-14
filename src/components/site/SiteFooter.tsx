@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { CalendarClock, Laptop, Mail, MapPin, MessageCircle, Phone, Star } from "lucide-react";
+import { CalendarClock, Facebook, Instagram, Laptop, Mail, MapPin, MessageCircle, Phone, Star, Youtube } from "lucide-react";
 import { ProjectVideoPreviews } from "@/components/site/ProjectVideoPreviews";
 import { CONTACT, LOAN_DISCLAIMER } from "@/data/site";
 import { trackContact, trackEvent } from "@/lib/analytics";
@@ -63,6 +63,17 @@ export function SiteFooter() {
                 <Laptop className="mt-0.5 size-4 shrink-0 text-gold" aria-hidden="true" />
                 {CONTACT.serviceModes}
               </span>
+              <div className="mt-2 flex flex-wrap gap-3" aria-label="Social media profiles">
+                <a href={CONTACT.facebook} target="_blank" rel="noreferrer" aria-label="Follow Shubh Estate Brokers on Facebook" className="inline-flex items-center gap-2 rounded-full border border-navy-foreground/15 px-3 py-2 text-xs hover:border-gold hover:text-gold">
+                  <Facebook className="size-4" aria-hidden="true" /> Facebook
+                </a>
+                <a href={CONTACT.instagram} target="_blank" rel="noreferrer" aria-label="Follow Shubh Estate Brokers on Instagram" className="inline-flex items-center gap-2 rounded-full border border-navy-foreground/15 px-3 py-2 text-xs hover:border-gold hover:text-gold">
+                  <Instagram className="size-4" aria-hidden="true" /> Instagram
+                </a>
+                <a href={CONTACT.youtube} target="_blank" rel="noreferrer" aria-label="Watch Shubh Estate Brokers on YouTube" className="inline-flex items-center gap-2 rounded-full border border-navy-foreground/15 px-3 py-2 text-xs hover:border-gold hover:text-gold">
+                  <Youtube className="size-4" aria-hidden="true" /> YouTube
+                </a>
+              </div>
               <a href={CONTACT.googleBusinessProfile} target="_blank" rel="noreferrer" onClick={() => trackEvent("google_business_profile_click", { location: "site_footer", page_path: window.location.pathname })} className="flex gap-3 hover:text-gold">
                 <MapPin className="mt-0.5 size-4 shrink-0 text-gold" aria-hidden="true" />
                 View our Google Business Profile
