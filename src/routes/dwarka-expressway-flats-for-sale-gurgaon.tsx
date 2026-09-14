@@ -253,7 +253,7 @@ const collectionPageSchema = {
       },
     ],
   },
-  mainEntity: itemListSchema,
+  mainEntity: { ...itemListSchema, "@context": undefined },
 };
 
 export const Route = createFileRoute("/dwarka-expressway-flats-for-sale-gurgaon")({
