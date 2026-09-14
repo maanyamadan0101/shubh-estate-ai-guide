@@ -106,7 +106,7 @@ const localBusinessSchema = {
   url: SITE_ORIGIN,
   logo: `${SITE_ORIGIN}/shubh-estate-logo.png`,
   image: `${SITE_ORIGIN}/shubh-estate-logo.png`,
-  sameAs: [CONTACT.googleBusinessProfile, CONTACT.instagram, CONTACT.youtube],
+  sameAs: [CONTACT.googleBusinessProfile, CONTACT.facebook, CONTACT.instagram, CONTACT.youtube],
   hasMap: CONTACT.googleBusinessProfile,
   contactPoint: {
     "@type": "ContactPoint",
