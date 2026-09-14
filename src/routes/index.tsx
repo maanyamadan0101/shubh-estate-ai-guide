@@ -37,9 +37,9 @@ export const Route = createFileRoute("/")({
       data: { limit: 6, statuses: ["under_construction", "new_launch"] },
     }),
   head: () => {
-    const title = "Real Estate Broker Sector 51 Gurgaon | Shubh Estate";
+    const title = "Gurgaon Property Broker | Buy, Sell & Invest";
     const description =
-      "Meet a trusted Sector 51 Gurgaon real estate broker for verified resale property, valuations and mortgage guidance. Call Shubh Estate Brokers.";
+      "Buy or sell property in Gurgaon with verified resale listings, project guidance, valuation, title and home-loan support from Shubh Estate Brokers.";
 
     return {
       meta: [
@@ -712,6 +712,30 @@ function Home() {
               className="text-gold underline-offset-4 hover:underline"
             >
               Property in Sector 79 Gurgaon
+            </Link>
+            <Link
+              to="/ready-to-move-flats-in-gurgaon"
+              className="text-gold underline-offset-4 hover:underline"
+            >
+              Ready-to-move flats in Gurgaon
+            </Link>
+            <Link
+              to="/3-bhk-builder-floor-for-sale-vatika-inxt-floors-sector-82a-gurgaon"
+              className="text-gold underline-offset-4 hover:underline"
+            >
+              Builder floors in Gurgaon
+            </Link>
+            <Link
+              to="/3-bhk-for-sale-emaar-emerald-estate-sector-65-gurgaon-1395-sqft"
+              className="text-gold underline-offset-4 hover:underline"
+            >
+              3 BHK resale in Sector 65
+            </Link>
+            <Link
+              to="/puri-emerald-bay-3-bhk-for-sale-sector-104-gurgaon"
+              className="text-gold underline-offset-4 hover:underline"
+            >
+              3 BHK near Dwarka Expressway
             </Link>
           </div>
         </div>
