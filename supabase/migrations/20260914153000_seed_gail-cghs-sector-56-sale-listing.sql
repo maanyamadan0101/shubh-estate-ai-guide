@@ -3,7 +3,7 @@
 -- uses “Price on request” rather than publishing an invented amount.
 
 insert into public.projects (
-  id, name, slug, sector, locality, city, state, description, is_published, status
+  id, name, slug, sector, locality, city, description
 )
 values (
   'e7d5c11f-7c54-4fa0-8cae-c9b568a49356',
@@ -12,27 +12,21 @@ values (
   'Sector 56',
   'Golf Course Extension Road',
   'Gurugram',
-  'Haryana',
-  'GAIL CGHS is a residential cooperative group-housing society in Sector 56, Gurugram, close to Shalom Presidency School, HUDA Market, Golf Course Road and the Sector 55–56 Rapid Metro station.',
-  true,
-  'ready_to_move'
+  'GAIL CGHS is a residential cooperative group-housing society in Sector 56, Gurugram, close to Shalom Presidency School, HUDA Market, Golf Course Road and the Sector 55–56 Rapid Metro station.'
 )
 on conflict (slug) do update set
   name = excluded.name,
   sector = excluded.sector,
   locality = excluded.locality,
   city = excluded.city,
-  state = excluded.state,
   description = excluded.description,
-  is_published = excluded.is_published,
-  status = excluded.status,
   updated_at = now();
 
 insert into public.properties (
   id, title, slug, property_type, listing_type, project_name,
-  location, city, state, sector, locality, project_id,
+  location, city, sector, locality, project_id,
   price, price_text, bedrooms, bathrooms, bhk, area_sqft,
-  balconies, parking, status, description, features, tags,
+  balconies, parking, status, description, features,
   cover_image_url, meta_title, meta_description, og_title, og_description,
   canonical_url, is_published, is_featured, published_at, updated_at
 )
@@ -45,7 +39,6 @@ values (
   'GAIL CGHS',
   'GAIL CGHS, Sector 56, Gurugram',
   'Gurugram',
-  'Haryana',
   'Sector 56',
   'Golf Course Extension Road',
   (select id from public.projects where slug = 'gail-cghs-sector-56-gurgaon' limit 1),
@@ -60,7 +53,6 @@ values (
   'ready_to_move',
   'A 3 BHK apartment with 2 washrooms and approximately 1,800 sq ft of area is available for sale in GAIL CGHS, Sector 56, Gurugram. The home is positioned in an established and urbanised residential location with everyday conveniences close by. Shalom Presidency School, HUDA Market, Golf Course Road and the Sector 55–56 Rapid Metro station are among the key nearby landmarks. The property is suitable for end users seeking a well-connected home in central Gurugram. Price is available on request; exact floor, facing, furnishing, parking allocation, maintenance and current availability should be confirmed during the site visit.',
   'Approx. 1,800 sq ft | 3 bedrooms | 2 washrooms | Established CGHS society | Urbanised neighbourhood | Near Shalom Presidency School | Near HUDA Market | Near Golf Course Road | Near Sector 55–56 Rapid Metro',
-  array['3 BHK flat for sale Sector 56 Gurgaon', 'GAIL CGHS sale', 'apartment near Shalom Presidency School', 'property near HUDA Market', 'flat near Rapid Metro Gurgaon'],
   '/properties/gail-cghs-sector-56/gail-cghs-sector-56-poster.jpg',
   '3 BHK Flat for Sale in GAIL CGHS Sector 56 Gurugram | 1800 Sq Ft',
   'Explore a 3 BHK apartment for sale in GAIL CGHS, Sector 56 Gurugram: approximately 1,800 sq ft, 2 washrooms, near Shalom Presidency School, HUDA Market, Golf Course Road and Rapid Metro. Price on request.',
@@ -79,7 +71,6 @@ on conflict (slug) do update set
   project_name = excluded.project_name,
   location = excluded.location,
   city = excluded.city,
-  state = excluded.state,
   sector = excluded.sector,
   locality = excluded.locality,
   project_id = excluded.project_id,
@@ -94,7 +85,6 @@ on conflict (slug) do update set
   status = excluded.status,
   description = excluded.description,
   features = excluded.features,
-  tags = excluded.tags,
   cover_image_url = excluded.cover_image_url,
   meta_title = excluded.meta_title,
   meta_description = excluded.meta_description,
