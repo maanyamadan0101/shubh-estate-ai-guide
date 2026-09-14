@@ -23,6 +23,7 @@ export const CONTACT = {
   googleBusinessProfile:
     "https://www.google.com/search?q=Shubh+Estate+Brokers&stick=H4sIAAAAAAAA_-NgU1I1qDC2NEgxMjZJSjS1SDNJSjO1AgqlJKYZpBqYpSUlG5qbp5ouYhUJzihNylBwLS5JLElVcCrKz04tKgYAC6kHGEAAAAA&hl=en-GB&mat=CQc4_erXssgBElYBa0lj_ybgmqVIZrB49UjyibAzFmZh9OK8qFLi_nYKDltSnbMrwIBsFTUjH8wfBsu3gyXxLwV5zSI2FA9iRh2qJnxzRfuDGDzpEFaMfMJGQspwRNUuWw",
   googleReview: "https://g.page/r/CeV3wfsGDq89EBM/review",
+  facebook: "https://www.facebook.com/profile.php?id=61568050207013",
   instagram: "https://www.instagram.com/shubhestatebrokers/",
   youtube: "https://www.youtube.com/channel/UCMryfMFC6_8fBP50_-WOLUA",
 };
