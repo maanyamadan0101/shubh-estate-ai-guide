@@ -150,3 +150,21 @@ export function canonicalRedirect(request: Request): Response | null {
     },
   });
 }
+
+
+/**
+ * Sitemap gate: only emit URLs that are already their final public path.
+ * Query strings are intentionally excluded from sitemap URLs by the caller;
+ * this helper protects against aliases, trailing-slash variants and legacy
+ * numeric collision suffixes reaching the sitemap in future data imports.
+ */
+export function isCanonicalSitemapPath(pathname: string): boolean {
+  if (!pathname || !pathname.startsWith("/") || pathname.includes("?") || pathname.includes("#")) {
+    return false;
+  }
+  const normalized = pathname.replace(/\/+$/, "") || "/";
+  if (normalized !== pathname) return false;
+  if (internalHref(pathname) !== pathname) return false;
+  if (/^\/property\/[^/]+-\d+$/.test(pathname)) return false;
+  return true;
+}
