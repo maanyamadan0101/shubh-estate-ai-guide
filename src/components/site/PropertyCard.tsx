@@ -35,16 +35,16 @@ export function PropertyCard({ property }: { property: Property }) {
         </div>
 
         <dl className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted-foreground">
-          <div className="flex items-center gap-1.5">
+          <dt className="flex items-center gap-1.5">
             <BedDouble className="size-4 text-gold" aria-hidden="true" />
-            <dt className="sr-only">Configuration</dt>
-            <dd>{property.bhk}</dd>
-          </div>
-          <div className="flex items-center gap-1.5">
+            <span className="sr-only">Configuration</span>
+          </dt>
+          <dd>{property.bhk}</dd>
+          <dt className="flex items-center gap-1.5">
             <Maximize className="size-4 text-gold" aria-hidden="true" />
-            <dt className="sr-only">Area</dt>
-            <dd>{property.area}</dd>
-          </div>
+            <span className="sr-only">Area</span>
+          </dt>
+          <dd>{property.area}</dd>
         </dl>
 
         <div className="flex flex-wrap gap-1.5">
