@@ -41,18 +41,18 @@ export const Route = createFileRoute("/locations/golf-course-extension-road")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "CollectionPage",
-          "@id": \`\${canonical}#webpage\`,
+          "@id": `${canonical}#webpage`,
           url: canonical,
           name: "Golf Course Extension Road Property Hub: Ultra-Luxury Homes & Investment Guide",
           headline: "Luxury Projects on Golf Course Extension Road, Gurugram",
           description:
             "Discover luxury apartments, penthouses and investment opportunities across Golf Course Extension Road, Gurugram, including Sectors 58 to 67.",
           inLanguage: "en-IN",
-          isPartOf: { "@id": \`\${SITE_ORIGIN}/#website\` },
-          publisher: { "@id": \`\${SITE_ORIGIN}/#real-estate-agent\` },
+          isPartOf: { "@id": `${SITE_ORIGIN}/#website` },
+          publisher: { "@id": `${SITE_ORIGIN}/#real-estate-agent` },
           about: {
             "@type": "Place",
-            "@id": \`\${canonical}#place\`,
+            "@id": `${canonical}#place`,
             name: "Golf Course Extension Road, Gurugram",
             address: {
               "@type": "PostalAddress",
@@ -66,8 +66,8 @@ export const Route = createFileRoute("/locations/golf-course-extension-road")({
               longitude: 77.0869,
             },
           },
-          breadcrumb: { "@id": \`\${canonical}#breadcrumb\` },
-          mainEntity: { "@id": \`\${canonical}#projects\` },
+          breadcrumb: { "@id": `${canonical}#breadcrumb` },
+          mainEntity: { "@id": `${canonical}#projects` },
         }),
       },
       {
@@ -75,7 +75,7 @@ export const Route = createFileRoute("/locations/golf-course-extension-road")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "ItemList",
-          "@id": \`\${canonical}#projects\`,
+          "@id": `${canonical}#projects`,
           name: "Featured Golf Course Extension Road Projects",
           itemListOrder: "https://schema.org/ItemListOrderAscending",
           numberOfItems: clusters.reduce((total, cluster) => total + cluster.projects.length, 0),
@@ -84,7 +84,7 @@ export const Route = createFileRoute("/locations/golf-course-extension-road")({
               cluster.projects.map((project) => ({
                 "@type": "ListItem",
                 name: project.name,
-                url: \`\${SITE_ORIGIN}\${project.href}\`,
+                url: `${SITE_ORIGIN}${project.href}`,
               })),
             )
             .map((item, index) => ({ ...item, position: index + 1 })),
@@ -95,14 +95,14 @@ export const Route = createFileRoute("/locations/golf-course-extension-road")({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
-          "@id": \`\${canonical}#breadcrumb\`,
+          "@id": `${canonical}#breadcrumb`,
           itemListElement: [
             { "@type": "ListItem", position: 1, name: "Home", item: SITE_ORIGIN },
             {
               "@type": "ListItem",
               position: 2,
               name: "Property in Gurgaon",
-              item: \`\${SITE_ORIGIN}/locations/gurgaon\`,
+              item: `${SITE_ORIGIN}/locations/gurgaon`,
             },
             {
               "@type": "ListItem",
