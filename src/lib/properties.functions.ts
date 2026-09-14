@@ -13,7 +13,7 @@ async function publishedClient() {
 // against the production database. This prevents a stale generated type from
 // turning one missing optional column into an empty public catalogue.
 const LIST_COLUMNS =
-  "id,title,slug,bhk,property_type,listing_type,status,price,area_sqft,carpet_area_sqft,floor_number,total_floors,facing,furnishing,sector,locality,city,cover_image_url,is_luxury,updated_at";
+  "id,title,slug,bhk,property_type,listing_type,status,price,price_text,area_sqft,carpet_area_sqft,floor_number,total_floors,facing,furnishing,sector,locality,city,cover_image_url,is_luxury,updated_at";
 const SITEMAP_COLUMNS = LIST_COLUMNS;
 
 export type ListingRow = {
@@ -25,6 +25,7 @@ export type ListingRow = {
   listing_type: string;
   status: string;
   price: number;
+  price_text?: string | null;
   area_sqft: number | null;
   carpet_area_sqft?: number | null;
   floor_number?: number | null;

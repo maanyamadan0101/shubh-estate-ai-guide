@@ -37,6 +37,7 @@ export type PropertyRecord = {
   area_sqft: number | null;
   carpet_area_sqft: number | null;
   price: number;
+  price_text?: string | null;
   furnishing: string | null;
   facing: string | null;
   floor_number: number | null;
@@ -470,7 +471,7 @@ export function PropertyView({
 
         <aside className="space-y-4 lg:sticky lg:top-24 lg:self-start">
           <div className="rounded-xl border border-border bg-card p-6">
-            <p className="font-display text-2xl">{formatINR(property.price)}</p>
+            <p className="font-display text-2xl">{property.price_text ?? formatINR(property.price)}</p>
             <p className="mt-1 text-sm text-muted-foreground">
               {formatArea(property.area_sqft)}
               {property.bhk ? ` · ${property.bhk}` : ""}

@@ -62,7 +62,7 @@ export function ListingCard({
   const forSale = property.listing_type !== "rent";
   const responsiveSrcSet = visualUrl ? vercelSrcSet(visualUrl, [320, 480, 640, 768]) : undefined;
   const statusLabel = property.status ? STATUS_LABEL[property.status] : null;
-  const priceLabel = property.display_price ?? formatINR(property.price);
+  const priceLabel = property.display_price ?? property.price_text ?? formatINR(property.price);
   const availabilityDate = formatAvailabilityDate(property.updated_at);
   const displayArea = property.carpet_area_sqft ?? property.area_sqft;
   const floorLabel = property.floor
