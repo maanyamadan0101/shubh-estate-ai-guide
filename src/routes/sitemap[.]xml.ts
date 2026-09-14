@@ -1,4 +1,4 @@
-import { internalHref } from "@/lib/url-routing";
+import { internalHref, isCanonicalSitemapPath } from "@/lib/url-routing";
 import { createFileRoute } from "@tanstack/react-router";
 import { listProjectHubSitemapEntries } from "@/lib/project-hub.functions";
 import { listSitemapProperties } from "@/lib/properties.functions";
@@ -235,7 +235,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           listProjectHubSitemapEntries(),
         ]);
         const entries = [
-          ...STATIC_PATHS.map(
+          ...STATIC_PATHS.filter((p) => isCanonicalSitemapPath(p.path)).map(
             (p) =>
               `  <url>\n    <loc>${escapeXml(`${SITE_ORIGIN}${p.path}`)}</loc>${safeLastmod(p.lastmod)}\n    <priority>${p.priority}</priority>\n  </url>`,
           ),
@@ -244,6 +244,7 @@ export const Route = createFileRoute("/sitemap.xml")({
               (hub) =>
                 Boolean(hub.slug?.trim()) &&
                 !PROJECT_HUB_SITEMAP_EXCLUSIONS.has(hub.slug) &&
+                isCanonicalSitemapPath(`/projects/${hub.slug}`) &&
                 internalHref(`/projects/${hub.slug}`) === `/projects/${hub.slug}`,
             )
             .map(
@@ -254,6 +255,7 @@ export const Route = createFileRoute("/sitemap.xml")({
             .filter(
               (p) =>
                 Boolean(p.slug?.trim()) &&
+                isCanonicalSitemapPath(`/property/${p.slug}`) &&
                 internalHref(`/property/${p.slug}`) === `/property/${p.slug}`,
             )
             .map((p) => {
