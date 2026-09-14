@@ -74,9 +74,11 @@ export function LeadAssistant({ pathname }: { pathname: string }) {
   return (
     <>
       {open ? (
-        <aside
+        <div
           role="dialog"
-          aria-label="Gurugram property assistant"
+          aria-modal="false"
+          aria-labelledby="property-assistant-title"
+          aria-describedby="property-assistant-description"
           className="fixed bottom-[5.75rem] right-3 z-50 w-[calc(100vw-1.5rem)] max-w-sm overflow-hidden rounded-2xl border border-border bg-card shadow-2xl md:bottom-24 md:right-6"
         >
           <div className="bg-primary px-5 py-4 text-primary-foreground">
@@ -86,7 +88,7 @@ export function LeadAssistant({ pathname }: { pathname: string }) {
                   <UserRound className="size-5" aria-hidden="true" />
                 </span>
                 <div>
-                  <p className="font-semibold">Property Assistant</p>
+                  <h2 id="property-assistant-title" className="font-semibold">Property Assistant</h2>
                   <p className="mt-0.5 text-xs text-primary-foreground/75">
                     Shubh Estate Brokers · Gurugram
                   </p>
@@ -104,7 +106,7 @@ export function LeadAssistant({ pathname }: { pathname: string }) {
           </div>
 
           <div className="p-5">
-            <p className="font-display text-xl leading-snug text-foreground">
+            <p id="property-assistant-description" className="font-display text-xl leading-snug text-foreground">
               How can I help you choose the right property in Gurugram?
             </p>
             <p className="mt-2 text-sm leading-6 text-muted-foreground">
@@ -169,7 +171,7 @@ export function LeadAssistant({ pathname }: { pathname: string }) {
               team.
             </p>
           </div>
-        </aside>
+        </div>
       ) : (
         <button
           type="button"
