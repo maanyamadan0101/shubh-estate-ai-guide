@@ -123,6 +123,7 @@ export function SiteFooter() {
               <li><Link to="/about" className="hover:text-gold">About & Founder</Link></li>
               <li><Link to="/blog" className="hover:text-gold">Gurgaon Property Insights</Link></li>
               <li><Link to="/contact" className="hover:text-gold">Contact</Link></li>
+              <li><Link to="/privacy-policy" className="hover:text-gold">Privacy Policy</Link></li>
             </ul>
           </nav>
         </div>
