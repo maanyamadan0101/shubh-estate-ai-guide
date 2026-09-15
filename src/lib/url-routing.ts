@@ -113,6 +113,22 @@ export function stripTrackingParameters(searchParams: URLSearchParams): boolean 
 }
 
 /** Keep public navigation relative and resolve known aliases before emitting links. */
+function legacyPropertiesPath(searchParams: URLSearchParams): string | null {
+  // Old filter URLs were generated before the dedicated SEO hubs existed.
+  // Send construction-stage discovery directly to its indexable destination so
+  // Google does not have to follow a legacy catalogue redirect into a noindex
+  // parameter variant.
+  const functionalKeys = [...searchParams.keys()].filter((key) => key !== "status");
+  if (functionalKeys.length > 0) return null;
+
+  const status = searchParams.get("status");
+  if (status === "under_construction" || status === "new_launch") {
+    return "/under-construction-projects-gurgaon";
+  }
+  if (status === "ready_to_move") return "/ready-to-move-flats-in-gurgaon";
+  return null;
+}
+
 export function internalHref(value: string): string {
   const url = new URL(value, SITE_ORIGIN);
   if (!["shubhestatebroker.in", "www.shubhestatebroker.in"].includes(url.hostname)) return value;
@@ -120,6 +136,10 @@ export function internalHref(value: string): string {
   url.pathname = url.pathname.replace(/\/+$/, "") || "/";
   if (url.pathname === "/nri" || url.pathname.startsWith("/nri/")) {
     return "/nri-sell-property-gurgaon";
+  }
+  if (url.pathname === "/properties") {
+    const legacyPath = legacyPropertiesPath(url.searchParams);
+    if (legacyPath) return legacyPath;
   }
   const mapped = PATH_REDIRECTS[url.pathname];
   if (mapped) {
