@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
 import { ExternalLink, Mail, MapPin, Phone } from "lucide-react";
 import { PageHero } from "@/components/site/SectionHead";
 import { Button } from "@/components/ui/button";
@@ -42,6 +43,7 @@ export const Route = createFileRoute("/contact")({
 });
 
 function Contact() {
+  const [mapLoaded, setMapLoaded] = useState(false);
   const whatsappMessage = encodeURIComponent(
     "Hi Shubh Estate Brokers, I would like to discuss a Gurgaon property requirement.",
   );
@@ -116,13 +118,27 @@ function Contact() {
         </div>
 
         <div className="min-h-80 overflow-hidden rounded-2xl border border-border bg-card">
-          <iframe
-            title="Shubh Estate Brokers office location on Google Maps"
-            src="https://www.google.com/maps?q=Ocus%20Quantum%20Mall%20Sector%2051%20Gurugram&output=embed"
-            loading="lazy"
-            className="h-full min-h-80 w-full border-0 lg:min-h-full"
-            referrerPolicy="no-referrer-when-downgrade"
-          />
+          {mapLoaded ? (
+            <iframe
+              title="Shubh Estate Brokers office location on Google Maps"
+              src="https://www.google.com/maps?q=Ocus%20Quantum%20Mall%20Sector%2051%20Gurugram&output=embed"
+              className="h-full min-h-80 w-full border-0 lg:min-h-full"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          ) : (
+            <div className="flex min-h-80 flex-col items-center justify-center gap-4 bg-secondary/40 p-8 text-center">
+              <MapPin className="size-8 text-gold" aria-hidden="true" />
+              <div>
+                <h2 className="font-display text-2xl">Find us at Ocus Quantum Mall</h2>
+                <p className="mt-2 text-sm text-muted-foreground">
+                  Load the interactive map when you are ready to view directions.
+                </p>
+              </div>
+              <Button type="button" variant="gold" onClick={() => setMapLoaded(true)}>
+                Load Google Map
+              </Button>
+            </div>
+          )}
         </div>
       </section>
 

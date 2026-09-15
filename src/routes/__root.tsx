@@ -19,7 +19,6 @@ import { CONTACT } from "@/data/site";
 import { initWebVitals, trackEvent } from "@/lib/analytics";
 
 const GA_MEASUREMENT_ID = "G-8EWLZD8V5H";
-const GTM_CONTAINER_ID = "GTM-TX7ZPXC5";
 import { SITE_ORIGIN } from "@/lib/seo";
 const ARUN_LINKEDIN = "https://in.linkedin.com/in/arun-madan-94ab4224";
 
@@ -242,7 +241,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     ],
     scripts: [
       {
-        children: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_MEASUREMENT_ID}',{send_page_view:false});(function(w,d){var loaded=false;function loadAnalytics(){if(loaded)return;loaded=true;var ga=d.createElement('script');ga.async=true;ga.src='https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}';d.head.appendChild(ga);w.dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});var gtm=d.createElement('script');gtm.async=true;gtm.src='https://www.googletagmanager.com/gtm.js?id=${GTM_CONTAINER_ID}';d.head.appendChild(gtm);}function schedule(){if('requestIdleCallback'in w){w.requestIdleCallback(loadAnalytics,{timeout:2500});}else{w.setTimeout(loadAnalytics,1500);}}if(d.readyState==='complete'){schedule();}else{w.addEventListener('load',schedule,{once:true});}})(window,document);`,
+        children: "window.dataLayer=window.dataLayer||[];window.gtag=window.gtag||function(){window.dataLayer.push(arguments);};gtag('js',new Date());gtag('config','" + GA_MEASUREMENT_ID + "',{send_page_view:false});(function(w,d){var loaded=false;function loadAnalytics(){if(loaded)return;loaded=true;var script=d.createElement('script');script.async=true;script.src='https://www.googletagmanager.com/gtag/js?id=" + GA_MEASUREMENT_ID + "';d.head.appendChild(script);}function schedule(){if('requestIdleCallback'in w){w.requestIdleCallback(loadAnalytics,{timeout:5000});}else{w.setTimeout(loadAnalytics,4000);}}if(d.readyState==='complete'){schedule();}else{w.addEventListener('load',schedule,{once:true});}})(window,document);",
       },
       { type: "application/ld+json", children: JSON.stringify(localBusinessSchema) },
       { type: "application/ld+json", children: JSON.stringify(websiteSchema) },
@@ -261,15 +260,6 @@ function RootShell({ children }: { children: ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        <noscript>
-          <iframe
-            src={`https://www.googletagmanager.com/ns.html?id=${GTM_CONTAINER_ID}`}
-            height="0"
-            width="0"
-            style={{ display: "none", visibility: "hidden" }}
-            title="Google Tag Manager"
-          />
-        </noscript>
         {children}
         <Scripts />
       </body>
