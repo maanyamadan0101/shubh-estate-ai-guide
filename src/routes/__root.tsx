@@ -117,9 +117,8 @@ const localBusinessSchema = {
   },
   founder: {
     "@type": "Person",
-    "@id": `${SITE_ORIGIN}/about#arun-madan`,
+    "@id": `${SITE_ORIGIN}/about#arun-madaan`,
     name: "Arun Madaan",
-    alternateName: "Arun Madan",
     url: `${SITE_ORIGIN}/about`,
     sameAs: [ARUN_LINKEDIN],
     jobTitle: "Founder & Promoter, Shubh Estate Brokers",
@@ -185,6 +184,7 @@ const localBusinessSchema = {
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
+  "@id": `${SITE_ORIGIN}/#website`,
   name: "Shubh Estate Brokers",
   alternateName: "Shubh Estate",
   url: SITE_ORIGIN,
