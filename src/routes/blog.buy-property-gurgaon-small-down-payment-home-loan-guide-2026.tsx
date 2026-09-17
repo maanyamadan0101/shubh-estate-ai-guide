@@ -41,7 +41,7 @@ export const Route = createFileRoute(
             mainEntityOfPage: canonical,
             author: {
               "@type": "Person",
-              "@id": `${SITE_ORIGIN}/about#arun-madan`,
+              "@id": `${SITE_ORIGIN}/about#arun-madaan`,
               name: "Arun Madaan",
             },
             publisher: {
