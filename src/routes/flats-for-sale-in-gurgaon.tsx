@@ -397,9 +397,9 @@ export const Route = createFileRoute("/flats-for-sale-in-gurgaon")({
     const title =
       page > 1 && !hasFacet
         ? `Flats for Sale in Gurgaon – Page ${page} | Shubh Estate Brokers`
-        : "Flats for Sale in Gurgaon | Current Prices & Projects";
+        : "Gurgaon Flats for Sale | Prices, Projects & Buyer Checks";
     const description =
-      "Compare flats, apartments and residential projects for sale in Gurgaon by budget, location, BHK and possession. Check current asking prices and availability.";
+      "Compare flats for sale in Gurgaon by budget, location and possession. Get price context, document checks and home-loan guidance. Enquire today.";
 
     return {
       meta: [
@@ -435,7 +435,9 @@ export const Route = createFileRoute("/flats-for-sale-in-gurgaon")({
             name: "Flats, Apartments & Residential Properties for Sale in Gurgaon",
             description,
             url: canonical,
-            isPartOf: { "@type": "WebSite", url: SITE_ORIGIN, name: "Shubh Estate Brokers" },
+            isPartOf: { "@id": `${SITE_ORIGIN}/#website` },
+            publisher: { "@id": `${SITE_ORIGIN}/#real-estate-agent` },
+            breadcrumb: { "@id": `${canonical}#breadcrumb` },
             about: ["Flats for sale in Gurgaon", "Residential projects in Gurugram"],
           }),
         },
@@ -444,6 +446,7 @@ export const Route = createFileRoute("/flats-for-sale-in-gurgaon")({
           children: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
+            "@id": `${canonical}#breadcrumb`,
             itemListElement: [
               { "@type": "ListItem", position: 1, name: "Home", item: SITE_ORIGIN },
               {
@@ -553,12 +556,13 @@ function GurgaonCatalogue() {
             <div>
               <p className="eyebrow">Current inventory · project intelligence · buyer checks</p>
               <h1 className="mt-4 max-w-4xl font-display text-4xl leading-tight md:text-6xl">
-                Flats, Apartments & Residential Properties for Sale in Gurgaon
+                Flats and Apartments for Sale in Gurgaon—Compared with Buyer Checks
               </h1>
               <p className="mt-6 max-w-3xl text-base leading-7 text-navy-foreground/75 md:text-lg">
-                Compare current Shubh inventory with a carefully deduplicated directory of Gurgaon
-                projects. Review price context, possession stage, financing and transaction risks
-                before selecting a site visit or committing a token amount.
+                Finding the right Gurgaon flat involves more than comparing project names and quoted
+                prices. Review current apartments and residential projects by budget, BHK, location
+                and possession stage, then compare the exact unit, documents, financing and
+                transaction risks before selecting a site visit or paying token money.
               </p>
               <div className="mt-7 flex flex-wrap gap-3">
                 <Button asChild variant="gold" size="lg">

@@ -15,7 +15,7 @@ const SEO_TEMPLATE_LASTMOD = "2026-08-27";
 const STATIC_PATHS: StaticPath[] = [
   { path: "/jms-the-majestic-manesar", priority: "0.9", lastmod: "2026-09-06" },
   { path: "/", priority: "1.0", lastmod: "2026-09-08" },
-  { path: "/flats-for-sale-in-gurgaon", priority: "0.9", lastmod: "2026-09-01" },
+  { path: "/flats-for-sale-in-gurgaon", priority: "0.9", lastmod: "2026-09-17" },
   {
     path: "/emaar-palm-hills-sector-77-gurgaon-flats-for-sale",
     priority: "0.9",

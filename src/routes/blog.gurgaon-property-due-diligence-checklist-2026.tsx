@@ -34,7 +34,7 @@ const articleSchema = {
   ],
   author: {
     "@type": "Person",
-    "@id": `${SITE_ORIGIN}/about#arun-madan`,
+    "@id": `${SITE_ORIGIN}/about#arun-madaan`,
     name: "Arun Madaan",
     jobTitle: "Founder, Shubh Estate Brokers",
   },
@@ -194,7 +194,7 @@ function DueDiligenceGuide() {
               sensible order.
             </p>
             <p className="mt-5 text-sm text-navy-foreground/65">
-              Prepared by Shubh Estate Brokers · Founder-led guidance from Arun Madan
+              Prepared by Shubh Estate Brokers · Founder-led guidance from Arun Madaan
             </p>
           </div>
         </header>

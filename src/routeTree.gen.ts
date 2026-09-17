@@ -23,11 +23,13 @@ import { Route as DesperateDealsGurgaonRouteImport } from './routes/desperate-de
 import { Route as DlfSkycourtSector86GurgaonRouteImport } from './routes/dlf-skycourt-sector-86-gurgaon'
 import { Route as DwarkaExpresswayFlatsForSaleGurgaonRouteImport } from './routes/dwarka-expressway-flats-for-sale-gurgaon'
 import { Route as EmaarEmeraldHillsSector65GurgaonRouteImport } from './routes/emaar-emerald-hills-sector-65-gurgaon'
+import { Route as EmaarPalmHillsSector77GurgaonFlatsForSaleRouteImport } from './routes/emaar-palm-hills-sector-77-gurgaon-flats-for-sale'
 import { Route as EmiCalculatorRouteImport } from './routes/emi-calculator'
 import { Route as FlatsForSaleInGurgaonRouteImport } from './routes/flats-for-sale-in-gurgaon'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as Godrej101Sector79GurgaonRouteImport } from './routes/godrej-101-sector-79-gurgaon'
 import { Route as GurugramGrowthStoryRouteImport } from './routes/gurugram-growth-story'
+import { Route as HaryanaStampDutyRegistrationCalculatorRouteImport } from './routes/haryana-stamp-duty-registration-calculator'
 import { Route as HigherFloorApartmentsGolfCourseExtensionRoadRouteImport } from './routes/higher-floor-apartments-golf-course-extension-road'
 import { Route as HomeLoansRouteImport } from './routes/home-loans'
 import { Route as IreoSkyon3BhkForSaleSector60GurgaonRouteImport } from './routes/ireo-skyon-3-bhk-for-sale-sector-60-gurgaon'
@@ -36,6 +38,7 @@ import { Route as LuxuryRouteImport } from './routes/luxury'
 import { Route as MandateToSellPropertyInGurgaonRouteImport } from './routes/mandate-to-sell-property-in-gurgaon'
 import { Route as NriRouteImport } from './routes/nri'
 import { Route as NriSellPropertyGurgaonRouteImport } from './routes/nri-sell-property-gurgaon'
+import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as PropertiesRouteImport } from './routes/properties'
 import { Route as PropertiesForSaleOnSprGurgaonRouteImport } from './routes/properties-for-sale-on-spr-gurgaon'
@@ -171,6 +174,12 @@ const EmaarEmeraldHillsSector65GurgaonRoute =
     path: '/emaar-emerald-hills-sector-65-gurgaon',
     getParentRoute: () => rootRouteImport,
   } as any)
+const EmaarPalmHillsSector77GurgaonFlatsForSaleRoute =
+  EmaarPalmHillsSector77GurgaonFlatsForSaleRouteImport.update({
+    id: '/emaar-palm-hills-sector-77-gurgaon-flats-for-sale',
+    path: '/emaar-palm-hills-sector-77-gurgaon-flats-for-sale',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const EmiCalculatorRoute = EmiCalculatorRouteImport.update({
   id: '/emi-calculator',
   path: '/emi-calculator',
@@ -197,6 +206,12 @@ const GurugramGrowthStoryRoute = GurugramGrowthStoryRouteImport.update({
   path: '/gurugram-growth-story',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HaryanaStampDutyRegistrationCalculatorRoute =
+  HaryanaStampDutyRegistrationCalculatorRouteImport.update({
+    id: '/haryana-stamp-duty-registration-calculator',
+    path: '/haryana-stamp-duty-registration-calculator',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const HigherFloorApartmentsGolfCourseExtensionRoadRoute =
   HigherFloorApartmentsGolfCourseExtensionRoadRouteImport.update({
     id: '/higher-floor-apartments-golf-course-extension-road',
@@ -238,6 +253,11 @@ const NriRoute = NriRouteImport.update({
 const NriSellPropertyGurgaonRoute = NriSellPropertyGurgaonRouteImport.update({
   id: '/nri-sell-property-gurgaon',
   path: '/nri-sell-property-gurgaon',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
+  id: '/privacy-policy',
+  path: '/privacy-policy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProjectsRoute = ProjectsRouteImport.update({
@@ -570,11 +590,13 @@ export interface FileRoutesByFullPath {
   '/dlf-skycourt-sector-86-gurgaon': typeof DlfSkycourtSector86GurgaonRoute
   '/dwarka-expressway-flats-for-sale-gurgaon': typeof DwarkaExpresswayFlatsForSaleGurgaonRoute
   '/emaar-emerald-hills-sector-65-gurgaon': typeof EmaarEmeraldHillsSector65GurgaonRoute
+  '/emaar-palm-hills-sector-77-gurgaon-flats-for-sale': typeof EmaarPalmHillsSector77GurgaonFlatsForSaleRoute
   '/emi-calculator': typeof EmiCalculatorRoute
   '/flats-for-sale-in-gurgaon': typeof FlatsForSaleInGurgaonRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/godrej-101-sector-79-gurgaon': typeof Godrej101Sector79GurgaonRoute
   '/gurugram-growth-story': typeof GurugramGrowthStoryRoute
+  '/haryana-stamp-duty-registration-calculator': typeof HaryanaStampDutyRegistrationCalculatorRoute
   '/higher-floor-apartments-golf-course-extension-road': typeof HigherFloorApartmentsGolfCourseExtensionRoadRoute
   '/home-loans': typeof HomeLoansRoute
   '/ireo-skyon-3-bhk-for-sale-sector-60-gurgaon': typeof IreoSkyon3BhkForSaleSector60GurgaonRoute
@@ -583,6 +605,7 @@ export interface FileRoutesByFullPath {
   '/mandate-to-sell-property-in-gurgaon': typeof MandateToSellPropertyInGurgaonRoute
   '/nri': typeof NriRoute
   '/nri-sell-property-gurgaon': typeof NriSellPropertyGurgaonRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/projects': typeof ProjectsRouteWithChildren
   '/properties': typeof PropertiesRoute
   '/properties-for-sale-on-spr-gurgaon': typeof PropertiesForSaleOnSprGurgaonRoute
@@ -655,11 +678,13 @@ export interface FileRoutesByTo {
   '/dlf-skycourt-sector-86-gurgaon': typeof DlfSkycourtSector86GurgaonRoute
   '/dwarka-expressway-flats-for-sale-gurgaon': typeof DwarkaExpresswayFlatsForSaleGurgaonRoute
   '/emaar-emerald-hills-sector-65-gurgaon': typeof EmaarEmeraldHillsSector65GurgaonRoute
+  '/emaar-palm-hills-sector-77-gurgaon-flats-for-sale': typeof EmaarPalmHillsSector77GurgaonFlatsForSaleRoute
   '/emi-calculator': typeof EmiCalculatorRoute
   '/flats-for-sale-in-gurgaon': typeof FlatsForSaleInGurgaonRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/godrej-101-sector-79-gurgaon': typeof Godrej101Sector79GurgaonRoute
   '/gurugram-growth-story': typeof GurugramGrowthStoryRoute
+  '/haryana-stamp-duty-registration-calculator': typeof HaryanaStampDutyRegistrationCalculatorRoute
   '/higher-floor-apartments-golf-course-extension-road': typeof HigherFloorApartmentsGolfCourseExtensionRoadRoute
   '/home-loans': typeof HomeLoansRoute
   '/ireo-skyon-3-bhk-for-sale-sector-60-gurgaon': typeof IreoSkyon3BhkForSaleSector60GurgaonRoute
@@ -668,6 +693,7 @@ export interface FileRoutesByTo {
   '/mandate-to-sell-property-in-gurgaon': typeof MandateToSellPropertyInGurgaonRoute
   '/nri': typeof NriRoute
   '/nri-sell-property-gurgaon': typeof NriSellPropertyGurgaonRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/properties': typeof PropertiesRoute
   '/properties-for-sale-on-spr-gurgaon': typeof PropertiesForSaleOnSprGurgaonRoute
   '/property-buying-advisory-gurgaon': typeof PropertyBuyingAdvisoryGurgaonRoute
@@ -741,11 +767,13 @@ export interface FileRoutesById {
   '/dlf-skycourt-sector-86-gurgaon': typeof DlfSkycourtSector86GurgaonRoute
   '/dwarka-expressway-flats-for-sale-gurgaon': typeof DwarkaExpresswayFlatsForSaleGurgaonRoute
   '/emaar-emerald-hills-sector-65-gurgaon': typeof EmaarEmeraldHillsSector65GurgaonRoute
+  '/emaar-palm-hills-sector-77-gurgaon-flats-for-sale': typeof EmaarPalmHillsSector77GurgaonFlatsForSaleRoute
   '/emi-calculator': typeof EmiCalculatorRoute
   '/flats-for-sale-in-gurgaon': typeof FlatsForSaleInGurgaonRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/godrej-101-sector-79-gurgaon': typeof Godrej101Sector79GurgaonRoute
   '/gurugram-growth-story': typeof GurugramGrowthStoryRoute
+  '/haryana-stamp-duty-registration-calculator': typeof HaryanaStampDutyRegistrationCalculatorRoute
   '/higher-floor-apartments-golf-course-extension-road': typeof HigherFloorApartmentsGolfCourseExtensionRoadRoute
   '/home-loans': typeof HomeLoansRoute
   '/ireo-skyon-3-bhk-for-sale-sector-60-gurgaon': typeof IreoSkyon3BhkForSaleSector60GurgaonRoute
@@ -754,6 +782,7 @@ export interface FileRoutesById {
   '/mandate-to-sell-property-in-gurgaon': typeof MandateToSellPropertyInGurgaonRoute
   '/nri': typeof NriRoute
   '/nri-sell-property-gurgaon': typeof NriSellPropertyGurgaonRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
   '/projects': typeof ProjectsRouteWithChildren
   '/properties': typeof PropertiesRoute
   '/properties-for-sale-on-spr-gurgaon': typeof PropertiesForSaleOnSprGurgaonRoute
@@ -828,11 +857,13 @@ export interface FileRouteTypes {
     | '/dlf-skycourt-sector-86-gurgaon'
     | '/dwarka-expressway-flats-for-sale-gurgaon'
     | '/emaar-emerald-hills-sector-65-gurgaon'
+    | '/emaar-palm-hills-sector-77-gurgaon-flats-for-sale'
     | '/emi-calculator'
     | '/flats-for-sale-in-gurgaon'
     | '/forgot-password'
     | '/godrej-101-sector-79-gurgaon'
     | '/gurugram-growth-story'
+    | '/haryana-stamp-duty-registration-calculator'
     | '/higher-floor-apartments-golf-course-extension-road'
     | '/home-loans'
     | '/ireo-skyon-3-bhk-for-sale-sector-60-gurgaon'
@@ -841,6 +872,7 @@ export interface FileRouteTypes {
     | '/mandate-to-sell-property-in-gurgaon'
     | '/nri'
     | '/nri-sell-property-gurgaon'
+    | '/privacy-policy'
     | '/projects'
     | '/properties'
     | '/properties-for-sale-on-spr-gurgaon'
@@ -913,11 +945,13 @@ export interface FileRouteTypes {
     | '/dlf-skycourt-sector-86-gurgaon'
     | '/dwarka-expressway-flats-for-sale-gurgaon'
     | '/emaar-emerald-hills-sector-65-gurgaon'
+    | '/emaar-palm-hills-sector-77-gurgaon-flats-for-sale'
     | '/emi-calculator'
     | '/flats-for-sale-in-gurgaon'
     | '/forgot-password'
     | '/godrej-101-sector-79-gurgaon'
     | '/gurugram-growth-story'
+    | '/haryana-stamp-duty-registration-calculator'
     | '/higher-floor-apartments-golf-course-extension-road'
     | '/home-loans'
     | '/ireo-skyon-3-bhk-for-sale-sector-60-gurgaon'
@@ -926,6 +960,7 @@ export interface FileRouteTypes {
     | '/mandate-to-sell-property-in-gurgaon'
     | '/nri'
     | '/nri-sell-property-gurgaon'
+    | '/privacy-policy'
     | '/properties'
     | '/properties-for-sale-on-spr-gurgaon'
     | '/property-buying-advisory-gurgaon'
@@ -998,11 +1033,13 @@ export interface FileRouteTypes {
     | '/dlf-skycourt-sector-86-gurgaon'
     | '/dwarka-expressway-flats-for-sale-gurgaon'
     | '/emaar-emerald-hills-sector-65-gurgaon'
+    | '/emaar-palm-hills-sector-77-gurgaon-flats-for-sale'
     | '/emi-calculator'
     | '/flats-for-sale-in-gurgaon'
     | '/forgot-password'
     | '/godrej-101-sector-79-gurgaon'
     | '/gurugram-growth-story'
+    | '/haryana-stamp-duty-registration-calculator'
     | '/higher-floor-apartments-golf-course-extension-road'
     | '/home-loans'
     | '/ireo-skyon-3-bhk-for-sale-sector-60-gurgaon'
@@ -1011,6 +1048,7 @@ export interface FileRouteTypes {
     | '/mandate-to-sell-property-in-gurgaon'
     | '/nri'
     | '/nri-sell-property-gurgaon'
+    | '/privacy-policy'
     | '/projects'
     | '/properties'
     | '/properties-for-sale-on-spr-gurgaon'
@@ -1085,11 +1123,13 @@ export interface RootRouteChildren {
   DlfSkycourtSector86GurgaonRoute: typeof DlfSkycourtSector86GurgaonRoute
   DwarkaExpresswayFlatsForSaleGurgaonRoute: typeof DwarkaExpresswayFlatsForSaleGurgaonRoute
   EmaarEmeraldHillsSector65GurgaonRoute: typeof EmaarEmeraldHillsSector65GurgaonRoute
+  EmaarPalmHillsSector77GurgaonFlatsForSaleRoute: typeof EmaarPalmHillsSector77GurgaonFlatsForSaleRoute
   EmiCalculatorRoute: typeof EmiCalculatorRoute
   FlatsForSaleInGurgaonRoute: typeof FlatsForSaleInGurgaonRoute
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   Godrej101Sector79GurgaonRoute: typeof Godrej101Sector79GurgaonRoute
   GurugramGrowthStoryRoute: typeof GurugramGrowthStoryRoute
+  HaryanaStampDutyRegistrationCalculatorRoute: typeof HaryanaStampDutyRegistrationCalculatorRoute
   HigherFloorApartmentsGolfCourseExtensionRoadRoute: typeof HigherFloorApartmentsGolfCourseExtensionRoadRoute
   HomeLoansRoute: typeof HomeLoansRoute
   IreoSkyon3BhkForSaleSector60GurgaonRoute: typeof IreoSkyon3BhkForSaleSector60GurgaonRoute
@@ -1098,6 +1138,7 @@ export interface RootRouteChildren {
   MandateToSellPropertyInGurgaonRoute: typeof MandateToSellPropertyInGurgaonRoute
   NriRoute: typeof NriRoute
   NriSellPropertyGurgaonRoute: typeof NriSellPropertyGurgaonRoute
+  PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   ProjectsRoute: typeof ProjectsRouteWithChildren
   PropertiesRoute: typeof PropertiesRoute
   PropertiesForSaleOnSprGurgaonRoute: typeof PropertiesForSaleOnSprGurgaonRoute
@@ -1232,6 +1273,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EmaarEmeraldHillsSector65GurgaonRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/emaar-palm-hills-sector-77-gurgaon-flats-for-sale': {
+      id: '/emaar-palm-hills-sector-77-gurgaon-flats-for-sale'
+      path: '/emaar-palm-hills-sector-77-gurgaon-flats-for-sale'
+      fullPath: '/emaar-palm-hills-sector-77-gurgaon-flats-for-sale'
+      preLoaderRoute: typeof EmaarPalmHillsSector77GurgaonFlatsForSaleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/emi-calculator': {
       id: '/emi-calculator'
       path: '/emi-calculator'
@@ -1265,6 +1313,13 @@ declare module '@tanstack/react-router' {
       path: '/gurugram-growth-story'
       fullPath: '/gurugram-growth-story'
       preLoaderRoute: typeof GurugramGrowthStoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/haryana-stamp-duty-registration-calculator': {
+      id: '/haryana-stamp-duty-registration-calculator'
+      path: '/haryana-stamp-duty-registration-calculator'
+      fullPath: '/haryana-stamp-duty-registration-calculator'
+      preLoaderRoute: typeof HaryanaStampDutyRegistrationCalculatorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/higher-floor-apartments-golf-course-extension-road': {
@@ -1321,6 +1376,13 @@ declare module '@tanstack/react-router' {
       path: '/nri-sell-property-gurgaon'
       fullPath: '/nri-sell-property-gurgaon'
       preLoaderRoute: typeof NriSellPropertyGurgaonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy-policy': {
+      id: '/privacy-policy'
+      path: '/privacy-policy'
+      fullPath: '/privacy-policy'
+      preLoaderRoute: typeof PrivacyPolicyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/projects': {
@@ -1825,11 +1887,15 @@ const rootRouteChildren: RootRouteChildren = {
   DwarkaExpresswayFlatsForSaleGurgaonRoute:
     DwarkaExpresswayFlatsForSaleGurgaonRoute,
   EmaarEmeraldHillsSector65GurgaonRoute: EmaarEmeraldHillsSector65GurgaonRoute,
+  EmaarPalmHillsSector77GurgaonFlatsForSaleRoute:
+    EmaarPalmHillsSector77GurgaonFlatsForSaleRoute,
   EmiCalculatorRoute: EmiCalculatorRoute,
   FlatsForSaleInGurgaonRoute: FlatsForSaleInGurgaonRoute,
   ForgotPasswordRoute: ForgotPasswordRoute,
   Godrej101Sector79GurgaonRoute: Godrej101Sector79GurgaonRoute,
   GurugramGrowthStoryRoute: GurugramGrowthStoryRoute,
+  HaryanaStampDutyRegistrationCalculatorRoute:
+    HaryanaStampDutyRegistrationCalculatorRoute,
   HigherFloorApartmentsGolfCourseExtensionRoadRoute:
     HigherFloorApartmentsGolfCourseExtensionRoadRoute,
   HomeLoansRoute: HomeLoansRoute,
@@ -1840,6 +1906,7 @@ const rootRouteChildren: RootRouteChildren = {
   MandateToSellPropertyInGurgaonRoute: MandateToSellPropertyInGurgaonRoute,
   NriRoute: NriRoute,
   NriSellPropertyGurgaonRoute: NriSellPropertyGurgaonRoute,
+  PrivacyPolicyRoute: PrivacyPolicyRoute,
   ProjectsRoute: ProjectsRouteWithChildren,
   PropertiesRoute: PropertiesRoute,
   PropertiesForSaleOnSprGurgaonRoute: PropertiesForSaleOnSprGurgaonRoute,
