@@ -112,7 +112,12 @@ export function applyConfirmedInventoryCorrections<T extends ListingRow>(row: T)
     } as T;
   }
 
-  if (title.includes("puri emerald bay")) {
+  const configuration = normalizedProjectText(row.bhk ?? "");
+  const isConfirmedPuriThreeBedroom =
+    title.includes("puri emerald bay") &&
+    (title.includes("3 bhk") || configuration.startsWith("3 bhk"));
+
+  if (isConfirmedPuriThreeBedroom) {
     return {
       ...row,
       bhk: "3 BHK + servant",
@@ -252,9 +257,10 @@ export const listPublicCataloguePage = createServerFn({ method: "GET" })
         };
       }
 
+      // Curated rows are already reviewed at unit level. Applying broad imported-data
+      // corrections here can overwrite legitimate configurations in the same project.
       const curatedDwarkaRows = (DWARKA_CATALOGUE_LISTINGS as unknown as ListingRow[])
         .filter((row) => isPublicSlug(row.slug))
-        .map(applyConfirmedInventoryCorrections)
         .filter((row) => {
           if (data.purpose && row.listing_type !== data.purpose) return false;
           if (data.status && row.status !== data.status) return false;
