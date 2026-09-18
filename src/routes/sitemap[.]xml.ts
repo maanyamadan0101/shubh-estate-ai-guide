@@ -26,7 +26,7 @@ const STATIC_PATHS: StaticPath[] = [
   { path: "/sell-property-gurgaon", priority: "0.9", lastmod: SEO_TEMPLATE_LASTMOD },
   { path: "/rent-out-property-in-gurgaon", priority: "0.9", lastmod: SEO_TEMPLATE_LASTMOD },
   { path: "/mandate-to-sell-property-in-gurgaon", priority: "0.9", lastmod: "2026-08-25" },
-  { path: "/projects", priority: "0.9", lastmod: "2026-09-05" },
+  { path: "/projects", priority: "0.9", lastmod: "2026-09-18" },
   { path: "/blog", priority: "0.9", lastmod: "2026-08-20" },
   {
     path: "/blog/gurgaon-property-due-diligence-checklist-2026",
@@ -114,9 +114,14 @@ const STATIC_PATHS: StaticPath[] = [
     lastmod: "2026-08-24",
   },
   {
+    path: "/projects/godrej-vrikshya-sector-103-gurgaon",
+    priority: "0.9",
+    lastmod: "2026-09-18",
+  },
+  {
     path: "/projects/emaar-urban-oasis-sector-62",
     priority: "0.9",
-    lastmod: "2026-08-24",
+    lastmod: "2026-09-18",
   },
   {
     path: "/projects/dlf-the-primus-sector-82a-gurgaon",
@@ -185,6 +190,9 @@ const PROJECT_HUB_SITEMAP_EXCLUSIONS = new Set([
   "dlf-the-skycourt-sector-86",
   "godrej-101",
   "godrej-101-sector-79",
+  "godrej-vrikshya",
+  "godrej-vrikshya-sector-103",
+  "godrej-vrikshya-sector-103-gurgaon",
   "emaar-urban-oasis-sector-62",
   "emaar-emerald-estate",
   "emaar-emerald-estate-sector-65",
