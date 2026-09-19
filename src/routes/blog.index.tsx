@@ -27,8 +27,8 @@ const TOPICS = [
     icon: TrendingUp,
     title: "Gurgaon Property & Investment",
     text: "Sector comparisons, resale opportunities, budgets and practical market insights for buyers and investors.",
-    to: "/best-areas-gurgaon-property-investment",
-    cta: "Explore investment guide",
+    to: "/blog/best-sectors-to-buy-property-in-gurgaon",
+    cta: "Read sector priority guide",
   },
   {
     icon: Landmark,
