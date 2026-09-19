@@ -48,6 +48,13 @@ const TOPICS = [
 
 const FEATURED = [
   {
+    title: "Best Sectors to Buy Property in Gurgaon in 2026",
+    description:
+      "Compare Golf Course Road, Golf Course Extension Road, Dwarka Expressway, SPR, Sohna Road and New Gurgaon by buyer profile, rental demand and long-term fit.",
+    to: "/blog/best-sectors-to-buy-property-in-gurgaon",
+    label: "New · Gurgaon Sector Guide",
+  },
+  {
     title: "Gurgaon Property Due Diligence Checklist: 12 Essential Checks",
     description:
       "A buyer-first sequence for checking seller authority, title records, approvals, dues, valuation, financing and token terms before committing funds.",
