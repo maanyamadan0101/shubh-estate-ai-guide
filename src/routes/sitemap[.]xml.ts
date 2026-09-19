@@ -27,7 +27,12 @@ const STATIC_PATHS: StaticPath[] = [
   { path: "/rent-out-property-in-gurgaon", priority: "0.9", lastmod: SEO_TEMPLATE_LASTMOD },
   { path: "/mandate-to-sell-property-in-gurgaon", priority: "0.9", lastmod: "2026-08-25" },
   { path: "/projects", priority: "0.9", lastmod: "2026-09-18" },
-  { path: "/blog", priority: "0.9", lastmod: "2026-08-20" },
+  { path: "/blog", priority: "0.9", lastmod: "2026-09-19" },
+  {
+    path: "/blog/best-sectors-to-buy-property-in-gurgaon",
+    priority: "0.9",
+    lastmod: "2026-09-19",
+  },
   {
     path: "/blog/gurgaon-property-due-diligence-checklist-2026",
     priority: "0.9",
