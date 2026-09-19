@@ -217,7 +217,7 @@ const collectionPageSchema = {
   },
   publisher: {
     "@type": "Organization",
-    "@id": `${SITE_ORIGIN}/#organization`,
+    "@id": `${SITE_ORIGIN}/#real-estate-agent`,
     name: "Shubh Estate Brokers",
     url: SITE_ORIGIN,
   },
@@ -283,7 +283,6 @@ export const Route = createFileRoute("/dwarka-expressway-flats-for-sale-gurgaon"
     links: [{ rel: "canonical", href: PAGE_URL }],
     scripts: [
       { type: "application/ld+json", children: JSON.stringify(collectionPageSchema) },
-      { type: "application/ld+json", children: JSON.stringify(itemListSchema) },
     ],
   }),
   component: DwarkaExpresswayInventory,
