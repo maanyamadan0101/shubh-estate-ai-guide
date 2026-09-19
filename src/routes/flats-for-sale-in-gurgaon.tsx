@@ -392,10 +392,13 @@ export const Route = createFileRoute("/flats-for-sale-in-gurgaon")({
       appliedSearch?.corridor ||
       (appliedSearch?.purpose && appliedSearch.purpose !== "sale"),
     );
-    const isParameterVariant = hasFacet || page > 1;
-    const canonical = `${SITE_ORIGIN}/flats-for-sale-in-gurgaon`;
+    const isCleanPagination = !hasFacet && page > 1;
+    const canonicalPath = isCleanPagination
+      ? `/flats-for-sale-in-gurgaon?page=${page}`
+      : "/flats-for-sale-in-gurgaon";
+    const canonical = `${SITE_ORIGIN}${canonicalPath}`;
     const title =
-      page > 1 && !hasFacet
+      isCleanPagination
         ? `Flats for Sale in Gurgaon – Page ${page} | Shubh Estate Brokers`
         : "Gurgaon Flats for Sale | Prices, Projects & Buyer Checks";
     const description =
@@ -422,17 +425,25 @@ export const Route = createFileRoute("/flats-for-sale-in-gurgaon")({
           name: "twitter:image",
           content: `${SITE_ORIGIN}/properties/puri-emerald-bay-2450/05-puri-emerald-bay-3bhk-living-room.jpg`,
         },
-        ...(isParameterVariant ? [{ name: "robots", content: "noindex,follow" }] : []),
+        ...(hasFacet ? [{ name: "robots", content: "noindex,follow" }] : []),
       ],
-      links: [{ rel: "canonical", href: canonical }],
+      links: [
+        { rel: "canonical", href: canonical },
+        ...(page > 1 && !hasFacet
+          ? [{ rel: "prev", href: `${SITE_ORIGIN}/flats-for-sale-in-gurgaon${page > 2 ? `?page=${page - 1}` : ""}` }]
+          : []),
+        ...(page < Math.ceil(total / pageSize) && !hasFacet
+          ? [{ rel: "next", href: `${SITE_ORIGIN}/flats-for-sale-in-gurgaon?page=${page + 1}` }]
+          : []),
+      ],
       scripts: [
         {
           type: "application/ld+json",
           children: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "CollectionPage",
-            "@id": `${SITE_ORIGIN}/flats-for-sale-in-gurgaon#webpage`,
-            name: "Flats, Apartments & Residential Properties for Sale in Gurgaon",
+            "@id": `${canonical}#webpage`,
+            name: title,
             description,
             url: canonical,
             isPartOf: { "@id": `${SITE_ORIGIN}/#website` },
