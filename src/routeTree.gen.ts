@@ -65,6 +65,7 @@ import { Route as ApiSellerSubmissionRouteImport } from './routes/api/seller-sub
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogBestSectorsToBuyPropertyInGurgaonRouteImport } from './routes/blog.best-sectors-to-buy-property-in-gurgaon'
 import { Route as BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026RouteImport } from './routes/blog.buy-property-gurgaon-small-down-payment-home-loan-guide-2026'
+import { Route as BlogFsiFarMeaningCalculationGurgaonRouteImport } from './routes/blog.fsi-far-meaning-calculation-gurgaon'
 import { Route as BlogGurgaonPropertyDueDiligenceChecklist2026RouteImport } from './routes/blog.gurgaon-property-due-diligence-checklist-2026'
 import { Route as LocationsSlugRouteImport } from './routes/locations.$slug'
 import { Route as LocationsGolfCourseExtensionRoadRouteImport } from './routes/locations.golf-course-extension-road'
@@ -404,6 +405,12 @@ const BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route =
     path: '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026',
     getParentRoute: () => rootRouteImport,
   } as any)
+const BlogFsiFarMeaningCalculationGurgaonRoute =
+  BlogFsiFarMeaningCalculationGurgaonRouteImport.update({
+    id: '/blog/fsi-far-meaning-calculation-gurgaon',
+    path: '/blog/fsi-far-meaning-calculation-gurgaon',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const BlogGurgaonPropertyDueDiligenceChecklist2026Route =
   BlogGurgaonPropertyDueDiligenceChecklist2026RouteImport.update({
     id: '/blog/gurgaon-property-due-diligence-checklist-2026',
@@ -652,6 +659,7 @@ export interface FileRoutesByFullPath {
   '/api/seller-submission': typeof ApiSellerSubmissionRoute
   '/blog/best-sectors-to-buy-property-in-gurgaon': typeof BlogBestSectorsToBuyPropertyInGurgaonRoute
   '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026': typeof BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route
+  '/blog/fsi-far-meaning-calculation-gurgaon': typeof BlogFsiFarMeaningCalculationGurgaonRoute
   '/blog/gurgaon-property-due-diligence-checklist-2026': typeof BlogGurgaonPropertyDueDiligenceChecklist2026Route
   '/locations/$slug': typeof LocationsSlugRoute
   '/locations/golf-course-extension-road': typeof LocationsGolfCourseExtensionRoadRoute
@@ -742,6 +750,7 @@ export interface FileRoutesByTo {
   '/api/seller-submission': typeof ApiSellerSubmissionRoute
   '/blog/best-sectors-to-buy-property-in-gurgaon': typeof BlogBestSectorsToBuyPropertyInGurgaonRoute
   '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026': typeof BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route
+  '/blog/fsi-far-meaning-calculation-gurgaon': typeof BlogFsiFarMeaningCalculationGurgaonRoute
   '/blog/gurgaon-property-due-diligence-checklist-2026': typeof BlogGurgaonPropertyDueDiligenceChecklist2026Route
   '/locations/$slug': typeof LocationsSlugRoute
   '/locations/golf-course-extension-road': typeof LocationsGolfCourseExtensionRoadRoute
@@ -835,6 +844,7 @@ export interface FileRoutesById {
   '/api/seller-submission': typeof ApiSellerSubmissionRoute
   '/blog/best-sectors-to-buy-property-in-gurgaon': typeof BlogBestSectorsToBuyPropertyInGurgaonRoute
   '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026': typeof BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route
+  '/blog/fsi-far-meaning-calculation-gurgaon': typeof BlogFsiFarMeaningCalculationGurgaonRoute
   '/blog/gurgaon-property-due-diligence-checklist-2026': typeof BlogGurgaonPropertyDueDiligenceChecklist2026Route
   '/locations/$slug': typeof LocationsSlugRoute
   '/locations/golf-course-extension-road': typeof LocationsGolfCourseExtensionRoadRoute
@@ -928,6 +938,7 @@ export interface FileRouteTypes {
     | '/api/seller-submission'
     | '/blog/best-sectors-to-buy-property-in-gurgaon'
     | '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026'
+    | '/blog/fsi-far-meaning-calculation-gurgaon'
     | '/blog/gurgaon-property-due-diligence-checklist-2026'
     | '/locations/$slug'
     | '/locations/golf-course-extension-road'
@@ -1018,6 +1029,7 @@ export interface FileRouteTypes {
     | '/api/seller-submission'
     | '/blog/best-sectors-to-buy-property-in-gurgaon'
     | '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026'
+    | '/blog/fsi-far-meaning-calculation-gurgaon'
     | '/blog/gurgaon-property-due-diligence-checklist-2026'
     | '/locations/$slug'
     | '/locations/golf-course-extension-road'
@@ -1110,6 +1122,7 @@ export interface FileRouteTypes {
     | '/api/seller-submission'
     | '/blog/best-sectors-to-buy-property-in-gurgaon'
     | '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026'
+    | '/blog/fsi-far-meaning-calculation-gurgaon'
     | '/blog/gurgaon-property-due-diligence-checklist-2026'
     | '/locations/$slug'
     | '/locations/golf-course-extension-road'
@@ -1203,6 +1216,7 @@ export interface RootRouteChildren {
   ApiSellerSubmissionRoute: typeof ApiSellerSubmissionRoute
   BlogBestSectorsToBuyPropertyInGurgaonRoute: typeof BlogBestSectorsToBuyPropertyInGurgaonRoute
   BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route: typeof BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route
+  BlogFsiFarMeaningCalculationGurgaonRoute: typeof BlogFsiFarMeaningCalculationGurgaonRoute
   BlogGurgaonPropertyDueDiligenceChecklist2026Route: typeof BlogGurgaonPropertyDueDiligenceChecklist2026Route
   LocationsSlugRoute: typeof LocationsSlugRoute
   LocationsGolfCourseExtensionRoadRoute: typeof LocationsGolfCourseExtensionRoadRoute
@@ -1608,6 +1622,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026RouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/fsi-far-meaning-calculation-gurgaon': {
+      id: '/blog/fsi-far-meaning-calculation-gurgaon'
+      path: '/blog/fsi-far-meaning-calculation-gurgaon'
+      fullPath: '/blog/fsi-far-meaning-calculation-gurgaon'
+      preLoaderRoute: typeof BlogFsiFarMeaningCalculationGurgaonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog/gurgaon-property-due-diligence-checklist-2026': {
       id: '/blog/gurgaon-property-due-diligence-checklist-2026'
       path: '/blog/gurgaon-property-due-diligence-checklist-2026'
@@ -2006,6 +2027,8 @@ const rootRouteChildren: RootRouteChildren = {
     BlogBestSectorsToBuyPropertyInGurgaonRoute,
   BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route:
     BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route,
+  BlogFsiFarMeaningCalculationGurgaonRoute:
+    BlogFsiFarMeaningCalculationGurgaonRoute,
   BlogGurgaonPropertyDueDiligenceChecklist2026Route:
     BlogGurgaonPropertyDueDiligenceChecklist2026Route,
   LocationsSlugRoute: LocationsSlugRoute,

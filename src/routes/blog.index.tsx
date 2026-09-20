@@ -48,6 +48,13 @@ const TOPICS = [
 
 const FEATURED = [
   {
+    title: "FSI and FAR in Gurgaon: Meaning, Formula and Buyer Guide",
+    description:
+      "Understand floor-area calculations, ground coverage, purchasable FAR and the approvals to check before buying a plot, builder floor or independent house.",
+    to: "/blog/fsi-far-meaning-calculation-gurgaon",
+    label: "New · FAR & Building Guide",
+  },
+  {
     title: "Best Sectors to Buy Property in Gurgaon in 2026",
     description:
       "Compare Golf Course Road, Golf Course Extension Road, Dwarka Expressway, SPR, Sohna Road and New Gurgaon by buyer profile, rental demand and long-term fit.",
