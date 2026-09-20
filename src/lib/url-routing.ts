@@ -66,6 +66,7 @@ const DUPLICATE_PROPERTY_REDIRECTS: Record<string, string> = {
 };
 
 const PATH_REDIRECTS: Record<string, string> = {
+  "/projects": "/projects-in-gurgaon",
   "/sell-property-in-gurgaon": "/sell-property-gurgaon",
   "/property-for-sale-in-gurgaon": "/flats-for-sale-in-gurgaon",
   "/properties": "/flats-for-sale-in-gurgaon",
