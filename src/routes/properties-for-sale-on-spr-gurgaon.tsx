@@ -30,7 +30,7 @@ const PROPERTIES = [
     facing: "Not stated",
     highlight: "3+ balconies · pooja room · private garden · roof rights",
     fit: "Value-led low-rise option for buyers who prefer independent-floor living over a high-rise.",
-    href: "/projects/bptp-astaire-gardens-sector-70a-gurgaon",
+    href: "/projects/bptp-astaire-gardens-sector-70a-gurgaon-residences",
   },
   {
     project: "Pareena Mi Casa",
@@ -87,7 +87,7 @@ const PROPERTIES = [
     facing: "West",
     highlight: "Lift · roof rights · corner property · 3 covered/stilt parkings",
     fit: "Larger low-rise family home for buyers prioritising privacy, parking and utility spaces.",
-    href: "/projects/bptp-astaire-gardens-sector-70a-gurgaon",
+    href: "/projects/bptp-astaire-gardens-sector-70a-gurgaon-residences",
   },
   {
     project: "Tulip Ivory",
@@ -235,9 +235,7 @@ export const Route = createFileRoute("/properties-for-sale-on-spr-gurgaon")({
                     addressRegion: "Haryana",
                     addressCountry: "IN",
                   },
-                  ...(property.href
-                    ? { url: `${SITE_ORIGIN}${property.href}` }
-                    : {}),
+                  ...(property.href ? { url: `${SITE_ORIGIN}${property.href}` } : {}),
                 },
               })),
             },
@@ -391,7 +389,7 @@ function SprPropertyComboPage() {
       ]}
       related={[
         {
-          href: "/projects/bptp-astaire-gardens-sector-70a-gurgaon",
+          href: "/projects/bptp-astaire-gardens-sector-70a-gurgaon-residences",
           label: "BPTP Astaire Gardens project guide and current inventory",
         },
         {

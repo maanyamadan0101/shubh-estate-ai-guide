@@ -6,55 +6,60 @@ import { Button } from "@/components/ui/button";
 import { GURGAON_PROJECT_COUNT } from "@/data/gurgaon-project-directory";
 import { listPublicProjectHubs } from "@/lib/project-hub.functions";
 import { SITE_ORIGIN } from "@/lib/seo";
+import { projectApartmentPath } from "@/lib/url-routing";
 
 const DEDICATED_PROJECT_PAGES: Record<string, string> = {
-  "dlf-the-arbour": "/projects/dlf-the-arbour-sector-63-gurgaon",
-  "dlf-the-arbour-sector-63": "/projects/dlf-the-arbour-sector-63-gurgaon",
-  "dlf-the-primus": "/projects/dlf-the-primus-sector-82a-gurgaon",
-  "dlf-the-primus-sector-82a": "/projects/dlf-the-primus-sector-82a-gurgaon",
-  "m3m-golf-hills": "/projects/m3m-golf-hills-sector-79-gurgaon",
-  "m3m-golf-hills-sector-79": "/projects/m3m-golf-hills-sector-79-gurgaon",
-  "aipl-riviera": "/projects/aipl-riviera-resale-sector-103-gurgaon",
-  "aipl-riviera-sector-103": "/projects/aipl-riviera-resale-sector-103-gurgaon",
-  "riviera-at-aipl-lake-city": "/projects/aipl-riviera-resale-sector-103-gurgaon",
-  "ansal-highland-park": "/projects/ansals-highland-park-sector-103-gurgaon",
-  "ansals-highland-park": "/projects/ansals-highland-park-sector-103-gurgaon",
-  "ansal-highland-park-sector-103": "/projects/ansals-highland-park-sector-103-gurgaon",
-  "dlf-skycourt": "/dlf-skycourt-sector-86-gurgaon",
-  "dlf-skycourt-sector-86": "/dlf-skycourt-sector-86-gurgaon",
-  "godrej-101": "/godrej-101-sector-79-gurgaon",
-  "godrej-101-sector-79": "/godrej-101-sector-79-gurgaon",
-  "emaar-emerald-estate": "/projects/emaar-emerald-estate-sector-65-gurgaon",
-  "emaar-emerald-estate-sector-65": "/projects/emaar-emerald-estate-sector-65-gurgaon",
-  "emaar-emerald-hills": "/emaar-emerald-hills-sector-65-gurgaon",
-  "emaar-emerald-hills-sector-65": "/emaar-emerald-hills-sector-65-gurgaon",
-  "bptp-astaire-gardens": "/projects/bptp-astaire-gardens-sector-70a-gurgaon",
-  "bptp-astaire-gardens-sector-70a": "/projects/bptp-astaire-gardens-sector-70a-gurgaon",
-  "bptp-astaire-gardens-sector-70a-gurgaon": "/projects/bptp-astaire-gardens-sector-70a-gurgaon",
+  "dlf-the-arbour": "/projects/dlf-the-arbour-sector-63-gurgaon-apartments",
+  "dlf-the-arbour-sector-63": "/projects/dlf-the-arbour-sector-63-gurgaon-apartments",
+  "dlf-the-primus": "/projects/dlf-the-primus-sector-82a-gurgaon-apartments",
+  "dlf-the-primus-sector-82a": "/projects/dlf-the-primus-sector-82a-gurgaon-apartments",
+  "m3m-golf-hills": "/projects/m3m-golf-hills-sector-79-gurgaon-apartments",
+  "m3m-golf-hills-sector-79": "/projects/m3m-golf-hills-sector-79-gurgaon-apartments",
+  "aipl-riviera": "/projects/aipl-riviera-sector-103-gurgaon-apartments",
+  "aipl-riviera-sector-103": "/projects/aipl-riviera-sector-103-gurgaon-apartments",
+  "riviera-at-aipl-lake-city": "/projects/aipl-riviera-sector-103-gurgaon-apartments",
+  "ansal-highland-park": "/projects/ansals-highland-park-sector-103-gurgaon-apartments",
+  "ansals-highland-park": "/projects/ansals-highland-park-sector-103-gurgaon-apartments",
+  "ansal-highland-park-sector-103": "/projects/ansals-highland-park-sector-103-gurgaon-apartments",
+  "dlf-skycourt": "/dlf-skycourt-sector-86-gurgaon-apartments",
+  "dlf-skycourt-sector-86": "/dlf-skycourt-sector-86-gurgaon-apartments",
+  "godrej-101": "/godrej-101-sector-79-gurgaon-apartments",
+  "godrej-101-sector-79": "/godrej-101-sector-79-gurgaon-apartments",
+  "emaar-emerald-estate": "/projects/emaar-emerald-estate-sector-65-gurgaon-apartments",
+  "emaar-emerald-estate-sector-65": "/projects/emaar-emerald-estate-sector-65-gurgaon-apartments",
+  "emaar-emerald-hills": "/emaar-emerald-hills-sector-65-gurgaon-residences",
+  "emaar-emerald-hills-sector-65": "/emaar-emerald-hills-sector-65-gurgaon-residences",
+  "bptp-astaire-gardens": "/projects/bptp-astaire-gardens-sector-70a-gurgaon-residences",
+  "bptp-astaire-gardens-sector-70a": "/projects/bptp-astaire-gardens-sector-70a-gurgaon-residences",
+  "bptp-astaire-gardens-sector-70a-gurgaon":
+    "/projects/bptp-astaire-gardens-sector-70a-gurgaon-residences",
 };
 
 const FEATURED_RESEARCH_GUIDES = [
   {
     name: "BPTP Astaire Gardens",
-    href: "/projects/bptp-astaire-gardens-sector-70a-gurgaon",
+    href: "/projects/bptp-astaire-gardens-sector-70a-gurgaon-residences",
   },
   {
     name: "Emaar Emerald Estate",
-    href: "/projects/emaar-emerald-estate-sector-65-gurgaon",
+    href: "/projects/emaar-emerald-estate-sector-65-gurgaon-apartments",
   },
-  { name: "Emaar Emerald Hills", href: "/emaar-emerald-hills-sector-65-gurgaon" },
-  { name: "DLF The Arbour", href: "/projects/dlf-the-arbour-sector-63-gurgaon" },
-  { name: "DLF The Primus", href: "/projects/dlf-the-primus-sector-82a-gurgaon" },
-  { name: "M3M Golf Hills", href: "/projects/m3m-golf-hills-sector-79-gurgaon" },
+  { name: "Emaar Emerald Hills", href: "/emaar-emerald-hills-sector-65-gurgaon-residences" },
+  { name: "DLF The Arbour", href: "/projects/dlf-the-arbour-sector-63-gurgaon-apartments" },
+  { name: "DLF The Primus", href: "/projects/dlf-the-primus-sector-82a-gurgaon-apartments" },
+  { name: "M3M Golf Hills", href: "/projects/m3m-golf-hills-sector-79-gurgaon-apartments" },
   {
     name: "AIPL Riviera at AIPL LakeCity",
-    href: "/projects/aipl-riviera-resale-sector-103-gurgaon",
+    href: "/projects/aipl-riviera-sector-103-gurgaon-apartments",
   },
-  { name: "Ansals Highland Park", href: "/projects/ansals-highland-park-sector-103-gurgaon" },
+  {
+    name: "Ansals Highland Park",
+    href: "/projects/ansals-highland-park-sector-103-gurgaon-apartments",
+  },
 ] as const;
 
 function projectHref(slug: string) {
-  return DEDICATED_PROJECT_PAGES[slug] ?? `/projects/${slug}`;
+  return DEDICATED_PROJECT_PAGES[slug] ?? projectApartmentPath(slug);
 }
 
 export const Route = createFileRoute("/projects-in-gurgaon")({

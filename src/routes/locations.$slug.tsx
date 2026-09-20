@@ -170,11 +170,11 @@ const LOCATIONS: Record<string, Location> = {
     ],
     related: [
       {
-        href: "/projects/dlf-the-primus-sector-82a-gurgaon",
+        href: "/projects/dlf-the-primus-sector-82a-gurgaon-apartments",
         label: "DLF The Primus Sector 82A resale and price guide",
       },
       {
-        href: "/dlf-skycourt-sector-86-gurgaon",
+        href: "/dlf-skycourt-sector-86-gurgaon-apartments",
         label: "DLF Skycourt Sector 86 resale guide",
       },
       {
@@ -368,7 +368,10 @@ function LocationPage() {
               Flats for sale in Gurgaon
             </Link>{" "}
             ·{" "}
-            <Link to="/nri-sell-property-gurgaon" className="text-gold underline-offset-4 hover:underline">
+            <Link
+              to="/nri-sell-property-gurgaon"
+              className="text-gold underline-offset-4 hover:underline"
+            >
               NRI property buying guide
             </Link>{" "}
             ·{" "}

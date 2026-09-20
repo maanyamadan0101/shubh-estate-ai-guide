@@ -387,7 +387,7 @@ function Home() {
               body="Start with project, sector and corridor context, then validate the exact unit, area basis, asking price, documents and finance before deciding."
             />
             <Button asChild variant="navy">
-              <Link to="/projects">View All Gurgaon Projects</Link>
+              <Link to="/projects-in-gurgaon">View All Gurgaon Projects</Link>
             </Button>
           </div>
 
@@ -702,7 +702,7 @@ function Home() {
               New Gurgaon property
             </Link>
             <Link
-              to="/godrej-101-sector-79-gurgaon"
+              to="/godrej-101-sector-79-gurgaon-apartments"
               className="text-gold underline-offset-4 hover:underline"
             >
               Godrej 101 Sector 79 Gurgaon

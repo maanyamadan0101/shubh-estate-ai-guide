@@ -27,7 +27,7 @@ import { CONTACT } from "@/data/site";
 import { trackContact } from "@/lib/analytics";
 import { SITE_ORIGIN } from "@/lib/seo";
 
-const PAGE_PATH = "/projects/dlf-the-arbour-sector-63-gurgaon";
+const PAGE_PATH = "/projects/dlf-the-arbour-sector-63-gurgaon-apartments";
 const canonical = `${SITE_ORIGIN}${PAGE_PATH}`;
 const title = "DLF The Arbour Sector 63 Gurgaon | 4 BHK Price & Resale";
 const description =
@@ -183,7 +183,7 @@ function SectionHeading({
   );
 }
 
-export const Route = createFileRoute("/projects/dlf-the-arbour-sector-63-gurgaon")({
+export const Route = createFileRoute("/projects/dlf-the-arbour-sector-63-gurgaon-apartments")({
   head: () => ({
     meta: [
       { title },
@@ -212,7 +212,7 @@ export const Route = createFileRoute("/projects/dlf-the-arbour-sector-63-gurgaon
                   "@type": "ListItem",
                   position: 2,
                   name: "Gurgaon Project Guides",
-                  item: `${SITE_ORIGIN}/projects`,
+                  item: `${SITE_ORIGIN}/projects-in-gurgaon`,
                 },
                 {
                   "@type": "ListItem",
@@ -284,7 +284,7 @@ function DLFTheArbourPage() {
               Home
             </Link>
             <span className="px-2">/</span>
-            <Link to="/projects" className="hover:text-gold">
+            <Link to="/projects-in-gurgaon" className="hover:text-gold">
               Projects
             </Link>
             <span className="px-2">/</span>
@@ -313,8 +313,8 @@ function DLFTheArbourPage() {
                 status and transfer terms. The indicative resale asking range reviewed on 24 August
                 2026 is approximately{" "}
                 <strong className="font-semibold text-white">₹10–12 crore</strong>. Contact Shubh
-                Estate Brokers for the best currently available unit and a
-                complete acquisition-cost breakup.
+                Estate Brokers for the best currently available unit and a complete acquisition-cost
+                breakup.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 <Button asChild size="xl" variant="gold">
@@ -460,9 +460,7 @@ function DLFTheArbourPage() {
                         <td className="px-6 py-6 text-sm text-muted-foreground">
                           3,950–3,956 sq ft
                         </td>
-                        <td className="px-6 py-6 font-display text-lg text-navy">
-                          ₹10–12 Cr*
-                        </td>
+                        <td className="px-6 py-6 font-display text-lg text-navy">₹10–12 Cr*</td>
                         <td className="px-6 py-6">
                           <a
                             href={WHATSAPP_URL}
@@ -565,7 +563,7 @@ function DLFTheArbourPage() {
                 </Link>
               </Button>
               <Button asChild variant="goldOutline">
-                <Link to="/projects/dlf-the-primus-sector-82a-gurgaon">
+                <Link to="/projects/dlf-the-primus-sector-82a-gurgaon-apartments">
                   Compare Ready-to-Move DLF Primus <ArrowRight aria-hidden="true" />
                 </Link>
               </Button>

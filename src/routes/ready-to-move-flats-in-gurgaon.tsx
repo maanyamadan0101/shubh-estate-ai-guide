@@ -72,12 +72,12 @@ const BUYER_CHECKS = [
 const PROJECT_GUIDES = [
   {
     name: "DLF The Primus, Sector 82A",
-    href: "/projects/dlf-the-primus-sector-82a-gurgaon",
+    href: "/projects/dlf-the-primus-sector-82a-gurgaon-apartments",
     text: "Ready residential project in New Gurgaon with current resale context and buyer checks.",
   },
   {
     name: "DLF Skycourt, Sector 86",
-    href: "/dlf-skycourt-sector-86-gurgaon",
+    href: "/dlf-skycourt-sector-86-gurgaon-apartments",
     text: "Completed New Gurgaon apartments with project, unit and resale guidance.",
   },
   {
@@ -133,7 +133,12 @@ export const Route = createFileRoute("/ready-to-move-flats-in-gurgaon")({
           name: "Flats for Sale in Gurgaon",
           item: `${SITE_ORIGIN}/flats-for-sale-in-gurgaon`,
         },
-        { "@type": "ListItem", position: 3, name: "Ready-to-Move Flats in Gurgaon", item: canonical },
+        {
+          "@type": "ListItem",
+          position: 3,
+          name: "Ready-to-Move Flats in Gurgaon",
+          item: canonical,
+        },
       ],
     };
     const itemListSchema = {
@@ -198,17 +203,24 @@ function ReadyToMoveGurgaonPage() {
           <div className="rounded-xl border border-border bg-card p-6">
             <Home className="size-5 text-gold" aria-hidden="true" />
             <p className="mt-3 font-display text-3xl">{properties.length}</p>
-            <p className="mt-1 text-sm text-muted-foreground">Published ready apartment options currently returned by the catalogue</p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Published ready apartment options currently returned by the catalogue
+            </p>
           </div>
           <div className="rounded-xl border border-border bg-card p-6">
             <MapPin className="size-5 text-gold" aria-hidden="true" />
             <p className="mt-3 font-display text-3xl">6</p>
-            <p className="mt-1 text-sm text-muted-foreground">Major Gurgaon corridors linked for comparison</p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Major Gurgaon corridors linked for comparison
+            </p>
           </div>
           <div className="rounded-xl border border-border bg-card p-6">
             <ShieldCheck className="size-5 text-gold" aria-hidden="true" />
             <p className="mt-3 font-display text-xl">Unit-level verification</p>
-            <p className="mt-1 text-sm text-muted-foreground">Title, possession status, condition, valuation and financing reviewed around the exact property</p>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Title, possession status, condition, valuation and financing reviewed around the exact
+              property
+            </p>
           </div>
         </div>
       </section>
@@ -216,18 +228,30 @@ function ReadyToMoveGurgaonPage() {
       <section className="border-y border-border bg-muted/30 py-14">
         <div className="container-page">
           <div className="max-w-3xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gold">Search by micro-market</p>
-            <h2 className="mt-2 font-display text-3xl">Ready and resale property across Gurgaon corridors</h2>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gold">
+              Search by micro-market
+            </p>
+            <h2 className="mt-2 font-display text-3xl">
+              Ready and resale property across Gurgaon corridors
+            </h2>
             <p className="mt-3 leading-7 text-muted-foreground">
-              A ready-to-move search should quickly narrow from Gurgaon to the right corridor, then to the project and exact apartment. Use these corridor pages to compare connectivity, maturity, competing supply and live inventory.
+              A ready-to-move search should quickly narrow from Gurgaon to the right corridor, then
+              to the project and exact apartment. Use these corridor pages to compare connectivity,
+              maturity, competing supply and live inventory.
             </p>
           </div>
           <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
             {CORRIDORS.map((corridor) => (
-              <a key={corridor.name} href={corridor.href} className="rounded-xl border border-border bg-card p-6 transition hover:border-gold/50">
+              <a
+                key={corridor.name}
+                href={corridor.href}
+                className="rounded-xl border border-border bg-card p-6 transition hover:border-gold/50"
+              >
                 <h3 className="font-display text-xl">{corridor.name}</h3>
                 <p className="mt-2 text-sm leading-6 text-muted-foreground">{corridor.text}</p>
-                <span className="mt-4 inline-block text-sm font-medium text-gold">Explore {corridor.name} →</span>
+                <span className="mt-4 inline-block text-sm font-medium text-gold">
+                  Explore {corridor.name} →
+                </span>
               </a>
             ))}
           </div>
@@ -236,10 +260,14 @@ function ReadyToMoveGurgaonPage() {
 
       <section className="container-page py-14">
         <div className="max-w-3xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gold">Before token payment</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gold">
+            Before token payment
+          </p>
           <h2 className="mt-2 font-display text-3xl">A completed flat still needs due diligence</h2>
           <p className="mt-3 leading-7 text-muted-foreground">
-            Ready-to-move reduces construction uncertainty, but it does not remove transaction risk. Price, title, dues, physical condition, society quality and lender valuation can materially affect the decision.
+            Ready-to-move reduces construction uncertainty, but it does not remove transaction risk.
+            Price, title, dues, physical condition, society quality and lender valuation can
+            materially affect the decision.
           </p>
         </div>
         <div className="mt-8 grid gap-5 md:grid-cols-2">
@@ -252,16 +280,28 @@ function ReadyToMoveGurgaonPage() {
           ))}
         </div>
         <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm">
-          <Link to="/blog/gurgaon-property-due-diligence-checklist-2026" className="font-medium text-gold underline-offset-4 hover:underline">
+          <Link
+            to="/blog/gurgaon-property-due-diligence-checklist-2026"
+            className="font-medium text-gold underline-offset-4 hover:underline"
+          >
             Gurgaon property due-diligence checklist
           </Link>
-          <Link to="/home-loans" className="font-medium text-gold underline-offset-4 hover:underline">
+          <Link
+            to="/home-loans"
+            className="font-medium text-gold underline-offset-4 hover:underline"
+          >
             Home-loan & valuation assistance
           </Link>
-          <Link to="/property-buying-advisory-gurgaon" className="font-medium text-gold underline-offset-4 hover:underline">
+          <Link
+            to="/property-buying-advisory-gurgaon"
+            className="font-medium text-gold underline-offset-4 hover:underline"
+          >
             Buyer advisory
           </Link>
-          <Link to="/nri-sell-property-gurgaon" className="font-medium text-gold underline-offset-4 hover:underline">
+          <Link
+            to="/nri-sell-property-gurgaon"
+            className="font-medium text-gold underline-offset-4 hover:underline"
+          >
             Overseas buyer support
           </Link>
         </div>
@@ -270,15 +310,25 @@ function ReadyToMoveGurgaonPage() {
       <section className="border-y border-border bg-muted/30 py-14">
         <div className="container-page">
           <div className="max-w-3xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gold">Project-level research</p>
-            <h2 className="mt-2 font-display text-3xl">Start with established ready-home project guides</h2>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gold">
+              Project-level research
+            </p>
+            <h2 className="mt-2 font-display text-3xl">
+              Start with established ready-home project guides
+            </h2>
           </div>
           <div className="mt-8 grid gap-5 md:grid-cols-3">
             {PROJECT_GUIDES.map((project) => (
-              <a key={project.href} href={project.href} className="rounded-xl border border-border bg-card p-6 transition hover:border-gold/50">
+              <a
+                key={project.href}
+                href={project.href}
+                className="rounded-xl border border-border bg-card p-6 transition hover:border-gold/50"
+              >
                 <h3 className="font-display text-xl">{project.name}</h3>
                 <p className="mt-2 text-sm leading-6 text-muted-foreground">{project.text}</p>
-                <span className="mt-4 inline-block text-sm font-medium text-gold">Open project guide →</span>
+                <span className="mt-4 inline-block text-sm font-medium text-gold">
+                  Open project guide →
+                </span>
               </a>
             ))}
           </div>
@@ -288,13 +338,22 @@ function ReadyToMoveGurgaonPage() {
       <section className="container-page py-14" id="current-ready-inventory">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gold">Live catalogue</p>
-            <h2 className="mt-2 font-display text-3xl">Current ready-to-move apartments for sale</h2>
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gold">
+              Live catalogue
+            </p>
+            <h2 className="mt-2 font-display text-3xl">
+              Current ready-to-move apartments for sale
+            </h2>
             <p className="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground">
-              Every card below is drawn from currently published ready-to-move apartment inventory. Similar configurations can represent separate genuine available units; compare the exact listing rather than assuming they are duplicates.
+              Every card below is drawn from currently published ready-to-move apartment inventory.
+              Similar configurations can represent separate genuine available units; compare the
+              exact listing rather than assuming they are duplicates.
             </p>
           </div>
-          <Link to="/flats-for-sale-in-gurgaon" className="text-sm font-medium text-gold underline-offset-4 hover:underline">
+          <Link
+            to="/flats-for-sale-in-gurgaon"
+            className="text-sm font-medium text-gold underline-offset-4 hover:underline"
+          >
             View the full Gurgaon catalogue
           </Link>
         </div>
@@ -307,13 +366,15 @@ function ReadyToMoveGurgaonPage() {
           </div>
         ) : (
           <div className="mt-8 rounded-xl border border-border bg-card p-7 text-sm text-muted-foreground">
-            Ready-to-move inventory is being refreshed. Use the enquiry form below for the current shortlist.
+            Ready-to-move inventory is being refreshed. Use the enquiry form below for the current
+            shortlist.
           </div>
         )}
 
         {error ? (
           <p className="mt-4 text-xs text-muted-foreground">
-            The live inventory feed could not be fully refreshed on this request; project and corridor guidance remains available.
+            The live inventory feed could not be fully refreshed on this request; project and
+            corridor guidance remains available.
           </p>
         ) : null}
       </section>
@@ -323,7 +384,9 @@ function ReadyToMoveGurgaonPage() {
           <div>
             <h2 className="font-display text-3xl">Need a ready-home shortlist?</h2>
             <p className="mt-3 max-w-2xl leading-7 text-muted-foreground">
-              Share your budget, preferred corridor, BHK, approximate size and whether the purchase is for self-use or investment. We can compare genuinely available units, coordinate site visits and align home-loan and document checks before commitment.
+              Share your budget, preferred corridor, BHK, approximate size and whether the purchase
+              is for self-use or investment. We can compare genuinely available units, coordinate
+              site visits and align home-loan and document checks before commitment.
             </p>
           </div>
           <EnquiryForm interest="Ready-to-move Gurgaon property shortlist" compact />
@@ -332,7 +395,9 @@ function ReadyToMoveGurgaonPage() {
 
       <section className="container-page pb-16">
         <div className="max-w-4xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gold">Frequently asked questions</p>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gold">
+            Frequently asked questions
+          </p>
           <h2 className="mt-2 font-display text-3xl">Buying a ready-to-move flat in Gurgaon</h2>
           <div className="mt-7 space-y-5">
             {FAQS.map((faq) => (

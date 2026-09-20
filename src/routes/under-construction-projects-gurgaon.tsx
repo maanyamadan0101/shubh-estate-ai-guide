@@ -172,7 +172,7 @@ function UnderConstructionProjects() {
               body="This directory layer shows project context. Fresh-booking inventory, payment plans, construction stage and the applicable RERA phase are reconfirmed before a site visit."
             />
             <Button asChild variant="navy">
-              <Link to="/projects">Explore all Gurgaon projects</Link>
+              <Link to="/projects-in-gurgaon">Explore all Gurgaon projects</Link>
             </Button>
           </div>
           <div className="mt-8">

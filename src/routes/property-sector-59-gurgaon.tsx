@@ -30,7 +30,12 @@ export const Route = createFileRoute("/property-sector-59-gurgaon")({
           "@type": "BreadcrumbList",
           itemListElement: [
             { "@type": "ListItem", position: 1, name: "Home", item: SITE_ORIGIN },
-            { "@type": "ListItem", position: 2, name: "Golf Course Extension Road", item: `${SITE_ORIGIN}/locations/golf-course-extension-road` },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "Golf Course Extension Road",
+              item: `${SITE_ORIGIN}/locations/golf-course-extension-road`,
+            },
             { "@type": "ListItem", position: 3, name: "Sector 59 Gurgaon", item: canonical },
           ],
         }),
@@ -76,8 +81,14 @@ function Sector59Page() {
         },
       ]}
       related={[
-        { href: "/locations/golf-course-extension-road", label: "Golf Course Extension Road property guide" },
-        { href: "/projects/tata-raisina-residency-sector-59", label: "Tata Raisina Residency project guide" },
+        {
+          href: "/locations/golf-course-extension-road",
+          label: "Golf Course Extension Road property guide",
+        },
+        {
+          href: "/projects/tata-raisina-residency-sector-59-gurgaon-apartments",
+          label: "Tata Raisina Residency project guide",
+        },
         { href: "/property-sector-60-gurgaon", label: "Sector 60 Gurgaon property guide" },
         { href: "/property-sector-62-gurgaon", label: "Sector 62 Gurgaon property guide" },
         { href: "/flats-for-sale-in-gurgaon", label: "Current Gurgaon property listings" },

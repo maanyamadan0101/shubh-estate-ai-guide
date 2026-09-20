@@ -65,9 +65,9 @@ assert.equal(
 assert.equal(internalHref("https://www.shubhestatebroker.in/home-loan/"), "/home-loans");
 assert.equal(
   internalHref(
-    "https://shubhestatebroker.in/projects/emaar-urban-oasis-sector-62?utm_source=chatgpt.com",
+    "https://shubhestatebroker.in/projects/emaar-urban-oasis-sector-62-gurgaon-apartments?utm_source=chatgpt.com",
   ),
-  "/projects/emaar-urban-oasis-sector-62",
+  "/projects/emaar-urban-oasis-sector-62-gurgaon-apartments",
 );
 assert.equal(
   internalHref("/flats-for-sale-in-gurgaon?purpose=sale&page=2&utm_campaign=test"),
@@ -87,8 +87,8 @@ console.log(
 // Exercise the real sitemap handler with duplicate and redirecting fixture rows.
 let sitemapSource = readFileSync(`${root}/src/routes/sitemap[.]xml.ts`, "utf8")
   .replace(
-    'import { internalHref } from "@/lib/url-routing";',
-    'import { internalHref } from "./lib/url-routing.mjs";',
+    'import { internalHref, projectApartmentPath } from "@/lib/url-routing";',
+    'import { internalHref, projectApartmentPath } from "./lib/url-routing.mjs";',
   )
   .replace(
     'import { SITE_ORIGIN } from "@/lib/seo";',

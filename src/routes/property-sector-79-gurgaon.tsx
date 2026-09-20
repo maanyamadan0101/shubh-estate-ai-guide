@@ -27,7 +27,12 @@ export const Route = createFileRoute("/property-sector-79-gurgaon")({
           "@type": "BreadcrumbList",
           itemListElement: [
             { "@type": "ListItem", position: 1, name: "Home", item: SITE_ORIGIN },
-            { "@type": "ListItem", position: 2, name: "Property in Gurgaon", item: `${SITE_ORIGIN}/locations/gurgaon` },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "Property in Gurgaon",
+              item: `${SITE_ORIGIN}/locations/gurgaon`,
+            },
             { "@type": "ListItem", position: 3, name: "Sector 79 Gurgaon", item: canonical },
           ],
         }),
@@ -83,8 +88,14 @@ function Sector79Page() {
         },
       ]}
       related={[
-        { href: "/projects/m3m-golf-hills-sector-79-gurgaon", label: "M3M Golf Hills Sector 79 price, RERA and NRI buyer guide" },
-        { href: "/godrej-101-sector-79-gurgaon", label: "Godrej 101 Sector 79 project and resale guide" },
+        {
+          href: "/projects/m3m-golf-hills-sector-79-gurgaon-apartments",
+          label: "M3M Golf Hills Sector 79 price, RERA and NRI buyer guide",
+        },
+        {
+          href: "/godrej-101-sector-79-gurgaon-apartments",
+          label: "Godrej 101 Sector 79 project and resale guide",
+        },
         { href: "/locations/new-gurgaon", label: "New Gurugram property guide" },
         { href: "/flats-for-sale-in-gurgaon", label: "Flats and apartments for sale in Gurgaon" },
         { href: "/sell-property-gurgaon", label: "Sell property in Gurgaon" },

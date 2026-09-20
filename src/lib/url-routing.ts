@@ -2,11 +2,35 @@ import { SITE_ORIGIN } from "./seo";
 import { DWARKA_CATALOGUE_LISTINGS } from "../data/dwarka-catalogue-listings";
 
 export const PROJECT_REDIRECTS: Record<string, string> = {
-  "dlf-skycourt-sector-86": "/dlf-skycourt-sector-86-gurgaon",
-  "godrej-101-sector-79": "/godrej-101-sector-79-gurgaon",
-  "bptp-astaire-gardens": "/projects/bptp-astaire-gardens-sector-70a-gurgaon",
-  "bptp-astaire-gardens-sector-70a": "/projects/bptp-astaire-gardens-sector-70a-gurgaon",
+  "dlf-skycourt-sector-86": "/dlf-skycourt-sector-86-gurgaon-apartments",
+  "godrej-101-sector-79": "/godrej-101-sector-79-gurgaon-apartments",
+  "bptp-astaire-gardens": "/projects/bptp-astaire-gardens-sector-70a-gurgaon-residences",
+  "bptp-astaire-gardens-sector-70a": "/projects/bptp-astaire-gardens-sector-70a-gurgaon-residences",
 };
+
+const PROJECT_APARTMENT_SUFFIX = "-gurgaon-apartments";
+const PROJECT_RESIDENCE_SUFFIX = "-gurgaon-residences";
+
+export function projectApartmentPath(slug: string): string {
+  const normalized = slug.replace(/^\/+|\/+$/g, "");
+  if (
+    normalized.endsWith(PROJECT_APARTMENT_SUFFIX) ||
+    normalized.endsWith(PROJECT_RESIDENCE_SUFFIX)
+  ) {
+    return `/projects/${normalized}`;
+  }
+  return `/projects/${normalized}${PROJECT_APARTMENT_SUFFIX}`;
+}
+
+export function sourceProjectSlug(routeSlug: string): string {
+  if (routeSlug.endsWith(PROJECT_APARTMENT_SUFFIX)) {
+    return routeSlug.slice(0, -PROJECT_APARTMENT_SUFFIX.length);
+  }
+  if (routeSlug.endsWith(PROJECT_RESIDENCE_SUFFIX)) {
+    return routeSlug.slice(0, -PROJECT_RESIDENCE_SUFFIX.length);
+  }
+  return routeSlug;
+}
 
 const DUPLICATE_PROPERTY_REDIRECTS: Record<string, string> = {
   "/property/1-bhk-lotus-homz-apartment-sector-111-gurgaon-2":
@@ -67,13 +91,40 @@ const DUPLICATE_PROPERTY_REDIRECTS: Record<string, string> = {
 
 const PATH_REDIRECTS: Record<string, string> = {
   "/projects": "/projects-in-gurgaon",
+  "/fsi-far-meaning-calculation-gurgaon": "/blog/fsi-far-meaning-calculation-gurgaon",
   "/sell-property-in-gurgaon": "/sell-property-gurgaon",
   "/property-for-sale-in-gurgaon": "/flats-for-sale-in-gurgaon",
   "/properties": "/flats-for-sale-in-gurgaon",
   "/property-valuation-gurgaon": "/property-services-gurgaon",
   "/home-loan": "/home-loans",
-  "/property/dlf-the-primus-sector-82a-gurgaon": "/projects/dlf-the-primus-sector-82a-gurgaon",
-  "/projects/dlf-the-skycourt-sector-86": "/dlf-skycourt-sector-86-gurgaon",
+  "/property/dlf-the-primus-sector-82a-gurgaon":
+    "/projects/dlf-the-primus-sector-82a-gurgaon-apartments",
+  "/projects/dlf-the-skycourt-sector-86": "/dlf-skycourt-sector-86-gurgaon-apartments",
+  "/dlf-skycourt-sector-86-gurgaon": "/dlf-skycourt-sector-86-gurgaon-apartments",
+  "/godrej-101-sector-79-gurgaon": "/godrej-101-sector-79-gurgaon-apartments",
+  "/emaar-emerald-hills-sector-65-gurgaon": "/emaar-emerald-hills-sector-65-gurgaon-residences",
+  "/jms-the-majestic-manesar": "/jms-the-majestic-manesar-gurgaon-residences",
+  "/projects/dlf-the-arbour-sector-63-gurgaon":
+    "/projects/dlf-the-arbour-sector-63-gurgaon-apartments",
+  "/projects/dlf-the-primus-sector-82a-gurgaon":
+    "/projects/dlf-the-primus-sector-82a-gurgaon-apartments",
+  "/projects/m3m-golf-hills-sector-79-gurgaon":
+    "/projects/m3m-golf-hills-sector-79-gurgaon-apartments",
+  "/projects/aipl-riviera-resale-sector-103-gurgaon":
+    "/projects/aipl-riviera-sector-103-gurgaon-apartments",
+  "/projects/ansals-highland-park-sector-103-gurgaon":
+    "/projects/ansals-highland-park-sector-103-gurgaon-apartments",
+  "/projects/bptp-astaire-gardens-sector-70a-gurgaon":
+    "/projects/bptp-astaire-gardens-sector-70a-gurgaon-residences",
+  "/projects/emaar-emerald-estate-sector-65-gurgaon":
+    "/projects/emaar-emerald-estate-sector-65-gurgaon-apartments",
+  "/projects/emaar-urban-oasis-sector-62":
+    "/projects/emaar-urban-oasis-sector-62-gurgaon-apartments",
+  "/projects/godrej-sora-sector-53-gurgaon": "/projects/godrej-sora-sector-53-gurgaon-apartments",
+  "/projects/godrej-vrikshya-sector-103-gurgaon":
+    "/projects/godrej-vrikshya-sector-103-gurgaon-apartments",
+  "/projects/tata-raisina-residency-sector-59":
+    "/projects/tata-raisina-residency-sector-59-gurgaon-apartments",
   "/property/3-bhk-servant-room-emaar-mgf-palm-hills-apartment-sector-77-gurugram":
     "/emaar-palm-hills-sector-77-gurgaon-flats-for-sale",
   ...DUPLICATE_PROPERTY_REDIRECTS,
@@ -128,6 +179,8 @@ export function internalHref(value: string): string {
     url.pathname = destination.pathname;
     if (destination.hash) url.hash = destination.hash;
   }
+  const projectMatch = url.pathname.match(/^\/projects\/([^/]+)$/);
+  if (projectMatch?.[1]) url.pathname = projectApartmentPath(projectMatch[1]);
   return `${url.pathname}${url.search}${url.hash}`;
 }
 

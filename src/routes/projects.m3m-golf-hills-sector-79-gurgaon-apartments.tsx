@@ -22,7 +22,7 @@ import { CONTACT } from "@/data/site";
 import { trackContact } from "@/lib/analytics";
 import { SITE_ORIGIN } from "@/lib/seo";
 
-const PAGE_PATH = "/projects/m3m-golf-hills-sector-79-gurgaon";
+const PAGE_PATH = "/projects/m3m-golf-hills-sector-79-gurgaon-apartments";
 const canonical = `${SITE_ORIGIN}${PAGE_PATH}`;
 const title = "M3M Golf Hills Sector 79 Gurgaon | Resale from ₹13,000";
 const description =
@@ -82,7 +82,7 @@ function formatCrore(value: number) {
   return `₹${(value / 10_000_000).toFixed(2)} Cr`;
 }
 
-export const Route = createFileRoute("/projects/m3m-golf-hills-sector-79-gurgaon")({
+export const Route = createFileRoute("/projects/m3m-golf-hills-sector-79-gurgaon-apartments")({
   head: () => ({
     meta: [
       { title },
@@ -113,7 +113,7 @@ export const Route = createFileRoute("/projects/m3m-golf-hills-sector-79-gurgaon
                   "@type": "ListItem",
                   position: 2,
                   name: "Gurgaon Project Guides",
-                  item: `${SITE_ORIGIN}/projects`,
+                  item: `${SITE_ORIGIN}/projects-in-gurgaon`,
                 },
                 {
                   "@type": "ListItem",
@@ -178,7 +178,7 @@ function M3MGolfHillsPage() {
               Home
             </a>
             <span className="px-2">/</span>
-            <a href="/projects" className="hover:text-gold">
+            <a href="/projects-in-gurgaon" className="hover:text-gold">
               Projects
             </a>
             <span className="px-2">/</span>
@@ -580,7 +580,7 @@ function M3MGolfHillsPage() {
                   "/blog/gurgaon-property-due-diligence-checklist-2026",
                   "Gurgaon property due-diligence checklist",
                 ],
-                ["/projects", "All Gurgaon project guides"],
+                ["/projects-in-gurgaon", "All Gurgaon project guides"],
               ].map(([href, label]) => (
                 <a
                   key={href}

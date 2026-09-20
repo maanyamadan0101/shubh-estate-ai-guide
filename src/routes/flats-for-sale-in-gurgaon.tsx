@@ -37,6 +37,7 @@ import { listPublicProjectHubs } from "@/lib/project-hub.functions";
 import { listPublicCataloguePage, type ListingRow } from "@/lib/properties.functions";
 import { SITE_ORIGIN } from "@/lib/seo";
 import { trackContact } from "@/lib/analytics";
+import { projectApartmentPath } from "@/lib/url-routing";
 
 const PAGE_SIZE = 12;
 const SORTED_DIRECTORY_PROJECTS = [...GURGAON_DIRECTORY_PROJECTS].sort((a, b) =>
@@ -370,7 +371,7 @@ export const Route = createFileRoute("/flats-for-sale-in-gurgaon")({
       listPublicProjectHubs(),
     ]);
     const projectGuideLinks = Object.fromEntries(
-      projectHubs.map((project) => [project.name, `/projects/${project.slug}`]),
+      projectHubs.map((project) => [project.name, projectApartmentPath(project.slug)]),
     );
     return {
       ...catalogue,

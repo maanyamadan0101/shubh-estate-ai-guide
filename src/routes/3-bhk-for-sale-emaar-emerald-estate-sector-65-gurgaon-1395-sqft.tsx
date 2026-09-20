@@ -7,7 +7,7 @@ const pageTitle = "3 BHK + 1 for Sale in Emaar Emerald Estate Sector 65 Gurgaon"
 const seoTitle = "Emaar Emerald Estate 3 BHK for Sale | ₹2.30 Cr | Shubh Estate";
 const description =
   "Unused 3 BHK + 1 apartment for sale in Emaar Emerald Estate, Sector 65 Gurgaon. 1,395 sq ft, higher floor, East-facing, asking ₹2.30 crore. View actual property photos.";
-const projectPath = "/projects/emaar-emerald-estate-sector-65-gurgaon";
+const projectPath = "/projects/emaar-emerald-estate-sector-65-gurgaon-apartments";
 const mediaPath = "/properties/emaar-emerald-estate-1395";
 const coverImage = `${SITE_ORIGIN}${mediaPath}/02-emaar-emerald-estate-3bhk-living-room-balcony.webp`;
 const LAST_UPDATED = "5 September 2026";
@@ -73,7 +73,7 @@ export const Route = createFileRoute(
               "@type": "ListItem",
               position: 2,
               name: "Gurgaon Projects",
-              item: `${SITE_ORIGIN}/projects`,
+              item: `${SITE_ORIGIN}/projects-in-gurgaon`,
             },
             {
               "@type": "ListItem",
@@ -276,7 +276,8 @@ function PropertyMedia() {
         Actual Emaar Emerald Estate apartment photographs
       </h2>
       <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
-        Review the actual condition, room proportions, kitchen and natural light before arranging a visit. The photographs supplied for this listing have not been digitally staged.
+        Review the actual condition, room proportions, kitchen and natural light before arranging a
+        visit. The photographs supplied for this listing have not been digitally staged.
       </p>
 
       <div className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-3">
@@ -297,7 +298,9 @@ function PropertyMedia() {
       </div>
 
       <p className="mt-4 text-xs leading-5 text-muted-foreground">
-        Project context is based on Emaar's official Emerald Estate information. Unit-specific facts on this page refer to the apartment offered for sale and are updated as availability changes.
+        Project context is based on Emaar's official Emerald Estate information. Unit-specific facts
+        on this page refer to the apartment offered for sale and are updated as availability
+        changes.
       </p>
     </section>
   );

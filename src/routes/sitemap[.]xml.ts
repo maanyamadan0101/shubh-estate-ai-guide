@@ -1,4 +1,4 @@
-import { internalHref } from "@/lib/url-routing";
+import { internalHref, projectApartmentPath } from "@/lib/url-routing";
 import { createFileRoute } from "@tanstack/react-router";
 import { listProjectHubSitemapEntries } from "@/lib/project-hub.functions";
 import { listSitemapProperties } from "@/lib/properties.functions";
@@ -13,7 +13,7 @@ type StaticPath = {
 const SEO_TEMPLATE_LASTMOD = "2026-08-27";
 
 const STATIC_PATHS: StaticPath[] = [
-  { path: "/jms-the-majestic-manesar", priority: "0.9", lastmod: "2026-09-06" },
+  { path: "/jms-the-majestic-manesar-gurgaon-residences", priority: "0.9", lastmod: "2026-09-06" },
   { path: "/", priority: "1.0", lastmod: "2026-09-19" },
   { path: "/flats-for-sale-in-gurgaon", priority: "1.0", lastmod: "2026-09-19" },
   {
@@ -28,6 +28,11 @@ const STATIC_PATHS: StaticPath[] = [
   { path: "/mandate-to-sell-property-in-gurgaon", priority: "0.95", lastmod: "2026-09-19" },
   { path: "/projects-in-gurgaon", priority: "0.9", lastmod: "2026-09-20" },
   { path: "/blog", priority: "0.9", lastmod: "2026-09-19" },
+  {
+    path: "/blog/fsi-far-meaning-calculation-gurgaon",
+    priority: "0.9",
+    lastmod: "2026-09-20",
+  },
   {
     path: "/blog/best-sectors-to-buy-property-in-gurgaon",
     priority: "0.9",
@@ -47,9 +52,13 @@ const STATIC_PATHS: StaticPath[] = [
   { path: "/property-services-gurgaon", priority: "0.95", lastmod: "2026-09-19" },
   { path: "/luxury", priority: "0.8" },
   { path: "/property-buying-advisory-gurgaon", priority: "0.95", lastmod: "2026-09-19" },
-  { path: "/godrej-101-sector-79-gurgaon", priority: "0.8", lastmod: SEO_TEMPLATE_LASTMOD },
   {
-    path: "/dlf-skycourt-sector-86-gurgaon",
+    path: "/godrej-101-sector-79-gurgaon-apartments",
+    priority: "0.8",
+    lastmod: SEO_TEMPLATE_LASTMOD,
+  },
+  {
+    path: "/dlf-skycourt-sector-86-gurgaon-apartments",
     priority: "0.9",
     lastmod: "2026-08-23",
   },
@@ -64,12 +73,12 @@ const STATIC_PATHS: StaticPath[] = [
     lastmod: "2026-09-05",
   },
   {
-    path: "/projects/emaar-emerald-estate-sector-65-gurgaon",
+    path: "/projects/emaar-emerald-estate-sector-65-gurgaon-apartments",
     priority: "0.9",
     lastmod: "2026-09-05",
   },
   {
-    path: "/projects/bptp-astaire-gardens-sector-70a-gurgaon",
+    path: "/projects/bptp-astaire-gardens-sector-70a-gurgaon-residences",
     priority: "0.9",
     lastmod: "2026-09-07",
   },
@@ -79,7 +88,7 @@ const STATIC_PATHS: StaticPath[] = [
     lastmod: "2026-08-29",
   },
   {
-    path: "/emaar-emerald-hills-sector-65-gurgaon",
+    path: "/emaar-emerald-hills-sector-65-gurgaon-residences",
     priority: "0.9",
     lastmod: "2026-08-24",
   },
@@ -89,12 +98,12 @@ const STATIC_PATHS: StaticPath[] = [
     lastmod: "2026-09-19",
   },
   {
-    path: "/projects/dlf-the-arbour-sector-63-gurgaon",
+    path: "/projects/dlf-the-arbour-sector-63-gurgaon-apartments",
     priority: "0.9",
     lastmod: "2026-08-24",
   },
   {
-    path: "/projects/godrej-sora-sector-53-gurgaon",
+    path: "/projects/godrej-sora-sector-53-gurgaon-apartments",
     priority: "0.9",
     lastmod: "2026-08-25",
   },
@@ -104,32 +113,32 @@ const STATIC_PATHS: StaticPath[] = [
     lastmod: "2026-08-25",
   },
   {
-    path: "/projects/m3m-golf-hills-sector-79-gurgaon",
+    path: "/projects/m3m-golf-hills-sector-79-gurgaon-apartments",
     priority: "0.9",
     lastmod: "2026-08-24",
   },
   {
-    path: "/projects/ansals-highland-park-sector-103-gurgaon",
+    path: "/projects/ansals-highland-park-sector-103-gurgaon-apartments",
     priority: "0.9",
     lastmod: "2026-08-24",
   },
   {
-    path: "/projects/aipl-riviera-resale-sector-103-gurgaon",
+    path: "/projects/aipl-riviera-sector-103-gurgaon-apartments",
     priority: "0.9",
     lastmod: "2026-08-24",
   },
   {
-    path: "/projects/godrej-vrikshya-sector-103-gurgaon",
+    path: "/projects/godrej-vrikshya-sector-103-gurgaon-apartments",
     priority: "0.9",
     lastmod: "2026-09-18",
   },
   {
-    path: "/projects/emaar-urban-oasis-sector-62",
+    path: "/projects/emaar-urban-oasis-sector-62-gurgaon-apartments",
     priority: "0.9",
     lastmod: "2026-09-18",
   },
   {
-    path: "/projects/dlf-the-primus-sector-82a-gurgaon",
+    path: "/projects/dlf-the-primus-sector-82a-gurgaon-apartments",
     priority: "0.9",
     lastmod: "2026-08-24",
   },
@@ -147,7 +156,11 @@ const STATIC_PATHS: StaticPath[] = [
   { path: "/property-sector-62-gurgaon", priority: "0.8", lastmod: "2026-08-23" },
   { path: "/property-sector-60-gurgaon", priority: "0.8", lastmod: "2026-08-29" },
   { path: "/property-sector-59-gurgaon", priority: "0.8", lastmod: "2026-08-23" },
-  { path: "/projects/tata-raisina-residency-sector-59", priority: "0.8", lastmod: "2026-08-23" },
+  {
+    path: "/projects/tata-raisina-residency-sector-59-gurgaon-apartments",
+    priority: "0.8",
+    lastmod: "2026-08-23",
+  },
   { path: "/desperate-deals-gurgaon", priority: "0.8" },
   {
     path: "/best-areas-gurgaon-property-investment",
@@ -257,11 +270,11 @@ export const Route = createFileRoute("/sitemap.xml")({
               (hub) =>
                 Boolean(hub.slug?.trim()) &&
                 !PROJECT_HUB_SITEMAP_EXCLUSIONS.has(hub.slug) &&
-                internalHref(`/projects/${hub.slug}`) === `/projects/${hub.slug}`,
+                internalHref(projectApartmentPath(hub.slug)) === projectApartmentPath(hub.slug),
             )
             .map(
               (hub) =>
-                `  <url>\n    <loc>${escapeXml(`${SITE_ORIGIN}/projects/${hub.slug}`)}</loc>${safeLastmod(latestLastmod(hub.updated_at))}\n    <priority>0.8</priority>\n  </url>`,
+                `  <url>\n    <loc>${escapeXml(`${SITE_ORIGIN}${projectApartmentPath(hub.slug)}`)}</loc>${safeLastmod(latestLastmod(hub.updated_at))}\n    <priority>0.8</priority>\n  </url>`,
             ),
           ...properties
             .filter(

@@ -1,4 +1,4 @@
-import { PROJECT_REDIRECTS } from "@/lib/url-routing";
+import { PROJECT_REDIRECTS, projectApartmentPath, sourceProjectSlug } from "@/lib/url-routing";
 import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-router";
 import { Building2, CheckCircle2, MapPin, Ruler, ShieldCheck } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -30,10 +30,16 @@ function compactDescription(value: string, max = 158) {
 
 export const Route = createFileRoute("/projects/$slug")({
   loader: async ({ params }) => {
-    const redirected = PROJECT_REDIRECTS[params.slug];
+    const sourceSlug = sourceProjectSlug(params.slug);
+    const redirected = PROJECT_REDIRECTS[sourceSlug];
     if (redirected) throw redirect({ href: redirected, statusCode: 301 });
 
-    const hub = await getPublicProjectHub({ data: { slug: params.slug } });
+    const canonicalPath = projectApartmentPath(sourceSlug);
+    if (`/projects/${params.slug}` !== canonicalPath) {
+      throw redirect({ href: canonicalPath, statusCode: 301 });
+    }
+
+    const hub = await getPublicProjectHub({ data: { slug: sourceSlug } });
     if (!hub) throw notFound();
     return hub;
   },
@@ -43,7 +49,7 @@ export const Route = createFileRoute("/projects/$slug")({
     }
 
     const location = [loaderData.sector, "Gurgaon"].filter(Boolean).join(" ");
-    const canonical = `${SITE_ORIGIN}/projects/${loaderData.slug}`;
+    const canonical = `${SITE_ORIGIN}${projectApartmentPath(loaderData.slug)}`;
     const numericPrices = loaderData.listings.map((listing) => listing.price);
     const hasAskingPrices = numericPrices.some((value) => Boolean(value && value > 0));
     const saleCount = loaderData.listings.filter(
@@ -128,7 +134,7 @@ export const Route = createFileRoute("/projects/$slug")({
       <h1 className="font-display text-3xl">Project guide not found</h1>
       <p className="mt-2 text-muted-foreground">Browse current Gurgaon projects and properties.</p>
       <Button asChild variant="gold" className="mt-6">
-        <Link to="/projects">View project guides</Link>
+        <Link to="/projects-in-gurgaon">View project guides</Link>
       </Button>
     </div>
   ),
@@ -163,7 +169,7 @@ function ProjectHubPage() {
               Home
             </Link>
             <span className="px-2">/</span>
-            <Link to="/projects" className="hover:text-foreground">
+            <Link to="/projects-in-gurgaon" className="hover:text-foreground">
               Projects
             </Link>
             <span className="px-2">/</span>
@@ -475,7 +481,10 @@ function ProjectHubPage() {
             </div>
             <div className="mt-5 border-t border-border pt-4 text-xs leading-5 text-muted-foreground">
               Buying remotely?{" "}
-              <Link to="/nri-sell-property-gurgaon" className="font-medium text-gold hover:underline">
+              <Link
+                to="/nri-sell-property-gurgaon"
+                className="font-medium text-gold hover:underline"
+              >
                 See NRI property assistance
               </Link>
               .

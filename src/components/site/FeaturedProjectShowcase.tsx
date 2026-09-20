@@ -15,9 +15,9 @@ import { directoryProjectImageFor } from "@/lib/directory-project-images";
 import { vercelSrcSet } from "@/lib/image-optimization";
 
 const PROJECT_GUIDES: Record<string, string> = {
-  "AIPL Riviera at AIPL LakeCity": "/projects/aipl-riviera-resale-sector-103-gurgaon",
-  "Ansals Highland Park": "/projects/ansals-highland-park-sector-103-gurgaon",
-  "DLF The Arbour": "/projects/dlf-the-arbour-sector-63-gurgaon",
+  "AIPL Riviera at AIPL LakeCity": "/projects/aipl-riviera-sector-103-gurgaon-apartments",
+  "Ansals Highland Park": "/projects/ansals-highland-park-sector-103-gurgaon-apartments",
+  "DLF The Arbour": "/projects/dlf-the-arbour-sector-63-gurgaon-apartments",
   "Ireo Skyon": "/ireo-skyon-3-bhk-for-sale-sector-60-gurgaon",
   "Puri Emerald Bay": "/puri-emerald-bay-3-bhk-for-sale-sector-104-gurgaon",
 };
