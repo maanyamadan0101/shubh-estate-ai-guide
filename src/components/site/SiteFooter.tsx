@@ -90,7 +90,7 @@ export function SiteFooter() {
             <ul className="mt-4 space-y-2 text-sm text-navy-foreground/80">
               <li><Link to="/flats-for-sale-in-gurgaon" className="hover:text-gold">Flats for Sale in Gurgaon</Link></li>
               <li><Link to="/ready-to-move-flats-in-gurgaon" className="hover:text-gold">Ready-to-Move Flats in Gurgaon</Link></li>
-              <li><Link to="/projects" className="hover:text-gold">Gurgaon Project Guides</Link></li>
+              <li><Link to="/projects-in-gurgaon" className="hover:text-gold">Residential Projects in Gurgaon</Link></li>
               <li><Link to="/under-construction-projects-gurgaon" className="hover:text-gold">New & Under-Construction Projects</Link></li>
               <li><Link to="/luxury" className="hover:text-gold">Luxury Property Gurgaon</Link></li>
               <li><Link to="/property-buying-advisory-gurgaon" className="hover:text-gold">Property Buying Advisory</Link></li>
