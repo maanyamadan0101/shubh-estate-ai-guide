@@ -26,7 +26,7 @@ import { CONTACT } from "@/data/site";
 import { trackContact } from "@/lib/analytics";
 import { SITE_ORIGIN } from "@/lib/seo";
 
-const PAGE_PATH = "/emaar-emerald-hills-sector-65-gurgaon";
+const PAGE_PATH = "/emaar-emerald-hills-sector-65-gurgaon-residences";
 const canonical = `${SITE_ORIGIN}${PAGE_PATH}`;
 const title = "Emaar Emerald Hills Sector 65 Gurgaon | Resale Price";
 const description =
@@ -287,7 +287,7 @@ function SectionHeading({
   );
 }
 
-export const Route = createFileRoute("/emaar-emerald-hills-sector-65-gurgaon")({
+export const Route = createFileRoute("/emaar-emerald-hills-sector-65-gurgaon-residences")({
   head: () => ({
     meta: [
       { title },
@@ -316,7 +316,7 @@ export const Route = createFileRoute("/emaar-emerald-hills-sector-65-gurgaon")({
                   "@type": "ListItem",
                   position: 2,
                   name: "Gurgaon Project Guides",
-                  item: `${SITE_ORIGIN}/projects`,
+                  item: `${SITE_ORIGIN}/projects-in-gurgaon`,
                 },
                 {
                   "@type": "ListItem",
@@ -422,7 +422,7 @@ function EmaarEmeraldHillsPage() {
               Home
             </Link>
             <span className="px-2">/</span>
-            <Link to="/projects" className="hover:text-gold">
+            <Link to="/projects-in-gurgaon" className="hover:text-gold">
               Projects
             </Link>
             <span className="px-2">/</span>

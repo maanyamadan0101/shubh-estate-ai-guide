@@ -20,26 +20,27 @@ import { Route as BestAreasGurgaonPropertyInvestmentRouteImport } from './routes
 import { Route as CapitalResidences3603BhkForSaleSector70aGurgaonRouteImport } from './routes/capital-residences-360-3-bhk-for-sale-sector-70a-gurgaon'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DesperateDealsGurgaonRouteImport } from './routes/desperate-deals-gurgaon'
-import { Route as DlfSkycourtSector86GurgaonRouteImport } from './routes/dlf-skycourt-sector-86-gurgaon'
+import { Route as DlfSkycourtSector86GurgaonApartmentsRouteImport } from './routes/dlf-skycourt-sector-86-gurgaon-apartments'
 import { Route as DwarkaExpresswayFlatsForSaleGurgaonRouteImport } from './routes/dwarka-expressway-flats-for-sale-gurgaon'
-import { Route as EmaarEmeraldHillsSector65GurgaonRouteImport } from './routes/emaar-emerald-hills-sector-65-gurgaon'
+import { Route as EmaarEmeraldHillsSector65GurgaonResidencesRouteImport } from './routes/emaar-emerald-hills-sector-65-gurgaon-residences'
 import { Route as EmaarPalmHillsSector77GurgaonFlatsForSaleRouteImport } from './routes/emaar-palm-hills-sector-77-gurgaon-flats-for-sale'
 import { Route as EmiCalculatorRouteImport } from './routes/emi-calculator'
 import { Route as FlatsForSaleInGurgaonRouteImport } from './routes/flats-for-sale-in-gurgaon'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
-import { Route as Godrej101Sector79GurgaonRouteImport } from './routes/godrej-101-sector-79-gurgaon'
+import { Route as Godrej101Sector79GurgaonApartmentsRouteImport } from './routes/godrej-101-sector-79-gurgaon-apartments'
 import { Route as GurugramGrowthStoryRouteImport } from './routes/gurugram-growth-story'
 import { Route as HaryanaStampDutyRegistrationCalculatorRouteImport } from './routes/haryana-stamp-duty-registration-calculator'
 import { Route as HigherFloorApartmentsGolfCourseExtensionRoadRouteImport } from './routes/higher-floor-apartments-golf-course-extension-road'
 import { Route as HomeLoansRouteImport } from './routes/home-loans'
 import { Route as IreoSkyon3BhkForSaleSector60GurgaonRouteImport } from './routes/ireo-skyon-3-bhk-for-sale-sector-60-gurgaon'
-import { Route as JmsTheMajesticManesarRouteImport } from './routes/jms-the-majestic-manesar'
+import { Route as JmsTheMajesticManesarGurgaonResidencesRouteImport } from './routes/jms-the-majestic-manesar-gurgaon-residences'
 import { Route as LuxuryRouteImport } from './routes/luxury'
 import { Route as MandateToSellPropertyInGurgaonRouteImport } from './routes/mandate-to-sell-property-in-gurgaon'
 import { Route as NriRouteImport } from './routes/nri'
 import { Route as NriSellPropertyGurgaonRouteImport } from './routes/nri-sell-property-gurgaon'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as ProjectsRouteImport } from './routes/projects'
+import { Route as ProjectsInGurgaonRouteImport } from './routes/projects-in-gurgaon'
 import { Route as PropertiesRouteImport } from './routes/properties'
 import { Route as PropertiesForSaleOnSprGurgaonRouteImport } from './routes/properties-for-sale-on-spr-gurgaon'
 import { Route as PropertyBuyingAdvisoryGurgaonRouteImport } from './routes/property-buying-advisory-gurgaon'
@@ -62,6 +63,7 @@ import { Route as WhatsappRouteImport } from './routes/whatsapp'
 import { Route as ApiEnquiryRouteImport } from './routes/api/enquiry'
 import { Route as ApiSellerSubmissionRouteImport } from './routes/api/seller-submission'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
+import { Route as BlogBestSectorsToBuyPropertyInGurgaonRouteImport } from './routes/blog.best-sectors-to-buy-property-in-gurgaon'
 import { Route as BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026RouteImport } from './routes/blog.buy-property-gurgaon-small-down-payment-home-loan-guide-2026'
 import { Route as BlogGurgaonPropertyDueDiligenceChecklist2026RouteImport } from './routes/blog.gurgaon-property-due-diligence-checklist-2026'
 import { Route as LocationsSlugRouteImport } from './routes/locations.$slug'
@@ -69,17 +71,18 @@ import { Route as LocationsGolfCourseExtensionRoadRouteImport } from './routes/l
 import { Route as NriCountryRouteImport } from './routes/nri_.$country'
 import { Route as ProjectsIndexRouteImport } from './routes/projects.index'
 import { Route as ProjectsSlugRouteImport } from './routes/projects.$slug'
-import { Route as ProjectsAiplRivieraResaleSector103GurgaonRouteImport } from './routes/projects.aipl-riviera-resale-sector-103-gurgaon'
-import { Route as ProjectsAnsalsHighlandParkSector103GurgaonRouteImport } from './routes/projects.ansals-highland-park-sector-103-gurgaon'
-import { Route as ProjectsBptpAstaireGardensSector70aGurgaonRouteImport } from './routes/projects.bptp-astaire-gardens-sector-70a-gurgaon'
-import { Route as ProjectsDlfTheArbourSector63GurgaonRouteImport } from './routes/projects.dlf-the-arbour-sector-63-gurgaon'
-import { Route as ProjectsDlfThePrimusSector82aGurgaonRouteImport } from './routes/projects.dlf-the-primus-sector-82a-gurgaon'
+import { Route as ProjectsAiplRivieraSector103GurgaonApartmentsRouteImport } from './routes/projects.aipl-riviera-sector-103-gurgaon-apartments'
+import { Route as ProjectsAnsalsHighlandParkSector103GurgaonApartmentsRouteImport } from './routes/projects.ansals-highland-park-sector-103-gurgaon-apartments'
+import { Route as ProjectsBptpAstaireGardensSector70aGurgaonResidencesRouteImport } from './routes/projects.bptp-astaire-gardens-sector-70a-gurgaon-residences'
+import { Route as ProjectsDlfTheArbourSector63GurgaonApartmentsRouteImport } from './routes/projects.dlf-the-arbour-sector-63-gurgaon-apartments'
+import { Route as ProjectsDlfThePrimusSector82aGurgaonApartmentsRouteImport } from './routes/projects.dlf-the-primus-sector-82a-gurgaon-apartments'
 import { Route as ProjectsDlfTheSkycourtSector86RouteImport } from './routes/projects.dlf-the-skycourt-sector-86'
-import { Route as ProjectsEmaarEmeraldEstateSector65GurgaonRouteImport } from './routes/projects.emaar-emerald-estate-sector-65-gurgaon'
-import { Route as ProjectsEmaarUrbanOasisSector62RouteImport } from './routes/projects.emaar-urban-oasis-sector-62'
-import { Route as ProjectsGodrejSoraSector53GurgaonRouteImport } from './routes/projects.godrej-sora-sector-53-gurgaon'
-import { Route as ProjectsM3mGolfHillsSector79GurgaonRouteImport } from './routes/projects.m3m-golf-hills-sector-79-gurgaon'
-import { Route as ProjectsTataRaisinaResidencySector59RouteImport } from './routes/projects.tata-raisina-residency-sector-59'
+import { Route as ProjectsEmaarEmeraldEstateSector65GurgaonApartmentsRouteImport } from './routes/projects.emaar-emerald-estate-sector-65-gurgaon-apartments'
+import { Route as ProjectsEmaarUrbanOasisSector62GurgaonApartmentsRouteImport } from './routes/projects.emaar-urban-oasis-sector-62-gurgaon-apartments'
+import { Route as ProjectsGodrejSoraSector53GurgaonApartmentsRouteImport } from './routes/projects.godrej-sora-sector-53-gurgaon-apartments'
+import { Route as ProjectsGodrejVrikshyaSector103GurgaonApartmentsRouteImport } from './routes/projects.godrej-vrikshya-sector-103-gurgaon-apartments'
+import { Route as ProjectsM3mGolfHillsSector79GurgaonApartmentsRouteImport } from './routes/projects.m3m-golf-hills-sector-79-gurgaon-apartments'
+import { Route as ProjectsTataRaisinaResidencySector59GurgaonApartmentsRouteImport } from './routes/projects.tata-raisina-residency-sector-59-gurgaon-apartments'
 import { Route as PropertySlugRouteImport } from './routes/property.$slug'
 import { Route as PropertyDlfThePrimusSector82aGurgaonRouteImport } from './routes/property.dlf-the-primus-sector-82a-gurgaon'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
@@ -156,10 +159,10 @@ const DesperateDealsGurgaonRoute = DesperateDealsGurgaonRouteImport.update({
   path: '/desperate-deals-gurgaon',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DlfSkycourtSector86GurgaonRoute =
-  DlfSkycourtSector86GurgaonRouteImport.update({
-    id: '/dlf-skycourt-sector-86-gurgaon',
-    path: '/dlf-skycourt-sector-86-gurgaon',
+const DlfSkycourtSector86GurgaonApartmentsRoute =
+  DlfSkycourtSector86GurgaonApartmentsRouteImport.update({
+    id: '/dlf-skycourt-sector-86-gurgaon-apartments',
+    path: '/dlf-skycourt-sector-86-gurgaon-apartments',
     getParentRoute: () => rootRouteImport,
   } as any)
 const DwarkaExpresswayFlatsForSaleGurgaonRoute =
@@ -168,10 +171,10 @@ const DwarkaExpresswayFlatsForSaleGurgaonRoute =
     path: '/dwarka-expressway-flats-for-sale-gurgaon',
     getParentRoute: () => rootRouteImport,
   } as any)
-const EmaarEmeraldHillsSector65GurgaonRoute =
-  EmaarEmeraldHillsSector65GurgaonRouteImport.update({
-    id: '/emaar-emerald-hills-sector-65-gurgaon',
-    path: '/emaar-emerald-hills-sector-65-gurgaon',
+const EmaarEmeraldHillsSector65GurgaonResidencesRoute =
+  EmaarEmeraldHillsSector65GurgaonResidencesRouteImport.update({
+    id: '/emaar-emerald-hills-sector-65-gurgaon-residences',
+    path: '/emaar-emerald-hills-sector-65-gurgaon-residences',
     getParentRoute: () => rootRouteImport,
   } as any)
 const EmaarPalmHillsSector77GurgaonFlatsForSaleRoute =
@@ -195,10 +198,10 @@ const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
   path: '/forgot-password',
   getParentRoute: () => rootRouteImport,
 } as any)
-const Godrej101Sector79GurgaonRoute =
-  Godrej101Sector79GurgaonRouteImport.update({
-    id: '/godrej-101-sector-79-gurgaon',
-    path: '/godrej-101-sector-79-gurgaon',
+const Godrej101Sector79GurgaonApartmentsRoute =
+  Godrej101Sector79GurgaonApartmentsRouteImport.update({
+    id: '/godrej-101-sector-79-gurgaon-apartments',
+    path: '/godrej-101-sector-79-gurgaon-apartments',
     getParentRoute: () => rootRouteImport,
   } as any)
 const GurugramGrowthStoryRoute = GurugramGrowthStoryRouteImport.update({
@@ -229,11 +232,12 @@ const IreoSkyon3BhkForSaleSector60GurgaonRoute =
     path: '/ireo-skyon-3-bhk-for-sale-sector-60-gurgaon',
     getParentRoute: () => rootRouteImport,
   } as any)
-const JmsTheMajesticManesarRoute = JmsTheMajesticManesarRouteImport.update({
-  id: '/jms-the-majestic-manesar',
-  path: '/jms-the-majestic-manesar',
-  getParentRoute: () => rootRouteImport,
-} as any)
+const JmsTheMajesticManesarGurgaonResidencesRoute =
+  JmsTheMajesticManesarGurgaonResidencesRouteImport.update({
+    id: '/jms-the-majestic-manesar-gurgaon-residences',
+    path: '/jms-the-majestic-manesar-gurgaon-residences',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const LuxuryRoute = LuxuryRouteImport.update({
   id: '/luxury',
   path: '/luxury',
@@ -263,6 +267,11 @@ const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
 const ProjectsRoute = ProjectsRouteImport.update({
   id: '/projects',
   path: '/projects',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProjectsInGurgaonRoute = ProjectsInGurgaonRouteImport.update({
+  id: '/projects-in-gurgaon',
+  path: '/projects-in-gurgaon',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PropertiesRoute = PropertiesRouteImport.update({
@@ -383,6 +392,12 @@ const BlogIndexRoute = BlogIndexRouteImport.update({
   path: '/blog/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogBestSectorsToBuyPropertyInGurgaonRoute =
+  BlogBestSectorsToBuyPropertyInGurgaonRouteImport.update({
+    id: '/blog/best-sectors-to-buy-property-in-gurgaon',
+    path: '/blog/best-sectors-to-buy-property-in-gurgaon',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route =
   BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026RouteImport.update({
     id: '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026',
@@ -421,34 +436,34 @@ const ProjectsSlugRoute = ProjectsSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => ProjectsRoute,
 } as any)
-const ProjectsAiplRivieraResaleSector103GurgaonRoute =
-  ProjectsAiplRivieraResaleSector103GurgaonRouteImport.update({
-    id: '/aipl-riviera-resale-sector-103-gurgaon',
-    path: '/aipl-riviera-resale-sector-103-gurgaon',
+const ProjectsAiplRivieraSector103GurgaonApartmentsRoute =
+  ProjectsAiplRivieraSector103GurgaonApartmentsRouteImport.update({
+    id: '/aipl-riviera-sector-103-gurgaon-apartments',
+    path: '/aipl-riviera-sector-103-gurgaon-apartments',
     getParentRoute: () => ProjectsRoute,
   } as any)
-const ProjectsAnsalsHighlandParkSector103GurgaonRoute =
-  ProjectsAnsalsHighlandParkSector103GurgaonRouteImport.update({
-    id: '/ansals-highland-park-sector-103-gurgaon',
-    path: '/ansals-highland-park-sector-103-gurgaon',
+const ProjectsAnsalsHighlandParkSector103GurgaonApartmentsRoute =
+  ProjectsAnsalsHighlandParkSector103GurgaonApartmentsRouteImport.update({
+    id: '/ansals-highland-park-sector-103-gurgaon-apartments',
+    path: '/ansals-highland-park-sector-103-gurgaon-apartments',
     getParentRoute: () => ProjectsRoute,
   } as any)
-const ProjectsBptpAstaireGardensSector70aGurgaonRoute =
-  ProjectsBptpAstaireGardensSector70aGurgaonRouteImport.update({
-    id: '/bptp-astaire-gardens-sector-70a-gurgaon',
-    path: '/bptp-astaire-gardens-sector-70a-gurgaon',
+const ProjectsBptpAstaireGardensSector70aGurgaonResidencesRoute =
+  ProjectsBptpAstaireGardensSector70aGurgaonResidencesRouteImport.update({
+    id: '/bptp-astaire-gardens-sector-70a-gurgaon-residences',
+    path: '/bptp-astaire-gardens-sector-70a-gurgaon-residences',
     getParentRoute: () => ProjectsRoute,
   } as any)
-const ProjectsDlfTheArbourSector63GurgaonRoute =
-  ProjectsDlfTheArbourSector63GurgaonRouteImport.update({
-    id: '/dlf-the-arbour-sector-63-gurgaon',
-    path: '/dlf-the-arbour-sector-63-gurgaon',
+const ProjectsDlfTheArbourSector63GurgaonApartmentsRoute =
+  ProjectsDlfTheArbourSector63GurgaonApartmentsRouteImport.update({
+    id: '/dlf-the-arbour-sector-63-gurgaon-apartments',
+    path: '/dlf-the-arbour-sector-63-gurgaon-apartments',
     getParentRoute: () => ProjectsRoute,
   } as any)
-const ProjectsDlfThePrimusSector82aGurgaonRoute =
-  ProjectsDlfThePrimusSector82aGurgaonRouteImport.update({
-    id: '/dlf-the-primus-sector-82a-gurgaon',
-    path: '/dlf-the-primus-sector-82a-gurgaon',
+const ProjectsDlfThePrimusSector82aGurgaonApartmentsRoute =
+  ProjectsDlfThePrimusSector82aGurgaonApartmentsRouteImport.update({
+    id: '/dlf-the-primus-sector-82a-gurgaon-apartments',
+    path: '/dlf-the-primus-sector-82a-gurgaon-apartments',
     getParentRoute: () => ProjectsRoute,
   } as any)
 const ProjectsDlfTheSkycourtSector86Route =
@@ -457,34 +472,40 @@ const ProjectsDlfTheSkycourtSector86Route =
     path: '/dlf-the-skycourt-sector-86',
     getParentRoute: () => ProjectsRoute,
   } as any)
-const ProjectsEmaarEmeraldEstateSector65GurgaonRoute =
-  ProjectsEmaarEmeraldEstateSector65GurgaonRouteImport.update({
-    id: '/emaar-emerald-estate-sector-65-gurgaon',
-    path: '/emaar-emerald-estate-sector-65-gurgaon',
+const ProjectsEmaarEmeraldEstateSector65GurgaonApartmentsRoute =
+  ProjectsEmaarEmeraldEstateSector65GurgaonApartmentsRouteImport.update({
+    id: '/emaar-emerald-estate-sector-65-gurgaon-apartments',
+    path: '/emaar-emerald-estate-sector-65-gurgaon-apartments',
     getParentRoute: () => ProjectsRoute,
   } as any)
-const ProjectsEmaarUrbanOasisSector62Route =
-  ProjectsEmaarUrbanOasisSector62RouteImport.update({
-    id: '/emaar-urban-oasis-sector-62',
-    path: '/emaar-urban-oasis-sector-62',
+const ProjectsEmaarUrbanOasisSector62GurgaonApartmentsRoute =
+  ProjectsEmaarUrbanOasisSector62GurgaonApartmentsRouteImport.update({
+    id: '/emaar-urban-oasis-sector-62-gurgaon-apartments',
+    path: '/emaar-urban-oasis-sector-62-gurgaon-apartments',
     getParentRoute: () => ProjectsRoute,
   } as any)
-const ProjectsGodrejSoraSector53GurgaonRoute =
-  ProjectsGodrejSoraSector53GurgaonRouteImport.update({
-    id: '/godrej-sora-sector-53-gurgaon',
-    path: '/godrej-sora-sector-53-gurgaon',
+const ProjectsGodrejSoraSector53GurgaonApartmentsRoute =
+  ProjectsGodrejSoraSector53GurgaonApartmentsRouteImport.update({
+    id: '/godrej-sora-sector-53-gurgaon-apartments',
+    path: '/godrej-sora-sector-53-gurgaon-apartments',
     getParentRoute: () => ProjectsRoute,
   } as any)
-const ProjectsM3mGolfHillsSector79GurgaonRoute =
-  ProjectsM3mGolfHillsSector79GurgaonRouteImport.update({
-    id: '/m3m-golf-hills-sector-79-gurgaon',
-    path: '/m3m-golf-hills-sector-79-gurgaon',
+const ProjectsGodrejVrikshyaSector103GurgaonApartmentsRoute =
+  ProjectsGodrejVrikshyaSector103GurgaonApartmentsRouteImport.update({
+    id: '/godrej-vrikshya-sector-103-gurgaon-apartments',
+    path: '/godrej-vrikshya-sector-103-gurgaon-apartments',
     getParentRoute: () => ProjectsRoute,
   } as any)
-const ProjectsTataRaisinaResidencySector59Route =
-  ProjectsTataRaisinaResidencySector59RouteImport.update({
-    id: '/tata-raisina-residency-sector-59',
-    path: '/tata-raisina-residency-sector-59',
+const ProjectsM3mGolfHillsSector79GurgaonApartmentsRoute =
+  ProjectsM3mGolfHillsSector79GurgaonApartmentsRouteImport.update({
+    id: '/m3m-golf-hills-sector-79-gurgaon-apartments',
+    path: '/m3m-golf-hills-sector-79-gurgaon-apartments',
+    getParentRoute: () => ProjectsRoute,
+  } as any)
+const ProjectsTataRaisinaResidencySector59GurgaonApartmentsRoute =
+  ProjectsTataRaisinaResidencySector59GurgaonApartmentsRouteImport.update({
+    id: '/tata-raisina-residency-sector-59-gurgaon-apartments',
+    path: '/tata-raisina-residency-sector-59-gurgaon-apartments',
     getParentRoute: () => ProjectsRoute,
   } as any)
 const PropertySlugRoute = PropertySlugRouteImport.update({
@@ -587,26 +608,27 @@ export interface FileRoutesByFullPath {
   '/capital-residences-360-3-bhk-for-sale-sector-70a-gurgaon': typeof CapitalResidences3603BhkForSaleSector70aGurgaonRoute
   '/contact': typeof ContactRoute
   '/desperate-deals-gurgaon': typeof DesperateDealsGurgaonRoute
-  '/dlf-skycourt-sector-86-gurgaon': typeof DlfSkycourtSector86GurgaonRoute
+  '/dlf-skycourt-sector-86-gurgaon-apartments': typeof DlfSkycourtSector86GurgaonApartmentsRoute
   '/dwarka-expressway-flats-for-sale-gurgaon': typeof DwarkaExpresswayFlatsForSaleGurgaonRoute
-  '/emaar-emerald-hills-sector-65-gurgaon': typeof EmaarEmeraldHillsSector65GurgaonRoute
+  '/emaar-emerald-hills-sector-65-gurgaon-residences': typeof EmaarEmeraldHillsSector65GurgaonResidencesRoute
   '/emaar-palm-hills-sector-77-gurgaon-flats-for-sale': typeof EmaarPalmHillsSector77GurgaonFlatsForSaleRoute
   '/emi-calculator': typeof EmiCalculatorRoute
   '/flats-for-sale-in-gurgaon': typeof FlatsForSaleInGurgaonRoute
   '/forgot-password': typeof ForgotPasswordRoute
-  '/godrej-101-sector-79-gurgaon': typeof Godrej101Sector79GurgaonRoute
+  '/godrej-101-sector-79-gurgaon-apartments': typeof Godrej101Sector79GurgaonApartmentsRoute
   '/gurugram-growth-story': typeof GurugramGrowthStoryRoute
   '/haryana-stamp-duty-registration-calculator': typeof HaryanaStampDutyRegistrationCalculatorRoute
   '/higher-floor-apartments-golf-course-extension-road': typeof HigherFloorApartmentsGolfCourseExtensionRoadRoute
   '/home-loans': typeof HomeLoansRoute
   '/ireo-skyon-3-bhk-for-sale-sector-60-gurgaon': typeof IreoSkyon3BhkForSaleSector60GurgaonRoute
-  '/jms-the-majestic-manesar': typeof JmsTheMajesticManesarRoute
+  '/jms-the-majestic-manesar-gurgaon-residences': typeof JmsTheMajesticManesarGurgaonResidencesRoute
   '/luxury': typeof LuxuryRoute
   '/mandate-to-sell-property-in-gurgaon': typeof MandateToSellPropertyInGurgaonRoute
   '/nri': typeof NriRoute
   '/nri-sell-property-gurgaon': typeof NriSellPropertyGurgaonRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/projects': typeof ProjectsRouteWithChildren
+  '/projects-in-gurgaon': typeof ProjectsInGurgaonRoute
   '/properties': typeof PropertiesRoute
   '/properties-for-sale-on-spr-gurgaon': typeof PropertiesForSaleOnSprGurgaonRoute
   '/property-buying-advisory-gurgaon': typeof PropertyBuyingAdvisoryGurgaonRoute
@@ -628,23 +650,25 @@ export interface FileRoutesByFullPath {
   '/whatsapp': typeof WhatsappRoute
   '/api/enquiry': typeof ApiEnquiryRoute
   '/api/seller-submission': typeof ApiSellerSubmissionRoute
+  '/blog/best-sectors-to-buy-property-in-gurgaon': typeof BlogBestSectorsToBuyPropertyInGurgaonRoute
   '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026': typeof BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route
   '/blog/gurgaon-property-due-diligence-checklist-2026': typeof BlogGurgaonPropertyDueDiligenceChecklist2026Route
   '/locations/$slug': typeof LocationsSlugRoute
   '/locations/golf-course-extension-road': typeof LocationsGolfCourseExtensionRoadRoute
   '/nri/$country': typeof NriCountryRoute
   '/projects/$slug': typeof ProjectsSlugRoute
-  '/projects/aipl-riviera-resale-sector-103-gurgaon': typeof ProjectsAiplRivieraResaleSector103GurgaonRoute
-  '/projects/ansals-highland-park-sector-103-gurgaon': typeof ProjectsAnsalsHighlandParkSector103GurgaonRoute
-  '/projects/bptp-astaire-gardens-sector-70a-gurgaon': typeof ProjectsBptpAstaireGardensSector70aGurgaonRoute
-  '/projects/dlf-the-arbour-sector-63-gurgaon': typeof ProjectsDlfTheArbourSector63GurgaonRoute
-  '/projects/dlf-the-primus-sector-82a-gurgaon': typeof ProjectsDlfThePrimusSector82aGurgaonRoute
+  '/projects/aipl-riviera-sector-103-gurgaon-apartments': typeof ProjectsAiplRivieraSector103GurgaonApartmentsRoute
+  '/projects/ansals-highland-park-sector-103-gurgaon-apartments': typeof ProjectsAnsalsHighlandParkSector103GurgaonApartmentsRoute
+  '/projects/bptp-astaire-gardens-sector-70a-gurgaon-residences': typeof ProjectsBptpAstaireGardensSector70aGurgaonResidencesRoute
+  '/projects/dlf-the-arbour-sector-63-gurgaon-apartments': typeof ProjectsDlfTheArbourSector63GurgaonApartmentsRoute
+  '/projects/dlf-the-primus-sector-82a-gurgaon-apartments': typeof ProjectsDlfThePrimusSector82aGurgaonApartmentsRoute
   '/projects/dlf-the-skycourt-sector-86': typeof ProjectsDlfTheSkycourtSector86Route
-  '/projects/emaar-emerald-estate-sector-65-gurgaon': typeof ProjectsEmaarEmeraldEstateSector65GurgaonRoute
-  '/projects/emaar-urban-oasis-sector-62': typeof ProjectsEmaarUrbanOasisSector62Route
-  '/projects/godrej-sora-sector-53-gurgaon': typeof ProjectsGodrejSoraSector53GurgaonRoute
-  '/projects/m3m-golf-hills-sector-79-gurgaon': typeof ProjectsM3mGolfHillsSector79GurgaonRoute
-  '/projects/tata-raisina-residency-sector-59': typeof ProjectsTataRaisinaResidencySector59Route
+  '/projects/emaar-emerald-estate-sector-65-gurgaon-apartments': typeof ProjectsEmaarEmeraldEstateSector65GurgaonApartmentsRoute
+  '/projects/emaar-urban-oasis-sector-62-gurgaon-apartments': typeof ProjectsEmaarUrbanOasisSector62GurgaonApartmentsRoute
+  '/projects/godrej-sora-sector-53-gurgaon-apartments': typeof ProjectsGodrejSoraSector53GurgaonApartmentsRoute
+  '/projects/godrej-vrikshya-sector-103-gurgaon-apartments': typeof ProjectsGodrejVrikshyaSector103GurgaonApartmentsRoute
+  '/projects/m3m-golf-hills-sector-79-gurgaon-apartments': typeof ProjectsM3mGolfHillsSector79GurgaonApartmentsRoute
+  '/projects/tata-raisina-residency-sector-59-gurgaon-apartments': typeof ProjectsTataRaisinaResidencySector59GurgaonApartmentsRoute
   '/property/$slug': typeof PropertySlugRoute
   '/property/dlf-the-primus-sector-82a-gurgaon': typeof PropertyDlfThePrimusSector82aGurgaonRoute
   '/blog/': typeof BlogIndexRoute
@@ -675,25 +699,26 @@ export interface FileRoutesByTo {
   '/capital-residences-360-3-bhk-for-sale-sector-70a-gurgaon': typeof CapitalResidences3603BhkForSaleSector70aGurgaonRoute
   '/contact': typeof ContactRoute
   '/desperate-deals-gurgaon': typeof DesperateDealsGurgaonRoute
-  '/dlf-skycourt-sector-86-gurgaon': typeof DlfSkycourtSector86GurgaonRoute
+  '/dlf-skycourt-sector-86-gurgaon-apartments': typeof DlfSkycourtSector86GurgaonApartmentsRoute
   '/dwarka-expressway-flats-for-sale-gurgaon': typeof DwarkaExpresswayFlatsForSaleGurgaonRoute
-  '/emaar-emerald-hills-sector-65-gurgaon': typeof EmaarEmeraldHillsSector65GurgaonRoute
+  '/emaar-emerald-hills-sector-65-gurgaon-residences': typeof EmaarEmeraldHillsSector65GurgaonResidencesRoute
   '/emaar-palm-hills-sector-77-gurgaon-flats-for-sale': typeof EmaarPalmHillsSector77GurgaonFlatsForSaleRoute
   '/emi-calculator': typeof EmiCalculatorRoute
   '/flats-for-sale-in-gurgaon': typeof FlatsForSaleInGurgaonRoute
   '/forgot-password': typeof ForgotPasswordRoute
-  '/godrej-101-sector-79-gurgaon': typeof Godrej101Sector79GurgaonRoute
+  '/godrej-101-sector-79-gurgaon-apartments': typeof Godrej101Sector79GurgaonApartmentsRoute
   '/gurugram-growth-story': typeof GurugramGrowthStoryRoute
   '/haryana-stamp-duty-registration-calculator': typeof HaryanaStampDutyRegistrationCalculatorRoute
   '/higher-floor-apartments-golf-course-extension-road': typeof HigherFloorApartmentsGolfCourseExtensionRoadRoute
   '/home-loans': typeof HomeLoansRoute
   '/ireo-skyon-3-bhk-for-sale-sector-60-gurgaon': typeof IreoSkyon3BhkForSaleSector60GurgaonRoute
-  '/jms-the-majestic-manesar': typeof JmsTheMajesticManesarRoute
+  '/jms-the-majestic-manesar-gurgaon-residences': typeof JmsTheMajesticManesarGurgaonResidencesRoute
   '/luxury': typeof LuxuryRoute
   '/mandate-to-sell-property-in-gurgaon': typeof MandateToSellPropertyInGurgaonRoute
   '/nri': typeof NriRoute
   '/nri-sell-property-gurgaon': typeof NriSellPropertyGurgaonRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
+  '/projects-in-gurgaon': typeof ProjectsInGurgaonRoute
   '/properties': typeof PropertiesRoute
   '/properties-for-sale-on-spr-gurgaon': typeof PropertiesForSaleOnSprGurgaonRoute
   '/property-buying-advisory-gurgaon': typeof PropertyBuyingAdvisoryGurgaonRoute
@@ -715,23 +740,25 @@ export interface FileRoutesByTo {
   '/whatsapp': typeof WhatsappRoute
   '/api/enquiry': typeof ApiEnquiryRoute
   '/api/seller-submission': typeof ApiSellerSubmissionRoute
+  '/blog/best-sectors-to-buy-property-in-gurgaon': typeof BlogBestSectorsToBuyPropertyInGurgaonRoute
   '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026': typeof BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route
   '/blog/gurgaon-property-due-diligence-checklist-2026': typeof BlogGurgaonPropertyDueDiligenceChecklist2026Route
   '/locations/$slug': typeof LocationsSlugRoute
   '/locations/golf-course-extension-road': typeof LocationsGolfCourseExtensionRoadRoute
   '/nri/$country': typeof NriCountryRoute
   '/projects/$slug': typeof ProjectsSlugRoute
-  '/projects/aipl-riviera-resale-sector-103-gurgaon': typeof ProjectsAiplRivieraResaleSector103GurgaonRoute
-  '/projects/ansals-highland-park-sector-103-gurgaon': typeof ProjectsAnsalsHighlandParkSector103GurgaonRoute
-  '/projects/bptp-astaire-gardens-sector-70a-gurgaon': typeof ProjectsBptpAstaireGardensSector70aGurgaonRoute
-  '/projects/dlf-the-arbour-sector-63-gurgaon': typeof ProjectsDlfTheArbourSector63GurgaonRoute
-  '/projects/dlf-the-primus-sector-82a-gurgaon': typeof ProjectsDlfThePrimusSector82aGurgaonRoute
+  '/projects/aipl-riviera-sector-103-gurgaon-apartments': typeof ProjectsAiplRivieraSector103GurgaonApartmentsRoute
+  '/projects/ansals-highland-park-sector-103-gurgaon-apartments': typeof ProjectsAnsalsHighlandParkSector103GurgaonApartmentsRoute
+  '/projects/bptp-astaire-gardens-sector-70a-gurgaon-residences': typeof ProjectsBptpAstaireGardensSector70aGurgaonResidencesRoute
+  '/projects/dlf-the-arbour-sector-63-gurgaon-apartments': typeof ProjectsDlfTheArbourSector63GurgaonApartmentsRoute
+  '/projects/dlf-the-primus-sector-82a-gurgaon-apartments': typeof ProjectsDlfThePrimusSector82aGurgaonApartmentsRoute
   '/projects/dlf-the-skycourt-sector-86': typeof ProjectsDlfTheSkycourtSector86Route
-  '/projects/emaar-emerald-estate-sector-65-gurgaon': typeof ProjectsEmaarEmeraldEstateSector65GurgaonRoute
-  '/projects/emaar-urban-oasis-sector-62': typeof ProjectsEmaarUrbanOasisSector62Route
-  '/projects/godrej-sora-sector-53-gurgaon': typeof ProjectsGodrejSoraSector53GurgaonRoute
-  '/projects/m3m-golf-hills-sector-79-gurgaon': typeof ProjectsM3mGolfHillsSector79GurgaonRoute
-  '/projects/tata-raisina-residency-sector-59': typeof ProjectsTataRaisinaResidencySector59Route
+  '/projects/emaar-emerald-estate-sector-65-gurgaon-apartments': typeof ProjectsEmaarEmeraldEstateSector65GurgaonApartmentsRoute
+  '/projects/emaar-urban-oasis-sector-62-gurgaon-apartments': typeof ProjectsEmaarUrbanOasisSector62GurgaonApartmentsRoute
+  '/projects/godrej-sora-sector-53-gurgaon-apartments': typeof ProjectsGodrejSoraSector53GurgaonApartmentsRoute
+  '/projects/godrej-vrikshya-sector-103-gurgaon-apartments': typeof ProjectsGodrejVrikshyaSector103GurgaonApartmentsRoute
+  '/projects/m3m-golf-hills-sector-79-gurgaon-apartments': typeof ProjectsM3mGolfHillsSector79GurgaonApartmentsRoute
+  '/projects/tata-raisina-residency-sector-59-gurgaon-apartments': typeof ProjectsTataRaisinaResidencySector59GurgaonApartmentsRoute
   '/property/$slug': typeof PropertySlugRoute
   '/property/dlf-the-primus-sector-82a-gurgaon': typeof PropertyDlfThePrimusSector82aGurgaonRoute
   '/blog': typeof BlogIndexRoute
@@ -764,26 +791,27 @@ export interface FileRoutesById {
   '/capital-residences-360-3-bhk-for-sale-sector-70a-gurgaon': typeof CapitalResidences3603BhkForSaleSector70aGurgaonRoute
   '/contact': typeof ContactRoute
   '/desperate-deals-gurgaon': typeof DesperateDealsGurgaonRoute
-  '/dlf-skycourt-sector-86-gurgaon': typeof DlfSkycourtSector86GurgaonRoute
+  '/dlf-skycourt-sector-86-gurgaon-apartments': typeof DlfSkycourtSector86GurgaonApartmentsRoute
   '/dwarka-expressway-flats-for-sale-gurgaon': typeof DwarkaExpresswayFlatsForSaleGurgaonRoute
-  '/emaar-emerald-hills-sector-65-gurgaon': typeof EmaarEmeraldHillsSector65GurgaonRoute
+  '/emaar-emerald-hills-sector-65-gurgaon-residences': typeof EmaarEmeraldHillsSector65GurgaonResidencesRoute
   '/emaar-palm-hills-sector-77-gurgaon-flats-for-sale': typeof EmaarPalmHillsSector77GurgaonFlatsForSaleRoute
   '/emi-calculator': typeof EmiCalculatorRoute
   '/flats-for-sale-in-gurgaon': typeof FlatsForSaleInGurgaonRoute
   '/forgot-password': typeof ForgotPasswordRoute
-  '/godrej-101-sector-79-gurgaon': typeof Godrej101Sector79GurgaonRoute
+  '/godrej-101-sector-79-gurgaon-apartments': typeof Godrej101Sector79GurgaonApartmentsRoute
   '/gurugram-growth-story': typeof GurugramGrowthStoryRoute
   '/haryana-stamp-duty-registration-calculator': typeof HaryanaStampDutyRegistrationCalculatorRoute
   '/higher-floor-apartments-golf-course-extension-road': typeof HigherFloorApartmentsGolfCourseExtensionRoadRoute
   '/home-loans': typeof HomeLoansRoute
   '/ireo-skyon-3-bhk-for-sale-sector-60-gurgaon': typeof IreoSkyon3BhkForSaleSector60GurgaonRoute
-  '/jms-the-majestic-manesar': typeof JmsTheMajesticManesarRoute
+  '/jms-the-majestic-manesar-gurgaon-residences': typeof JmsTheMajesticManesarGurgaonResidencesRoute
   '/luxury': typeof LuxuryRoute
   '/mandate-to-sell-property-in-gurgaon': typeof MandateToSellPropertyInGurgaonRoute
   '/nri': typeof NriRoute
   '/nri-sell-property-gurgaon': typeof NriSellPropertyGurgaonRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/projects': typeof ProjectsRouteWithChildren
+  '/projects-in-gurgaon': typeof ProjectsInGurgaonRoute
   '/properties': typeof PropertiesRoute
   '/properties-for-sale-on-spr-gurgaon': typeof PropertiesForSaleOnSprGurgaonRoute
   '/property-buying-advisory-gurgaon': typeof PropertyBuyingAdvisoryGurgaonRoute
@@ -805,23 +833,25 @@ export interface FileRoutesById {
   '/whatsapp': typeof WhatsappRoute
   '/api/enquiry': typeof ApiEnquiryRoute
   '/api/seller-submission': typeof ApiSellerSubmissionRoute
+  '/blog/best-sectors-to-buy-property-in-gurgaon': typeof BlogBestSectorsToBuyPropertyInGurgaonRoute
   '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026': typeof BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route
   '/blog/gurgaon-property-due-diligence-checklist-2026': typeof BlogGurgaonPropertyDueDiligenceChecklist2026Route
   '/locations/$slug': typeof LocationsSlugRoute
   '/locations/golf-course-extension-road': typeof LocationsGolfCourseExtensionRoadRoute
   '/nri_/$country': typeof NriCountryRoute
   '/projects/$slug': typeof ProjectsSlugRoute
-  '/projects/aipl-riviera-resale-sector-103-gurgaon': typeof ProjectsAiplRivieraResaleSector103GurgaonRoute
-  '/projects/ansals-highland-park-sector-103-gurgaon': typeof ProjectsAnsalsHighlandParkSector103GurgaonRoute
-  '/projects/bptp-astaire-gardens-sector-70a-gurgaon': typeof ProjectsBptpAstaireGardensSector70aGurgaonRoute
-  '/projects/dlf-the-arbour-sector-63-gurgaon': typeof ProjectsDlfTheArbourSector63GurgaonRoute
-  '/projects/dlf-the-primus-sector-82a-gurgaon': typeof ProjectsDlfThePrimusSector82aGurgaonRoute
+  '/projects/aipl-riviera-sector-103-gurgaon-apartments': typeof ProjectsAiplRivieraSector103GurgaonApartmentsRoute
+  '/projects/ansals-highland-park-sector-103-gurgaon-apartments': typeof ProjectsAnsalsHighlandParkSector103GurgaonApartmentsRoute
+  '/projects/bptp-astaire-gardens-sector-70a-gurgaon-residences': typeof ProjectsBptpAstaireGardensSector70aGurgaonResidencesRoute
+  '/projects/dlf-the-arbour-sector-63-gurgaon-apartments': typeof ProjectsDlfTheArbourSector63GurgaonApartmentsRoute
+  '/projects/dlf-the-primus-sector-82a-gurgaon-apartments': typeof ProjectsDlfThePrimusSector82aGurgaonApartmentsRoute
   '/projects/dlf-the-skycourt-sector-86': typeof ProjectsDlfTheSkycourtSector86Route
-  '/projects/emaar-emerald-estate-sector-65-gurgaon': typeof ProjectsEmaarEmeraldEstateSector65GurgaonRoute
-  '/projects/emaar-urban-oasis-sector-62': typeof ProjectsEmaarUrbanOasisSector62Route
-  '/projects/godrej-sora-sector-53-gurgaon': typeof ProjectsGodrejSoraSector53GurgaonRoute
-  '/projects/m3m-golf-hills-sector-79-gurgaon': typeof ProjectsM3mGolfHillsSector79GurgaonRoute
-  '/projects/tata-raisina-residency-sector-59': typeof ProjectsTataRaisinaResidencySector59Route
+  '/projects/emaar-emerald-estate-sector-65-gurgaon-apartments': typeof ProjectsEmaarEmeraldEstateSector65GurgaonApartmentsRoute
+  '/projects/emaar-urban-oasis-sector-62-gurgaon-apartments': typeof ProjectsEmaarUrbanOasisSector62GurgaonApartmentsRoute
+  '/projects/godrej-sora-sector-53-gurgaon-apartments': typeof ProjectsGodrejSoraSector53GurgaonApartmentsRoute
+  '/projects/godrej-vrikshya-sector-103-gurgaon-apartments': typeof ProjectsGodrejVrikshyaSector103GurgaonApartmentsRoute
+  '/projects/m3m-golf-hills-sector-79-gurgaon-apartments': typeof ProjectsM3mGolfHillsSector79GurgaonApartmentsRoute
+  '/projects/tata-raisina-residency-sector-59-gurgaon-apartments': typeof ProjectsTataRaisinaResidencySector59GurgaonApartmentsRoute
   '/property/$slug': typeof PropertySlugRoute
   '/property/dlf-the-primus-sector-82a-gurgaon': typeof PropertyDlfThePrimusSector82aGurgaonRoute
   '/blog/': typeof BlogIndexRoute
@@ -854,26 +884,27 @@ export interface FileRouteTypes {
     | '/capital-residences-360-3-bhk-for-sale-sector-70a-gurgaon'
     | '/contact'
     | '/desperate-deals-gurgaon'
-    | '/dlf-skycourt-sector-86-gurgaon'
+    | '/dlf-skycourt-sector-86-gurgaon-apartments'
     | '/dwarka-expressway-flats-for-sale-gurgaon'
-    | '/emaar-emerald-hills-sector-65-gurgaon'
+    | '/emaar-emerald-hills-sector-65-gurgaon-residences'
     | '/emaar-palm-hills-sector-77-gurgaon-flats-for-sale'
     | '/emi-calculator'
     | '/flats-for-sale-in-gurgaon'
     | '/forgot-password'
-    | '/godrej-101-sector-79-gurgaon'
+    | '/godrej-101-sector-79-gurgaon-apartments'
     | '/gurugram-growth-story'
     | '/haryana-stamp-duty-registration-calculator'
     | '/higher-floor-apartments-golf-course-extension-road'
     | '/home-loans'
     | '/ireo-skyon-3-bhk-for-sale-sector-60-gurgaon'
-    | '/jms-the-majestic-manesar'
+    | '/jms-the-majestic-manesar-gurgaon-residences'
     | '/luxury'
     | '/mandate-to-sell-property-in-gurgaon'
     | '/nri'
     | '/nri-sell-property-gurgaon'
     | '/privacy-policy'
     | '/projects'
+    | '/projects-in-gurgaon'
     | '/properties'
     | '/properties-for-sale-on-spr-gurgaon'
     | '/property-buying-advisory-gurgaon'
@@ -895,23 +926,25 @@ export interface FileRouteTypes {
     | '/whatsapp'
     | '/api/enquiry'
     | '/api/seller-submission'
+    | '/blog/best-sectors-to-buy-property-in-gurgaon'
     | '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026'
     | '/blog/gurgaon-property-due-diligence-checklist-2026'
     | '/locations/$slug'
     | '/locations/golf-course-extension-road'
     | '/nri/$country'
     | '/projects/$slug'
-    | '/projects/aipl-riviera-resale-sector-103-gurgaon'
-    | '/projects/ansals-highland-park-sector-103-gurgaon'
-    | '/projects/bptp-astaire-gardens-sector-70a-gurgaon'
-    | '/projects/dlf-the-arbour-sector-63-gurgaon'
-    | '/projects/dlf-the-primus-sector-82a-gurgaon'
+    | '/projects/aipl-riviera-sector-103-gurgaon-apartments'
+    | '/projects/ansals-highland-park-sector-103-gurgaon-apartments'
+    | '/projects/bptp-astaire-gardens-sector-70a-gurgaon-residences'
+    | '/projects/dlf-the-arbour-sector-63-gurgaon-apartments'
+    | '/projects/dlf-the-primus-sector-82a-gurgaon-apartments'
     | '/projects/dlf-the-skycourt-sector-86'
-    | '/projects/emaar-emerald-estate-sector-65-gurgaon'
-    | '/projects/emaar-urban-oasis-sector-62'
-    | '/projects/godrej-sora-sector-53-gurgaon'
-    | '/projects/m3m-golf-hills-sector-79-gurgaon'
-    | '/projects/tata-raisina-residency-sector-59'
+    | '/projects/emaar-emerald-estate-sector-65-gurgaon-apartments'
+    | '/projects/emaar-urban-oasis-sector-62-gurgaon-apartments'
+    | '/projects/godrej-sora-sector-53-gurgaon-apartments'
+    | '/projects/godrej-vrikshya-sector-103-gurgaon-apartments'
+    | '/projects/m3m-golf-hills-sector-79-gurgaon-apartments'
+    | '/projects/tata-raisina-residency-sector-59-gurgaon-apartments'
     | '/property/$slug'
     | '/property/dlf-the-primus-sector-82a-gurgaon'
     | '/blog/'
@@ -942,25 +975,26 @@ export interface FileRouteTypes {
     | '/capital-residences-360-3-bhk-for-sale-sector-70a-gurgaon'
     | '/contact'
     | '/desperate-deals-gurgaon'
-    | '/dlf-skycourt-sector-86-gurgaon'
+    | '/dlf-skycourt-sector-86-gurgaon-apartments'
     | '/dwarka-expressway-flats-for-sale-gurgaon'
-    | '/emaar-emerald-hills-sector-65-gurgaon'
+    | '/emaar-emerald-hills-sector-65-gurgaon-residences'
     | '/emaar-palm-hills-sector-77-gurgaon-flats-for-sale'
     | '/emi-calculator'
     | '/flats-for-sale-in-gurgaon'
     | '/forgot-password'
-    | '/godrej-101-sector-79-gurgaon'
+    | '/godrej-101-sector-79-gurgaon-apartments'
     | '/gurugram-growth-story'
     | '/haryana-stamp-duty-registration-calculator'
     | '/higher-floor-apartments-golf-course-extension-road'
     | '/home-loans'
     | '/ireo-skyon-3-bhk-for-sale-sector-60-gurgaon'
-    | '/jms-the-majestic-manesar'
+    | '/jms-the-majestic-manesar-gurgaon-residences'
     | '/luxury'
     | '/mandate-to-sell-property-in-gurgaon'
     | '/nri'
     | '/nri-sell-property-gurgaon'
     | '/privacy-policy'
+    | '/projects-in-gurgaon'
     | '/properties'
     | '/properties-for-sale-on-spr-gurgaon'
     | '/property-buying-advisory-gurgaon'
@@ -982,23 +1016,25 @@ export interface FileRouteTypes {
     | '/whatsapp'
     | '/api/enquiry'
     | '/api/seller-submission'
+    | '/blog/best-sectors-to-buy-property-in-gurgaon'
     | '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026'
     | '/blog/gurgaon-property-due-diligence-checklist-2026'
     | '/locations/$slug'
     | '/locations/golf-course-extension-road'
     | '/nri/$country'
     | '/projects/$slug'
-    | '/projects/aipl-riviera-resale-sector-103-gurgaon'
-    | '/projects/ansals-highland-park-sector-103-gurgaon'
-    | '/projects/bptp-astaire-gardens-sector-70a-gurgaon'
-    | '/projects/dlf-the-arbour-sector-63-gurgaon'
-    | '/projects/dlf-the-primus-sector-82a-gurgaon'
+    | '/projects/aipl-riviera-sector-103-gurgaon-apartments'
+    | '/projects/ansals-highland-park-sector-103-gurgaon-apartments'
+    | '/projects/bptp-astaire-gardens-sector-70a-gurgaon-residences'
+    | '/projects/dlf-the-arbour-sector-63-gurgaon-apartments'
+    | '/projects/dlf-the-primus-sector-82a-gurgaon-apartments'
     | '/projects/dlf-the-skycourt-sector-86'
-    | '/projects/emaar-emerald-estate-sector-65-gurgaon'
-    | '/projects/emaar-urban-oasis-sector-62'
-    | '/projects/godrej-sora-sector-53-gurgaon'
-    | '/projects/m3m-golf-hills-sector-79-gurgaon'
-    | '/projects/tata-raisina-residency-sector-59'
+    | '/projects/emaar-emerald-estate-sector-65-gurgaon-apartments'
+    | '/projects/emaar-urban-oasis-sector-62-gurgaon-apartments'
+    | '/projects/godrej-sora-sector-53-gurgaon-apartments'
+    | '/projects/godrej-vrikshya-sector-103-gurgaon-apartments'
+    | '/projects/m3m-golf-hills-sector-79-gurgaon-apartments'
+    | '/projects/tata-raisina-residency-sector-59-gurgaon-apartments'
     | '/property/$slug'
     | '/property/dlf-the-primus-sector-82a-gurgaon'
     | '/blog'
@@ -1030,26 +1066,27 @@ export interface FileRouteTypes {
     | '/capital-residences-360-3-bhk-for-sale-sector-70a-gurgaon'
     | '/contact'
     | '/desperate-deals-gurgaon'
-    | '/dlf-skycourt-sector-86-gurgaon'
+    | '/dlf-skycourt-sector-86-gurgaon-apartments'
     | '/dwarka-expressway-flats-for-sale-gurgaon'
-    | '/emaar-emerald-hills-sector-65-gurgaon'
+    | '/emaar-emerald-hills-sector-65-gurgaon-residences'
     | '/emaar-palm-hills-sector-77-gurgaon-flats-for-sale'
     | '/emi-calculator'
     | '/flats-for-sale-in-gurgaon'
     | '/forgot-password'
-    | '/godrej-101-sector-79-gurgaon'
+    | '/godrej-101-sector-79-gurgaon-apartments'
     | '/gurugram-growth-story'
     | '/haryana-stamp-duty-registration-calculator'
     | '/higher-floor-apartments-golf-course-extension-road'
     | '/home-loans'
     | '/ireo-skyon-3-bhk-for-sale-sector-60-gurgaon'
-    | '/jms-the-majestic-manesar'
+    | '/jms-the-majestic-manesar-gurgaon-residences'
     | '/luxury'
     | '/mandate-to-sell-property-in-gurgaon'
     | '/nri'
     | '/nri-sell-property-gurgaon'
     | '/privacy-policy'
     | '/projects'
+    | '/projects-in-gurgaon'
     | '/properties'
     | '/properties-for-sale-on-spr-gurgaon'
     | '/property-buying-advisory-gurgaon'
@@ -1071,23 +1108,25 @@ export interface FileRouteTypes {
     | '/whatsapp'
     | '/api/enquiry'
     | '/api/seller-submission'
+    | '/blog/best-sectors-to-buy-property-in-gurgaon'
     | '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026'
     | '/blog/gurgaon-property-due-diligence-checklist-2026'
     | '/locations/$slug'
     | '/locations/golf-course-extension-road'
     | '/nri_/$country'
     | '/projects/$slug'
-    | '/projects/aipl-riviera-resale-sector-103-gurgaon'
-    | '/projects/ansals-highland-park-sector-103-gurgaon'
-    | '/projects/bptp-astaire-gardens-sector-70a-gurgaon'
-    | '/projects/dlf-the-arbour-sector-63-gurgaon'
-    | '/projects/dlf-the-primus-sector-82a-gurgaon'
+    | '/projects/aipl-riviera-sector-103-gurgaon-apartments'
+    | '/projects/ansals-highland-park-sector-103-gurgaon-apartments'
+    | '/projects/bptp-astaire-gardens-sector-70a-gurgaon-residences'
+    | '/projects/dlf-the-arbour-sector-63-gurgaon-apartments'
+    | '/projects/dlf-the-primus-sector-82a-gurgaon-apartments'
     | '/projects/dlf-the-skycourt-sector-86'
-    | '/projects/emaar-emerald-estate-sector-65-gurgaon'
-    | '/projects/emaar-urban-oasis-sector-62'
-    | '/projects/godrej-sora-sector-53-gurgaon'
-    | '/projects/m3m-golf-hills-sector-79-gurgaon'
-    | '/projects/tata-raisina-residency-sector-59'
+    | '/projects/emaar-emerald-estate-sector-65-gurgaon-apartments'
+    | '/projects/emaar-urban-oasis-sector-62-gurgaon-apartments'
+    | '/projects/godrej-sora-sector-53-gurgaon-apartments'
+    | '/projects/godrej-vrikshya-sector-103-gurgaon-apartments'
+    | '/projects/m3m-golf-hills-sector-79-gurgaon-apartments'
+    | '/projects/tata-raisina-residency-sector-59-gurgaon-apartments'
     | '/property/$slug'
     | '/property/dlf-the-primus-sector-82a-gurgaon'
     | '/blog/'
@@ -1120,26 +1159,27 @@ export interface RootRouteChildren {
   CapitalResidences3603BhkForSaleSector70aGurgaonRoute: typeof CapitalResidences3603BhkForSaleSector70aGurgaonRoute
   ContactRoute: typeof ContactRoute
   DesperateDealsGurgaonRoute: typeof DesperateDealsGurgaonRoute
-  DlfSkycourtSector86GurgaonRoute: typeof DlfSkycourtSector86GurgaonRoute
+  DlfSkycourtSector86GurgaonApartmentsRoute: typeof DlfSkycourtSector86GurgaonApartmentsRoute
   DwarkaExpresswayFlatsForSaleGurgaonRoute: typeof DwarkaExpresswayFlatsForSaleGurgaonRoute
-  EmaarEmeraldHillsSector65GurgaonRoute: typeof EmaarEmeraldHillsSector65GurgaonRoute
+  EmaarEmeraldHillsSector65GurgaonResidencesRoute: typeof EmaarEmeraldHillsSector65GurgaonResidencesRoute
   EmaarPalmHillsSector77GurgaonFlatsForSaleRoute: typeof EmaarPalmHillsSector77GurgaonFlatsForSaleRoute
   EmiCalculatorRoute: typeof EmiCalculatorRoute
   FlatsForSaleInGurgaonRoute: typeof FlatsForSaleInGurgaonRoute
   ForgotPasswordRoute: typeof ForgotPasswordRoute
-  Godrej101Sector79GurgaonRoute: typeof Godrej101Sector79GurgaonRoute
+  Godrej101Sector79GurgaonApartmentsRoute: typeof Godrej101Sector79GurgaonApartmentsRoute
   GurugramGrowthStoryRoute: typeof GurugramGrowthStoryRoute
   HaryanaStampDutyRegistrationCalculatorRoute: typeof HaryanaStampDutyRegistrationCalculatorRoute
   HigherFloorApartmentsGolfCourseExtensionRoadRoute: typeof HigherFloorApartmentsGolfCourseExtensionRoadRoute
   HomeLoansRoute: typeof HomeLoansRoute
   IreoSkyon3BhkForSaleSector60GurgaonRoute: typeof IreoSkyon3BhkForSaleSector60GurgaonRoute
-  JmsTheMajesticManesarRoute: typeof JmsTheMajesticManesarRoute
+  JmsTheMajesticManesarGurgaonResidencesRoute: typeof JmsTheMajesticManesarGurgaonResidencesRoute
   LuxuryRoute: typeof LuxuryRoute
   MandateToSellPropertyInGurgaonRoute: typeof MandateToSellPropertyInGurgaonRoute
   NriRoute: typeof NriRoute
   NriSellPropertyGurgaonRoute: typeof NriSellPropertyGurgaonRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   ProjectsRoute: typeof ProjectsRouteWithChildren
+  ProjectsInGurgaonRoute: typeof ProjectsInGurgaonRoute
   PropertiesRoute: typeof PropertiesRoute
   PropertiesForSaleOnSprGurgaonRoute: typeof PropertiesForSaleOnSprGurgaonRoute
   PropertyBuyingAdvisoryGurgaonRoute: typeof PropertyBuyingAdvisoryGurgaonRoute
@@ -1161,6 +1201,7 @@ export interface RootRouteChildren {
   WhatsappRoute: typeof WhatsappRoute
   ApiEnquiryRoute: typeof ApiEnquiryRoute
   ApiSellerSubmissionRoute: typeof ApiSellerSubmissionRoute
+  BlogBestSectorsToBuyPropertyInGurgaonRoute: typeof BlogBestSectorsToBuyPropertyInGurgaonRoute
   BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route: typeof BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route
   BlogGurgaonPropertyDueDiligenceChecklist2026Route: typeof BlogGurgaonPropertyDueDiligenceChecklist2026Route
   LocationsSlugRoute: typeof LocationsSlugRoute
@@ -1252,11 +1293,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DesperateDealsGurgaonRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/dlf-skycourt-sector-86-gurgaon': {
-      id: '/dlf-skycourt-sector-86-gurgaon'
-      path: '/dlf-skycourt-sector-86-gurgaon'
-      fullPath: '/dlf-skycourt-sector-86-gurgaon'
-      preLoaderRoute: typeof DlfSkycourtSector86GurgaonRouteImport
+    '/dlf-skycourt-sector-86-gurgaon-apartments': {
+      id: '/dlf-skycourt-sector-86-gurgaon-apartments'
+      path: '/dlf-skycourt-sector-86-gurgaon-apartments'
+      fullPath: '/dlf-skycourt-sector-86-gurgaon-apartments'
+      preLoaderRoute: typeof DlfSkycourtSector86GurgaonApartmentsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dwarka-expressway-flats-for-sale-gurgaon': {
@@ -1266,11 +1307,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DwarkaExpresswayFlatsForSaleGurgaonRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/emaar-emerald-hills-sector-65-gurgaon': {
-      id: '/emaar-emerald-hills-sector-65-gurgaon'
-      path: '/emaar-emerald-hills-sector-65-gurgaon'
-      fullPath: '/emaar-emerald-hills-sector-65-gurgaon'
-      preLoaderRoute: typeof EmaarEmeraldHillsSector65GurgaonRouteImport
+    '/emaar-emerald-hills-sector-65-gurgaon-residences': {
+      id: '/emaar-emerald-hills-sector-65-gurgaon-residences'
+      path: '/emaar-emerald-hills-sector-65-gurgaon-residences'
+      fullPath: '/emaar-emerald-hills-sector-65-gurgaon-residences'
+      preLoaderRoute: typeof EmaarEmeraldHillsSector65GurgaonResidencesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/emaar-palm-hills-sector-77-gurgaon-flats-for-sale': {
@@ -1301,11 +1342,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ForgotPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/godrej-101-sector-79-gurgaon': {
-      id: '/godrej-101-sector-79-gurgaon'
-      path: '/godrej-101-sector-79-gurgaon'
-      fullPath: '/godrej-101-sector-79-gurgaon'
-      preLoaderRoute: typeof Godrej101Sector79GurgaonRouteImport
+    '/godrej-101-sector-79-gurgaon-apartments': {
+      id: '/godrej-101-sector-79-gurgaon-apartments'
+      path: '/godrej-101-sector-79-gurgaon-apartments'
+      fullPath: '/godrej-101-sector-79-gurgaon-apartments'
+      preLoaderRoute: typeof Godrej101Sector79GurgaonApartmentsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/gurugram-growth-story': {
@@ -1343,11 +1384,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IreoSkyon3BhkForSaleSector60GurgaonRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/jms-the-majestic-manesar': {
-      id: '/jms-the-majestic-manesar'
-      path: '/jms-the-majestic-manesar'
-      fullPath: '/jms-the-majestic-manesar'
-      preLoaderRoute: typeof JmsTheMajesticManesarRouteImport
+    '/jms-the-majestic-manesar-gurgaon-residences': {
+      id: '/jms-the-majestic-manesar-gurgaon-residences'
+      path: '/jms-the-majestic-manesar-gurgaon-residences'
+      fullPath: '/jms-the-majestic-manesar-gurgaon-residences'
+      preLoaderRoute: typeof JmsTheMajesticManesarGurgaonResidencesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/luxury': {
@@ -1390,6 +1431,13 @@ declare module '@tanstack/react-router' {
       path: '/projects'
       fullPath: '/projects'
       preLoaderRoute: typeof ProjectsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/projects-in-gurgaon': {
+      id: '/projects-in-gurgaon'
+      path: '/projects-in-gurgaon'
+      fullPath: '/projects-in-gurgaon'
+      preLoaderRoute: typeof ProjectsInGurgaonRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/properties': {
@@ -1546,6 +1594,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/best-sectors-to-buy-property-in-gurgaon': {
+      id: '/blog/best-sectors-to-buy-property-in-gurgaon'
+      path: '/blog/best-sectors-to-buy-property-in-gurgaon'
+      fullPath: '/blog/best-sectors-to-buy-property-in-gurgaon'
+      preLoaderRoute: typeof BlogBestSectorsToBuyPropertyInGurgaonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026': {
       id: '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026'
       path: '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026'
@@ -1595,39 +1650,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsSlugRouteImport
       parentRoute: typeof ProjectsRoute
     }
-    '/projects/aipl-riviera-resale-sector-103-gurgaon': {
-      id: '/projects/aipl-riviera-resale-sector-103-gurgaon'
-      path: '/aipl-riviera-resale-sector-103-gurgaon'
-      fullPath: '/projects/aipl-riviera-resale-sector-103-gurgaon'
-      preLoaderRoute: typeof ProjectsAiplRivieraResaleSector103GurgaonRouteImport
+    '/projects/aipl-riviera-sector-103-gurgaon-apartments': {
+      id: '/projects/aipl-riviera-sector-103-gurgaon-apartments'
+      path: '/aipl-riviera-sector-103-gurgaon-apartments'
+      fullPath: '/projects/aipl-riviera-sector-103-gurgaon-apartments'
+      preLoaderRoute: typeof ProjectsAiplRivieraSector103GurgaonApartmentsRouteImport
       parentRoute: typeof ProjectsRoute
     }
-    '/projects/ansals-highland-park-sector-103-gurgaon': {
-      id: '/projects/ansals-highland-park-sector-103-gurgaon'
-      path: '/ansals-highland-park-sector-103-gurgaon'
-      fullPath: '/projects/ansals-highland-park-sector-103-gurgaon'
-      preLoaderRoute: typeof ProjectsAnsalsHighlandParkSector103GurgaonRouteImport
+    '/projects/ansals-highland-park-sector-103-gurgaon-apartments': {
+      id: '/projects/ansals-highland-park-sector-103-gurgaon-apartments'
+      path: '/ansals-highland-park-sector-103-gurgaon-apartments'
+      fullPath: '/projects/ansals-highland-park-sector-103-gurgaon-apartments'
+      preLoaderRoute: typeof ProjectsAnsalsHighlandParkSector103GurgaonApartmentsRouteImport
       parentRoute: typeof ProjectsRoute
     }
-    '/projects/bptp-astaire-gardens-sector-70a-gurgaon': {
-      id: '/projects/bptp-astaire-gardens-sector-70a-gurgaon'
-      path: '/bptp-astaire-gardens-sector-70a-gurgaon'
-      fullPath: '/projects/bptp-astaire-gardens-sector-70a-gurgaon'
-      preLoaderRoute: typeof ProjectsBptpAstaireGardensSector70aGurgaonRouteImport
+    '/projects/bptp-astaire-gardens-sector-70a-gurgaon-residences': {
+      id: '/projects/bptp-astaire-gardens-sector-70a-gurgaon-residences'
+      path: '/bptp-astaire-gardens-sector-70a-gurgaon-residences'
+      fullPath: '/projects/bptp-astaire-gardens-sector-70a-gurgaon-residences'
+      preLoaderRoute: typeof ProjectsBptpAstaireGardensSector70aGurgaonResidencesRouteImport
       parentRoute: typeof ProjectsRoute
     }
-    '/projects/dlf-the-arbour-sector-63-gurgaon': {
-      id: '/projects/dlf-the-arbour-sector-63-gurgaon'
-      path: '/dlf-the-arbour-sector-63-gurgaon'
-      fullPath: '/projects/dlf-the-arbour-sector-63-gurgaon'
-      preLoaderRoute: typeof ProjectsDlfTheArbourSector63GurgaonRouteImport
+    '/projects/dlf-the-arbour-sector-63-gurgaon-apartments': {
+      id: '/projects/dlf-the-arbour-sector-63-gurgaon-apartments'
+      path: '/dlf-the-arbour-sector-63-gurgaon-apartments'
+      fullPath: '/projects/dlf-the-arbour-sector-63-gurgaon-apartments'
+      preLoaderRoute: typeof ProjectsDlfTheArbourSector63GurgaonApartmentsRouteImport
       parentRoute: typeof ProjectsRoute
     }
-    '/projects/dlf-the-primus-sector-82a-gurgaon': {
-      id: '/projects/dlf-the-primus-sector-82a-gurgaon'
-      path: '/dlf-the-primus-sector-82a-gurgaon'
-      fullPath: '/projects/dlf-the-primus-sector-82a-gurgaon'
-      preLoaderRoute: typeof ProjectsDlfThePrimusSector82aGurgaonRouteImport
+    '/projects/dlf-the-primus-sector-82a-gurgaon-apartments': {
+      id: '/projects/dlf-the-primus-sector-82a-gurgaon-apartments'
+      path: '/dlf-the-primus-sector-82a-gurgaon-apartments'
+      fullPath: '/projects/dlf-the-primus-sector-82a-gurgaon-apartments'
+      preLoaderRoute: typeof ProjectsDlfThePrimusSector82aGurgaonApartmentsRouteImport
       parentRoute: typeof ProjectsRoute
     }
     '/projects/dlf-the-skycourt-sector-86': {
@@ -1637,39 +1692,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsDlfTheSkycourtSector86RouteImport
       parentRoute: typeof ProjectsRoute
     }
-    '/projects/emaar-emerald-estate-sector-65-gurgaon': {
-      id: '/projects/emaar-emerald-estate-sector-65-gurgaon'
-      path: '/emaar-emerald-estate-sector-65-gurgaon'
-      fullPath: '/projects/emaar-emerald-estate-sector-65-gurgaon'
-      preLoaderRoute: typeof ProjectsEmaarEmeraldEstateSector65GurgaonRouteImport
+    '/projects/emaar-emerald-estate-sector-65-gurgaon-apartments': {
+      id: '/projects/emaar-emerald-estate-sector-65-gurgaon-apartments'
+      path: '/emaar-emerald-estate-sector-65-gurgaon-apartments'
+      fullPath: '/projects/emaar-emerald-estate-sector-65-gurgaon-apartments'
+      preLoaderRoute: typeof ProjectsEmaarEmeraldEstateSector65GurgaonApartmentsRouteImport
       parentRoute: typeof ProjectsRoute
     }
-    '/projects/emaar-urban-oasis-sector-62': {
-      id: '/projects/emaar-urban-oasis-sector-62'
-      path: '/emaar-urban-oasis-sector-62'
-      fullPath: '/projects/emaar-urban-oasis-sector-62'
-      preLoaderRoute: typeof ProjectsEmaarUrbanOasisSector62RouteImport
+    '/projects/emaar-urban-oasis-sector-62-gurgaon-apartments': {
+      id: '/projects/emaar-urban-oasis-sector-62-gurgaon-apartments'
+      path: '/emaar-urban-oasis-sector-62-gurgaon-apartments'
+      fullPath: '/projects/emaar-urban-oasis-sector-62-gurgaon-apartments'
+      preLoaderRoute: typeof ProjectsEmaarUrbanOasisSector62GurgaonApartmentsRouteImport
       parentRoute: typeof ProjectsRoute
     }
-    '/projects/godrej-sora-sector-53-gurgaon': {
-      id: '/projects/godrej-sora-sector-53-gurgaon'
-      path: '/godrej-sora-sector-53-gurgaon'
-      fullPath: '/projects/godrej-sora-sector-53-gurgaon'
-      preLoaderRoute: typeof ProjectsGodrejSoraSector53GurgaonRouteImport
+    '/projects/godrej-sora-sector-53-gurgaon-apartments': {
+      id: '/projects/godrej-sora-sector-53-gurgaon-apartments'
+      path: '/godrej-sora-sector-53-gurgaon-apartments'
+      fullPath: '/projects/godrej-sora-sector-53-gurgaon-apartments'
+      preLoaderRoute: typeof ProjectsGodrejSoraSector53GurgaonApartmentsRouteImport
       parentRoute: typeof ProjectsRoute
     }
-    '/projects/m3m-golf-hills-sector-79-gurgaon': {
-      id: '/projects/m3m-golf-hills-sector-79-gurgaon'
-      path: '/m3m-golf-hills-sector-79-gurgaon'
-      fullPath: '/projects/m3m-golf-hills-sector-79-gurgaon'
-      preLoaderRoute: typeof ProjectsM3mGolfHillsSector79GurgaonRouteImport
+    '/projects/godrej-vrikshya-sector-103-gurgaon-apartments': {
+      id: '/projects/godrej-vrikshya-sector-103-gurgaon-apartments'
+      path: '/godrej-vrikshya-sector-103-gurgaon-apartments'
+      fullPath: '/projects/godrej-vrikshya-sector-103-gurgaon-apartments'
+      preLoaderRoute: typeof ProjectsGodrejVrikshyaSector103GurgaonApartmentsRouteImport
       parentRoute: typeof ProjectsRoute
     }
-    '/projects/tata-raisina-residency-sector-59': {
-      id: '/projects/tata-raisina-residency-sector-59'
-      path: '/tata-raisina-residency-sector-59'
-      fullPath: '/projects/tata-raisina-residency-sector-59'
-      preLoaderRoute: typeof ProjectsTataRaisinaResidencySector59RouteImport
+    '/projects/m3m-golf-hills-sector-79-gurgaon-apartments': {
+      id: '/projects/m3m-golf-hills-sector-79-gurgaon-apartments'
+      path: '/m3m-golf-hills-sector-79-gurgaon-apartments'
+      fullPath: '/projects/m3m-golf-hills-sector-79-gurgaon-apartments'
+      preLoaderRoute: typeof ProjectsM3mGolfHillsSector79GurgaonApartmentsRouteImport
+      parentRoute: typeof ProjectsRoute
+    }
+    '/projects/tata-raisina-residency-sector-59-gurgaon-apartments': {
+      id: '/projects/tata-raisina-residency-sector-59-gurgaon-apartments'
+      path: '/tata-raisina-residency-sector-59-gurgaon-apartments'
+      fullPath: '/projects/tata-raisina-residency-sector-59-gurgaon-apartments'
+      preLoaderRoute: typeof ProjectsTataRaisinaResidencySector59GurgaonApartmentsRouteImport
       parentRoute: typeof ProjectsRoute
     }
     '/property/$slug': {
@@ -1823,42 +1885,46 @@ const AuthenticatedRouteRouteWithChildren =
 
 interface ProjectsRouteChildren {
   ProjectsSlugRoute: typeof ProjectsSlugRoute
-  ProjectsAiplRivieraResaleSector103GurgaonRoute: typeof ProjectsAiplRivieraResaleSector103GurgaonRoute
-  ProjectsAnsalsHighlandParkSector103GurgaonRoute: typeof ProjectsAnsalsHighlandParkSector103GurgaonRoute
-  ProjectsBptpAstaireGardensSector70aGurgaonRoute: typeof ProjectsBptpAstaireGardensSector70aGurgaonRoute
-  ProjectsDlfTheArbourSector63GurgaonRoute: typeof ProjectsDlfTheArbourSector63GurgaonRoute
-  ProjectsDlfThePrimusSector82aGurgaonRoute: typeof ProjectsDlfThePrimusSector82aGurgaonRoute
+  ProjectsAiplRivieraSector103GurgaonApartmentsRoute: typeof ProjectsAiplRivieraSector103GurgaonApartmentsRoute
+  ProjectsAnsalsHighlandParkSector103GurgaonApartmentsRoute: typeof ProjectsAnsalsHighlandParkSector103GurgaonApartmentsRoute
+  ProjectsBptpAstaireGardensSector70aGurgaonResidencesRoute: typeof ProjectsBptpAstaireGardensSector70aGurgaonResidencesRoute
+  ProjectsDlfTheArbourSector63GurgaonApartmentsRoute: typeof ProjectsDlfTheArbourSector63GurgaonApartmentsRoute
+  ProjectsDlfThePrimusSector82aGurgaonApartmentsRoute: typeof ProjectsDlfThePrimusSector82aGurgaonApartmentsRoute
   ProjectsDlfTheSkycourtSector86Route: typeof ProjectsDlfTheSkycourtSector86Route
-  ProjectsEmaarEmeraldEstateSector65GurgaonRoute: typeof ProjectsEmaarEmeraldEstateSector65GurgaonRoute
-  ProjectsEmaarUrbanOasisSector62Route: typeof ProjectsEmaarUrbanOasisSector62Route
-  ProjectsGodrejSoraSector53GurgaonRoute: typeof ProjectsGodrejSoraSector53GurgaonRoute
-  ProjectsM3mGolfHillsSector79GurgaonRoute: typeof ProjectsM3mGolfHillsSector79GurgaonRoute
-  ProjectsTataRaisinaResidencySector59Route: typeof ProjectsTataRaisinaResidencySector59Route
+  ProjectsEmaarEmeraldEstateSector65GurgaonApartmentsRoute: typeof ProjectsEmaarEmeraldEstateSector65GurgaonApartmentsRoute
+  ProjectsEmaarUrbanOasisSector62GurgaonApartmentsRoute: typeof ProjectsEmaarUrbanOasisSector62GurgaonApartmentsRoute
+  ProjectsGodrejSoraSector53GurgaonApartmentsRoute: typeof ProjectsGodrejSoraSector53GurgaonApartmentsRoute
+  ProjectsGodrejVrikshyaSector103GurgaonApartmentsRoute: typeof ProjectsGodrejVrikshyaSector103GurgaonApartmentsRoute
+  ProjectsM3mGolfHillsSector79GurgaonApartmentsRoute: typeof ProjectsM3mGolfHillsSector79GurgaonApartmentsRoute
+  ProjectsTataRaisinaResidencySector59GurgaonApartmentsRoute: typeof ProjectsTataRaisinaResidencySector59GurgaonApartmentsRoute
   ProjectsIndexRoute: typeof ProjectsIndexRoute
 }
 
 const ProjectsRouteChildren: ProjectsRouteChildren = {
   ProjectsSlugRoute: ProjectsSlugRoute,
-  ProjectsAiplRivieraResaleSector103GurgaonRoute:
-    ProjectsAiplRivieraResaleSector103GurgaonRoute,
-  ProjectsAnsalsHighlandParkSector103GurgaonRoute:
-    ProjectsAnsalsHighlandParkSector103GurgaonRoute,
-  ProjectsBptpAstaireGardensSector70aGurgaonRoute:
-    ProjectsBptpAstaireGardensSector70aGurgaonRoute,
-  ProjectsDlfTheArbourSector63GurgaonRoute:
-    ProjectsDlfTheArbourSector63GurgaonRoute,
-  ProjectsDlfThePrimusSector82aGurgaonRoute:
-    ProjectsDlfThePrimusSector82aGurgaonRoute,
+  ProjectsAiplRivieraSector103GurgaonApartmentsRoute:
+    ProjectsAiplRivieraSector103GurgaonApartmentsRoute,
+  ProjectsAnsalsHighlandParkSector103GurgaonApartmentsRoute:
+    ProjectsAnsalsHighlandParkSector103GurgaonApartmentsRoute,
+  ProjectsBptpAstaireGardensSector70aGurgaonResidencesRoute:
+    ProjectsBptpAstaireGardensSector70aGurgaonResidencesRoute,
+  ProjectsDlfTheArbourSector63GurgaonApartmentsRoute:
+    ProjectsDlfTheArbourSector63GurgaonApartmentsRoute,
+  ProjectsDlfThePrimusSector82aGurgaonApartmentsRoute:
+    ProjectsDlfThePrimusSector82aGurgaonApartmentsRoute,
   ProjectsDlfTheSkycourtSector86Route: ProjectsDlfTheSkycourtSector86Route,
-  ProjectsEmaarEmeraldEstateSector65GurgaonRoute:
-    ProjectsEmaarEmeraldEstateSector65GurgaonRoute,
-  ProjectsEmaarUrbanOasisSector62Route: ProjectsEmaarUrbanOasisSector62Route,
-  ProjectsGodrejSoraSector53GurgaonRoute:
-    ProjectsGodrejSoraSector53GurgaonRoute,
-  ProjectsM3mGolfHillsSector79GurgaonRoute:
-    ProjectsM3mGolfHillsSector79GurgaonRoute,
-  ProjectsTataRaisinaResidencySector59Route:
-    ProjectsTataRaisinaResidencySector59Route,
+  ProjectsEmaarEmeraldEstateSector65GurgaonApartmentsRoute:
+    ProjectsEmaarEmeraldEstateSector65GurgaonApartmentsRoute,
+  ProjectsEmaarUrbanOasisSector62GurgaonApartmentsRoute:
+    ProjectsEmaarUrbanOasisSector62GurgaonApartmentsRoute,
+  ProjectsGodrejSoraSector53GurgaonApartmentsRoute:
+    ProjectsGodrejSoraSector53GurgaonApartmentsRoute,
+  ProjectsGodrejVrikshyaSector103GurgaonApartmentsRoute:
+    ProjectsGodrejVrikshyaSector103GurgaonApartmentsRoute,
+  ProjectsM3mGolfHillsSector79GurgaonApartmentsRoute:
+    ProjectsM3mGolfHillsSector79GurgaonApartmentsRoute,
+  ProjectsTataRaisinaResidencySector59GurgaonApartmentsRoute:
+    ProjectsTataRaisinaResidencySector59GurgaonApartmentsRoute,
   ProjectsIndexRoute: ProjectsIndexRoute,
 }
 
@@ -1883,16 +1949,19 @@ const rootRouteChildren: RootRouteChildren = {
     CapitalResidences3603BhkForSaleSector70aGurgaonRoute,
   ContactRoute: ContactRoute,
   DesperateDealsGurgaonRoute: DesperateDealsGurgaonRoute,
-  DlfSkycourtSector86GurgaonRoute: DlfSkycourtSector86GurgaonRoute,
+  DlfSkycourtSector86GurgaonApartmentsRoute:
+    DlfSkycourtSector86GurgaonApartmentsRoute,
   DwarkaExpresswayFlatsForSaleGurgaonRoute:
     DwarkaExpresswayFlatsForSaleGurgaonRoute,
-  EmaarEmeraldHillsSector65GurgaonRoute: EmaarEmeraldHillsSector65GurgaonRoute,
+  EmaarEmeraldHillsSector65GurgaonResidencesRoute:
+    EmaarEmeraldHillsSector65GurgaonResidencesRoute,
   EmaarPalmHillsSector77GurgaonFlatsForSaleRoute:
     EmaarPalmHillsSector77GurgaonFlatsForSaleRoute,
   EmiCalculatorRoute: EmiCalculatorRoute,
   FlatsForSaleInGurgaonRoute: FlatsForSaleInGurgaonRoute,
   ForgotPasswordRoute: ForgotPasswordRoute,
-  Godrej101Sector79GurgaonRoute: Godrej101Sector79GurgaonRoute,
+  Godrej101Sector79GurgaonApartmentsRoute:
+    Godrej101Sector79GurgaonApartmentsRoute,
   GurugramGrowthStoryRoute: GurugramGrowthStoryRoute,
   HaryanaStampDutyRegistrationCalculatorRoute:
     HaryanaStampDutyRegistrationCalculatorRoute,
@@ -1901,13 +1970,15 @@ const rootRouteChildren: RootRouteChildren = {
   HomeLoansRoute: HomeLoansRoute,
   IreoSkyon3BhkForSaleSector60GurgaonRoute:
     IreoSkyon3BhkForSaleSector60GurgaonRoute,
-  JmsTheMajesticManesarRoute: JmsTheMajesticManesarRoute,
+  JmsTheMajesticManesarGurgaonResidencesRoute:
+    JmsTheMajesticManesarGurgaonResidencesRoute,
   LuxuryRoute: LuxuryRoute,
   MandateToSellPropertyInGurgaonRoute: MandateToSellPropertyInGurgaonRoute,
   NriRoute: NriRoute,
   NriSellPropertyGurgaonRoute: NriSellPropertyGurgaonRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
   ProjectsRoute: ProjectsRouteWithChildren,
+  ProjectsInGurgaonRoute: ProjectsInGurgaonRoute,
   PropertiesRoute: PropertiesRoute,
   PropertiesForSaleOnSprGurgaonRoute: PropertiesForSaleOnSprGurgaonRoute,
   PropertyBuyingAdvisoryGurgaonRoute: PropertyBuyingAdvisoryGurgaonRoute,
@@ -1931,6 +2002,8 @@ const rootRouteChildren: RootRouteChildren = {
   WhatsappRoute: WhatsappRoute,
   ApiEnquiryRoute: ApiEnquiryRoute,
   ApiSellerSubmissionRoute: ApiSellerSubmissionRoute,
+  BlogBestSectorsToBuyPropertyInGurgaonRoute:
+    BlogBestSectorsToBuyPropertyInGurgaonRoute,
   BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route:
     BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route,
   BlogGurgaonPropertyDueDiligenceChecklist2026Route:

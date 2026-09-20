@@ -10,9 +10,8 @@ const canonical = `${SITE_ORIGIN}/locations/golf-course-extension-road`;
 const title = "Golf Course Extension Road Gurgaon | Sectors, Projects & Properties";
 const description =
   "Explore Golf Course Extension Road Gurgaon by sector and project, including Emaar Emerald Estate and Emerald Hills Sector 65, DLF The Arbour and Emaar Urban Oasis.";
-const EMERALD_ESTATE_PROJECT = "/projects/emaar-emerald-estate-sector-65-gurgaon";
-const EMERALD_ESTATE_LISTING =
-  "/3-bhk-for-sale-emaar-emerald-estate-sector-65-gurgaon-1395-sqft";
+const EMERALD_ESTATE_PROJECT = "/projects/emaar-emerald-estate-sector-65-gurgaon-apartments";
+const EMERALD_ESTATE_LISTING = "/3-bhk-for-sale-emaar-emerald-estate-sector-65-gurgaon-1395-sqft";
 const seoTitle = "Golf Course Extension Road Gurgaon | Shubh Estate Brokers";
 
 export const Route = createFileRoute("/locations/golf-course-extension-road")({
@@ -129,17 +128,17 @@ const clusters = [
       },
       {
         name: "Emaar Emerald Hills",
-        href: "/emaar-emerald-hills-sector-65-gurgaon",
+        href: "/emaar-emerald-hills-sector-65-gurgaon-residences",
       },
     ],
   },
   {
     sector: "Sector 63",
-    href: "/projects/dlf-the-arbour-sector-63-gurgaon",
+    href: "/projects/dlf-the-arbour-sector-63-gurgaon-apartments",
     projects: [
       {
         name: "DLF The Arbour",
-        href: "/projects/dlf-the-arbour-sector-63-gurgaon",
+        href: "/projects/dlf-the-arbour-sector-63-gurgaon-apartments",
       },
     ],
   },
@@ -147,20 +146,29 @@ const clusters = [
     sector: "Sector 62",
     href: "/property-sector-62-gurgaon",
     projects: [
-      { name: "Conscient Heritage One", href: "/projects/conscient-heritage-one-sector-62" },
-      { name: "Emaar Urban Oasis", href: "/projects/emaar-urban-oasis-sector-62" },
+      {
+        name: "Conscient Heritage One",
+        href: "/projects/conscient-heritage-one-sector-62-gurgaon-apartments",
+      },
+      {
+        name: "Emaar Urban Oasis",
+        href: "/projects/emaar-urban-oasis-sector-62-gurgaon-apartments",
+      },
     ],
   },
   {
     sector: "Sector 60",
     href: "/property-sector-60-gurgaon",
-    projects: [{ name: "Ireo Skyon", href: "/projects/ireo-skyon-sector-60" }],
+    projects: [{ name: "Ireo Skyon", href: "/projects/ireo-skyon-sector-60-gurgaon-apartments" }],
   },
   {
     sector: "Sector 59",
     href: "/property-sector-59-gurgaon",
     projects: [
-      { name: "Tata Raisina Residency", href: "/projects/tata-raisina-residency-sector-59" },
+      {
+        name: "Tata Raisina Residency",
+        href: "/projects/tata-raisina-residency-sector-59-gurgaon-apartments",
+      },
     ],
   },
 ];
@@ -234,8 +242,8 @@ function GolfCourseExtensionPage() {
               <MapPin className="size-5 text-gold" aria-hidden="true" />
               <h3 className="mt-3 font-display text-2xl">{cluster.sector} Gurgaon</h3>
               <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                Open the most relevant canonical sector or project guide, then compare project
-                pages and individual property inventory.
+                Open the most relevant canonical sector or project guide, then compare project pages
+                and individual property inventory.
               </p>
               <div className="mt-5 border-t border-border pt-4">
                 <a

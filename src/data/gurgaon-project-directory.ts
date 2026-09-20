@@ -282,7 +282,7 @@ const SEEDED_GURGAON_PROJECTS: GurgaonDirectoryProject[] = [
     priceMaxCr: 12,
     priceBasis: "market_sample",
     reviewedOn: PROJECT_PRICE_REVIEW_DATE,
-    href: "/projects/dlf-the-arbour-sector-63-gurgaon",
+    href: "/projects/dlf-the-arbour-sector-63-gurgaon-apartments",
     featured: true,
   }),
   project("TARC Ishva", "TARC", "Sector 63A", EXTENSION, {
@@ -369,7 +369,7 @@ const SEEDED_GURGAON_PROJECTS: GurgaonDirectoryProject[] = [
     status: "Under construction",
     priceLabel: "Contact for current unit-specific price",
     priceBasis: "on_request",
-    href: "/projects/emaar-urban-oasis-sector-62",
+    href: "/projects/emaar-urban-oasis-sector-62-gurgaon-apartments",
     featured: true,
   }),
   project("Emaar Emerald Hills", "Emaar India", "Sector 65", EXTENSION, {
@@ -381,7 +381,7 @@ const SEEDED_GURGAON_PROJECTS: GurgaonDirectoryProject[] = [
     priceMaxCr: 5,
     priceBasis: "verified_inventory",
     reviewedOn: PROJECT_PRICE_REVIEW_DATE,
-    href: "/emaar-emerald-hills-sector-65-gurgaon",
+    href: "/emaar-emerald-hills-sector-65-gurgaon-residences",
     featured: true,
   }),
   project("Emaar Emerald Floors", "Emaar India", "Sector 65", EXTENSION, {
@@ -693,7 +693,7 @@ const SEEDED_GURGAON_PROJECTS: GurgaonDirectoryProject[] = [
     priceBasis: "verified_inventory",
     pricePerSqFt: "Approx. ₹12,000/sq ft for select resale options",
     reviewedOn: PROJECT_PRICE_REVIEW_DATE,
-    href: "/projects/aipl-riviera-resale-sector-103-gurgaon",
+    href: "/projects/aipl-riviera-sector-103-gurgaon-apartments",
     featured: true,
   }),
   project("Satya Levante Residences", "Satya Group", "Sector 104", DWARKA, {
@@ -708,7 +708,7 @@ const SEEDED_GURGAON_PROJECTS: GurgaonDirectoryProject[] = [
     priceMinCr: 1.04,
     priceBasis: "verified_inventory",
     reviewedOn: PROJECT_PRICE_REVIEW_DATE,
-    href: "/projects/ansals-highland-park-sector-103-gurgaon",
+    href: "/projects/ansals-highland-park-sector-103-gurgaon-apartments",
     featured: true,
   }),
   project("Indiabulls Enigma", "Indiabulls Real Estate", "Sector 110", DWARKA, {
@@ -854,7 +854,7 @@ const SEEDED_GURGAON_PROJECTS: GurgaonDirectoryProject[] = [
     priceBasis: "verified_inventory",
     pricePerSqFt: "From ₹13,000/sq ft for select seller-held units",
     reviewedOn: PROJECT_PRICE_REVIEW_DATE,
-    href: "/projects/m3m-golf-hills-sector-79-gurgaon",
+    href: "/projects/m3m-golf-hills-sector-79-gurgaon-apartments",
     featured: true,
   }),
   project("M3M Antalya Hills", "M3M India", "Sector 79", NEW_GURGAON, {
@@ -894,7 +894,7 @@ const SEEDED_GURGAON_PROJECTS: GurgaonDirectoryProject[] = [
     priceMaxCr: 4.6,
     priceBasis: "verified_inventory",
     reviewedOn: PROJECT_PRICE_REVIEW_DATE,
-    href: "/projects/dlf-the-primus-sector-82a-gurgaon",
+    href: "/projects/dlf-the-primus-sector-82a-gurgaon-apartments",
     featured: true,
   }),
   project("DLF The Ultima", "DLF", "Sector 81", NEW_GURGAON, {
@@ -913,7 +913,7 @@ const SEEDED_GURGAON_PROJECTS: GurgaonDirectoryProject[] = [
   project("Godrej 101", "Godrej Properties", "Sector 79", NEW_GURGAON, {
     configuration: "2–4 BHK residences",
     status: "Ready to move",
-    href: "/godrej-101-sector-79-gurgaon",
+    href: "/godrej-101-sector-79-gurgaon-apartments",
   }),
   project("Godrej Air", "Godrej Properties", "Sector 85", NEW_GURGAON, {
     configuration: "2–4 BHK residences",

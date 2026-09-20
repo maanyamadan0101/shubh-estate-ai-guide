@@ -14,7 +14,7 @@ import { CONTACT } from "@/data/site";
 import { trackContact } from "@/lib/analytics";
 import { SITE_ORIGIN } from "@/lib/seo";
 
-const canonical = `${SITE_ORIGIN}/dlf-skycourt-sector-86-gurgaon`;
+const canonical = `${SITE_ORIGIN}/dlf-skycourt-sector-86-gurgaon-apartments`;
 const title = "DLF Skycourt Sector 86 Gurgaon | 3 BHK Resale & Buyer Guide";
 const description =
   "DLF Skycourt Sector 86 Gurgaon buyer guide: ready-to-move 3 BHK project overview, unit sizes, amenities, location, resale checks and current inventory guidance.";
@@ -32,27 +32,32 @@ const BUYER_CHECKS = [
   {
     factor: "Tower, floor & view",
     why: "Two apartments in the same project can have materially different light, openness, road exposure and resale appeal.",
-    check: "Compare the actual view, sunlight, ventilation, lift proximity and noise at the same time of day you expect to use the home.",
+    check:
+      "Compare the actual view, sunlight, ventilation, lift proximity and noise at the same time of day you expect to use the home.",
   },
   {
     factor: "Usable layout",
     why: "Portal area labels can differ from the space a buyer experiences inside the apartment.",
-    check: "Review the exact unit plan, room dimensions, balcony/skydeck utility and furniture placement before comparing only on rate per sq ft.",
+    check:
+      "Review the exact unit plan, room dimensions, balcony/skydeck utility and furniture placement before comparing only on rate per sq ft.",
   },
   {
     factor: "Condition & fit-outs",
     why: "Ready-to-move resale units can vary widely in flooring, woodwork, appliances, AC condition and refurbishment requirement.",
-    check: "Inspect seepage signs, joinery, plumbing, electrical points, AC systems and the likely cost of upgrades before negotiating.",
+    check:
+      "Inspect seepage signs, joinery, plumbing, electrical points, AC systems and the likely cost of upgrades before negotiating.",
   },
   {
     factor: "Parking, dues & transfer",
     why: "Transaction cost is more than the headline sale price.",
-    check: "Reconfirm parking rights, society/maintenance dues, transfer requirements, utility balances and possession handover terms.",
+    check:
+      "Reconfirm parking rights, society/maintenance dues, transfer requirements, utility balances and possession handover terms.",
   },
   {
     factor: "Title & financing",
     why: "A strong project name does not replace unit-level document verification or lender valuation.",
-    check: "Review ownership/title papers and coordinate lender valuation early if home-loan funding is part of the purchase plan.",
+    check:
+      "Review ownership/title papers and coordinate lender valuation early if home-loan funding is part of the purchase plan.",
   },
 ] as const;
 
@@ -79,7 +84,7 @@ const FAQS = [
   },
 ] as const;
 
-export const Route = createFileRoute("/dlf-skycourt-sector-86-gurgaon")({
+export const Route = createFileRoute("/dlf-skycourt-sector-86-gurgaon-apartments")({
   head: () => ({
     meta: [
       { title: `${title} | Shubh Estate Brokers` },
@@ -183,9 +188,8 @@ function DlfSkycourtPage() {
               DLF Skycourt Sector 86 Gurgaon
             </h1>
             <p className="mt-5 max-w-3xl text-base leading-8 text-white/80 md:text-lg">
-              A buyer-first guide to DLF The Skycourt: 3 BHK layouts, project context,
-              amenities, resale due diligence and the unit-level checks that matter before
-              paying a token.
+              A buyer-first guide to DLF The Skycourt: 3 BHK layouts, project context, amenities,
+              resale due diligence and the unit-level checks that matter before paying a token.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button asChild variant="gold" size="lg">
@@ -209,8 +213,8 @@ function DlfSkycourtPage() {
               </Button>
             </div>
             <p className="mt-5 text-xs leading-5 text-white/60">
-              Live inventory and owner asking prices change frequently. Availability is
-              reconfirmed before a site visit or commercial discussion.
+              Live inventory and owner asking prices change frequently. Availability is reconfirmed
+              before a site visit or commercial discussion.
             </p>
           </div>
         </div>
@@ -220,21 +224,38 @@ function DlfSkycourtPage() {
         <div className="container-page grid gap-px py-0 sm:grid-cols-2 lg:grid-cols-6">
           {QUICK_FACTS.map(([label, value]) => (
             <div key={label} className="border-b border-border px-4 py-5 sm:border-b-0 lg:border-r">
-              <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">{label}</p>
+              <p className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground">
+                {label}
+              </p>
               <p className="mt-1 text-sm font-semibold leading-5">{value}</p>
             </div>
           ))}
         </div>
       </section>
 
-      <nav className="sticky top-0 z-20 border-b border-border bg-background/95 backdrop-blur" aria-label="DLF Skycourt page sections">
+      <nav
+        className="sticky top-0 z-20 border-b border-border bg-background/95 backdrop-blur"
+        aria-label="DLF Skycourt page sections"
+      >
         <div className="container-page flex gap-5 overflow-x-auto py-3 text-sm">
-          <a href="#overview" className="whitespace-nowrap hover:text-gold">Overview</a>
-          <a href="#sizes" className="whitespace-nowrap hover:text-gold">Layouts & sizes</a>
-          <a href="#amenities" className="whitespace-nowrap hover:text-gold">Amenities</a>
-          <a href="#location" className="whitespace-nowrap hover:text-gold">Location</a>
-          <a href="#resale-checks" className="whitespace-nowrap hover:text-gold">Resale checks</a>
-          <a href="#faq" className="whitespace-nowrap hover:text-gold">FAQ</a>
+          <a href="#overview" className="whitespace-nowrap hover:text-gold">
+            Overview
+          </a>
+          <a href="#sizes" className="whitespace-nowrap hover:text-gold">
+            Layouts & sizes
+          </a>
+          <a href="#amenities" className="whitespace-nowrap hover:text-gold">
+            Amenities
+          </a>
+          <a href="#location" className="whitespace-nowrap hover:text-gold">
+            Location
+          </a>
+          <a href="#resale-checks" className="whitespace-nowrap hover:text-gold">
+            Resale checks
+          </a>
+          <a href="#faq" className="whitespace-nowrap hover:text-gold">
+            FAQ
+          </a>
         </div>
       </nav>
 
@@ -246,28 +267,33 @@ function DlfSkycourtPage() {
                 <div className="flex items-start gap-3">
                   <ShieldCheck className="mt-1 size-5 shrink-0 text-gold" aria-hidden="true" />
                   <div>
-                    <p className="font-semibold">Reviewed for buyers, not copied from a portal listing</p>
+                    <p className="font-semibold">
+                      Reviewed for buyers, not copied from a portal listing
+                    </p>
                     <p className="mt-2 text-sm leading-7 text-muted-foreground">
-                      Project facts were cross-checked against current public project sources on
-                      23 August 2026. Because portal area, price and project-area fields can differ,
-                      Shubh Estate Brokers separates stable project facts from live resale claims and
-                      reconfirms the exact apartment before a buyer relies on them.
+                      Project facts were cross-checked against current public project sources on 23
+                      August 2026. Because portal area, price and project-area fields can differ,
+                      Shubh Estate Brokers separates stable project facts from live resale claims
+                      and reconfirms the exact apartment before a buyer relies on them.
                     </p>
                     <p className="mt-3 text-xs text-muted-foreground">
-                      Reviewed by Arun Madaan, MBA, LLB · Founder & Promoter, Shubh Estate Brokers · Former Senior Banking Professional.
+                      Reviewed by Arun Madaan, MBA, LLB · Founder & Promoter, Shubh Estate Brokers ·
+                      Former Senior Banking Professional.
                     </p>
                   </div>
                 </div>
               </div>
 
-              <h2 className="mt-10 font-display text-3xl md:text-4xl">DLF The Skycourt at a glance</h2>
+              <h2 className="mt-10 font-display text-3xl md:text-4xl">
+                DLF The Skycourt at a glance
+              </h2>
               <p className="mt-4 max-w-4xl leading-8 text-muted-foreground">
-                DLF The Skycourt is an established ready-to-move residential development in
-                Sector 86, New Gurgaon. It is associated with DLF Gardencity and is primarily
-                known for spacious 3 BHK homes, broad balconies/skydeck-style outdoor spaces and
-                a landscaped, gated residential setting. For a resale buyer, however, the project
-                name is only the starting point: tower, floor, view, unit condition and transaction
-                documents can materially change the quality and value of one apartment versus another.
+                DLF The Skycourt is an established ready-to-move residential development in Sector
+                86, New Gurgaon. It is associated with DLF Gardencity and is primarily known for
+                spacious 3 BHK homes, broad balconies/skydeck-style outdoor spaces and a landscaped,
+                gated residential setting. For a resale buyer, however, the project name is only the
+                starting point: tower, floor, view, unit condition and transaction documents can
+                materially change the quality and value of one apartment versus another.
               </p>
 
               <div className="mt-7 grid gap-4 md:grid-cols-3">
@@ -298,10 +324,12 @@ function DlfSkycourtPage() {
             </section>
 
             <section id="sizes" className="scroll-mt-24 pt-14">
-              <h2 className="font-display text-3xl md:text-4xl">3 BHK layouts and published size range</h2>
+              <h2 className="font-display text-3xl md:text-4xl">
+                3 BHK layouts and published size range
+              </h2>
               <p className="mt-4 leading-8 text-muted-foreground">
-                Current public project sources commonly show 3 BHK unit sizes of approximately
-                1,846 to 1,931 sq ft, while some resale advertisements use different built-up or
+                Current public project sources commonly show 3 BHK unit sizes of approximately 1,846
+                to 1,931 sq ft, while some resale advertisements use different built-up or
                 saleable-area labels. That is why a clean comparison should use the exact floor plan
                 and the same area convention for every shortlisted apartment.
               </p>
@@ -346,7 +374,10 @@ function DlfSkycourtPage() {
                   "Jogging / movement areas",
                   "Community environment",
                 ].map((item) => (
-                  <div key={item} className="rounded-xl border border-border bg-card px-4 py-4 text-sm">
+                  <div
+                    key={item}
+                    className="rounded-xl border border-border bg-card px-4 py-4 text-sm"
+                  >
                     {item}
                   </div>
                 ))}
@@ -354,7 +385,9 @@ function DlfSkycourtPage() {
             </section>
 
             <section id="location" className="scroll-mt-24 pt-14">
-              <h2 className="font-display text-3xl md:text-4xl">Sector 86, New Gurgaon location context</h2>
+              <h2 className="font-display text-3xl md:text-4xl">
+                Sector 86, New Gurgaon location context
+              </h2>
               <p className="mt-4 leading-8 text-muted-foreground">
                 Sector 86 is part of New Gurgaon, with road connectivity towards NH-48 and the wider
                 Dwarka Expressway network. Schools, healthcare, retail and daily-use services have
@@ -366,14 +399,16 @@ function DlfSkycourtPage() {
                 <h3 className="font-display text-xl">For end users</h3>
                 <p className="mt-2 text-sm leading-7 text-muted-foreground">
                   Test the commute at the hour you will actually travel, inspect local retail and
-                  healthcare access, and visit the tower in daylight and evening. This often produces
-                  a more useful decision than a generic “minutes from” location claim.
+                  healthcare access, and visit the tower in daylight and evening. This often
+                  produces a more useful decision than a generic “minutes from” location claim.
                 </p>
               </div>
             </section>
 
             <section id="resale-checks" className="scroll-mt-24 pt-14">
-              <h2 className="font-display text-3xl md:text-4xl">DLF Skycourt resale due-diligence checklist</h2>
+              <h2 className="font-display text-3xl md:text-4xl">
+                DLF Skycourt resale due-diligence checklist
+              </h2>
               <p className="mt-4 leading-8 text-muted-foreground">
                 The following framework is designed to make two apparently similar Skycourt resale
                 options directly comparable before negotiation.
@@ -419,7 +454,10 @@ function DlfSkycourtPage() {
               <h2 className="font-display text-3xl md:text-4xl">DLF Skycourt FAQs</h2>
               <div className="mt-6 space-y-4">
                 {FAQS.map((faq) => (
-                  <details key={faq.q} className="group rounded-xl border border-border bg-card p-5">
+                  <details
+                    key={faq.q}
+                    className="group rounded-xl border border-border bg-card p-5"
+                  >
                     <summary className="cursor-pointer list-none font-semibold">{faq.q}</summary>
                     <p className="mt-3 text-sm leading-7 text-muted-foreground">{faq.a}</p>
                   </details>
@@ -430,7 +468,9 @@ function DlfSkycourtPage() {
             <section className="pt-14">
               <div className="rounded-2xl surface-navy p-7 md:p-9">
                 <p className="eyebrow">Continue your research</p>
-                <h2 className="mt-3 font-display text-3xl text-white">Related Gurgaon property guides</h2>
+                <h2 className="mt-3 font-display text-3xl text-white">
+                  Related Gurgaon property guides
+                </h2>
                 <div className="mt-6 grid gap-3 sm:grid-cols-2">
                   {[
                     ["/locations/new-gurgaon", "New Gurgaon property guide"],
@@ -438,9 +478,16 @@ function DlfSkycourtPage() {
                     ["/property-buying-advisory-gurgaon", "Property buying advisory"],
                     ["/home-loans", "Home-loan & mortgage assistance"],
                     ["/best-areas-gurgaon-property-investment", "Best Gurgaon investment areas"],
-                    ["/blog/gurgaon-property-due-diligence-checklist-2026", "Property due-diligence checklist"],
+                    [
+                      "/blog/gurgaon-property-due-diligence-checklist-2026",
+                      "Property due-diligence checklist",
+                    ],
                   ].map(([href, label]) => (
-                    <a key={href} href={href} className="rounded-lg border border-white/15 px-4 py-3 text-sm text-white/80 hover:border-gold/50 hover:text-gold">
+                    <a
+                      key={href}
+                      href={href}
+                      className="rounded-lg border border-white/15 px-4 py-3 text-sm text-white/80 hover:border-gold/50 hover:text-gold"
+                    >
                       {label}
                     </a>
                   ))}

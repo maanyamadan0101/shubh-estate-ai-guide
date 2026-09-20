@@ -23,7 +23,7 @@ import { CONTACT } from "@/data/site";
 import { trackContact } from "@/lib/analytics";
 import { SITE_ORIGIN } from "@/lib/seo";
 
-const PAGE_PATH = "/projects/dlf-the-primus-sector-82a-gurgaon";
+const PAGE_PATH = "/projects/dlf-the-primus-sector-82a-gurgaon-apartments";
 const canonical = `${SITE_ORIGIN}${PAGE_PATH}`;
 const title = "DLF Primus Sector 82A Resale | Verified 3 & 4 BHK";
 const description =
@@ -175,7 +175,7 @@ const FAQS = [
   },
 ] as const;
 
-export const Route = createFileRoute("/projects/dlf-the-primus-sector-82a-gurgaon")({
+export const Route = createFileRoute("/projects/dlf-the-primus-sector-82a-gurgaon-apartments")({
   head: () => ({
     meta: [
       { title },
@@ -204,7 +204,7 @@ export const Route = createFileRoute("/projects/dlf-the-primus-sector-82a-gurgao
                   "@type": "ListItem",
                   position: 2,
                   name: "Gurgaon Project Guides",
-                  item: `${SITE_ORIGIN}/projects`,
+                  item: `${SITE_ORIGIN}/projects-in-gurgaon`,
                 },
                 {
                   "@type": "ListItem",
@@ -271,7 +271,7 @@ function DLFThePrimusPage() {
               Home
             </Link>
             <span className="px-2">/</span>
-            <Link to="/projects" className="hover:text-gold">
+            <Link to="/projects-in-gurgaon" className="hover:text-gold">
               Projects
             </Link>
             <span className="px-2">/</span>

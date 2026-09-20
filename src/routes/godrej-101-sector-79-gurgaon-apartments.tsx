@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SeoIntentLanding } from "@/components/site/SeoIntentLanding";
 import { SITE_ORIGIN } from "@/lib/seo";
 
-const canonical = `${SITE_ORIGIN}/godrej-101-sector-79-gurgaon`;
+const canonical = `${SITE_ORIGIN}/godrej-101-sector-79-gurgaon-apartments`;
 const title = "Godrej 101 Sector 79 Gurgaon | Flats for Sale & Resale";
 const description =
   "Explore Godrej 101 Sector 79 Gurgaon resale flats, project context, pricing checks, current availability, home-loan support and NRI transaction assistance.";
@@ -26,7 +26,7 @@ const FAQS = [
   },
 ];
 
-export const Route = createFileRoute("/godrej-101-sector-79-gurgaon")({
+export const Route = createFileRoute("/godrej-101-sector-79-gurgaon-apartments")({
   head: () => ({
     meta: [
       { title },
@@ -46,7 +46,12 @@ export const Route = createFileRoute("/godrej-101-sector-79-gurgaon")({
           "@type": "BreadcrumbList",
           itemListElement: [
             { "@type": "ListItem", position: 1, name: "Home", item: SITE_ORIGIN },
-            { "@type": "ListItem", position: 2, name: "Sector 79 Gurgaon", item: `${SITE_ORIGIN}/property-sector-79-gurgaon` },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "Sector 79 Gurgaon",
+              item: `${SITE_ORIGIN}/property-sector-79-gurgaon`,
+            },
             { "@type": "ListItem", position: 3, name: "Godrej 101", item: canonical },
           ],
         }),

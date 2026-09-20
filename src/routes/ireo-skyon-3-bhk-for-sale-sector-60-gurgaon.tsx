@@ -42,9 +42,7 @@ const FAQS = [
   },
 ];
 
-export const Route = createFileRoute(
-  "/ireo-skyon-3-bhk-for-sale-sector-60-gurgaon",
-)({
+export const Route = createFileRoute("/ireo-skyon-3-bhk-for-sale-sector-60-gurgaon")({
   head: () => ({
     meta: [
       { title: seoTitle },
@@ -60,7 +58,8 @@ export const Route = createFileRoute(
       { name: "twitter:image", content: coverImage },
       {
         property: "og:image:alt",
-        content: "Living and dining area in the Ireo Skyon 3 BHK apartment for sale in Sector 60 Gurgaon",
+        content:
+          "Living and dining area in the Ireo Skyon 3 BHK apartment for sale in Sector 60 Gurgaon",
       },
     ],
     links: [{ rel: "canonical", href: canonical }],
@@ -201,7 +200,10 @@ function IreoSkyonListingPage() {
       ]}
       related={[
         { href: "/property-sector-60-gurgaon", label: "Sector 60 Gurgaon property guide" },
-        { href: "/projects/ireo-skyon-sector-60", label: "Ireo Skyon project and current inventory" },
+        {
+          href: "/projects/ireo-skyon-sector-60-gurgaon-apartments",
+          label: "Ireo Skyon project and current inventory",
+        },
         {
           href: "/locations/golf-course-extension-road",
           label: "Golf Course Extension Road property guide",
@@ -221,8 +223,8 @@ function PropertyMedia() {
         Actual photographs of the Ireo Skyon apartment
       </h2>
       <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
-        Review the actual interiors, balcony and community outlook before arranging a private
-        site visit. The photographs have not been digitally staged.
+        Review the actual interiors, balcony and community outlook before arranging a private site
+        visit. The photographs have not been digitally staged.
       </p>
 
       <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">

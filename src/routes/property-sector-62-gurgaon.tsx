@@ -26,7 +26,12 @@ export const Route = createFileRoute("/property-sector-62-gurgaon")({
           "@type": "BreadcrumbList",
           itemListElement: [
             { "@type": "ListItem", position: 1, name: "Home", item: SITE_ORIGIN },
-            { "@type": "ListItem", position: 2, name: "Golf Course Extension Road", item: `${SITE_ORIGIN}/locations/golf-course-extension-road` },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "Golf Course Extension Road",
+              item: `${SITE_ORIGIN}/locations/golf-course-extension-road`,
+            },
             { "@type": "ListItem", position: 3, name: "Sector 62 Gurgaon", item: canonical },
           ],
         }),
@@ -75,10 +80,22 @@ function Sector62Page() {
         },
       ]}
       related={[
-        { href: "/locations/golf-course-extension-road", label: "Golf Course Extension Road property guide" },
-        { href: "/projects/conscient-heritage-one-sector-62", label: "Conscient Heritage One current inventory" },
-        { href: "/projects/emaar-urban-oasis-sector-62", label: "Emaar Urban Oasis current inventory" },
-        { href: "/projects/pivotal-paradise-sector-62", label: "Other current Sector 62 inventory" },
+        {
+          href: "/locations/golf-course-extension-road",
+          label: "Golf Course Extension Road property guide",
+        },
+        {
+          href: "/projects/conscient-heritage-one-sector-62-gurgaon-apartments",
+          label: "Conscient Heritage One current inventory",
+        },
+        {
+          href: "/projects/emaar-urban-oasis-sector-62-gurgaon-apartments",
+          label: "Emaar Urban Oasis current inventory",
+        },
+        {
+          href: "/projects/pivotal-paradise-sector-62-gurgaon-apartments",
+          label: "Other current Sector 62 inventory",
+        },
         { href: "/property-sector-60-gurgaon", label: "Sector 60 Gurgaon property guide" },
         { href: "/property-sector-59-gurgaon", label: "Sector 59 Gurgaon property guide" },
       ]}

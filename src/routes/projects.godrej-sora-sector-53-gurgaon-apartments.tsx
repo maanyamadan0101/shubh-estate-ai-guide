@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { CONTACT } from "@/data/site";
 import { SITE_ORIGIN } from "@/lib/seo";
 
-const PAGE_PATH = "/projects/godrej-sora-sector-53-gurgaon";
+const PAGE_PATH = "/projects/godrej-sora-sector-53-gurgaon-apartments";
 const canonical = `${SITE_ORIGIN}${PAGE_PATH}`;
 const title = "Godrej Sora Sector 53 Gurgaon | 3 & 4 BHK Price, Floor Plan";
 const description =
@@ -98,7 +98,7 @@ const FAQS = [
   },
 ] as const;
 
-export const Route = createFileRoute("/projects/godrej-sora-sector-53-gurgaon")({
+export const Route = createFileRoute("/projects/godrej-sora-sector-53-gurgaon-apartments")({
   head: () => ({
     meta: [
       { title },
@@ -123,8 +123,18 @@ export const Route = createFileRoute("/projects/godrej-sora-sector-53-gurgaon")(
               "@type": "BreadcrumbList",
               itemListElement: [
                 { "@type": "ListItem", position: 1, name: "Home", item: SITE_ORIGIN },
-                { "@type": "ListItem", position: 2, name: "Projects", item: `${SITE_ORIGIN}/projects` },
-                { "@type": "ListItem", position: 3, name: "Godrej Sora Sector 53", item: canonical },
+                {
+                  "@type": "ListItem",
+                  position: 2,
+                  name: "Projects",
+                  item: `${SITE_ORIGIN}/projects-in-gurgaon`,
+                },
+                {
+                  "@type": "ListItem",
+                  position: 3,
+                  name: "Godrej Sora Sector 53",
+                  item: canonical,
+                },
               ],
             },
             {
@@ -170,9 +180,13 @@ function GodrejSoraPage() {
       <section className="border-b border-border bg-muted/35">
         <div className="container-page py-12 md:py-18">
           <nav aria-label="Breadcrumb" className="text-xs text-muted-foreground">
-            <Link to="/" className="hover:text-foreground">Home</Link>
+            <Link to="/" className="hover:text-foreground">
+              Home
+            </Link>
             <span className="px-2">/</span>
-            <Link to="/projects" className="hover:text-foreground">Projects</Link>
+            <Link to="/projects-in-gurgaon" className="hover:text-foreground">
+              Projects
+            </Link>
             <span className="px-2">/</span>
             <span className="text-foreground">Godrej Sora Sector 53</span>
           </nav>
@@ -180,7 +194,9 @@ function GodrejSoraPage() {
           <div className="mt-6 grid gap-8 lg:grid-cols-[minmax(0,1fr)_22rem] lg:items-start">
             <div>
               <div className="flex flex-wrap gap-2">
-                <Badge className="border-gold/30 bg-gold/10 text-gold hover:bg-gold/10">New Launch</Badge>
+                <Badge className="border-gold/30 bg-gold/10 text-gold hover:bg-gold/10">
+                  New Launch
+                </Badge>
                 <Badge variant="secondary">RERA registered</Badge>
                 <Badge variant="secondary">Sector 53 · Golf Course Road</Badge>
               </div>
@@ -188,7 +204,9 @@ function GodrejSoraPage() {
                 Godrej Sora Sector 53 Gurgaon – Luxury 3 & 4 BHK Apartments
               </h1>
               <p className="mt-5 max-w-3xl text-base leading-7 text-muted-foreground">
-                Godrej Sora is a premium residential development by Godrej Properties in Sector 53, Gurugram, offering spacious 3 BHK and 4 BHK apartments in one of Gurgaon's established luxury residential locations.
+                Godrej Sora is a premium residential development by Godrej Properties in Sector 53,
+                Gurugram, offering spacious 3 BHK and 4 BHK apartments in one of Gurgaon's
+                established luxury residential locations.
               </p>
               <div className="mt-7 flex flex-wrap gap-3">
                 <Button asChild variant="gold">
@@ -197,14 +215,21 @@ function GodrejSoraPage() {
                   </a>
                 </Button>
                 <Button asChild variant="goldOutline">
-                  <a href={CONTACT.phoneHref}><Phone className="mr-2 h-4 w-4" /> Call Shubh Estate</a>
+                  <a href={CONTACT.phoneHref}>
+                    <Phone className="mr-2 h-4 w-4" /> Call Shubh Estate
+                  </a>
                 </Button>
               </div>
-              <p className="mt-4 text-xs text-muted-foreground">Project information and indicative pricing reviewed {LAST_REVIEWED}. Availability and prices can change.</p>
+              <p className="mt-4 text-xs text-muted-foreground">
+                Project information and indicative pricing reviewed {LAST_REVIEWED}. Availability
+                and prices can change.
+              </p>
             </div>
 
             <aside className="rounded-2xl border border-gold/25 bg-card p-6 shadow-sm">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gold">Project snapshot</p>
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gold">
+                Project snapshot
+              </p>
               <div className="mt-4 space-y-3">
                 {QUICK_FACTS.slice(0, 6).map(([label, value]) => (
                   <div key={label} className="border-b border-border pb-3 last:border-0 last:pb-0">
@@ -222,18 +247,28 @@ function GodrejSoraPage() {
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_22rem]">
           <div>
             <p className="eyebrow">Project overview</p>
-            <h2 className="mt-3 font-display text-3xl text-navy sm:text-4xl">Premium low-density living in Sector 53</h2>
+            <h2 className="mt-3 font-display text-3xl text-navy sm:text-4xl">
+              Premium low-density living in Sector 53
+            </h2>
             <p className="mt-4 leading-7 text-muted-foreground">
-              The supplied project information describes Godrej Sora as an approximately 3.6-acre development with around 244 residences across four towers. The project has been positioned around privacy, premium arrival spaces and access to the established Golf Course Road ecosystem.
+              The supplied project information describes Godrej Sora as an approximately 3.6-acre
+              development with around 244 residences across four towers. The project has been
+              positioned around privacy, premium arrival spaces and access to the established Golf
+              Course Road ecosystem.
             </p>
             <p className="mt-4 leading-7 text-muted-foreground">
-              Published highlights include only two residences per core, private Genkan-style lift lobbies, two high-speed lifts and selected homes overlooking the Biodiversity Park. Buyers should verify the exact apartment-specific specification and view before booking.
+              Published highlights include only two residences per core, private Genkan-style lift
+              lobbies, two high-speed lifts and selected homes overlooking the Biodiversity Park.
+              Buyers should verify the exact apartment-specific specification and view before
+              booking.
             </p>
           </div>
           <div className="rounded-2xl border border-border bg-muted/30 p-6">
             <MapPin className="h-6 w-6 text-gold" />
             <h3 className="mt-3 font-display text-xl">Project address</h3>
-            <p className="mt-2 text-sm leading-6 text-muted-foreground">GH-21, Urban Estate II, Sector 53, Wazirabad St, Gurugram</p>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">
+              GH-21, Urban Estate II, Sector 53, Wazirabad St, Gurugram
+            </p>
           </div>
         </div>
       </section>
@@ -241,7 +276,9 @@ function GodrejSoraPage() {
       <section className="border-y border-border bg-muted/30">
         <div className="container-page py-12 md:py-16">
           <p className="eyebrow">Floor plans & price guidance</p>
-          <h2 className="mt-3 font-display text-3xl text-navy sm:text-4xl">Godrej Sora 3 BHK and 4 BHK configurations</h2>
+          <h2 className="mt-3 font-display text-3xl text-navy sm:text-4xl">
+            Godrej Sora 3 BHK and 4 BHK configurations
+          </h2>
           <div className="mt-8 grid gap-5 md:grid-cols-2">
             {CONFIGURATIONS.map((item) => (
               <article key={item.type} className="rounded-2xl border border-border bg-card p-6">
@@ -253,7 +290,9 @@ function GodrejSoraPage() {
             ))}
           </div>
           <div className="mt-5 rounded-xl border border-gold/25 bg-gold/5 p-4 text-sm leading-6 text-muted-foreground">
-            Prices above are indicative project figures from the supplied source and are not a live quotation. Contact Shubh Estate Brokers for current unit-wise availability, complete charges and executable pricing.
+            Prices above are indicative project figures from the supplied source and are not a live
+            quotation. Contact Shubh Estate Brokers for current unit-wise availability, complete
+            charges and executable pricing.
           </div>
         </div>
       </section>
@@ -262,7 +301,9 @@ function GodrejSoraPage() {
         <div className="grid gap-10 lg:grid-cols-2">
           <div>
             <p className="eyebrow">Lifestyle</p>
-            <h2 className="mt-3 font-display text-3xl text-navy">Amenities highlighted for Godrej Sora</h2>
+            <h2 className="mt-3 font-display text-3xl text-navy">
+              Amenities highlighted for Godrej Sora
+            </h2>
             <div className="mt-6 grid gap-3 sm:grid-cols-2">
               {AMENITIES.map((amenity) => (
                 <div key={amenity} className="flex gap-3 rounded-xl border border-border p-4">
@@ -277,7 +318,10 @@ function GodrejSoraPage() {
             <h2 className="mt-3 font-display text-3xl text-navy">Sector 53 location advantages</h2>
             <div className="mt-6 overflow-hidden rounded-2xl border border-border">
               {LOCATION_ADVANTAGES.map(([place, distance]) => (
-                <div key={place} className="flex items-center justify-between gap-4 border-b border-border px-5 py-4 last:border-0">
+                <div
+                  key={place}
+                  className="flex items-center justify-between gap-4 border-b border-border px-5 py-4 last:border-0"
+                >
                   <span className="text-sm font-medium">{place}</span>
                   <span className="text-sm text-muted-foreground">{distance}</span>
                 </div>
@@ -290,7 +334,9 @@ function GodrejSoraPage() {
       <section className="border-y border-border bg-muted/30">
         <div className="container-page py-12 md:py-16">
           <p className="eyebrow">Buyer due diligence</p>
-          <h2 className="mt-3 max-w-3xl font-display text-3xl text-navy sm:text-4xl">What to verify before selecting a Godrej Sora unit</h2>
+          <h2 className="mt-3 max-w-3xl font-display text-3xl text-navy sm:text-4xl">
+            What to verify before selecting a Godrej Sora unit
+          </h2>
           <div className="mt-8 grid gap-4 md:grid-cols-2">
             {BUYER_CHECKS.map((item) => (
               <div key={item} className="flex gap-3 rounded-2xl border border-border bg-card p-5">
@@ -304,7 +350,9 @@ function GodrejSoraPage() {
 
       <section className="container-page py-12 md:py-16">
         <p className="eyebrow">FAQs</p>
-        <h2 className="mt-3 font-display text-3xl text-navy sm:text-4xl">Godrej Sora Sector 53 questions</h2>
+        <h2 className="mt-3 font-display text-3xl text-navy sm:text-4xl">
+          Godrej Sora Sector 53 questions
+        </h2>
         <div className="mt-8 space-y-4">
           {FAQS.map((faq) => (
             <article key={faq.q} className="rounded-2xl border border-border p-6">
@@ -318,14 +366,30 @@ function GodrejSoraPage() {
       <section className="border-t border-border bg-navy text-white">
         <div className="container-page grid gap-8 py-12 md:py-16 lg:grid-cols-[minmax(0,1fr)_24rem] lg:items-start">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gold">Shubh Estate Brokers</p>
-            <h2 className="mt-3 font-display text-3xl sm:text-4xl">Get current Godrej Sora inventory and price comparison</h2>
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gold">
+              Shubh Estate Brokers
+            </p>
+            <h2 className="mt-3 font-display text-3xl sm:text-4xl">
+              Get current Godrej Sora inventory and price comparison
+            </h2>
             <p className="mt-4 max-w-2xl leading-7 text-white/75">
-              Share your preferred configuration, budget, floor band, facing and view. We can help compare available units, total acquisition cost, documentation and financing options.
+              Share your preferred configuration, budget, floor band, facing and view. We can help
+              compare available units, total acquisition cost, documentation and financing options.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <Button asChild variant="gold"><a href={WHATSAPP_URL} target="_blank" rel="noreferrer"><MessageCircle className="mr-2 h-4 w-4" /> WhatsApp</a></Button>
-              <Button asChild variant="outline"><a href={CONTACT.phoneHref} className="border-white/30 text-white hover:bg-white/10 hover:text-white"><Phone className="mr-2 h-4 w-4" /> {CONTACT.phone}</a></Button>
+              <Button asChild variant="gold">
+                <a href={WHATSAPP_URL} target="_blank" rel="noreferrer">
+                  <MessageCircle className="mr-2 h-4 w-4" /> WhatsApp
+                </a>
+              </Button>
+              <Button asChild variant="outline">
+                <a
+                  href={CONTACT.phoneHref}
+                  className="border-white/30 text-white hover:bg-white/10 hover:text-white"
+                >
+                  <Phone className="mr-2 h-4 w-4" /> {CONTACT.phone}
+                </a>
+              </Button>
             </div>
           </div>
           <div className="rounded-2xl bg-white p-5 text-foreground">

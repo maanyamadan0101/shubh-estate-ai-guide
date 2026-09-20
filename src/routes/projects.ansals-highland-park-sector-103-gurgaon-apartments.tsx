@@ -18,7 +18,7 @@ import { CONTACT } from "@/data/site";
 import { trackContact } from "@/lib/analytics";
 import { SITE_ORIGIN } from "@/lib/seo";
 
-const PAGE_PATH = "/projects/ansals-highland-park-sector-103-gurgaon";
+const PAGE_PATH = "/projects/ansals-highland-park-sector-103-gurgaon-apartments";
 const canonical = `${SITE_ORIGIN}${PAGE_PATH}`;
 const title = "Ansals Highland Park Sector 103 Gurgaon | Price & Buyer Guide";
 const description =
@@ -160,7 +160,9 @@ const FAQS = [
   },
 ] as const;
 
-export const Route = createFileRoute("/projects/ansals-highland-park-sector-103-gurgaon")({
+export const Route = createFileRoute(
+  "/projects/ansals-highland-park-sector-103-gurgaon-apartments",
+)({
   head: () => ({
     meta: [
       { title },
@@ -189,7 +191,7 @@ export const Route = createFileRoute("/projects/ansals-highland-park-sector-103-
               "@type": "ListItem",
               position: 2,
               name: "Gurgaon Project Guides",
-              item: `${SITE_ORIGIN}/projects`,
+              item: `${SITE_ORIGIN}/projects-in-gurgaon`,
             },
             {
               "@type": "ListItem",
@@ -264,7 +266,7 @@ function AnsalsHighlandParkPage() {
                 Home
               </Link>
               <span className="px-2">/</span>
-              <Link to="/projects" className="hover:text-gold">
+              <Link to="/projects-in-gurgaon" className="hover:text-gold">
                 Projects
               </Link>
               <span className="px-2">/</span>

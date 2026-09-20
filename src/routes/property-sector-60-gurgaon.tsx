@@ -26,7 +26,12 @@ export const Route = createFileRoute("/property-sector-60-gurgaon")({
           "@type": "BreadcrumbList",
           itemListElement: [
             { "@type": "ListItem", position: 1, name: "Home", item: SITE_ORIGIN },
-            { "@type": "ListItem", position: 2, name: "Golf Course Extension Road", item: `${SITE_ORIGIN}/locations/golf-course-extension-road` },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "Golf Course Extension Road",
+              item: `${SITE_ORIGIN}/locations/golf-course-extension-road`,
+            },
             { "@type": "ListItem", position: 3, name: "Sector 60 Gurgaon", item: canonical },
           ],
         }),
@@ -75,8 +80,14 @@ function Sector60Page() {
           href: "/ireo-skyon-3-bhk-for-sale-sector-60-gurgaon",
           label: "Ireo Skyon 3 BHK · 2,045 sq ft · ₹4.65 Cr negotiable",
         },
-        { href: "/locations/golf-course-extension-road", label: "Golf Course Extension Road property guide" },
-        { href: "/projects/ireo-skyon-sector-60", label: "Ireo Skyon current inventory" },
+        {
+          href: "/locations/golf-course-extension-road",
+          label: "Golf Course Extension Road property guide",
+        },
+        {
+          href: "/projects/ireo-skyon-sector-60-gurgaon-apartments",
+          label: "Ireo Skyon current inventory",
+        },
         { href: "/property-sector-62-gurgaon", label: "Sector 62 Gurgaon property guide" },
         { href: "/property-sector-59-gurgaon", label: "Sector 59 Gurgaon property guide" },
         { href: "/flats-for-sale-in-gurgaon", label: "Current Gurgaon property listings" },

@@ -22,7 +22,7 @@ import { listPublicProjectHubs, type ProjectHub } from "@/lib/project-hub.functi
 import { formatArea, formatINR, SITE_ORIGIN } from "@/lib/seo";
 
 const SLUG = "bptp-astaire-gardens-sector-70a";
-const PATH = "/projects/bptp-astaire-gardens-sector-70a-gurgaon";
+const PATH = "/projects/bptp-astaire-gardens-sector-70a-gurgaon-residences";
 const canonical = `${SITE_ORIGIN}${PATH}`;
 const title = "BPTP Astaire Gardens Sector 70A Gurgaon | Properties for Sale";
 const description =
@@ -86,7 +86,9 @@ const FAQs = [
   ],
 ] as const;
 
-export const Route = createFileRoute("/projects/bptp-astaire-gardens-sector-70a-gurgaon")({
+export const Route = createFileRoute(
+  "/projects/bptp-astaire-gardens-sector-70a-gurgaon-residences",
+)({
   loader: async () => {
     const hubs = await listPublicProjectHubs();
     return (
@@ -147,7 +149,7 @@ export const Route = createFileRoute("/projects/bptp-astaire-gardens-sector-70a-
                 "@type": "ListItem",
                 position: 2,
                 name: "Projects",
-                item: `${SITE_ORIGIN}/projects`,
+                item: `${SITE_ORIGIN}/projects-in-gurgaon`,
               },
               {
                 "@type": "ListItem",
@@ -224,7 +226,7 @@ function AstairePage() {
           <nav aria-label="Breadcrumb" className="text-xs text-muted-foreground">
             <Link to="/">Home</Link>
             <span className="px-2">/</span>
-            <Link to="/projects">Projects</Link>
+            <Link to="/projects-in-gurgaon">Projects</Link>
             <span className="px-2">/</span>
             <span>Sector 70A</span>
             <span className="px-2">/</span>

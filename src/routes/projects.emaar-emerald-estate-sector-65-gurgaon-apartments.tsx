@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SeoIntentLanding } from "@/components/site/SeoIntentLanding";
 import { SITE_ORIGIN } from "@/lib/seo";
 
-const PAGE_PATH = "/projects/emaar-emerald-estate-sector-65-gurgaon";
+const PAGE_PATH = "/projects/emaar-emerald-estate-sector-65-gurgaon-apartments";
 const LISTING_PATH = "/3-bhk-for-sale-emaar-emerald-estate-sector-65-gurgaon-1395-sqft";
 const canonical = `${SITE_ORIGIN}${PAGE_PATH}`;
 const title = "Emaar Emerald Estate Sector 65 Gurgaon | Project & Resale";
@@ -32,102 +32,104 @@ const FAQS = [
   },
 ];
 
-export const Route = createFileRoute("/projects/emaar-emerald-estate-sector-65-gurgaon")({
-  head: () => ({
-    meta: [
-      { title },
-      { name: "description", content: description },
-      { name: "robots", content: "index,follow,max-image-preview:large,max-snippet:-1" },
-      { property: "og:title", content: title },
-      { property: "og:description", content: description },
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: canonical },
-      {
-        property: "og:image",
-        content: `${SITE_ORIGIN}/properties/emaar-emerald-estate-1395/02-emaar-emerald-estate-3bhk-living-room-balcony.webp`,
-      },
-    ],
-    links: [{ rel: "canonical", href: canonical }],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            { "@type": "ListItem", position: 1, name: "Home", item: SITE_ORIGIN },
-            {
-              "@type": "ListItem",
-              position: 2,
-              name: "Gurgaon Residential Projects",
-              item: `${SITE_ORIGIN}/projects`,
+export const Route = createFileRoute("/projects/emaar-emerald-estate-sector-65-gurgaon-apartments")(
+  {
+    head: () => ({
+      meta: [
+        { title },
+        { name: "description", content: description },
+        { name: "robots", content: "index,follow,max-image-preview:large,max-snippet:-1" },
+        { property: "og:title", content: title },
+        { property: "og:description", content: description },
+        { property: "og:type", content: "website" },
+        { property: "og:url", content: canonical },
+        {
+          property: "og:image",
+          content: `${SITE_ORIGIN}/properties/emaar-emerald-estate-1395/02-emaar-emerald-estate-3bhk-living-room-balcony.webp`,
+        },
+      ],
+      links: [{ rel: "canonical", href: canonical }],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              { "@type": "ListItem", position: 1, name: "Home", item: SITE_ORIGIN },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Gurgaon Residential Projects",
+                item: `${SITE_ORIGIN}/projects-in-gurgaon`,
+              },
+              {
+                "@type": "ListItem",
+                position: 3,
+                name: "Emaar Emerald Estate Sector 65 Gurgaon",
+                item: canonical,
+              },
+            ],
+          }),
+        },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "@id": `${canonical}#webpage`,
+            name: title,
+            description,
+            url: canonical,
+            datePublished: "2026-09-05",
+            dateModified: "2026-09-05",
+            about: {
+              "@type": "Place",
+              name: "Emaar Emerald Estate",
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: "Sector 65",
+                addressLocality: "Gurugram",
+                addressRegion: "Haryana",
+                addressCountry: "IN",
+              },
             },
-            {
-              "@type": "ListItem",
-              position: 3,
-              name: "Emaar Emerald Estate Sector 65 Gurgaon",
-              item: canonical,
-            },
-          ],
-        }),
-      },
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "WebPage",
-          "@id": `${canonical}#webpage`,
-          name: title,
-          description,
-          url: canonical,
-          datePublished: "2026-09-05",
-          dateModified: "2026-09-05",
-          about: {
-            "@type": "Place",
-            name: "Emaar Emerald Estate",
-            address: {
-              "@type": "PostalAddress",
-              streetAddress: "Sector 65",
-              addressLocality: "Gurugram",
-              addressRegion: "Haryana",
-              addressCountry: "IN",
-            },
-          },
-        }),
-      },
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "ItemList",
-          name: "Current Emaar Emerald Estate resale inventory",
-          numberOfItems: 1,
-          itemListElement: [
-            {
-              "@type": "ListItem",
-              position: 1,
-              name: "Emaar Emerald Estate 3 BHK + 1 · 1,395 sq ft · higher floor",
-              url: `${SITE_ORIGIN}${LISTING_PATH}`,
-            },
-          ],
-        }),
-      },
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          mainEntity: FAQS.map((faq) => ({
-            "@type": "Question",
-            name: faq.q,
-            acceptedAnswer: { "@type": "Answer", text: faq.a },
-          })),
-        }),
-      },
-    ],
-  }),
-  component: EmaarEmeraldEstateProjectPage,
-});
+          }),
+        },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            name: "Current Emaar Emerald Estate resale inventory",
+            numberOfItems: 1,
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Emaar Emerald Estate 3 BHK + 1 · 1,395 sq ft · higher floor",
+                url: `${SITE_ORIGIN}${LISTING_PATH}`,
+              },
+            ],
+          }),
+        },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: FAQS.map((faq) => ({
+              "@type": "Question",
+              name: faq.q,
+              acceptedAnswer: { "@type": "Answer", text: faq.a },
+            })),
+          }),
+        },
+      ],
+    }),
+    component: EmaarEmeraldEstateProjectPage,
+  },
+);
 
 function EmaarEmeraldEstateProjectPage() {
   return (
@@ -212,7 +214,7 @@ function EmaarEmeraldEstateProjectPage() {
           label: "Higher-floor apartments on Golf Course Extension Road",
         },
         {
-          href: "/emaar-emerald-hills-sector-65-gurgaon",
+          href: "/emaar-emerald-hills-sector-65-gurgaon-residences",
           label: "Emaar Emerald Hills Sector 65 guide",
         },
         { href: "/flats-for-sale-in-gurgaon", label: "Current flats for sale in Gurgaon" },
@@ -233,7 +235,8 @@ function CurrentAvailability() {
           Unused 3 BHK + 1 · 1,395 sq ft · Higher floor · ₹2.30 Cr
         </h2>
         <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
-          East-facing apartment with actual unit photographs available. Open the dedicated property page for complete details, photographs, price context and site-visit enquiry.
+          East-facing apartment with actual unit photographs available. Open the dedicated property
+          page for complete details, photographs, price context and site-visit enquiry.
         </p>
         <a
           href={LISTING_PATH}

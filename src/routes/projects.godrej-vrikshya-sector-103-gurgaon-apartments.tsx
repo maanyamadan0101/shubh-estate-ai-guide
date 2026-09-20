@@ -16,7 +16,7 @@ import { CONTACT } from "@/data/site";
 import { trackContact } from "@/lib/analytics";
 import { SITE_ORIGIN } from "@/lib/seo";
 
-const PAGE_PATH = "/projects/godrej-vrikshya-sector-103-gurgaon";
+const PAGE_PATH = "/projects/godrej-vrikshya-sector-103-gurgaon-apartments";
 const canonical = `${SITE_ORIGIN}${PAGE_PATH}`;
 const title = "Godrej Vrikshya Sector 103 Gurgaon | Price, RERA & Resale";
 const description =
@@ -41,7 +41,10 @@ const FACTS = [
 
 const AMENITIES = [
   ["Infinity pool", "Olympic-length infinity pool overlooking the central greenspace."],
-  ["Temperature-controlled pool", "Covered temperature-controlled pool listed by Godrej Properties."],
+  [
+    "Temperature-controlled pool",
+    "Covered temperature-controlled pool listed by Godrej Properties.",
+  ],
   ["Sports", "Squash court and skating rink are part of the official amenity programme."],
   ["Recreation", "Silent cinema and other lifestyle spaces are highlighted by the developer."],
 ] as const;
@@ -85,7 +88,7 @@ function Heading({ eyebrow, title: h, copy }: { eyebrow: string; title: string; 
   );
 }
 
-export const Route = createFileRoute("/projects/godrej-vrikshya-sector-103-gurgaon")({
+export const Route = createFileRoute("/projects/godrej-vrikshya-sector-103-gurgaon-apartments")({
   head: () => ({
     meta: [
       { title },
@@ -131,7 +134,12 @@ export const Route = createFileRoute("/projects/godrej-vrikshya-sector-103-gurga
               "@type": "BreadcrumbList",
               itemListElement: [
                 { "@type": "ListItem", position: 1, name: "Home", item: SITE_ORIGIN },
-                { "@type": "ListItem", position: 2, name: "Projects", item: `${SITE_ORIGIN}/projects` },
+                {
+                  "@type": "ListItem",
+                  position: 2,
+                  name: "Projects",
+                  item: `${SITE_ORIGIN}/projects-in-gurgaon`,
+                },
                 { "@type": "ListItem", position: 3, name: "Godrej Vrikshya", item: canonical },
               ],
             },
@@ -160,7 +168,7 @@ function Page() {
             <nav aria-label="Breadcrumb" className="text-xs text-white/55">
               <Link to="/">Home</Link>
               <span className="px-2">/</span>
-              <Link to="/projects">Projects</Link>
+              <Link to="/projects-in-gurgaon">Projects</Link>
               <span className="px-2">/</span>
               <span>Godrej Vrikshya</span>
             </nav>
@@ -182,7 +190,9 @@ function Page() {
             <p className="mt-7 max-w-2xl text-base leading-8 text-white/72 sm:text-lg">
               A research-first guide to Godrej Vrikshya with official developer and Haryana RERA
               references, current online resale signals, and a clear distinction between saleable
-              area and RERA carpet area. Godrej currently displays <strong className="text-white">₹3.81 Cr onwards*</strong> and <strong className="text-white">June 2031</strong> possession.
+              area and RERA carpet area. Godrej currently displays{" "}
+              <strong className="text-white">₹3.81 Cr onwards*</strong> and{" "}
+              <strong className="text-white">June 2031</strong> possession.
             </p>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
               <Button asChild size="xl" variant="gold">
@@ -196,7 +206,9 @@ function Page() {
                 </a>
               </Button>
               <Button asChild size="xl" variant="goldOutline">
-                <a href="#price">Check 1,948 Sq Ft Market <ArrowRight /></a>
+                <a href="#price">
+                  Check 1,948 Sq Ft Market <ArrowRight />
+                </a>
               </Button>
             </div>
           </div>
@@ -205,15 +217,22 @@ function Page() {
             <div className="flex items-center gap-3">
               <Trees className="size-8 text-gold" />
               <div>
-                <p className="text-xs uppercase tracking-[0.18em] text-white/55">Verified project snapshot</p>
+                <p className="text-xs uppercase tracking-[0.18em] text-white/55">
+                  Verified project snapshot
+                </p>
                 <p className="font-display text-2xl">Godrej Vrikshya</p>
               </div>
             </div>
             <dl className="mt-7 space-y-4">
               {FACTS.map(([label, value]) => (
-                <div key={label} className="flex items-start justify-between gap-5 border-b border-white/10 pb-4">
+                <div
+                  key={label}
+                  className="flex items-start justify-between gap-5 border-b border-white/10 pb-4"
+                >
                   <dt className="text-sm text-white/55">{label}</dt>
-                  <dd className="max-w-[58%] text-right text-sm font-semibold text-white">{value}</dd>
+                  <dd className="max-w-[58%] text-right text-sm font-semibold text-white">
+                    {value}
+                  </dd>
                 </div>
               ))}
             </dl>
@@ -225,7 +244,10 @@ function Page() {
         </div>
       </section>
 
-      <nav className="sticky top-0 z-30 border-b border-border bg-background/95 backdrop-blur" aria-label="Page sections">
+      <nav
+        className="sticky top-0 z-30 border-b border-border bg-background/95 backdrop-blur"
+        aria-label="Page sections"
+      >
         <div className="container-page flex gap-7 overflow-x-auto py-4 text-sm font-medium text-muted-foreground">
           {[
             ["Overview", "#overview"],
@@ -251,16 +273,28 @@ function Page() {
         <dl className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
           {FACTS.map(([label, value]) => (
             <div key={label} className="bg-card p-5">
-              <dt className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">{label}</dt>
+              <dt className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                {label}
+              </dt>
               <dd className="mt-2 font-display text-lg text-navy">{value}</dd>
             </div>
           ))}
         </dl>
         <div className="mt-7 flex flex-wrap gap-4 text-sm">
-          <a href={GODREJ_PAGE} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 font-medium text-gold hover:underline">
+          <a
+            href={GODREJ_PAGE}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-1.5 font-medium text-gold hover:underline"
+          >
             Official Godrej project page <ExternalLink className="size-4" />
           </a>
-          <a href={RERA_PAGE} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 font-medium text-gold hover:underline">
+          <a
+            href={RERA_PAGE}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-1.5 font-medium text-gold hover:underline"
+          >
             Haryana RERA record <ExternalLink className="size-4" />
           </a>
         </div>
@@ -276,25 +310,43 @@ function Page() {
           />
           <div className="mt-10 overflow-hidden rounded-2xl border border-border bg-card">
             <div className="grid grid-cols-[1fr_.9fr_.9fr] gap-3 border-b border-border bg-muted/40 px-5 py-4 text-xs font-semibold uppercase tracking-wide text-muted-foreground sm:grid-cols-4">
-              <span>Source</span><span>Area label</span><span>Asking</span><span className="hidden sm:block">Reference</span>
+              <span>Source</span>
+              <span>Area label</span>
+              <span>Asking</span>
+              <span className="hidden sm:block">Reference</span>
             </div>
             {RESALE_SNAPSHOT.map(([source, area, asking, reference]) => (
-              <div key={source} className="grid grid-cols-[1fr_.9fr_.9fr] gap-3 border-b border-border px-5 py-4 text-sm last:border-0 sm:grid-cols-4">
-                <span className="font-medium text-navy">{source}</span><span>{area}</span><span className="font-semibold">{asking}</span><span className="hidden text-muted-foreground sm:block">{reference}</span>
+              <div
+                key={source}
+                className="grid grid-cols-[1fr_.9fr_.9fr] gap-3 border-b border-border px-5 py-4 text-sm last:border-0 sm:grid-cols-4"
+              >
+                <span className="font-medium text-navy">{source}</span>
+                <span>{area}</span>
+                <span className="font-semibold">{asking}</span>
+                <span className="hidden text-muted-foreground sm:block">{reference}</span>
               </div>
             ))}
           </div>
           <div className="mt-7 rounded-2xl border border-amber-200 bg-amber-50 p-5 text-sm leading-7 text-amber-950">
-            <strong>Area caution:</strong> 1,948 sq ft is an online saleable/super-area label in these
-            advertisements. Do not equate it with RERA carpet area. Compare the exact allotment
-            letter, agreement for sale, carpet area, balcony/exclusive area, payment status and
-            remaining builder demands before calculating the effective price.
+            <strong>Area caution:</strong> 1,948 sq ft is an online saleable/super-area label in
+            these advertisements. Do not equate it with RERA carpet area. Compare the exact
+            allotment letter, agreement for sale, carpet area, balcony/exclusive area, payment
+            status and remaining builder demands before calculating the effective price.
           </div>
           <div className="mt-7 flex flex-wrap gap-4">
             <Button asChild variant="gold">
-              <a href={WA} target="_blank" rel="noreferrer" onClick={() => trackContact("whatsapp", "godrej_vrikshya_price")}>Ask for Verified 1,948 Sq Ft Inventory <MessageCircle /></a>
+              <a
+                href={WA}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => trackContact("whatsapp", "godrej_vrikshya_price")}
+              >
+                Ask for Verified 1,948 Sq Ft Inventory <MessageCircle />
+              </a>
             </Button>
-            <Button asChild variant="outline"><Link to="/haryana-stamp-duty-registration-calculator">Estimate Stamp Duty</Link></Button>
+            <Button asChild variant="outline">
+              <Link to="/haryana-stamp-duty-registration-calculator">Estimate Stamp Duty</Link>
+            </Button>
           </div>
         </div>
       </section>
@@ -314,7 +366,12 @@ function Page() {
             </article>
           ))}
         </div>
-        <a href={GODREJ_AMENITIES} target="_blank" rel="noreferrer" className="mt-7 inline-flex items-center gap-1.5 text-sm font-medium text-gold hover:underline">
+        <a
+          href={GODREJ_AMENITIES}
+          target="_blank"
+          rel="noreferrer"
+          className="mt-7 inline-flex items-center gap-1.5 text-sm font-medium text-gold hover:underline"
+        >
           View official Godrej amenities <ExternalLink className="size-4" />
         </a>
       </section>
@@ -330,23 +387,47 @@ function Page() {
             />
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
-            <Link to="/dwarka-expressway-flats-for-sale-gurgaon" className="rounded-2xl border border-border bg-card p-6 transition hover:border-gold/50">
+            <Link
+              to="/dwarka-expressway-flats-for-sale-gurgaon"
+              className="rounded-2xl border border-border bg-card p-6 transition hover:border-gold/50"
+            >
               <Building2 className="size-6 text-gold" />
-              <h3 className="mt-4 font-display text-xl text-navy">Dwarka Expressway flats for sale</h3>
-              <p className="mt-2 text-sm leading-6 text-muted-foreground">Compare current inventory and projects across the corridor.</p>
+              <h3 className="mt-4 font-display text-xl text-navy">
+                Dwarka Expressway flats for sale
+              </h3>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                Compare current inventory and projects across the corridor.
+              </p>
             </Link>
-            <Link to="/locations/dwarka-expressway" className="rounded-2xl border border-border bg-card p-6 transition hover:border-gold/50">
+            <Link
+              to="/locations/dwarka-expressway"
+              className="rounded-2xl border border-border bg-card p-6 transition hover:border-gold/50"
+            >
               <MapPin className="size-6 text-gold" />
-              <h3 className="mt-4 font-display text-xl text-navy">Dwarka Expressway location guide</h3>
-              <p className="mt-2 text-sm leading-6 text-muted-foreground">Review the wider location, connectivity and property context.</p>
+              <h3 className="mt-4 font-display text-xl text-navy">
+                Dwarka Expressway location guide
+              </h3>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                Review the wider location, connectivity and property context.
+              </p>
             </Link>
-            <Link to="/projects/aipl-riviera-resale-sector-103-gurgaon" className="rounded-2xl border border-border bg-card p-6 transition hover:border-gold/50">
+            <Link
+              to="/projects/aipl-riviera-sector-103-gurgaon-apartments"
+              className="rounded-2xl border border-border bg-card p-6 transition hover:border-gold/50"
+            >
               <h3 className="font-display text-xl text-navy">Compare AIPL Riviera, Sector 103</h3>
-              <p className="mt-2 text-sm leading-6 text-muted-foreground">Another Sector 103 under-construction option for a unit-level comparison.</p>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                Another Sector 103 under-construction option for a unit-level comparison.
+              </p>
             </Link>
-            <Link to="/projects/emaar-urban-oasis-sector-62" className="rounded-2xl border border-border bg-card p-6 transition hover:border-gold/50">
+            <Link
+              to="/projects/emaar-urban-oasis-sector-62-gurgaon-apartments"
+              className="rounded-2xl border border-border bg-card p-6 transition hover:border-gold/50"
+            >
               <h3 className="font-display text-xl text-navy">Compare Emaar Urban Oasis</h3>
-              <p className="mt-2 text-sm leading-6 text-muted-foreground">Compare a Golf Course Extension Road premium project with Sector 103.</p>
+              <p className="mt-2 text-sm leading-6 text-muted-foreground">
+                Compare a Golf Course Extension Road premium project with Sector 103.
+              </p>
             </Link>
           </div>
         </div>
@@ -360,12 +441,30 @@ function Page() {
         />
         <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {[
-            ["Unit documents", "Allotment letter, agreement for sale, area statement and exact tower/unit identity."],
-            ["Payment status", "Amount paid, future builder demands, overdue interest if any and seller receivables."],
-            ["Transfer economics", "Transfer eligibility, applicable charges, taxes and documentation required for assignment/resale."],
-            ["RERA verification", "Project registration, phase/tower details and consistency with the exact unit documentation."],
-            ["Price comparison", "Like-for-like floor, facing, view, area basis and payment plan—not headline ₹/sq ft alone."],
-            ["Loan feasibility", "Bank valuation, eligibility, funding stage and transaction structure before commitment."],
+            [
+              "Unit documents",
+              "Allotment letter, agreement for sale, area statement and exact tower/unit identity.",
+            ],
+            [
+              "Payment status",
+              "Amount paid, future builder demands, overdue interest if any and seller receivables.",
+            ],
+            [
+              "Transfer economics",
+              "Transfer eligibility, applicable charges, taxes and documentation required for assignment/resale.",
+            ],
+            [
+              "RERA verification",
+              "Project registration, phase/tower details and consistency with the exact unit documentation.",
+            ],
+            [
+              "Price comparison",
+              "Like-for-like floor, facing, view, area basis and payment plan—not headline ₹/sq ft alone.",
+            ],
+            [
+              "Loan feasibility",
+              "Bank valuation, eligibility, funding stage and transaction structure before commitment.",
+            ],
           ].map(([name, body]) => (
             <article key={name} className="rounded-2xl border border-border bg-card p-6">
               <CheckCircle2 className="size-5 text-gold" />
@@ -375,14 +474,25 @@ function Page() {
           ))}
         </div>
         <div className="mt-8 flex flex-wrap gap-3">
-          <Button asChild variant="navy"><Link to="/property-buying-advisory-gurgaon">Property Buying Advisory <ArrowRight /></Link></Button>
-          <Button asChild variant="outline"><Link to="/blog/gurgaon-property-due-diligence-checklist-2026">Due Diligence Checklist</Link></Button>
+          <Button asChild variant="navy">
+            <Link to="/property-buying-advisory-gurgaon">
+              Property Buying Advisory <ArrowRight />
+            </Link>
+          </Button>
+          <Button asChild variant="outline">
+            <Link to="/blog/gurgaon-property-due-diligence-checklist-2026">
+              Due Diligence Checklist
+            </Link>
+          </Button>
         </div>
       </section>
 
       <section id="faq" className="border-y border-border bg-secondary/25 py-16 sm:py-20">
         <div className="container-page">
-          <Heading eyebrow="Buyer FAQ" title="Godrej Vrikshya questions buyers should resolve before paying a token" />
+          <Heading
+            eyebrow="Buyer FAQ"
+            title="Godrej Vrikshya questions buyers should resolve before paying a token"
+          />
           <div className="mt-9 grid gap-4 lg:grid-cols-2">
             {FAQS.map(([q, a]) => (
               <article key={q} className="rounded-2xl border border-border bg-card p-6">
@@ -398,8 +508,14 @@ function Page() {
         <div className="grid gap-8 rounded-3xl surface-navy p-7 text-white sm:p-10 lg:grid-cols-[1fr_24rem]">
           <div>
             <p className="eyebrow">Current inventory request</p>
-            <h2 className="mt-3 font-display text-3xl sm:text-4xl">Shortlist the exact unit—not just the project</h2>
-            <p className="mt-4 max-w-2xl leading-7 text-white/70">Share your preferred budget, 3 or 4 BHK requirement, floor/view preference and whether you are considering new booking or resale. We can compare payment status and effective acquisition cost before a site visit.</p>
+            <h2 className="mt-3 font-display text-3xl sm:text-4xl">
+              Shortlist the exact unit—not just the project
+            </h2>
+            <p className="mt-4 max-w-2xl leading-7 text-white/70">
+              Share your preferred budget, 3 or 4 BHK requirement, floor/view preference and whether
+              you are considering new booking or resale. We can compare payment status and effective
+              acquisition cost before a site visit.
+            </p>
           </div>
           <div className="rounded-2xl bg-white p-5 text-foreground">
             <EnquiryForm interest="Godrej Vrikshya Sector 103" compact includeRequirements />
