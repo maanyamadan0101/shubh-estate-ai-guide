@@ -25,17 +25,29 @@ import { SITE_ORIGIN } from "@/lib/seo";
 
 const PAGE_PATH = "/projects/dlf-the-primus-sector-82a-gurgaon-apartments";
 const canonical = `${SITE_ORIGIN}${PAGE_PATH}`;
-const title = "DLF Primus Sector 82A Resale | Verified 3 & 4 BHK";
+const title = "DLF The Primus 4 BHK for Sale Gurgaon | 2576 Sq Ft";
 const description =
-  "View verified DLF Primus Sector 82A resale inventory, 3 & 4 BHK prices, floor plans, amenities and buyer checks. Request current units.";
-const LAST_REVIEWED = "24 August 2026";
+  "4 BHK 2576 sq ft DLF apartment for sale in Sector 82A Gurgaon. 11th floor, sun-facing. Contact Shubh Estate Brokers for price and site visit.";
+const PRICE_GUIDE_REVIEWED = "24 August 2026";
+const UNIT_LISTING_REVIEWED = "23 September 2026";
 
 const DLF_CORPORATE_PAGE = "https://www.dlf.in/";
+const INSTAGRAM_REEL_URL = "https://www.instagram.com/reel/DdlnpV5HIG7/";
+const INSTAGRAM_EMBED_URL = "https://www.instagram.com/reel/DdlnpV5HIG7/embed";
 
 const WHATSAPP_MESSAGE = encodeURIComponent(
-  "Hello Mr Arun Madaan, I am interested in a resale or rental apartment at DLF The Primus, Sector 82A Gurgaon. Please share current verified units with configuration, tower, floor, facing, view, furnishing and total price.",
+  "Hello Mr Arun Madaan, I am interested in the 4 BHK 2576 sq ft apartment for sale at DLF The Primus, Sector 82A Gurgaon, on the 11th floor and sun-facing. Please share the current asking price, tower, parking, furnishing, inclusions and site-visit availability.",
 );
 const WHATSAPP_URL = `${CONTACT.whatsapp}?text=${WHATSAPP_MESSAGE}`;
+
+const CURRENT_UNIT = [
+  ["Configuration", "4 BHK"],
+  ["Super area", "2,576 sq ft"],
+  ["Floor", "11th floor"],
+  ["Facing", "Sun-facing"],
+  ["Status", "For sale · Ready to move"],
+  ["Location", "Sector 82A, Gurgaon"],
+] as const;
 
 const QUICK_FACTS = [
   ["Status", "Ready to move"],
@@ -150,6 +162,10 @@ const BUYER_CHECKS = [
 
 const FAQS = [
   {
+    q: "Is a 2576 sq ft 4 BHK currently available for sale at DLF The Primus?",
+    a: "Yes. As of 23 September 2026, Shubh Estate Brokers is marketing a 2,576 sq ft 4 BHK resale apartment on the 11th floor, described as sun-facing. Availability can change, so buyers should confirm the current asking price, tower, parking, furnishing and inclusions before planning a visit.",
+  },
+  {
     q: "What is the current resale price of DLF The Primus Sector 82A?",
     a: "Indicative asking guidance reviewed in August 2026 is approximately ₹2.80-3.50 crore for the principal 3 BHK layouts and approximately ₹3.80-4.60 crore for the principal 4 BHK layouts. The executable price depends on tower, floor, facing, view, condition, furnishing, parking, seller urgency and availability.",
   },
@@ -162,6 +178,10 @@ const FAQS = [
     a: "The principal published 3 and 4 BHK super-area layouts are approximately 1,799 sq ft, 2,086 sq ft, 2,273 sq ft and 2,576 sq ft. The exact area and configuration must be matched to the seller's title and project documents.",
   },
   {
+    q: "Who can help me buy a DLF apartment for sale in Gurgaon?",
+    a: "Shubh Estate Brokers is an independent professional real estate brokerage in Gurugram assisting buyers with DLF resale apartments, unit shortlisting, site visits, price comparison, documentation coordination, valuation and home-loan support. Shubh Estate Brokers is not an official DLF sales office.",
+  },
+  {
     q: "What rent can an apartment at DLF The Primus achieve?",
     a: "Current public asking examples commonly place semi-furnished 3 BHK homes around ₹45,000-60,000 per month and larger or better-furnished 4 BHK homes around ₹55,000-75,000 or more. Actual rent depends on size, furnishing, floor, view, condition and lease terms; rent and occupancy are not guaranteed.",
   },
@@ -170,8 +190,8 @@ const FAQS = [
     a: "Yes. DLF The Primus is an occupied, ready-to-move residential development, with possession reported from January 2017.",
   },
   {
-    q: "Can an NRI buy a resale apartment remotely?",
-    a: "Initial shortlisting, live video inspection, document collection, price comparison and loan coordination can be handled remotely. NRI buyers should obtain transaction-specific legal and tax advice for FEMA-compliant payments, TDS, power of attorney and future repatriation.",
+    q: "Can an overseas Indian buyer shortlist a resale apartment remotely?",
+    a: "Initial shortlisting, live video inspection, document collection, price comparison and loan coordination can be handled remotely. Overseas buyers should obtain transaction-specific legal and tax advice for FEMA-compliant payments, TDS, power of attorney and future repatriation where applicable.",
   },
 ] as const;
 
@@ -180,7 +200,7 @@ export const Route = createFileRoute("/projects/dlf-the-primus-sector-82a-gurgao
     meta: [
       { title },
       { name: "description", content: description },
-      { name: "robots", content: "index,follow,max-image-preview:large" },
+      { name: "robots", content: "index,follow,max-image-preview:large,max-video-preview:-1" },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
@@ -245,6 +265,62 @@ export const Route = createFileRoute("/projects/dlf-the-primus-sector-82a-gurgao
               ],
             },
             {
+              "@type": "Apartment",
+              "@id": `${canonical}#current-2576-unit`,
+              name: "4 BHK 2576 sq ft apartment for sale in DLF The Primus Sector 82A Gurgaon",
+              url: canonical,
+              description:
+                "Current resale opportunity: 4 BHK, 2,576 sq ft, 11th floor, sun-facing apartment in DLF The Primus, Sector 82A Gurgaon.",
+              numberOfRooms: 4,
+              floorSize: {
+                "@type": "QuantitativeValue",
+                value: 2576,
+                unitText: "sq ft",
+              },
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: "DLF The Primus, Sector 82A",
+                addressLocality: "Gurugram",
+                addressRegion: "Haryana",
+                postalCode: "122004",
+                addressCountry: "IN",
+              },
+              containedInPlace: { "@id": `${canonical}#project` },
+              additionalProperty: [
+                { "@type": "PropertyValue", name: "Floor", value: "11th floor" },
+                { "@type": "PropertyValue", name: "Facing", value: "Sun-facing" },
+                { "@type": "PropertyValue", name: "Transaction", value: "Resale / for sale" },
+                { "@type": "PropertyValue", name: "Status", value: "Ready to move" },
+                { "@type": "PropertyValue", name: "Listing reviewed", value: UNIT_LISTING_REVIEWED },
+              ],
+            },
+            {
+              "@type": "RealEstateAgent",
+              "@id": `${SITE_ORIGIN}/#real-estate-agent`,
+              name: CONTACT.name,
+              url: SITE_ORIGIN,
+              telephone: "+919911050561",
+              email: CONTACT.email,
+              description:
+                "Professional estate brokers and property dealers in Gurgaon helping buyers and sellers with apartments, DLF resales, valuation, documentation, home-loan coordination and site visits.",
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: "15th Floor, Ocus Quantum Mall, Sector 51",
+                addressLocality: "Gurugram",
+                addressRegion: "Haryana",
+                postalCode: "122003",
+                addressCountry: "IN",
+              },
+              areaServed: { "@type": "City", name: "Gurugram (Gurgaon)" },
+              knowsAbout: [
+                "Apartments for sale in Gurgaon",
+                "DLF resale apartments in Gurgaon",
+                "Property buying and selling in Gurgaon",
+                "Property valuation and documentation",
+                "Home-loan coordination",
+              ],
+            },
+            {
               "@type": "FAQPage",
               mainEntity: FAQS.map((faq) => ({
                 "@type": "Question",
@@ -282,10 +358,10 @@ function DLFThePrimusPage() {
             <div>
               <div className="flex flex-wrap gap-2">
                 <Badge className="border-gold/35 bg-gold/10 text-gold hover:bg-gold/10">
-                  Ready-to-move resale guide
+                  2576 sq ft unit currently available
                 </Badge>
                 <Badge className="border-white/15 bg-white/5 text-white/75 hover:bg-white/5">
-                  Independent buyer advisory
+                  Independent resale advisory
                 </Badge>
               </div>
               <p className="mt-7 text-xs font-semibold uppercase tracking-[0.22em] text-gold">
@@ -293,14 +369,13 @@ function DLFThePrimusPage() {
               </p>
               <h1 className="mt-4 max-w-5xl font-display text-4xl leading-[1.08] sm:text-5xl lg:text-6xl">
                 <span className="block text-white">DLF The Primus</span>{" "}
-                <span className="mt-2 block text-gradient-gold">3 & 4 BHK resale apartments</span>
+                <span className="mt-2 block text-gradient-gold">4 BHK apartment for sale in Gurgaon</span>
               </h1>
               <p className="mt-6 max-w-3xl text-base leading-8 text-white/72 md:text-lg">
-                Compare ready-to-move homes by exact tower, floor, view, condition and ownership
-                papers. Current public asking guidance spans roughly{" "}
-                <strong className="font-semibold text-white">₹2.80 crore to ₹4.60 crore</strong>{" "}
-                across the principal 3 and 4 BHK layouts. Contact Shubh Estate Brokers for the best
-                presently available unit and a complete acquisition-cost breakup.
+                Current resale opportunity: a <strong className="font-semibold text-white">2,576 sq ft 4 BHK</strong>{" "}
+                apartment on the <strong className="font-semibold text-white">11th floor</strong>, described as{" "}
+                <strong className="font-semibold text-white">sun-facing</strong>. Contact Shubh Estate Brokers for the
+                current asking price, exact unit details and a site visit.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 <Button asChild size="xl" variant="gold">
@@ -308,54 +383,46 @@ function DLFThePrimusPage() {
                     href={WHATSAPP_URL}
                     target="_blank"
                     rel="noreferrer"
-                    onClick={() => trackContact("whatsapp", "dlf_primus_hero")}
+                    onClick={() => trackContact("whatsapp", "dlf_primus_current_unit_hero")}
                   >
-                    Check Current Inventory <MessageCircle aria-hidden="true" />
+                    Ask Current Price <MessageCircle aria-hidden="true" />
                   </a>
                 </Button>
                 <Button asChild size="xl" variant="goldOutline">
-                  <a href="#price-guide">
-                    View Size & Price Guide <ArrowRight aria-hidden="true" />
+                  <a href="#available-unit">
+                    View 2576 Sq Ft Unit <ArrowRight aria-hidden="true" />
                   </a>
                 </Button>
               </div>
               <p className="mt-5 flex items-center gap-2 text-xs text-white/50">
                 <ShieldCheck aria-hidden="true" className="size-4 text-gold" />
-                Price, availability and specifications are verified against the shortlisted unit.
+                Unit availability reviewed {UNIT_LISTING_REVIEWED}. Price and inclusions should be reconfirmed before a visit.
               </p>
             </div>
 
             <aside className="rounded-[1.75rem] border border-white/15 bg-white/[0.06] p-7 shadow-2xl backdrop-blur-md">
-              <p className="text-xs uppercase tracking-[0.18em] text-gold">
-                Current resale context
-              </p>
-              <p className="mt-3 font-display text-4xl">₹2.80-4.60 Cr*</p>
-              <p className="mt-2 text-sm leading-6 text-white/60">
-                Indicative asking range across principal 3 and 4 BHK layouts
-              </p>
+              <p className="text-xs uppercase tracking-[0.18em] text-gold">Featured resale unit</p>
+              <p className="mt-3 font-display text-4xl">2,576 Sq Ft</p>
+              <p className="mt-2 text-sm leading-6 text-white/60">4 BHK · 11th floor · Sun-facing</p>
               <div className="my-6 h-px bg-gradient-to-r from-gold/60 to-transparent" />
               <dl className="grid grid-cols-2 gap-5 text-sm">
                 <div>
-                  <dt className="text-white/45">3 BHK sizes</dt>
-                  <dd className="mt-1 font-medium">1,799 / 2,086 sq ft</dd>
+                  <dt className="text-white/45">Project</dt>
+                  <dd className="mt-1 font-medium">DLF The Primus</dd>
                 </div>
                 <div>
-                  <dt className="text-white/45">4 BHK sizes</dt>
-                  <dd className="mt-1 font-medium">2,273 / 2,576 sq ft</dd>
+                  <dt className="text-white/45">Location</dt>
+                  <dd className="mt-1 font-medium">Sector 82A</dd>
                 </div>
                 <div>
                   <dt className="text-white/45">Status</dt>
                   <dd className="mt-1 font-medium">Ready to move</dd>
                 </div>
                 <div>
-                  <dt className="text-white/45">Possession</dt>
-                  <dd className="mt-1 font-medium">Since Jan 2017</dd>
+                  <dt className="text-white/45">Price</dt>
+                  <dd className="mt-1 font-medium">On request</dd>
                 </div>
               </dl>
-              <p className="mt-6 text-xs leading-5 text-white/45">
-                *Not a live-stock guarantee. Exact price varies by tower, floor, facing, view,
-                apartment condition, furnishing, parking and seller terms. Reviewed {LAST_REVIEWED}.
-              </p>
             </aside>
           </div>
         </div>
@@ -367,6 +434,7 @@ function DLFThePrimusPage() {
       >
         <div className="container-page flex gap-7 overflow-x-auto py-4 text-sm font-medium text-muted-foreground">
           {[
+            ["Available 2576 unit", "#available-unit"],
             ["Overview", "#overview"],
             ["Prices", "#price-guide"],
             ["Specifications", "#specifications"],
@@ -380,6 +448,80 @@ function DLFThePrimusPage() {
           ))}
         </div>
       </nav>
+
+      <section id="available-unit" className="border-b border-border bg-card">
+        <div className="container-page py-14 md:py-20">
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start">
+            <div>
+              <p className="eyebrow">Current resale opportunity</p>
+              <h2 className="mt-3 max-w-4xl font-display text-3xl leading-tight text-navy sm:text-4xl">
+                4 BHK 2576 sq ft DLF apartment for sale in Sector 82A Gurgaon
+              </h2>
+              <p className="mt-5 max-w-4xl text-base leading-8 text-muted-foreground">
+                Shubh Estate Brokers is currently marketing this spacious 2,576 sq ft 4 BHK apartment in
+                DLF The Primus. The home is on the 11th floor and is described as sun-facing, making it a
+                relevant option for buyers searching for a large ready-to-move DLF apartment for sale in Gurgaon.
+              </p>
+              <p className="mt-4 max-w-4xl text-sm leading-7 text-muted-foreground">
+                The asking price is deliberately shown on request because a live resale price should be reconfirmed
+                with the seller. Exact tower, parking, furnishing, fixtures and other inclusions will be shared with
+                serious buyers before or during the site-visit discussion.
+              </p>
+
+              <div className="mt-8 grid gap-px overflow-hidden rounded-2xl border border-border sm:grid-cols-2 lg:grid-cols-3">
+                {CURRENT_UNIT.map(([label, value]) => (
+                  <div key={label} className="bg-background px-5 py-5">
+                    <p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">{label}</p>
+                    <p className="mt-2 font-display text-xl text-navy">{value}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+                <Button asChild size="lg" variant="gold">
+                  <a
+                    href={WHATSAPP_URL}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() => trackContact("whatsapp", "dlf_primus_2576_unit")}
+                  >
+                    <MessageCircle aria-hidden="true" /> Get Price and Unit Details
+                  </a>
+                </Button>
+                <Button asChild size="lg" variant="goldOutline">
+                  <a href={CONTACT.phoneHref} onClick={() => trackContact("phone", "dlf_primus_2576_unit")}>
+                    <Phone aria-hidden="true" /> Book a Site Visit
+                  </a>
+                </Button>
+                <Button asChild size="lg" variant="outline">
+                  <a href={INSTAGRAM_REEL_URL} target="_blank" rel="noreferrer">
+                    Watch Video Walkthrough <ArrowRight aria-hidden="true" />
+                  </a>
+                </Button>
+              </div>
+              <p className="mt-5 text-xs leading-6 text-muted-foreground">
+                Listing details reviewed {UNIT_LISTING_REVIEWED}. Resale inventory can be sold, withdrawn or revised without notice.
+              </p>
+            </div>
+
+            <aside className="overflow-hidden rounded-2xl border border-border bg-muted/35 p-3 shadow-sm">
+              <div className="aspect-[9/16] overflow-hidden rounded-xl bg-black">
+                <iframe
+                  title="DLF The Primus 2576 sq ft apartment video walkthrough"
+                  src={INSTAGRAM_EMBED_URL}
+                  className="h-full w-full border-0"
+                  loading="lazy"
+                  allow="autoplay; encrypted-media; picture-in-picture"
+                  allowFullScreen
+                />
+              </div>
+              <p className="px-2 pb-2 pt-4 text-sm leading-6 text-muted-foreground">
+                Video walkthrough of the featured DLF The Primus resale opportunity.
+              </p>
+            </aside>
+          </div>
+        </div>
+      </section>
 
       <section id="overview" className="border-b border-border bg-card">
         <div className="container-page grid gap-px sm:grid-cols-2 lg:grid-cols-3">
@@ -432,11 +574,11 @@ function DLFThePrimusPage() {
             <div className="flex size-11 items-center justify-center rounded-full bg-gold/15 text-gold">
               <IndianRupee aria-hidden="true" className="size-5" />
             </div>
-            <h3 className="mt-5 font-display text-2xl text-navy">Important price correction</h3>
+            <h3 className="mt-5 font-display text-2xl text-navy">Live price should be reconfirmed</h3>
             <p className="mt-3 text-sm leading-7 text-muted-foreground">
-              ₹1.85 crore is an old launch-era reference seen in historical marketing. It is not
-              presented here as a current resale starting price. Ask for a fresh unit-wise cost
-              sheet before making a buying decision.
+              Portal asking prices are useful for comparison but are not a substitute for the seller&apos;s
+              current expectation and the exact unit&apos;s condition, floor, facing, view and inclusions.
+              Ask for a fresh unit-wise cost sheet before making a buying decision.
             </p>
           </aside>
         </div>
@@ -450,9 +592,8 @@ function DLFThePrimusPage() {
               DLF The Primus price and configuration guide
             </h2>
             <p className="mt-4 leading-7 text-muted-foreground">
-              These are indicative asking ranges for initial comparison, not guaranteed transaction
-              prices. The 2,086 sq ft figure corrects the 2,066 sq ft transcription commonly seen on
-              some marketing pages.
+              These are indicative asking ranges for initial comparison, not guaranteed transaction prices.
+              The featured 2,576 sq ft apartment&apos;s current seller expectation is available on request.
             </p>
           </div>
 
@@ -479,33 +620,10 @@ function DLFThePrimusPage() {
             </table>
           </div>
           <p className="mt-4 text-xs leading-6 text-muted-foreground">
-            *Indicative public asking context reviewed {LAST_REVIEWED}. Registration, stamp duty,
-            brokerage and other transaction expenses are separate unless a written quotation states
-            otherwise. Verify the exact area and configuration from the unit documents.
+            *Indicative public asking context reviewed {PRICE_GUIDE_REVIEWED}. Registration, stamp duty,
+            brokerage and other transaction expenses are separate unless a written quotation states otherwise.
+            Verify the exact area and configuration from the unit documents.
           </p>
-
-          <div className="mt-8 grid gap-6 md:grid-cols-2">
-            <article className="rounded-2xl border border-border bg-card p-7">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gold">
-                Indicative 3 BHK rent
-              </p>
-              <p className="mt-3 font-display text-3xl text-navy">₹45,000-60,000/month*</p>
-              <p className="mt-3 text-sm leading-6 text-muted-foreground">
-                Semi-furnished asking context; furnishing, condition, floor, view, parking and lease
-                terms materially affect rent.
-              </p>
-            </article>
-            <article className="rounded-2xl border border-border bg-card p-7">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gold">
-                Indicative 4 BHK rent
-              </p>
-              <p className="mt-3 font-display text-3xl text-navy">₹55,000-75,000+/month*</p>
-              <p className="mt-3 text-sm leading-6 text-muted-foreground">
-                Larger or better-furnished homes may command more. Rent, occupancy and yield are not
-                guaranteed.
-              </p>
-            </article>
-          </div>
         </div>
       </section>
 
@@ -568,6 +686,56 @@ function DLFThePrimusPage() {
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             />
+          </div>
+        </div>
+      </section>
+
+      <section className="border-b border-border bg-card">
+        <div className="container-page py-14 md:py-20">
+          <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_22rem]">
+            <div>
+              <p className="eyebrow">Professional Gurgaon property advisory</p>
+              <h2 className="mt-3 max-w-4xl font-display text-3xl leading-tight text-navy sm:text-4xl">
+                Looking for an apartment for sale in Gurgaon or a DLF resale apartment?
+              </h2>
+              <div className="mt-6 max-w-4xl space-y-5 text-base leading-8 text-muted-foreground">
+                <p>
+                  Buyers searching for an apartment for sale in Gurgaon often compare established DLF
+                  communities because the actual home, occupancy, common areas and maintenance can be inspected
+                  before purchase. This 2,576 sq ft Primus unit is a ready-to-move DLF apartment for sale in
+                  Gurgaon&apos;s Sector 82A and can be evaluated alongside other New Gurgaon resale options.
+                </p>
+                <p>
+                  Shubh Estate Brokers is an independent professional estate brokerage based in Gurugram. We help
+                  buyers and sellers with property shortlisting, resale comparisons, site visits, price discussions,
+                  documentation coordination, property valuation and home-loan support. If you are comparing
+                  property dealers in Gurgaon or looking for a property agent in Gurgaon, our focus is to provide
+                  exact unit-level information rather than generic portal data.
+                </p>
+                <p>
+                  We are not the developer&apos;s official sales office. Our role is independent resale and property
+                  advisory, with attention to title documents, transaction costs, lender requirements and practical
+                  buyer due diligence.
+                </p>
+              </div>
+            </div>
+            <aside className="h-fit rounded-2xl border border-gold/30 bg-gold/5 p-6">
+              <h3 className="font-display text-2xl text-navy">Shubh Estate Brokers</h3>
+              <p className="mt-3 text-sm leading-7 text-muted-foreground">
+                Professional estate brokers and property dealers in Gurgaon for residential resale, rentals,
+                valuation, documentation support and home-loan coordination.
+              </p>
+              <div className="mt-6 space-y-3 text-sm text-muted-foreground">
+                <p className="flex gap-2.5">
+                  <MapPin aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-gold" />
+                  {CONTACT.address}
+                </p>
+                <p className="flex gap-2.5">
+                  <Phone aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-gold" />
+                  {CONTACT.phone}
+                </p>
+              </div>
+            </aside>
           </div>
         </div>
       </section>
@@ -642,7 +810,7 @@ function DLFThePrimusPage() {
         </div>
       </section>
 
-      <nav aria-label="Related DLF The Primus property guides" className="container-page pb-4">
+      <nav aria-label="Related DLF The Primus property guides" className="container-page py-8">
         <div className="rounded-2xl border border-border bg-card p-6">
           <p className="text-xs font-semibold uppercase tracking-[0.16em] text-gold">
             Continue your research
@@ -662,7 +830,7 @@ function DLFThePrimusPage() {
               Ready-to-move flats in Gurgaon
             </Link>
             <Link to="/flats-for-sale-in-gurgaon" className="font-medium text-gold hover:underline">
-              Current Gurgaon resale inventory
+              Apartments and flats for sale in Gurgaon
             </Link>
             <Link to="/home-loans" className="font-medium text-gold hover:underline">
               Home-loan assistance
@@ -678,11 +846,12 @@ function DLFThePrimusPage() {
               Shubh Estate Brokers · Gurgaon Resale Desk
             </Badge>
             <h2 className="mt-5 max-w-3xl font-display text-3xl leading-tight text-navy sm:text-4xl">
-              Request the best available DLF The Primus unit
+              Enquire for the 2576 sq ft DLF The Primus apartment
             </h2>
             <p className="mt-5 max-w-3xl leading-7 text-muted-foreground">
-              Share your preferred configuration, budget, floor range and purpose. We will compare
-              the presently available resale or rental options and provide exact unit-level details.
+              Ask for the current seller expectation, tower, parking, furnishing, inclusions and available
+              site-visit slots. We can also compare this unit with other DLF and ready-to-move apartments for
+              sale in Gurgaon within your budget.
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
               <Button asChild size="lg" variant="gold">
@@ -692,7 +861,7 @@ function DLFThePrimusPage() {
                   rel="noreferrer"
                   onClick={() => trackContact("whatsapp", "dlf_primus_cta")}
                 >
-                  <MessageCircle aria-hidden="true" /> WhatsApp Arun Madaan
+                  <MessageCircle aria-hidden="true" /> WhatsApp Shubh Estate Brokers
                 </a>
               </Button>
               <Button asChild size="lg" variant="goldOutline">
@@ -712,7 +881,7 @@ function DLFThePrimusPage() {
               </p>
             </div>
           </div>
-          <EnquiryForm interest="DLF The Primus Sector 82A" />
+          <EnquiryForm interest="DLF The Primus 2576 sq ft 4 BHK Sector 82A" />
         </div>
       </section>
     </main>
