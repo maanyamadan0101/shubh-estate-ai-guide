@@ -16,6 +16,7 @@ const LOCATION_LINKS = [
 
 // Keep only search-intent URLs that are not already linked elsewhere in this footer.
 const POPULAR_SEARCH_LINKS = [
+  ["/gurgaon-property-guide", "Gurgaon Property Guide: Rent, Buy, Sell & Offices"],
   ["/blog/gurgaon-property-due-diligence-checklist-2026", "Property Due Diligence Checklist"],
   ["/dwarka-expressway-flats-for-sale-gurgaon", "Dwarka Expressway Flats for Sale"],
   ["/best-areas-gurgaon-property-investment", "Property Investment Areas"],
