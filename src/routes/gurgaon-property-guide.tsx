@@ -8,7 +8,7 @@ import { trackContact } from "@/lib/analytics";
 const canonical = `${SITE_ORIGIN}/gurgaon-property-guide`;
 const title = "Gurgaon Property Guide: Rent, Buy, Sell & Office Leasing";
 const description = "Compare Gurgaon rentals near metro, apartment prices and office leases. Get selling advice and a free initial valuation consultation. Call 9911050561.";
-const interests = ["1 BHK rental near metro", "Sell property: free valuation", "Buy apartment: corridor comparison", "Commercial office lease"];
+const interests = ["1 BHK rental near metro", "Sell property: free valuation", "Buy apartment: corridor comparison", "Commercial office lease"] as const;
 
 export const Route = createFileRoute("/gurgaon-property-guide")({
   head: () => ({
@@ -37,7 +37,7 @@ export const Route = createFileRoute("/gurgaon-property-guide")({
 });
 
 function GurgaonPropertyGuide() {
-  const [interest, setInterest] = useState(interests[0]);
+  const [interest, setInterest] = useState<string>(interests[0]);
   function onArticleClick(event: MouseEvent<HTMLElement>) {
     const anchor = (event.target as HTMLElement).closest("a");
     if (!anchor) return;
