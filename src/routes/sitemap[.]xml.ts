@@ -45,6 +45,11 @@ const STATIC_PATHS: StaticPath[] = [
     lastmod: "2026-08-20",
   },
   {
+    path: "/blog/psu-home-loans-smart-loan-balance-transfer-gurgaon",
+    priority: "0.9",
+    lastmod: "2026-09-24",
+  },
+  {
     path: "/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026",
     priority: "0.9",
     lastmod: "2026-08-20",
