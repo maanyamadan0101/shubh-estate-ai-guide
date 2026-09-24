@@ -137,6 +137,11 @@ export function PropertyView({
   const whatsappText = encodeURIComponent(
     `Hi Shubh Estate Brokers, I am interested in ${property.title} (${place}). Please share current availability and arrange a call.`,
   );
+  const photoWhatsappText = encodeURIComponent(
+    `Hi Shubh Estate Brokers, please share the latest photos of ${property.title} (${place}), Shubh property ID ${property.id.slice(0, 8).toUpperCase()}, on WhatsApp.`,
+  );
+  const propertyPhotosUnavailable =
+    gallery.length === 0 || images.some((image) => image.id === "licensed-project-fallback");
   const forSale = property.listing_type !== "rent";
   const superBuiltUpBasis = features.some(
     (feature) => feature.toLocaleLowerCase("en-IN") === "super built-up area basis",
@@ -183,6 +188,40 @@ export function PropertyView({
     },
     property.rera_number ? { icon: ShieldCheck, label: "RERA", value: property.rera_number } : null,
   ].filter(Boolean) as Array<{ icon: typeof Building2; label: string; value: string }>;
+
+  const photoRequestCta = (
+    <div className="rounded-xl border border-gold/30 bg-gold/5 px-6 py-7 text-center">
+      <div className="mx-auto flex max-w-2xl flex-col items-center">
+        <span className="flex size-11 items-center justify-center rounded-full bg-gold/15 text-gold">
+          <MessageCircle className="size-5" aria-hidden="true" />
+        </span>
+        <h2 className="mt-4 font-display text-2xl text-foreground">
+          Photos for this property are available on WhatsApp
+        </h2>
+        <p className="mt-2 text-sm leading-6 text-muted-foreground">
+          Actual unit photographs are not displayed on this page. Click below and we will share the
+          latest available photos for this exact listing on WhatsApp.
+        </p>
+        <Button asChild variant="gold" className="mt-5">
+          <a
+            href={`${CONTACT.whatsapp}?text=${photoWhatsappText}`}
+            target="_blank"
+            rel="noreferrer"
+            onClick={() => {
+              trackContact("whatsapp", "property_photo_request");
+              trackEvent("property_photo_request", { property_id: property.id });
+            }}
+          >
+            <MessageCircle className="size-4" aria-hidden="true" />
+            Get Property Photos on WhatsApp
+          </a>
+        </Button>
+        <p className="mt-3 text-xs text-muted-foreground">
+          Shubh property ID {property.id.slice(0, 8).toUpperCase()}
+        </p>
+      </div>
+    </div>
+  );
 
   return (
     <>
@@ -285,14 +324,10 @@ export function PropertyView({
               ))}
             </ul>
           ) : null}
+          {propertyPhotosUnavailable ? <div className="mt-4">{photoRequestCta}</div> : null}
         </section>
       ) : (
-        <section className="container-page mt-6">
-          <div className="flex aspect-[16/6] min-h-52 items-center justify-center rounded-xl border border-border bg-muted px-6 text-center text-sm text-muted-foreground">
-            Authorised property photographs are available on request. Arrange a verified site visit
-            with Shubh Estate Brokers.
-          </div>
-        </section>
+        <section className="container-page mt-6">{photoRequestCta}</section>
       )}
 
       {videos.length ? (
