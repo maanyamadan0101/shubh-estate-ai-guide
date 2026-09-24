@@ -28,6 +28,7 @@ import { Route as EmiCalculatorRouteImport } from './routes/emi-calculator'
 import { Route as FlatsForSaleInGurgaonRouteImport } from './routes/flats-for-sale-in-gurgaon'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as Godrej101Sector79GurgaonApartmentsRouteImport } from './routes/godrej-101-sector-79-gurgaon-apartments'
+import { Route as GurgaonPropertyGuideRouteImport } from './routes/gurgaon-property-guide'
 import { Route as GurugramGrowthStoryRouteImport } from './routes/gurugram-growth-story'
 import { Route as HaryanaStampDutyRegistrationCalculatorRouteImport } from './routes/haryana-stamp-duty-registration-calculator'
 import { Route as HigherFloorApartmentsGolfCourseExtensionRoadRouteImport } from './routes/higher-floor-apartments-golf-course-extension-road'
@@ -205,6 +206,11 @@ const Godrej101Sector79GurgaonApartmentsRoute =
     path: '/godrej-101-sector-79-gurgaon-apartments',
     getParentRoute: () => rootRouteImport,
   } as any)
+const GurgaonPropertyGuideRoute = GurgaonPropertyGuideRouteImport.update({
+  id: '/gurgaon-property-guide',
+  path: '/gurgaon-property-guide',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GurugramGrowthStoryRoute = GurugramGrowthStoryRouteImport.update({
   id: '/gurugram-growth-story',
   path: '/gurugram-growth-story',
@@ -623,6 +629,7 @@ export interface FileRoutesByFullPath {
   '/flats-for-sale-in-gurgaon': typeof FlatsForSaleInGurgaonRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/godrej-101-sector-79-gurgaon-apartments': typeof Godrej101Sector79GurgaonApartmentsRoute
+  '/gurgaon-property-guide': typeof GurgaonPropertyGuideRoute
   '/gurugram-growth-story': typeof GurugramGrowthStoryRoute
   '/haryana-stamp-duty-registration-calculator': typeof HaryanaStampDutyRegistrationCalculatorRoute
   '/higher-floor-apartments-golf-course-extension-road': typeof HigherFloorApartmentsGolfCourseExtensionRoadRoute
@@ -715,6 +722,7 @@ export interface FileRoutesByTo {
   '/flats-for-sale-in-gurgaon': typeof FlatsForSaleInGurgaonRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/godrej-101-sector-79-gurgaon-apartments': typeof Godrej101Sector79GurgaonApartmentsRoute
+  '/gurgaon-property-guide': typeof GurgaonPropertyGuideRoute
   '/gurugram-growth-story': typeof GurugramGrowthStoryRoute
   '/haryana-stamp-duty-registration-calculator': typeof HaryanaStampDutyRegistrationCalculatorRoute
   '/higher-floor-apartments-golf-course-extension-road': typeof HigherFloorApartmentsGolfCourseExtensionRoadRoute
@@ -808,6 +816,7 @@ export interface FileRoutesById {
   '/flats-for-sale-in-gurgaon': typeof FlatsForSaleInGurgaonRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/godrej-101-sector-79-gurgaon-apartments': typeof Godrej101Sector79GurgaonApartmentsRoute
+  '/gurgaon-property-guide': typeof GurgaonPropertyGuideRoute
   '/gurugram-growth-story': typeof GurugramGrowthStoryRoute
   '/haryana-stamp-duty-registration-calculator': typeof HaryanaStampDutyRegistrationCalculatorRoute
   '/higher-floor-apartments-golf-course-extension-road': typeof HigherFloorApartmentsGolfCourseExtensionRoadRoute
@@ -902,6 +911,7 @@ export interface FileRouteTypes {
     | '/flats-for-sale-in-gurgaon'
     | '/forgot-password'
     | '/godrej-101-sector-79-gurgaon-apartments'
+    | '/gurgaon-property-guide'
     | '/gurugram-growth-story'
     | '/haryana-stamp-duty-registration-calculator'
     | '/higher-floor-apartments-golf-course-extension-road'
@@ -994,6 +1004,7 @@ export interface FileRouteTypes {
     | '/flats-for-sale-in-gurgaon'
     | '/forgot-password'
     | '/godrej-101-sector-79-gurgaon-apartments'
+    | '/gurgaon-property-guide'
     | '/gurugram-growth-story'
     | '/haryana-stamp-duty-registration-calculator'
     | '/higher-floor-apartments-golf-course-extension-road'
@@ -1086,6 +1097,7 @@ export interface FileRouteTypes {
     | '/flats-for-sale-in-gurgaon'
     | '/forgot-password'
     | '/godrej-101-sector-79-gurgaon-apartments'
+    | '/gurgaon-property-guide'
     | '/gurugram-growth-story'
     | '/haryana-stamp-duty-registration-calculator'
     | '/higher-floor-apartments-golf-course-extension-road'
@@ -1180,6 +1192,7 @@ export interface RootRouteChildren {
   FlatsForSaleInGurgaonRoute: typeof FlatsForSaleInGurgaonRoute
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   Godrej101Sector79GurgaonApartmentsRoute: typeof Godrej101Sector79GurgaonApartmentsRoute
+  GurgaonPropertyGuideRoute: typeof GurgaonPropertyGuideRoute
   GurugramGrowthStoryRoute: typeof GurugramGrowthStoryRoute
   HaryanaStampDutyRegistrationCalculatorRoute: typeof HaryanaStampDutyRegistrationCalculatorRoute
   HigherFloorApartmentsGolfCourseExtensionRoadRoute: typeof HigherFloorApartmentsGolfCourseExtensionRoadRoute
@@ -1361,6 +1374,13 @@ declare module '@tanstack/react-router' {
       path: '/godrej-101-sector-79-gurgaon-apartments'
       fullPath: '/godrej-101-sector-79-gurgaon-apartments'
       preLoaderRoute: typeof Godrej101Sector79GurgaonApartmentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gurgaon-property-guide': {
+      id: '/gurgaon-property-guide'
+      path: '/gurgaon-property-guide'
+      fullPath: '/gurgaon-property-guide'
+      preLoaderRoute: typeof GurgaonPropertyGuideRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/gurugram-growth-story': {
@@ -1983,6 +2003,7 @@ const rootRouteChildren: RootRouteChildren = {
   ForgotPasswordRoute: ForgotPasswordRoute,
   Godrej101Sector79GurgaonApartmentsRoute:
     Godrej101Sector79GurgaonApartmentsRoute,
+  GurgaonPropertyGuideRoute: GurgaonPropertyGuideRoute,
   GurugramGrowthStoryRoute: GurugramGrowthStoryRoute,
   HaryanaStampDutyRegistrationCalculatorRoute:
     HaryanaStampDutyRegistrationCalculatorRoute,

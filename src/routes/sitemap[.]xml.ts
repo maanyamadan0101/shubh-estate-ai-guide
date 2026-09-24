@@ -13,6 +13,7 @@ type StaticPath = {
 const SEO_TEMPLATE_LASTMOD = "2026-08-27";
 
 const STATIC_PATHS: StaticPath[] = [
+  { path: "/gurgaon-property-guide", priority: "0.9", lastmod: "2026-09-24" },
   { path: "/jms-the-majestic-manesar-gurgaon-residences", priority: "0.9", lastmod: "2026-09-06" },
   { path: "/", priority: "1.0", lastmod: "2026-09-19" },
   { path: "/flats-for-sale-in-gurgaon", priority: "1.0", lastmod: "2026-09-19" },
