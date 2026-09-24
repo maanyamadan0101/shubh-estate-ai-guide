@@ -61,7 +61,8 @@ function GurgaonPropertyGuide() {
         <select id="guide-interest" value={interest} onChange={e => setInterest(e.target.value)} className="mb-6 mt-2 w-full rounded-md border bg-background p-3">
           {interests.map(value => <option key={value}>{value}</option>)}
         </select>
-        <EnquiryForm key={interest} interest={interest} includeRequirements submitLabel="Request My Consultation" />
+        <p className="mb-4 text-sm text-muted-foreground">In your message, include the project or preferred area, budget, size or team seats, and your target move-in or sale date.</p>
+        <EnquiryForm key={interest} interest={interest} includeRequirements={interest === interests[2]} submitLabel="Request My Consultation" />
       </section>
       <style>{`
         .property-guide { color: var(--foreground); line-height: 1.8; overflow-wrap: anywhere; }
