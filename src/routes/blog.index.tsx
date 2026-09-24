@@ -76,6 +76,13 @@ const FEATURED = [
     label: "New · Home Loan Guide",
   },
   {
+    title: "PSU Home Loans in Gurgaon: Rates, Smart Loans & Balance Transfers",
+    description:
+      "Compare Bank of India, Indian Bank, Bank of Maharashtra and Bank of Baroda rates, fees, CIBIL slabs, overdraft options, LTV, tenure and top-up terms.",
+    to: "/blog/psu-home-loans-smart-loan-balance-transfer-gurgaon",
+    label: "New · PSU Home Loan Guide",
+  },
+  {
     title: "Best Areas in Gurgaon for Property Investment",
     description:
       "Compare established and emerging Gurgaon corridors through an end-user and investment lens.",
