@@ -110,19 +110,11 @@ export function compactSeoTitle(value: string, maxLength = SEO_TITLE_MAX): strin
 export function buildSlug(s: SeoSource): string {
   const { type, searchCity } = parts(s);
   const area = s.areaSqft ? `${Math.round(s.areaSqft)} sq ft` : null;
-  const floor = s.floorNumber !== null && s.floorNumber !== undefined ? `${s.floorNumber} floor` : null;
+  const floor =
+    s.floorNumber !== null && s.floorNumber !== undefined ? `${s.floorNumber} floor` : null;
   const facing = s.facing ? `${s.facing} facing` : null;
   return slugify(
-    [
-      s.projectName || s.title,
-      s.sector,
-      s.bhk,
-      type,
-      area,
-      floor,
-      facing,
-      searchCity,
-    ]
+    [s.projectName || s.title, s.sector, s.bhk, type, area, floor, facing, searchCity]
       .filter(Boolean)
       .join(" "),
   );
@@ -142,15 +134,18 @@ export function buildSeoTitle(s: SeoSource): string {
   const project = s.projectName?.trim() || null;
   const sector = s.sector?.trim() || null;
   const area = s.areaSqft ? `${Math.round(s.areaSqft).toLocaleString("en-IN")} Sq Ft` : null;
-  const floor = s.floorNumber !== null && s.floorNumber !== undefined ? `Floor ${s.floorNumber}` : null;
+  const floor =
+    s.floorNumber !== null && s.floorNumber !== undefined ? `Floor ${s.floorNumber}` : null;
   const facing = s.facing?.trim() ? `${s.facing.trim()} Facing` : null;
   const allDetails = [area, floor, facing].filter(Boolean).join(" · ");
 
   const candidates = [
     project && sector && allDetails ? `${head} | ${allDetails} | ${project}, ${sector}` : null,
-    project && sector && area && floor ? `${head} | ${area} · ${floor} | ${project}, ${sector}` : null,
-    project && sector && area ? `${head} | ${area} | ${project}, ${sector}` : null,
+    project && sector && area && floor
+      ? `${head} | ${area} · ${floor} | ${project}, ${sector}`
+      : null,
     project && sector && floor ? `${head} | ${floor} | ${project}, ${sector}` : null,
+    project && sector && area ? `${head} | ${area} | ${project}, ${sector}` : null,
     project && sector && facing ? `${head} | ${facing} | ${project}, ${sector}` : null,
     project && area && floor ? `${head} | ${area} · ${floor} | ${project}` : null,
     project && area ? `${head} | ${area} | ${project}` : null,
@@ -165,7 +160,9 @@ export function buildSeoTitle(s: SeoSource): string {
   ].filter((value): value is string => Boolean(value));
 
   return compactSeoTitle(
-    candidates.find((value) => stripInternalListingReference(value).length <= SEO_TITLE_MAX) ?? candidates[0],
+    candidates.find((value) => stripInternalListingReference(value).length <= SEO_TITLE_MAX) ??
+      candidates[0] ??
+      `${head} in ${searchCity}`,
   );
 }
 
@@ -173,7 +170,10 @@ export function buildMetaDescription(s: SeoSource): string {
   const { type, searchCity } = parts(s);
   const listingIntent = s.listingType === "rent" ? "for rent" : "for sale";
   const subject = [s.bhk, type].filter(Boolean).join(" ");
-  const location = [s.projectName ? `at ${s.projectName}` : null, s.sector ? `in ${s.sector}, ${searchCity}` : `in ${searchCity}`]
+  const location = [
+    s.projectName ? `at ${s.projectName}` : null,
+    s.sector ? `in ${s.sector}, ${searchCity}` : `in ${searchCity}`,
+  ]
     .filter(Boolean)
     .join(" ");
   const details = [
@@ -209,7 +209,14 @@ export function buildImageAlt(s: SeoSource, index: number): string {
     .filter(Boolean)
     .join(" ")
     .replace(/\s+/g, " ");
-  const views = ["property exterior", "living room", "bedroom", "kitchen", "balcony view", "interior view"];
+  const views = [
+    "property exterior",
+    "living room",
+    "bedroom",
+    "kitchen",
+    "balcony view",
+    "interior view",
+  ];
   return `${base} — ${views[index % views.length]}`;
 }
 

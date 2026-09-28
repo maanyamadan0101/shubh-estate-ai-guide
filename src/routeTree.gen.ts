@@ -25,6 +25,7 @@ import { Route as DwarkaExpresswayFlatsForSaleGurgaonRouteImport } from './route
 import { Route as EmaarEmeraldHillsSector65GurgaonResidencesRouteImport } from './routes/emaar-emerald-hills-sector-65-gurgaon-residences'
 import { Route as EmaarPalmHillsSector77GurgaonFlatsForSaleRouteImport } from './routes/emaar-palm-hills-sector-77-gurgaon-flats-for-sale'
 import { Route as EmiCalculatorRouteImport } from './routes/emi-calculator'
+import { Route as FlatsForRentInGurgaonRouteImport } from './routes/flats-for-rent-in-gurgaon'
 import { Route as FlatsForSaleInGurgaonRouteImport } from './routes/flats-for-sale-in-gurgaon'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as Godrej101Sector79GurgaonApartmentsRouteImport } from './routes/godrej-101-sector-79-gurgaon-apartments'
@@ -68,6 +69,7 @@ import { Route as BlogBestSectorsToBuyPropertyInGurgaonRouteImport } from './rou
 import { Route as BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026RouteImport } from './routes/blog.buy-property-gurgaon-small-down-payment-home-loan-guide-2026'
 import { Route as BlogFsiFarMeaningCalculationGurgaonRouteImport } from './routes/blog.fsi-far-meaning-calculation-gurgaon'
 import { Route as BlogGurgaonPropertyDueDiligenceChecklist2026RouteImport } from './routes/blog.gurgaon-property-due-diligence-checklist-2026'
+import { Route as BlogPsuHomeLoansSmartLoanBalanceTransferGurgaonRouteImport } from './routes/blog.psu-home-loans-smart-loan-balance-transfer-gurgaon'
 import { Route as LocationsSlugRouteImport } from './routes/locations.$slug'
 import { Route as LocationsGolfCourseExtensionRoadRouteImport } from './routes/locations.golf-course-extension-road'
 import { Route as NriCountryRouteImport } from './routes/nri_.$country'
@@ -188,6 +190,11 @@ const EmaarPalmHillsSector77GurgaonFlatsForSaleRoute =
 const EmiCalculatorRoute = EmiCalculatorRouteImport.update({
   id: '/emi-calculator',
   path: '/emi-calculator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FlatsForRentInGurgaonRoute = FlatsForRentInGurgaonRouteImport.update({
+  id: '/flats-for-rent-in-gurgaon',
+  path: '/flats-for-rent-in-gurgaon',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FlatsForSaleInGurgaonRoute = FlatsForSaleInGurgaonRouteImport.update({
@@ -423,6 +430,12 @@ const BlogGurgaonPropertyDueDiligenceChecklist2026Route =
     path: '/blog/gurgaon-property-due-diligence-checklist-2026',
     getParentRoute: () => rootRouteImport,
   } as any)
+const BlogPsuHomeLoansSmartLoanBalanceTransferGurgaonRoute =
+  BlogPsuHomeLoansSmartLoanBalanceTransferGurgaonRouteImport.update({
+    id: '/blog/psu-home-loans-smart-loan-balance-transfer-gurgaon',
+    path: '/blog/psu-home-loans-smart-loan-balance-transfer-gurgaon',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const LocationsSlugRoute = LocationsSlugRouteImport.update({
   id: '/locations/$slug',
   path: '/locations/$slug',
@@ -626,6 +639,7 @@ export interface FileRoutesByFullPath {
   '/emaar-emerald-hills-sector-65-gurgaon-residences': typeof EmaarEmeraldHillsSector65GurgaonResidencesRoute
   '/emaar-palm-hills-sector-77-gurgaon-flats-for-sale': typeof EmaarPalmHillsSector77GurgaonFlatsForSaleRoute
   '/emi-calculator': typeof EmiCalculatorRoute
+  '/flats-for-rent-in-gurgaon': typeof FlatsForRentInGurgaonRoute
   '/flats-for-sale-in-gurgaon': typeof FlatsForSaleInGurgaonRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/godrej-101-sector-79-gurgaon-apartments': typeof Godrej101Sector79GurgaonApartmentsRoute
@@ -668,6 +682,7 @@ export interface FileRoutesByFullPath {
   '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026': typeof BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route
   '/blog/fsi-far-meaning-calculation-gurgaon': typeof BlogFsiFarMeaningCalculationGurgaonRoute
   '/blog/gurgaon-property-due-diligence-checklist-2026': typeof BlogGurgaonPropertyDueDiligenceChecklist2026Route
+  '/blog/psu-home-loans-smart-loan-balance-transfer-gurgaon': typeof BlogPsuHomeLoansSmartLoanBalanceTransferGurgaonRoute
   '/locations/$slug': typeof LocationsSlugRoute
   '/locations/golf-course-extension-road': typeof LocationsGolfCourseExtensionRoadRoute
   '/nri/$country': typeof NriCountryRoute
@@ -719,6 +734,7 @@ export interface FileRoutesByTo {
   '/emaar-emerald-hills-sector-65-gurgaon-residences': typeof EmaarEmeraldHillsSector65GurgaonResidencesRoute
   '/emaar-palm-hills-sector-77-gurgaon-flats-for-sale': typeof EmaarPalmHillsSector77GurgaonFlatsForSaleRoute
   '/emi-calculator': typeof EmiCalculatorRoute
+  '/flats-for-rent-in-gurgaon': typeof FlatsForRentInGurgaonRoute
   '/flats-for-sale-in-gurgaon': typeof FlatsForSaleInGurgaonRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/godrej-101-sector-79-gurgaon-apartments': typeof Godrej101Sector79GurgaonApartmentsRoute
@@ -760,6 +776,7 @@ export interface FileRoutesByTo {
   '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026': typeof BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route
   '/blog/fsi-far-meaning-calculation-gurgaon': typeof BlogFsiFarMeaningCalculationGurgaonRoute
   '/blog/gurgaon-property-due-diligence-checklist-2026': typeof BlogGurgaonPropertyDueDiligenceChecklist2026Route
+  '/blog/psu-home-loans-smart-loan-balance-transfer-gurgaon': typeof BlogPsuHomeLoansSmartLoanBalanceTransferGurgaonRoute
   '/locations/$slug': typeof LocationsSlugRoute
   '/locations/golf-course-extension-road': typeof LocationsGolfCourseExtensionRoadRoute
   '/nri/$country': typeof NriCountryRoute
@@ -813,6 +830,7 @@ export interface FileRoutesById {
   '/emaar-emerald-hills-sector-65-gurgaon-residences': typeof EmaarEmeraldHillsSector65GurgaonResidencesRoute
   '/emaar-palm-hills-sector-77-gurgaon-flats-for-sale': typeof EmaarPalmHillsSector77GurgaonFlatsForSaleRoute
   '/emi-calculator': typeof EmiCalculatorRoute
+  '/flats-for-rent-in-gurgaon': typeof FlatsForRentInGurgaonRoute
   '/flats-for-sale-in-gurgaon': typeof FlatsForSaleInGurgaonRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/godrej-101-sector-79-gurgaon-apartments': typeof Godrej101Sector79GurgaonApartmentsRoute
@@ -855,6 +873,7 @@ export interface FileRoutesById {
   '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026': typeof BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route
   '/blog/fsi-far-meaning-calculation-gurgaon': typeof BlogFsiFarMeaningCalculationGurgaonRoute
   '/blog/gurgaon-property-due-diligence-checklist-2026': typeof BlogGurgaonPropertyDueDiligenceChecklist2026Route
+  '/blog/psu-home-loans-smart-loan-balance-transfer-gurgaon': typeof BlogPsuHomeLoansSmartLoanBalanceTransferGurgaonRoute
   '/locations/$slug': typeof LocationsSlugRoute
   '/locations/golf-course-extension-road': typeof LocationsGolfCourseExtensionRoadRoute
   '/nri_/$country': typeof NriCountryRoute
@@ -908,6 +927,7 @@ export interface FileRouteTypes {
     | '/emaar-emerald-hills-sector-65-gurgaon-residences'
     | '/emaar-palm-hills-sector-77-gurgaon-flats-for-sale'
     | '/emi-calculator'
+    | '/flats-for-rent-in-gurgaon'
     | '/flats-for-sale-in-gurgaon'
     | '/forgot-password'
     | '/godrej-101-sector-79-gurgaon-apartments'
@@ -950,6 +970,7 @@ export interface FileRouteTypes {
     | '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026'
     | '/blog/fsi-far-meaning-calculation-gurgaon'
     | '/blog/gurgaon-property-due-diligence-checklist-2026'
+    | '/blog/psu-home-loans-smart-loan-balance-transfer-gurgaon'
     | '/locations/$slug'
     | '/locations/golf-course-extension-road'
     | '/nri/$country'
@@ -1001,6 +1022,7 @@ export interface FileRouteTypes {
     | '/emaar-emerald-hills-sector-65-gurgaon-residences'
     | '/emaar-palm-hills-sector-77-gurgaon-flats-for-sale'
     | '/emi-calculator'
+    | '/flats-for-rent-in-gurgaon'
     | '/flats-for-sale-in-gurgaon'
     | '/forgot-password'
     | '/godrej-101-sector-79-gurgaon-apartments'
@@ -1042,6 +1064,7 @@ export interface FileRouteTypes {
     | '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026'
     | '/blog/fsi-far-meaning-calculation-gurgaon'
     | '/blog/gurgaon-property-due-diligence-checklist-2026'
+    | '/blog/psu-home-loans-smart-loan-balance-transfer-gurgaon'
     | '/locations/$slug'
     | '/locations/golf-course-extension-road'
     | '/nri/$country'
@@ -1094,6 +1117,7 @@ export interface FileRouteTypes {
     | '/emaar-emerald-hills-sector-65-gurgaon-residences'
     | '/emaar-palm-hills-sector-77-gurgaon-flats-for-sale'
     | '/emi-calculator'
+    | '/flats-for-rent-in-gurgaon'
     | '/flats-for-sale-in-gurgaon'
     | '/forgot-password'
     | '/godrej-101-sector-79-gurgaon-apartments'
@@ -1136,6 +1160,7 @@ export interface FileRouteTypes {
     | '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026'
     | '/blog/fsi-far-meaning-calculation-gurgaon'
     | '/blog/gurgaon-property-due-diligence-checklist-2026'
+    | '/blog/psu-home-loans-smart-loan-balance-transfer-gurgaon'
     | '/locations/$slug'
     | '/locations/golf-course-extension-road'
     | '/nri_/$country'
@@ -1189,6 +1214,7 @@ export interface RootRouteChildren {
   EmaarEmeraldHillsSector65GurgaonResidencesRoute: typeof EmaarEmeraldHillsSector65GurgaonResidencesRoute
   EmaarPalmHillsSector77GurgaonFlatsForSaleRoute: typeof EmaarPalmHillsSector77GurgaonFlatsForSaleRoute
   EmiCalculatorRoute: typeof EmiCalculatorRoute
+  FlatsForRentInGurgaonRoute: typeof FlatsForRentInGurgaonRoute
   FlatsForSaleInGurgaonRoute: typeof FlatsForSaleInGurgaonRoute
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   Godrej101Sector79GurgaonApartmentsRoute: typeof Godrej101Sector79GurgaonApartmentsRoute
@@ -1231,6 +1257,7 @@ export interface RootRouteChildren {
   BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route: typeof BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route
   BlogFsiFarMeaningCalculationGurgaonRoute: typeof BlogFsiFarMeaningCalculationGurgaonRoute
   BlogGurgaonPropertyDueDiligenceChecklist2026Route: typeof BlogGurgaonPropertyDueDiligenceChecklist2026Route
+  BlogPsuHomeLoansSmartLoanBalanceTransferGurgaonRoute: typeof BlogPsuHomeLoansSmartLoanBalanceTransferGurgaonRoute
   LocationsSlugRoute: typeof LocationsSlugRoute
   LocationsGolfCourseExtensionRoadRoute: typeof LocationsGolfCourseExtensionRoadRoute
   NriCountryRoute: typeof NriCountryRoute
@@ -1353,6 +1380,13 @@ declare module '@tanstack/react-router' {
       path: '/emi-calculator'
       fullPath: '/emi-calculator'
       preLoaderRoute: typeof EmiCalculatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/flats-for-rent-in-gurgaon': {
+      id: '/flats-for-rent-in-gurgaon'
+      path: '/flats-for-rent-in-gurgaon'
+      fullPath: '/flats-for-rent-in-gurgaon'
+      preLoaderRoute: typeof FlatsForRentInGurgaonRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/flats-for-sale-in-gurgaon': {
@@ -1654,6 +1688,13 @@ declare module '@tanstack/react-router' {
       path: '/blog/gurgaon-property-due-diligence-checklist-2026'
       fullPath: '/blog/gurgaon-property-due-diligence-checklist-2026'
       preLoaderRoute: typeof BlogGurgaonPropertyDueDiligenceChecklist2026RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/psu-home-loans-smart-loan-balance-transfer-gurgaon': {
+      id: '/blog/psu-home-loans-smart-loan-balance-transfer-gurgaon'
+      path: '/blog/psu-home-loans-smart-loan-balance-transfer-gurgaon'
+      fullPath: '/blog/psu-home-loans-smart-loan-balance-transfer-gurgaon'
+      preLoaderRoute: typeof BlogPsuHomeLoansSmartLoanBalanceTransferGurgaonRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/locations/$slug': {
@@ -1999,6 +2040,7 @@ const rootRouteChildren: RootRouteChildren = {
   EmaarPalmHillsSector77GurgaonFlatsForSaleRoute:
     EmaarPalmHillsSector77GurgaonFlatsForSaleRoute,
   EmiCalculatorRoute: EmiCalculatorRoute,
+  FlatsForRentInGurgaonRoute: FlatsForRentInGurgaonRoute,
   FlatsForSaleInGurgaonRoute: FlatsForSaleInGurgaonRoute,
   ForgotPasswordRoute: ForgotPasswordRoute,
   Godrej101Sector79GurgaonApartmentsRoute:
@@ -2052,6 +2094,8 @@ const rootRouteChildren: RootRouteChildren = {
     BlogFsiFarMeaningCalculationGurgaonRoute,
   BlogGurgaonPropertyDueDiligenceChecklist2026Route:
     BlogGurgaonPropertyDueDiligenceChecklist2026Route,
+  BlogPsuHomeLoansSmartLoanBalanceTransferGurgaonRoute:
+    BlogPsuHomeLoansSmartLoanBalanceTransferGurgaonRoute,
   LocationsSlugRoute: LocationsSlugRoute,
   LocationsGolfCourseExtensionRoadRoute: LocationsGolfCourseExtensionRoadRoute,
   NriCountryRoute: NriCountryRoute,

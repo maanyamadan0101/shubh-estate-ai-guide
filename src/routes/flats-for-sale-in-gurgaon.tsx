@@ -1,4 +1,5 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { catalogueIndexing } from "@/lib/catalogue-seo";
+import { createFileRoute, Link, redirect } from "@tanstack/react-router";
 import {
   ArrowRight,
   Building2,
@@ -34,7 +35,12 @@ import {
 } from "@/data/gurgaon-project-directory";
 import { CONTACT } from "@/data/site";
 import { listPublicProjectHubs } from "@/lib/project-hub.functions";
-import { listPublicCataloguePage, type ListingRow } from "@/lib/properties.functions";
+import {
+  listPublicCataloguePage,
+  type ListingRow,
+  type CatalogueChannel,
+  type CatalogueCorridor,
+} from "@/lib/properties.functions";
 import { SITE_ORIGIN } from "@/lib/seo";
 import { trackContact } from "@/lib/analytics";
 import { projectApartmentPath } from "@/lib/url-routing";
@@ -56,15 +62,29 @@ const CORRIDOR_SEARCH_VALUES = {
 } as const satisfies Record<string, ProjectCorridor>;
 
 type CorridorSearchValue = keyof typeof CORRIDOR_SEARCH_VALUES;
+const ATTRIBUTION_KEYS = [
+  "utm_source",
+  "utm_medium",
+  "utm_campaign",
+  "utm_term",
+  "utm_content",
+  "utm_id",
+  "gclid",
+  "dclid",
+  "fbclid",
+  "msclkid",
+  "ref",
+] as const;
+type AttributionKey = (typeof ATTRIBUTION_KEYS)[number];
 
 type GurgaonCatalogueSearch = {
   q?: string;
   purpose?: "sale" | "rent";
   status?: "ready_to_move" | "under_construction" | "new_launch";
-  channel?: "resale" | "new-booking";
+  channel?: CatalogueChannel;
   corridor?: CorridorSearchValue;
   page?: number;
-};
+} & Partial<Record<AttributionKey, string>>;
 
 const CORRIDORS = [
   {
@@ -149,6 +169,12 @@ const QUICK_PATHS = [
     body: "Compare seller expectations with competing units and project-specific liquidity.",
     icon: WalletCards,
     href: "/flats-for-sale-in-gurgaon?channel=resale",
+  },
+  {
+    label: "Tenant rental homes",
+    body: "Explore published rental homes with rent, furnishing and viewing details to confirm.",
+    icon: Home,
+    href: "/flats-for-rent-in-gurgaon",
   },
   {
     label: "Builder floors",
@@ -347,6 +373,10 @@ export const Route = createFileRoute("/flats-for-sale-in-gurgaon")({
     if (isCorridor(search["corridor"])) result.corridor = search["corridor"];
     const page = normalizedPage(search["page"]);
     if (page !== undefined) result.page = page;
+    for (const key of ATTRIBUTION_KEYS) {
+      const value = search[key];
+      if (typeof value === "string" && value.trim()) result[key] = value.trim().slice(0, 200);
+    }
     return result;
   },
   loaderDeps: ({ search }) => ({
@@ -356,8 +386,36 @@ export const Route = createFileRoute("/flats-for-sale-in-gurgaon")({
     channel: search.channel,
     corridor: search.corridor,
     page: search.page ?? 1,
+    utm_source: search.utm_source,
+    utm_medium: search.utm_medium,
+    utm_campaign: search.utm_campaign,
+    utm_term: search.utm_term,
+    utm_content: search.utm_content,
+    utm_id: search.utm_id,
+    gclid: search.gclid,
+    dclid: search.dclid,
+    fbclid: search.fbclid,
+    msclkid: search.msclkid,
+    ref: search.ref,
   }),
   loader: async ({ deps }) => {
+    if (deps.purpose === "rent") {
+      const params = new URLSearchParams();
+      if (deps.q) params.set("q", deps.q);
+      if (deps.status) params.set("status", deps.status);
+      if (deps.corridor) params.set("corridor", deps.corridor);
+      if (deps.page && deps.page > 1) params.set("page", String(deps.page));
+      for (const key of ATTRIBUTION_KEYS) {
+        const value = deps[key];
+        if (value) params.set(key, value);
+      }
+      const query = params.toString();
+      throw redirect({
+        href: `/flats-for-rent-in-gurgaon${query ? `?${query}` : ""}`,
+        statusCode: 301,
+      });
+    }
+
     const [catalogue, projectHubs] = await Promise.all([
       listPublicCataloguePage({
         data: {
@@ -366,6 +424,8 @@ export const Route = createFileRoute("/flats-for-sale-in-gurgaon")({
           q: deps.q,
           purpose: deps.purpose,
           status: deps.status,
+          channel: deps.channel,
+          corridor: deps.corridor as CatalogueCorridor | undefined,
         },
       }),
       listPublicProjectHubs(),
@@ -393,8 +453,12 @@ export const Route = createFileRoute("/flats-for-sale-in-gurgaon")({
       appliedSearch?.corridor ||
       (appliedSearch?.purpose && appliedSearch.purpose !== "sale"),
     );
-    const isParameterVariant = hasFacet || page > 1;
-    const canonical = `${SITE_ORIGIN}/flats-for-sale-in-gurgaon`;
+    const { canonical, noindex } = catalogueIndexing({
+      page,
+      hasFacet,
+      hasError: Boolean(loaderData?.error),
+      itemCount: properties.length,
+    });
     const title =
       page > 1 && !hasFacet
         ? `Flats for Sale in Gurgaon – Page ${page} | Shubh Estate Brokers`
@@ -423,7 +487,7 @@ export const Route = createFileRoute("/flats-for-sale-in-gurgaon")({
           name: "twitter:image",
           content: `${SITE_ORIGIN}/properties/puri-emerald-bay-2450/05-puri-emerald-bay-3bhk-living-room.jpg`,
         },
-        ...(isParameterVariant ? [{ name: "robots", content: "noindex,follow" }] : []),
+        ...(noindex ? [{ name: "robots", content: "noindex,follow" }] : []),
       ],
       links: [{ rel: "canonical", href: canonical }],
       scripts: [
@@ -432,7 +496,7 @@ export const Route = createFileRoute("/flats-for-sale-in-gurgaon")({
           children: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "CollectionPage",
-            "@id": `${SITE_ORIGIN}/flats-for-sale-in-gurgaon#webpage`,
+            "@id": `${canonical}#webpage`,
             name: "Flats, Apartments & Residential Properties for Sale in Gurgaon",
             description,
             url: canonical,
