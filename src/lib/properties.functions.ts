@@ -40,6 +40,60 @@ export type ListingRow = {
   updated_at?: string;
 };
 
+export const CATALOGUE_CHANNELS = ["resale", "new-booking"] as const;
+export type CatalogueChannel = (typeof CATALOGUE_CHANNELS)[number];
+
+export const CATALOGUE_CORRIDORS = [
+  "golf-course-road-central",
+  "golf-course-extension",
+  "dwarka-expressway",
+  "south-gurgaon",
+  "sohna-road",
+  "new-gurgaon",
+  "central-gurgaon",
+  "gwal-pahari-luxury",
+] as const;
+export type CatalogueCorridor = (typeof CATALOGUE_CORRIDORS)[number];
+
+const CATALOGUE_CORRIDOR_TERMS: Record<CatalogueCorridor, readonly string[]> = {
+  "golf-course-road-central": ["golf course road", "central gurgaon", "central gurugram"],
+  "golf-course-extension": ["golf course extension", "golf course ext"],
+  "dwarka-expressway": ["dwarka expressway", "new gurgaon / dwarka", "new gurugram / dwarka"],
+  "south-gurgaon": ["southern peripheral", "spr", "south gurgaon"],
+  "sohna-road": ["sohna road", "sohna"],
+  "new-gurgaon": ["new gurgaon", "new gurugram"],
+  "central-gurgaon": ["central gurgaon", "central gurugram", "golf course road"],
+  "gwal-pahari-luxury": ["gwal pahari"],
+};
+
+function listingSearchText(row: ListingRow) {
+  return [row.title, row.sector, row.locality, row.city]
+    .filter(Boolean)
+    .join(" ")
+    .toLocaleLowerCase("en-IN");
+}
+
+export function matchesCatalogueChannel(row: ListingRow, channel?: CatalogueChannel) {
+  if (!channel) return true;
+  if (row.listing_type !== "sale") return false;
+
+  const text = listingSearchText(row);
+  if (channel === "new-booking") {
+    return (
+      row.status === "new_launch" ||
+      /\b(?:new\s+launch|builder\s+(?:floor|inventory)|booking)\b/.test(text)
+    );
+  }
+
+  return row.status !== "new_launch" && !/\bnew\s+launch\b/.test(text);
+}
+
+export function matchesCatalogueCorridor(row: ListingRow, corridor?: CatalogueCorridor) {
+  if (!corridor) return true;
+  const text = listingSearchText(row);
+  return CATALOGUE_CORRIDOR_TERMS[corridor].some((term) => text.includes(term));
+}
+
 type SitemapIdentityRow = ListingRow & { updated_at: string };
 
 function listingDisplayFingerprint(row: ListingRow) {
@@ -227,6 +281,8 @@ export const listPublicCataloguePage = createServerFn({ method: "GET" })
         q: z.string().trim().max(100).optional(),
         purpose: z.enum(["sale", "rent"]).optional(),
         status: z.enum(["ready_to_move", "under_construction", "new_launch"]).optional(),
+        channel: z.enum(CATALOGUE_CHANNELS).optional(),
+        corridor: z.enum(CATALOGUE_CORRIDORS).optional(),
       })
       .parse(input ?? {}),
   )
@@ -273,14 +329,17 @@ export const listPublicCataloguePage = createServerFn({ method: "GET" })
         ...((rows ?? []) as unknown as ListingRow[])
           .filter((row) => isPublicSlug(row.slug))
           .map(applyConfirmedInventoryCorrections),
-      ].filter((row) => {
-        if (!queryText) return true;
-        return [row.title, row.sector, row.locality, row.city, row.bhk]
-          .filter(Boolean)
-          .join(" ")
-          .toLocaleLowerCase("en-IN")
-          .includes(queryText);
-      });
+      ]
+        .filter((row) => {
+          if (!queryText) return true;
+          return [row.title, row.sector, row.locality, row.city, row.bhk]
+            .filter(Boolean)
+            .join(" ")
+            .toLocaleLowerCase("en-IN")
+            .includes(queryText);
+        })
+        .filter((row) => matchesCatalogueChannel(row, data.channel))
+        .filter((row) => matchesCatalogueCorridor(row, data.corridor));
 
       const total = catalogueRows.length;
       const projectUnitCounts = countCurrentProjectUnits(catalogueRows);
@@ -312,6 +371,7 @@ export type SitemapRow = {
   slug: string;
   updated_at: string;
   status: string;
+  listing_type: string;
   cover_image_url: string | null;
 };
 
@@ -383,30 +443,39 @@ export const getPublicProperty = createServerFn({ method: "GET" })
 export const listSitemapProperties = createServerFn({ method: "GET" }).handler(async () => {
   try {
     const supabase = await publishedClient();
-    const { data, error } = await supabase
-      .from("properties")
-      .select(SITEMAP_COLUMNS)
-      .eq("is_published", true)
-      .neq("status", "sold_out")
-      .order("updated_at", { ascending: false })
-      .limit(500);
-    if (error) {
-      console.error("[Sitemap] Could not load published properties:", error.message);
-      return [] as SitemapRow[];
+    const pageSize = 500;
+    const rows: SitemapIdentityRow[] = [];
+
+    for (let from = 0; ; from += pageSize) {
+      const { data, error } = await supabase
+        .from("properties")
+        .select(SITEMAP_COLUMNS)
+        .eq("is_published", true)
+        .neq("status", "sold_out")
+        .order("updated_at", { ascending: false })
+        .range(from, from + pageSize - 1);
+      if (error) {
+        throw new Error(`Could not load published properties: ${error.message}`);
+      }
+
+      const pageRows = (data ?? []) as unknown as SitemapIdentityRow[];
+      rows.push(...pageRows);
+      if (pageRows.length < pageSize) break;
     }
 
     // Include every genuine published inventory unit, but never route-template
     // tokens such as $slug. Search engines should only see concrete canonical URLs.
-    return ((data ?? []) as unknown as SitemapIdentityRow[])
+    return rows
       .filter((row) => isPublicSlug(row.slug))
       .map((row) => ({
         slug: row.slug,
         updated_at: row.updated_at,
         status: row.status,
+        listing_type: row.listing_type,
         cover_image_url: row.cover_image_url,
       }));
   } catch (error) {
     console.error("[Sitemap] Could not initialise published-property client:", error);
-    return [] as SitemapRow[];
+    throw error instanceof Error ? error : new Error("Could not load sitemap properties.");
   }
 });

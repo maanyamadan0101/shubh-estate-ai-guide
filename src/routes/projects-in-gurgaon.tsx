@@ -56,6 +56,30 @@ const FEATURED_RESEARCH_GUIDES = [
     name: "Ansals Highland Park",
     href: "/projects/ansals-highland-park-sector-103-gurgaon-apartments",
   },
+  {
+    name: "JMS The Majestic Manesar",
+    href: "/jms-the-majestic-manesar-gurgaon-residences",
+  },
+  {
+    name: "Godrej Sora",
+    href: "/projects/godrej-sora-sector-53-gurgaon-apartments",
+  },
+  {
+    name: "Tonino Lamborghini Residences",
+    href: "/tonino-lamborghini-residences-sector-71-gurgaon",
+  },
+  {
+    name: "Emaar MGF Palm Hills",
+    href: "/projects/emaar-mgf-palm-hills-sector-77-gurgaon-apartments",
+  },
+  {
+    name: "Mahindra Aura",
+    href: "/projects/mahindra-aura-sector-110a-gurgaon-apartments",
+  },
+  {
+    name: "Pareena Express Heights",
+    href: "/projects/pareena-express-heights-sector-99-gurgaon-apartments",
+  },
 ] as const;
 
 function projectHref(slug: string) {

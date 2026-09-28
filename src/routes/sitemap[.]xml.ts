@@ -262,15 +262,40 @@ export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
       GET: async () => {
-        const [properties, projectHubs] = await Promise.all([
+        const [propertiesResult, projectHubsResult] = await Promise.allSettled([
           listSitemapProperties(),
           listProjectHubSitemapEntries(),
         ]);
+        if (propertiesResult.status === "rejected" || projectHubsResult.status === "rejected") {
+          const reason =
+            propertiesResult.status === "rejected"
+              ? propertiesResult.reason
+              : projectHubsResult.status === "rejected"
+                ? projectHubsResult.reason
+                : "unknown sitemap upstream failure";
+          console.error("[Sitemap] Upstream data unavailable:", reason);
+          return new Response("Sitemap temporarily unavailable", {
+            status: 503,
+            headers: {
+              "content-type": "text/plain; charset=utf-8",
+              "cache-control": "no-store",
+              "retry-after": "300",
+            },
+          });
+        }
+        const properties = propertiesResult.value;
+        const projectHubs = projectHubsResult.value;
+        const hasRentalInventory = properties.some((property) => property.listing_type === "rent");
         const entries = [
           ...STATIC_PATHS.map(
             (p) =>
               `  <url>\n    <loc>${escapeXml(`${SITE_ORIGIN}${p.path}`)}</loc>${safeLastmod(p.lastmod)}\n    <priority>${p.priority}</priority>\n  </url>`,
           ),
+          ...(hasRentalInventory
+            ? [
+                `  <url>\n    <loc>${escapeXml(`${SITE_ORIGIN}/flats-for-rent-in-gurgaon`)}</loc>\n    <priority>0.95</priority>\n  </url>`,
+              ]
+            : []),
           ...projectHubs
             .filter(
               (hub) =>

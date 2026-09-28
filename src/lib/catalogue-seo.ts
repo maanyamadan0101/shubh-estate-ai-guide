@@ -6,13 +6,15 @@ export function catalogueIndexing({
   hasFacet,
   hasError,
   itemCount,
+  basePath = "/flats-for-sale-in-gurgaon",
 }: {
   page: number;
   hasFacet: boolean;
   hasError: boolean;
   itemCount: number;
+  basePath?: string;
 }) {
-  const base = `${SITE_ORIGIN}/flats-for-sale-in-gurgaon`;
+  const base = `${SITE_ORIGIN}${basePath.startsWith("/") ? basePath : `/${basePath}`}`;
   return {
     canonical: !hasFacet && page > 1 ? `${base}?page=${page}` : base,
     noindex: hasFacet || hasError || (page > 1 && itemCount === 0),

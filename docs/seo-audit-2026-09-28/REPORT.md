@@ -8,22 +8,27 @@
 
 The public site is substantially crawlable. A sitemap-led audit tested all 176 submitted URLs plus 12 diagnostic variants. All 176 sitemap URLs ultimately returned 200, had one canonical pointing to the same URL, one H1, a meta description and no noindex directive. Four listing requests initially timed out and succeeded on one retry. This verifies public technical accessibility, not Google indexing or rankings.
 
-Four focused code fixes have been implemented in the branch:
+The branch now contains the original crawl fixes plus the remaining safe technical corrections:
 
 1. **Catalogue pagination:** Page 2 contained different listings but was noindex and canonicalised to page 1. Unfiltered, non-empty pages now have their own canonical and are eligible for indexing. Search/filter pages remain noindex; empty later pages and loader errors remain protected.
 2. **Campaign attribution:** The server removed UTM and advertising click identifiers before the landing page could record them. Redirects now preserve the original query string. Internal links and existing canonical tags remain clean.
 3. **Corridor navigation:** Five homepage corridor buttons all pointed to `/projects#project-directory`. They now link directly to their corresponding existing corridor pages.
 4. **Featured project navigation:** Fallback cards pointed to the legacy `/projects` alias and said “View project” even without a dedicated guide. Links now resolve to final paths and generic fallbacks say “Browse projects”.
+5. **Rental intent:** `?purpose=rent` now redirects to a tenant-specific `/flats-for-rent-in-gurgaon` route. The route has rental metadata, tenant checks and rental inventory cards, preserves campaign values during the redirect, and stays noindex until current rental rows exist. The sitemap adds the rental hub automatically once a published rent row exists.
+6. **Catalogue filters:** Channel and corridor filters now apply to the inventory rows as well as the project directory, so filtered URLs do not claim a broader result set than the cards show.
+7. **Sitemap resilience:** Published property rows are fetched in 500-row pages. A database failure returns a clear 503 response instead of a healthy-looking partial sitemap.
+8. **Unit metadata:** Floor-specific inventory title candidates are preferred, and project names can be inferred from known listing titles when a project join is unavailable. The two Godrej Air units therefore retain distinct floor titles.
+9. **Project graph links:** The project directory now links directly to the six pages that were candidates for restricted-graph gaps.
 
 These changes are prepared for review; they are **not deployed to production**. Search Console sign-in and GA4 connection are still required for private performance analysis and submission work.
 
 ### Main remaining opportunities
 
 - Verify and refresh listing media, area basis and inventory status. The homepage displays some pending-image placeholders and different area figures in titles versus labelled area fields.
-- Give distinct Godrej Air units distinct page titles; retain both unit URLs because the floor numbers differ.
-- Build a tenant-focused rental journey. The existing rent query renders under the sales catalogue heading and is noindex; landlord services do not replace a tenant landing page.
-- Inspect potential internal-link gaps and confirm all high-priority project guides have direct contextual links.
 - Establish a first-party reporting baseline before purchasing SEO tools or promising ranking growth.
+- Verify inventory media, area basis and availability with the owner/source record before making rental pages indexable.
+- Inspect the GTM container and GA4 DebugView to confirm one page view per navigation.
+- Choose the server-side publishing owner before activating IndexNow.
 
 ## 2. Scope and evidence
 
@@ -74,16 +79,16 @@ Priority reflects impact, evidence and effort; it is not a search-engine score.
 | SEO-03 | P1 / developer | Five homepage corridor buttons share `/projects#project-directory` | Each button reaches its matching 200/self-canonical location page directly | Implemented, preview pending |
 | SEO-04 | P2 / developer | Featured cards without guides link to legacy `/projects` with misleading button text | Final directory destination plus “Browse projects”; retain dedicated guides | Implemented, preview pending |
 | SEO-05 | P1 / inventory owner | Example: Sector 67A title 2,680 sq ft, card 2,500 sq ft carpet; some basis fields unknown | Check owner/brochure source, label each basis, synchronise fields without guessing values | Business-data verification pending |
-| SEO-06 | P1 / content + developer | Rental catalogue query is noindex and still titled as a sale page | Develop a distinct tenant rental hub using verified active inventory; repair rental intent in template before indexing | Planned |
-| SEO-07 | P2 / content | Godrej Air base URL and `-3` URL share title; descriptions show floors 18 and 19 | Use floor-specific titles below; do not merge distinct units or rename slugs | Exact copy prepared |
-| SEO-08 | P2 / developer | Six sitemap URLs not reached in restricted graph | Follow incoming redirect aliases/non-sitemap paths, then add direct hub and related-page links where absent | Needs full graph follow-up |
+| SEO-06 | P1 / content + developer | Rental catalogue query was noindex and still titled as a sale page | Use the tenant hub for rent intent; keep it noindex until current rental inventory is available | Implemented; inventory validation pending |
+| SEO-07 | P2 / content | Godrej Air base URL and `-3` URL share title; descriptions show floors 18 and 19 | Use floor-specific titles below; do not merge distinct units or rename slugs | Implemented in title builder |
+| SEO-08 | P2 / developer | Six sitemap URLs not reached in restricted graph | Add direct project-directory links while retaining relevant contextual links | Implemented; preview crawl pending |
 | SEO-09 | P1 / analytics owner | Both direct GA4 and GTM are loaded in root; container configuration unknown | Inspect GTM container and GA4 DebugView; confirm one page_view per navigation before removing either loader | Potential duplication, unconfirmed |
-| SEO-10 | P2 / developer | `channel`/`corridor` accepted by catalogue route but absent from inventory server call | Test filter UX; apply validated filters to inventory or label their directory-only scope honestly | Confirmed code gap; behavioural scope pending |
-| SEO-11 | P2 / developer | Sitemap property query uses `.limit(500)` and returns an empty array on database errors | Add paginated retrieval before inventory exceeds 500; prevent a transient failure from replacing a healthy sitemap with a partial 200 response | Planned, current sitemap not at cap |
+| SEO-10 | P2 / developer | `channel`/`corridor` accepted by catalogue route but absent from inventory server call | Apply derived sale/new-booking/resale and corridor filters to the same inventory rows shown on the page | Implemented; preview data validation pending |
+| SEO-11 | P2 / developer | Sitemap property query used `.limit(500)` and returned an empty array on database errors | Fetch all rows in pages and return 503 on an upstream failure | Implemented; production observation pending |
 | SEO-12 | P2 / SEO owner | No IndexNow implementation found in repository search | Implement controlled publish/update/delete notifications after backend ownership/access is established | Planned; not activated |
-| SEO-13 | P2 / developer | 17 TypeScript diagnostics on base and changed branch | Resolve separately; same diagnostic file/line/code set was reproduced | Existing build-quality debt |
+| SEO-13 | P2 / developer | 14 TypeScript diagnostics remain after route generation | Resolve separately; production build is green and no new diagnostics came from this patch | Existing build-quality debt |
 
-### Possible internal-link gaps
+### Previously possible internal-link gaps
 
 These are not proven orphan pages because the graph included only sitemap URLs and did not follow every redirect or non-sitemap page:
 
@@ -94,7 +99,7 @@ These are not proven orphan pages because the graph included only sitemap URLs a
 - `/projects/mahindra-aura-sector-110a-gurgaon-apartments`
 - `/projects/pareena-express-heights-sector-99-gurgaon-apartments`
 
-Add only relevant links from project directory, corridor guide and related inventory. Avoid a generic keyword block in every footer.
+The project directory now links these six destinations directly. Preview crawling should confirm that each link remains a 200 canonical page after deployment. Avoid a generic keyword block in every footer.
 
 ## 4. Keyword-to-page map
 
@@ -180,7 +185,7 @@ These are ready for editorial review, not applied in the technical patch. Existi
 
 **Home loans:** “Get home-loan assistance in Gurgaon for eligibility, lender comparison, documentation, balance transfer and mortgage planning with Shubh Estate Brokers.” Link the existing bank-comparison guide and EMI calculator; current terms require lender verification.
 
-**Proposed rental hub:** Title “Flats for Rent in Gurgaon | Furnished Homes | Shubh Estate”; H1 “Flats and Furnished Homes for Rent in Gurgaon”. Description: “Explore current flats for rent in Gurgaon by sector, budget and furnishing. Ask Shubh Estate Brokers for availability, photos and viewing arrangements.” Show exact monthly rent, maintenance treatment, deposit, furnishings, availability and verified travel context. Do not create a new page from stale inventory alone.
+**Rental hub:** Title “Flats for Rent in Gurgaon | Furnished Homes | Shubh Estate”; H1 “Flats and Furnished Homes for Rent in Gurgaon”. Description: “Explore current flats for rent in Gurgaon by sector, budget and furnishing. Ask Shubh Estate Brokers for availability, photos and viewing arrangements.” The route now exists and stays noindex when no current rental rows are returned; make it indexable only after rent, maintenance, deposit, furnishing, availability and original media are verified.
 
 ### Internal links to add or verify
 
@@ -200,17 +205,21 @@ These are ready for editorial review, not applied in the technical patch. Existi
 - `public/robots.txt`: align explanatory comments with that behaviour; crawl rules unchanged.
 - `src/lib/catalogue-seo.ts`: testable pagination/indexing policy.
 - `src/routes/flats-for-sale-in-gurgaon.tsx`: apply canonical/robots policy and matching schema page identity.
+- `src/routes/flats-for-rent-in-gurgaon.tsx`: add a tenant-focused rental route with safe indexing and rental schema.
+- `src/lib/properties.functions.ts`: apply catalogue channel/corridor filters and paginate sitemap inventory.
+- `src/lib/seo.ts` and `src/routes/property.$slug.tsx`: preserve floor-level title differences.
+- `src/routes/projects-in-gurgaon.tsx`: add direct links to previously graph-unreached project pages.
 - `src/routes/index.tsx`: direct corridor destinations.
 - `src/components/site/FeaturedProjectShowcase.tsx`: final URLs and accurate fallback label.
 - `scripts/check-seo.mjs`: attribution and pagination regression coverage alongside existing sitemap/redirect tests.
 
 ### Verification completed
 
-- SEO regression suite passed, including sitemap fixture with 67 unique final URLs. The fixture count is not the live sitemap count.
+- SEO regression suite passed, including sitemap fixture with 68 unique final URLs and conditional rental-hub inclusion. The fixture count is not the live sitemap count.
 - Production build passed. The local default target is generated by the existing build configuration; Vercel deployment still needs its normal platform build.
 - Scoped ESLint and whitespace validation passed.
 - React changes reviewed: no new effects, fetch waterfalls, browser-state access during SSR, dependencies or changed form submissions.
-- TypeScript reports the same 17 diagnostic locations/codes on untouched base and changed branch; see verification file. No new diagnostics were introduced by these changes.
+- TypeScript reports the same 14 existing diagnostic locations/codes after route generation; see verification file. No new diagnostics were introduced by these changes.
 
 ### Required preview checks before merge
 
@@ -233,7 +242,7 @@ Not implemented in this patch because the publishing backend and deployment owne
 
 ### Further technical work
 
-- Sitemap resilience: use paginated database retrieval and fail clearly or retain a last-known-good snapshot on upstream failure. Do not silently ship an incomplete 200 sitemap.
+- Sitemap resilience is implemented with paginated retrieval and a 503 response on upstream failure. Monitor production logs after deployment.
 - Inventory media: verify original photos, image descriptions and area source before replacing placeholders. Image presence is not a reason to add stock images of a different unit.
 - Structured data: existing JSON parses, but test representative pages with Rich Results Test and Schema.org Validator. Avoid expecting FAQ rich results or self-serving review stars for this brokerage.
 - Performance: obtain PSI/CrUX data later; no performance number is available from this run. Existing responsive images and deferred analytics are visible in code. Measure before adding more scripts.
@@ -284,16 +293,16 @@ Existing code emits `click_phone`, `click_whatsapp`, `click_site_visit_cta`, `ge
 
 ### Days 1–30: technical accuracy and measurement
 
-- Review and preview-test the four implemented fixes, then deploy through the normal process.
+- Review and preview-test the implemented SEO and routing fixes, then deploy through the normal process.
 - Connect GSC/GA4/Bing and establish the real baseline.
-- Resolve the duplicate Godrej Air titles, verified area labels and missing media on top promoted properties.
+- Verify the corrected Godrej Air titles, area labels and missing media on top promoted properties.
 - Validate suspected link gaps and catalogue filter behaviour.
 - Define tenant rental data requirements and reconfirm current units.
 - Milestones: 100% priority URLs pass technical eligibility checks; all priority promoted stock verified; analytics events tested. No traffic-growth promise.
 
 ### Days 31–60: useful landing pages and proof
 
-- Publish a substantive rental hub and verified listings if inventory supports it.
+- Populate and verify rental rows before allowing the tenant hub into the sitemap or indexable page set.
 - Improve GCRE and seller/landlord/remote-owner content using the copy and link plan above.
 - Publish two permissioned case studies with real process evidence.
 - Activate IndexNow once publishing integration is established.

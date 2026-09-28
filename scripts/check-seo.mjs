@@ -25,12 +25,22 @@ for (const file of [
   );
 }
 const { canonicalRedirect, internalHref } = await import(dir + "/lib/url-routing.mjs");
-const { buildCanonical } = await import(dir + "/lib/seo.mjs");
+const { buildCanonical, buildSeoTitle } = await import(dir + "/lib/seo.mjs");
 const { catalogueIndexing } = await import(dir + "/lib/catalogue-seo.mjs");
 assert.deepEqual(catalogueIndexing({ page: 2, hasFacet: false, hasError: false, itemCount: 24 }), {
   canonical: "https://shubhestatebroker.in/flats-for-sale-in-gurgaon?page=2",
   noindex: false,
 });
+assert.equal(
+  catalogueIndexing({
+    page: 2,
+    hasFacet: false,
+    hasError: false,
+    itemCount: 12,
+    basePath: "/flats-for-rent-in-gurgaon",
+  }).canonical,
+  "https://shubhestatebroker.in/flats-for-rent-in-gurgaon?page=2",
+);
 assert.equal(
   catalogueIndexing({ page: 1, hasFacet: false, hasError: false, itemCount: 24 }).noindex,
   false,
@@ -48,6 +58,32 @@ assert.equal(
   true,
 );
 console.log("PASS: distinct inventory pagination, facet exclusion and empty/error protection");
+const godrejFloor18 = buildSeoTitle({
+  title: "3 BHK Apartment for Sale in Godrej Air, Sector 85",
+  bhk: "3 BHK",
+  propertyType: "apartment",
+  listingType: "sale",
+  projectName: "Godrej Air",
+  sector: "Sector 85",
+  city: "Gurugram",
+  areaSqft: 2680,
+  floorNumber: 18,
+});
+const godrejFloor19 = buildSeoTitle({
+  title: "3 BHK Apartment for Sale in Godrej Air, Sector 85",
+  bhk: "3 BHK",
+  propertyType: "apartment",
+  listingType: "sale",
+  projectName: "Godrej Air",
+  sector: "Sector 85",
+  city: "Gurugram",
+  areaSqft: 2680,
+  floorNumber: 19,
+});
+assert.match(godrejFloor18, /Floor 18/);
+assert.match(godrejFloor19, /Floor 19/);
+assert.notEqual(godrejFloor18, godrejFloor19);
+console.log("PASS: unit-level SEO titles retain floor differentiators");
 assert.equal(buildCanonical("example"), "https://shubhestatebroker.in/property/example");
 for (const [from, to] of [
   [
@@ -141,7 +177,7 @@ let sitemapSource = readFileSync(`${root}/src/routes/sitemap[.]xml.ts`, "utf8")
   )
   .replace(
     'import { listSitemapProperties } from "@/lib/properties.functions";',
-    `const listSitemapProperties = async () => [{slug:"indiabulls-enigma-inventory-1"}, {slug:"example", cover_image_url:"/image.jpg?a=1&b=2"}, {slug:"example"}];`,
+    `const listSitemapProperties = async () => [{slug:"indiabulls-enigma-inventory-1"}, {slug:"example", listing_type:"rent", cover_image_url:"/image.jpg?a=1&b=2"}, {slug:"example"}];`,
   );
 writeFileSync(
   `${dir}/sitemap.mjs`,
@@ -161,6 +197,7 @@ for (const loc of locations) {
   assert.equal(canonicalRedirect(new Request(loc)), null);
 }
 assert.ok(locations.includes("https://shubhestatebroker.in/locations/southern-peripheral-road"));
+assert.ok(locations.includes("https://shubhestatebroker.in/flats-for-rent-in-gurgaon"));
 assert.ok(locations.includes("https://shubhestatebroker.in/property/example"));
 assert.ok(!xml.includes("indiabulls-enigma-inventory-1"));
 assert.ok(
