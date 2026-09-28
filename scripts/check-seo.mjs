@@ -8,7 +8,12 @@ const dir = mkdtempSync(tmpdir() + "/shubh-seo-");
 process.on("exit", () => rmSync(dir, { recursive: true, force: true }));
 mkdirSync(dir + "/lib", { recursive: true });
 mkdirSync(dir + "/data", { recursive: true });
-for (const file of ["lib/seo", "lib/url-routing", "data/dwarka-catalogue-listings"]) {
+for (const file of [
+  "lib/seo",
+  "lib/url-routing",
+  "lib/catalogue-seo",
+  "data/dwarka-catalogue-listings",
+]) {
   const source = readFileSync(`${root}/src/${file}.ts`, "utf8")
     .replace('"./seo"', '"./seo.mjs"')
     .replace('"../data/dwarka-catalogue-listings"', '"../data/dwarka-catalogue-listings.mjs"');
@@ -21,6 +26,28 @@ for (const file of ["lib/seo", "lib/url-routing", "data/dwarka-catalogue-listing
 }
 const { canonicalRedirect, internalHref } = await import(dir + "/lib/url-routing.mjs");
 const { buildCanonical } = await import(dir + "/lib/seo.mjs");
+const { catalogueIndexing } = await import(dir + "/lib/catalogue-seo.mjs");
+assert.deepEqual(catalogueIndexing({ page: 2, hasFacet: false, hasError: false, itemCount: 24 }), {
+  canonical: "https://shubhestatebroker.in/flats-for-sale-in-gurgaon?page=2",
+  noindex: false,
+});
+assert.equal(
+  catalogueIndexing({ page: 1, hasFacet: false, hasError: false, itemCount: 24 }).noindex,
+  false,
+);
+assert.equal(
+  catalogueIndexing({ page: 2, hasFacet: true, hasError: false, itemCount: 24 }).noindex,
+  true,
+);
+assert.equal(
+  catalogueIndexing({ page: 1, hasFacet: false, hasError: true, itemCount: 0 }).noindex,
+  true,
+);
+assert.equal(
+  catalogueIndexing({ page: 2, hasFacet: false, hasError: false, itemCount: 0 }).noindex,
+  true,
+);
+console.log("PASS: distinct inventory pagination, facet exclusion and empty/error protection");
 assert.equal(buildCanonical("example"), "https://shubhestatebroker.in/property/example");
 for (const [from, to] of [
   [
@@ -29,7 +56,7 @@ for (const [from, to] of [
   ],
   [
     "https://www.shubhestatebroker.in/nri/australia/?utm_source=x",
-    "https://shubhestatebroker.in/nri-sell-property-gurgaon",
+    "https://shubhestatebroker.in/nri-sell-property-gurgaon?utm_source=x",
   ],
   [
     "https://shubhestatebroker.in/properties/?purpose=sale&page=2",
@@ -76,8 +103,18 @@ assert.equal(
 assert.equal(
   canonicalRedirect(
     new Request("https://shubhestatebroker.in/contact?interest=site-visit&utm_source=google"),
-  )?.headers.get("location"),
-  "https://shubhestatebroker.in/contact?interest=site-visit",
+  ),
+  null,
+);
+const campaignUrl =
+  "https://www.shubhestatebroker.in/properties/?purpose=sale&page=2&utm_source=instagram&utm_campaign=villa&gclid=test-click";
+assert.equal(
+  canonicalRedirect(new Request(campaignUrl))?.headers.get("location"),
+  "https://shubhestatebroker.in/flats-for-sale-in-gurgaon?purpose=sale&page=2&utm_source=instagram&utm_campaign=villa&gclid=test-click",
+);
+assert.equal(
+  canonicalRedirect(new Request("https://shubhestatebroker.in/?utm_source=instagram&fbclid=test")),
+  null,
 );
 assert.equal(internalHref("https://example.com/a/"), "https://example.com/a/");
 console.log(

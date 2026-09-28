@@ -1,3 +1,4 @@
+import { catalogueIndexing } from "@/lib/catalogue-seo";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowRight,
@@ -393,8 +394,12 @@ export const Route = createFileRoute("/flats-for-sale-in-gurgaon")({
       appliedSearch?.corridor ||
       (appliedSearch?.purpose && appliedSearch.purpose !== "sale"),
     );
-    const isParameterVariant = hasFacet || page > 1;
-    const canonical = `${SITE_ORIGIN}/flats-for-sale-in-gurgaon`;
+    const { canonical, noindex } = catalogueIndexing({
+      page,
+      hasFacet,
+      hasError: Boolean(loaderData?.error),
+      itemCount: properties.length,
+    });
     const title =
       page > 1 && !hasFacet
         ? `Flats for Sale in Gurgaon – Page ${page} | Shubh Estate Brokers`
@@ -423,7 +428,7 @@ export const Route = createFileRoute("/flats-for-sale-in-gurgaon")({
           name: "twitter:image",
           content: `${SITE_ORIGIN}/properties/puri-emerald-bay-2450/05-puri-emerald-bay-3bhk-living-room.jpg`,
         },
-        ...(isParameterVariant ? [{ name: "robots", content: "noindex,follow" }] : []),
+        ...(noindex ? [{ name: "robots", content: "noindex,follow" }] : []),
       ],
       links: [{ rel: "canonical", href: canonical }],
       scripts: [
@@ -432,7 +437,7 @@ export const Route = createFileRoute("/flats-for-sale-in-gurgaon")({
           children: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "CollectionPage",
-            "@id": `${SITE_ORIGIN}/flats-for-sale-in-gurgaon#webpage`,
+            "@id": `${canonical}#webpage`,
             name: "Flats, Apartments & Residential Properties for Sale in Gurgaon",
             description,
             url: canonical,

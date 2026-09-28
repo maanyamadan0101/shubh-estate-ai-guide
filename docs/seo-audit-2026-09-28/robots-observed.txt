@@ -7,7 +7,7 @@ Disallow: /forgot-password
 Disallow: /reset-password
 Disallow: /api/
 
-# Campaign parameters remain available to analytics; canonical tags identify
-# clean URLs. Catalogue filters remain crawlable so bots can read their directives.
+# Tracking parameters are removed with a 301 redirect. Functional catalogue
+# filters remain crawlable so bots can see their canonical and noindex signals.
 
 Sitemap: https://shubhestatebroker.in/sitemap.xml

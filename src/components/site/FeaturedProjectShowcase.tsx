@@ -13,6 +13,7 @@ import { CONTACT, LOAN_DISCLAIMER } from "@/data/site";
 import { trackContact, trackEvent } from "@/lib/analytics";
 import { directoryProjectImageFor } from "@/lib/directory-project-images";
 import { vercelSrcSet } from "@/lib/image-optimization";
+import { internalHref } from "@/lib/url-routing";
 
 const PROJECT_GUIDES: Record<string, string> = {
   "AIPL Riviera at AIPL LakeCity": "/projects/aipl-riviera-sector-103-gurgaon-apartments",
@@ -38,7 +39,8 @@ export function FeaturedProjectShowcase({ projectNames }: { projectNames: readon
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
         {projects.map((project) => {
           const image = directoryProjectImageFor(project.name);
-          const href = project.href ?? PROJECT_GUIDES[project.name] ?? "/projects";
+          const guideHref = project.href ?? PROJECT_GUIDES[project.name];
+          const href = internalHref(guideHref ?? "/projects-in-gurgaon#project-directory");
           const message = encodeURIComponent(
             `Hi Arun, please share the current verified price, availability and buyer checks for ${project.name}, ${project.sector}.`,
           );
@@ -124,7 +126,7 @@ export function FeaturedProjectShowcase({ projectNames }: { projectNames: readon
                         })
                       }
                     >
-                      View project
+                      {guideHref ? "View project" : "Browse projects"}
                       <ArrowUpRight className="size-4" aria-hidden="true" />
                     </a>
                   </Button>

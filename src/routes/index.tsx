@@ -393,18 +393,21 @@ function Home() {
 
           <nav aria-label="Popular Gurgaon project corridors" className="mt-7 flex flex-wrap gap-2">
             {[
-              "Golf Course Road",
-              "Golf Course Extension Road",
-              "Southern Peripheral Road",
-              "Dwarka Expressway",
-              "New Gurgaon",
+              { label: "Golf Course Road", href: "/locations/golf-course-road" },
+              {
+                label: "Golf Course Extension Road",
+                href: "/locations/golf-course-extension-road",
+              },
+              { label: "Southern Peripheral Road", href: "/locations/southern-peripheral-road" },
+              { label: "Dwarka Expressway", href: "/locations/dwarka-expressway" },
+              { label: "New Gurgaon", href: "/locations/new-gurgaon" },
             ].map((corridor) => (
               <a
-                key={corridor}
-                href="/projects#project-directory"
+                key={corridor.href}
+                href={corridor.href}
                 className="inline-flex min-h-10 items-center rounded-full border border-border bg-card px-4 text-xs font-medium transition-colors hover:border-gold/60 hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
               >
-                {corridor}
+                {corridor.label}
               </a>
             ))}
           </nav>

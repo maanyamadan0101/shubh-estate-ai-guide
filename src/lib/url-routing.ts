@@ -189,11 +189,14 @@ export function canonicalRedirect(request: Request): Response | null {
   if (!["GET", "HEAD"].includes(request.method)) return null;
   const url = new URL(request.url);
   const requestedHref = url.href;
-  stripTrackingParameters(url.searchParams);
   const production = ["shubhestatebroker.in", "www.shubhestatebroker.in"].includes(url.hostname);
   // Keep local and preview hosts local, while applying the same path redirects.
   const relative = internalHref(`${SITE_ORIGIN}${url.pathname}${url.search}${url.hash}`);
   const destination = new URL(relative, production ? SITE_ORIGIN : url.origin);
+  // Campaign attribution must reach the landing page before analytics loads.
+  // Internal links and canonical tags stay clean; redirects preserve the
+  // original query values (including repeated values) for external arrivals.
+  destination.search = url.search;
   if (destination.href === requestedHref) return null;
   return new Response(null, {
     status: 301,
