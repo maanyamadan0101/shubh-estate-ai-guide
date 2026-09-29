@@ -11,5 +11,13 @@ export default defineConfig({
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
     server: { entry: "server" },
+    // Keep route discovery deterministic in Vercel's isolated build workspace.
+    // The defaults are equivalent locally, but explicit paths prevent the
+    // client route-tree plugin from starting before its crawl has completed.
+    router: {
+      routesDirectory: "./routes",
+      generatedRouteTree: "./routeTree.gen.ts",
+      enableRouteGeneration: true,
+    },
   },
 });
