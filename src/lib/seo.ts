@@ -65,6 +65,61 @@ function parts(s: SeoSource) {
   return { type, place, city, searchCity };
 }
 
+export type ListingAnchorSource = Pick<
+  SeoSource,
+  "title" | "bhk" | "propertyType" | "listingType" | "sector" | "locality" | "city"
+> & {
+  hasLift?: boolean | null;
+};
+
+function anchorLocation(s: ListingAnchorSource) {
+  const { searchCity } = parts(s);
+  const locality = s.locality?.trim() || "";
+  const sector = s.sector?.trim() || "";
+
+  if (/golf course extension/i.test(locality)) {
+    return `on Golf Course Extension Road, ${searchCity}`;
+  }
+  if (/golf course road/i.test(locality)) {
+    return `on Golf Course Road, ${searchCity}`;
+  }
+  if (/dwarka expressway/i.test(locality)) {
+    return `on Dwarka Expressway, ${searchCity}`;
+  }
+  if (/southern peripheral|\\bspr\\b/i.test(locality)) {
+    return `on Southern Peripheral Road, ${searchCity}`;
+  }
+  if (/sohna road/i.test(locality)) {
+    return `on Sohna Road, ${searchCity}`;
+  }
+  if (sector) return `in ${sector}, ${searchCity}`;
+  if (locality) return `in ${locality}, ${searchCity}`;
+  return `in ${searchCity}`;
+}
+
+export function buildListingAnchorText(s: ListingAnchorSource): string {
+  const propertyType = (s.propertyType ?? "").toLowerCase();
+  const action = s.listingType === "rent" ? "for Rent" : "for Sale";
+  const bhk = s.bhk?.trim();
+
+  if (propertyType === "plot") {
+    return `Plot ${action} ${anchorLocation(s)}`;
+  }
+
+  if (propertyType === "builder_floor" || propertyType === "floor") {
+    const lift = s.hasLift ? " with Lift" : "";
+    return `${bhk ? `${bhk} ` : ""}Builder Floor ${action} ${anchorLocation(s)}${lift}`;
+  }
+
+  if (propertyType === "apartment") {
+    const subject = bhk ? `${bhk} Apartment` : "Apartments";
+    return `${subject} ${action} ${anchorLocation(s)}`;
+  }
+
+  const type = PROPERTY_TYPE_LABEL[propertyType] ?? "Property";
+  return `${bhk ? `${bhk} ` : ""}${type} ${action} ${anchorLocation(s)}`;
+}
+
 export function stripInternalListingReference(value: string): string {
   return value
     .replace(/\s*[|–—-]\s*SEB-[A-Z0-9-]+\b/gi, "")
@@ -129,7 +184,7 @@ export function buildSlug(s: SeoSource): string {
 export function buildSeoTitle(s: SeoSource): string {
   const { type, searchCity } = parts(s);
   const action = s.listingType === "rent" ? "for Rent" : "for Sale";
-  const typeForTitle = type === "Apartment" && s.bhk ? null : type;
+  const typeForTitle = type;
   const head = [s.bhk, typeForTitle, action].filter(Boolean).join(" ");
   const project = s.projectName?.trim() || null;
   const sector = s.sector?.trim() || null;
@@ -172,7 +227,7 @@ export function buildMetaDescription(s: SeoSource): string {
   const subject = [s.bhk, type].filter(Boolean).join(" ");
   const location = [
     s.projectName ? `at ${s.projectName}` : null,
-    s.sector ? `in ${s.sector}, ${searchCity}` : `in ${searchCity}`,
+    anchorLocation(s),
   ]
     .filter(Boolean)
     .join(" ");
@@ -199,12 +254,9 @@ export function buildOgTitle(s: SeoSource): string {
 }
 
 export function buildImageAlt(s: SeoSource, index: number): string {
-  const { type, searchCity } = parts(s);
   const base = [
-    s.bhk,
-    type,
+    buildListingAnchorText(s),
     s.projectName ? `at ${s.projectName}` : null,
-    s.sector ? `in ${s.sector}, ${searchCity}` : `in ${searchCity}`,
   ]
     .filter(Boolean)
     .join(" ")
