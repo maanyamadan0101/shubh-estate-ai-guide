@@ -49,7 +49,7 @@ function Sector79Page() {
       title="Property and flats for sale in Sector 79 Gurgaon"
       body="Compare established resale apartments and newer residential options in Sector 79 with practical guidance on project selection, pricing, connectivity, financing and documentation."
       intro="Sector 79 sits in the New Gurugram and NH-48-side growth catchment near the Aravalli foothills. The micro-market includes established residential communities as well as newer phases and projects, so buyers should compare actual access, occupancy, construction status and competing supply at project and tower level."
-      interest="Property in Sector 79 Gurgaon"
+      interest="Apartments for Sale in Sector 79, Gurgaon"
       ctaTitle="Shortlist Sector 79 properties"
       ctaBody="Share your configuration, budget, possession preference and purpose. We can compare suitable Sector 79 inventory and explain the trade-offs before a site visit."
       sections={[
