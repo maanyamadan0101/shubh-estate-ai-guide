@@ -16,7 +16,13 @@ import { trackContact, trackEvent } from "@/lib/analytics";
 import { vercelSrcSet } from "@/lib/image-optimization";
 import { representativeProjectImageFor } from "@/lib/project-image-catalog";
 import { isPublicSlug } from "@/lib/public-slug";
-import { formatArea, formatINR, PROPERTY_TYPE_LABEL, STATUS_LABEL } from "@/lib/seo";
+import {
+  buildListingAnchorText,
+  formatArea,
+  formatINR,
+  PROPERTY_TYPE_LABEL,
+  STATUS_LABEL,
+} from "@/lib/seo";
 import type { ListingRow } from "@/lib/properties.functions";
 
 const LISTING_DATE_FORMATTER = new Intl.DateTimeFormat("en-IN", {
@@ -48,6 +54,16 @@ export function ListingCard({
   showContactActions?: boolean;
 }) {
   const place = [property.sector, property.locality].filter(Boolean).join(", ");
+  const seoAnchorText = buildListingAnchorText({
+    title: property.title,
+    bhk: property.bhk,
+    propertyType: property.property_type,
+    listingType: property.listing_type,
+    sector: property.sector,
+    locality: property.locality,
+    city: property.city,
+    hasLift: property.has_lift,
+  });
   const projectIntelligence = verifiedProjectIntelligenceFor({ title: property.title });
   const cardAmenities = projectIntelligence?.amenities.slice(0, 5) ?? [];
   const fallbackProjectImage = property.cover_image_url
@@ -94,10 +110,7 @@ export function ListingCard({
         <img
           src={visualUrl}
           srcSet={responsiveSrcSet}
-          alt={
-            fallbackProjectImage?.altText ??
-            `${property.bhk ?? ""} ${PROPERTY_TYPE_LABEL[property.property_type] ?? "Property"} in ${place || property.city}`.trim()
-          }
+          alt={seoAnchorText}
           loading="lazy"
           decoding="async"
           width={800}
@@ -141,7 +154,13 @@ export function ListingCard({
 
   return (
     <article className="group overflow-hidden rounded-xl border border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-lift)]">
-      <a href={propertyHref} className="block" onClick={() => trackPropertyCardClick("image")}>
+      <a
+        href={propertyHref}
+        className="block"
+        aria-label={seoAnchorText}
+        title={seoAnchorText}
+        onClick={() => trackPropertyCardClick("image")}
+      >
         {visual}
       </a>
 
@@ -157,7 +176,10 @@ export function ListingCard({
               className="hover:text-gold"
               onClick={() => trackPropertyCardClick("title")}
             >
-              {property.title}
+              <span>{property.title}</span>
+              <span className="mt-1 block font-sans text-sm font-normal text-muted-foreground">
+                {seoAnchorText}
+              </span>
             </a>
           </h3>
           {place ? (
@@ -217,7 +239,7 @@ export function ListingCard({
             onClick={() => trackPropertyCardClick("details")}
             className="text-sm font-medium text-gold underline-offset-4 hover:underline"
           >
-            View details
+            {seoAnchorText}
           </a>
         </div>
         {availabilityDate ? (
