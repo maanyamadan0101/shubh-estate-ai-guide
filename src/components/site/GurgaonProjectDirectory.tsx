@@ -155,6 +155,7 @@ function ProjectCard({
   const image = directoryProjectImageFor(project.name);
   const responsiveSrcSet = image ? vercelSrcSet(image.src, [360, 540, 720, 960]) : undefined;
   const projectHref = guideHref ?? `/contact?interest=${encodeURIComponent(project.name)}`;
+  const projectAnchorText = `Apartments for Sale at ${project.name}, ${project.sector}, Gurgaon`;
   const message = encodeURIComponent(
     `Hi Shubh Estate Brokers, please share current price, availability and buyer checks for ${project.name}, ${project.sector}, Gurgaon.`,
   );
@@ -300,7 +301,7 @@ function ProjectCard({
                   })
                 }
               >
-                View project
+                {projectAnchorText}
                 <ArrowUpRight className="size-4" aria-hidden="true" />
               </a>
             </Button>
