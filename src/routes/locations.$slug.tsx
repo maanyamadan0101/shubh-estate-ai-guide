@@ -365,7 +365,7 @@ function LocationPage() {
               to="/flats-for-sale-in-gurgaon"
               className="text-gold underline-offset-4 hover:underline"
             >
-              Flats for sale in Gurgaon
+              Apartments for Sale in Gurgaon
             </Link>{" "}
             ·{" "}
             <Link
