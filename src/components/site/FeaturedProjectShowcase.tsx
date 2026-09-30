@@ -41,6 +41,7 @@ export function FeaturedProjectShowcase({ projectNames }: { projectNames: readon
           const image = directoryProjectImageFor(project.name);
           const guideHref = project.href ?? PROJECT_GUIDES[project.name];
           const href = internalHref(guideHref ?? "/projects-in-gurgaon#project-directory");
+          const projectAnchorText = `Apartments for Sale at ${project.name}, ${project.sector}, Gurgaon`;
           const message = encodeURIComponent(
             `Hi Arun, please share the current verified price, availability and buyer checks for ${project.name}, ${project.sector}.`,
           );
@@ -126,7 +127,7 @@ export function FeaturedProjectShowcase({ projectNames }: { projectNames: readon
                         })
                       }
                     >
-                      {guideHref ? "View project" : "Browse projects"}
+                      {projectAnchorText}
                       <ArrowUpRight className="size-4" aria-hidden="true" />
                     </a>
                   </Button>

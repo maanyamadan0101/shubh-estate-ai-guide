@@ -3,7 +3,7 @@ import { SeoIntentLanding } from "@/components/site/SeoIntentLanding";
 import { SITE_ORIGIN } from "@/lib/seo";
 
 const canonical = `${SITE_ORIGIN}/property-sector-59-gurgaon`;
-const title = "Property in Sector 59 Gurgaon | Tata Raisina Residency Guide";
+const title = "Apartments for Sale in Sector 59, Gurgaon | Tata Raisina Residency Guide";
 const description =
   "Explore property in Sector 59 Gurgaon on Golf Course Extension Road, including Tata Raisina Residency, resale checks, project context and home-loan guidance.";
 const seoTitle = "Sector 59 Gurgaon & Tata Raisina | Shubh Estate Brokers";
@@ -52,7 +52,7 @@ function Sector59Page() {
       title="Property and apartments in Sector 59 Gurgaon"
       body="Research Sector 59 through project-level pages, resale checks and current inventory, with Tata Raisina Residency added as a dedicated project guide."
       intro="Sector 59 sits on the Golf Course Extension Road side of Gurugram and includes established premium residential communities close to the Aravalli foothills. Project quality and the exact apartment should be assessed together, especially for larger luxury residences."
-      interest="Property in Sector 59 Gurgaon"
+      interest="Apartments for Sale in Sector 59, Gurgaon"
       ctaTitle="Compare Sector 59 options"
       ctaBody="Share your budget, configuration and preferred floor or view. We can reconfirm current Sector 59 availability and transaction requirements."
       sections={[

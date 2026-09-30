@@ -461,7 +461,7 @@ export const Route = createFileRoute("/flats-for-sale-in-gurgaon")({
     });
     const title =
       page > 1 && !hasFacet
-        ? `Flats for Sale in Gurgaon – Page ${page} | Shubh Estate Brokers`
+        ? `Apartments for Sale in Gurgaon – Page ${page} | Shubh Estate Brokers`
         : "Gurgaon Flats for Sale | Prices, Projects & Buyer Checks";
     const description =
       "Compare flats for sale in Gurgaon by budget, location and possession. Get price context, document checks and home-loan guidance. Enquire today.";
@@ -503,7 +503,7 @@ export const Route = createFileRoute("/flats-for-sale-in-gurgaon")({
             isPartOf: { "@id": `${SITE_ORIGIN}/#website` },
             publisher: { "@id": `${SITE_ORIGIN}/#real-estate-agent` },
             breadcrumb: { "@id": `${canonical}#breadcrumb` },
-            about: ["Flats for sale in Gurgaon", "Residential projects in Gurugram"],
+            about: ["Apartments for Sale in Gurgaon", "Residential projects in Gurugram"],
           }),
         },
         {
@@ -517,7 +517,7 @@ export const Route = createFileRoute("/flats-for-sale-in-gurgaon")({
               {
                 "@type": "ListItem",
                 position: 2,
-                name: "Flats for Sale in Gurgaon",
+                name: "Apartments for Sale in Gurgaon",
                 item: `${SITE_ORIGIN}/flats-for-sale-in-gurgaon`,
               },
             ],
@@ -615,7 +615,7 @@ function GurgaonCatalogue() {
               Home
             </Link>
             <span className="mx-2">/</span>
-            <span>Flats for Sale in Gurgaon</span>
+            <span>Apartments for Sale in Gurgaon</span>
           </nav>
           <div className="relative mt-8 grid gap-10 lg:grid-cols-[1.35fr_0.65fr] lg:items-end">
             <div>

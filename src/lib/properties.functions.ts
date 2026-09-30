@@ -37,6 +37,7 @@ export type ListingRow = {
   city: string;
   cover_image_url: string | null;
   is_luxury: boolean;
+  has_lift?: boolean;
   updated_at?: string;
 };
 
@@ -71,6 +72,34 @@ function listingSearchText(row: ListingRow) {
     .filter(Boolean)
     .join(" ")
     .toLocaleLowerCase("en-IN");
+}
+
+async function addVerifiedLiftSignals(
+  supabase: Awaited<ReturnType<typeof publishedClient>>,
+  rows: ListingRow[],
+) {
+  if (!rows.length) return rows;
+
+  const propertyIds = rows.map((row) => row.id).filter(Boolean);
+  const { data: features, error } = await supabase
+    .from("property_features")
+    .select("property_id,feature_name")
+    .in("property_id", propertyIds)
+    .or("feature_name.ilike.%lift%,feature_name.ilike.%elevator%");
+
+  if (error) {
+    console.error("[Public properties] Could not load verified lift features:", error.message);
+  }
+
+  const verifiedLiftIds = new Set(
+    (features ?? []).map((feature) => String(feature.property_id)),
+  );
+  return rows.map((row) => ({
+    ...row,
+    has_lift:
+      verifiedLiftIds.has(row.id) ||
+      /\b(?:lift|elevator)\b/i.test([row.title, row.locality].filter(Boolean).join(" ")),
+  }));
 }
 
 export function matchesCatalogueChannel(row: ListingRow, channel?: CatalogueChannel) {
@@ -257,9 +286,10 @@ export const listPublicProperties = createServerFn({ method: "GET" })
       const publicRows = ((rows ?? []) as unknown as ListingRow[])
         .filter((row) => isPublicSlug(row.slug))
         .map(applyConfirmedInventoryCorrections);
+      const rowsWithLiftSignals = await addVerifiedLiftSignals(supabase, publicRows);
       const properties = data.locality
-        ? dedupeLocationListings(publicRows).slice(0, requestedLimit)
-        : publicRows;
+        ? dedupeLocationListings(rowsWithLiftSignals).slice(0, requestedLimit)
+        : rowsWithLiftSignals;
 
       return { properties, error: null };
     } catch (error) {
@@ -341,12 +371,13 @@ export const listPublicCataloguePage = createServerFn({ method: "GET" })
         .filter((row) => matchesCatalogueChannel(row, data.channel))
         .filter((row) => matchesCatalogueCorridor(row, data.corridor));
 
-      const total = catalogueRows.length;
-      const projectUnitCounts = countCurrentProjectUnits(catalogueRows);
+      const rowsWithLiftSignals = await addVerifiedLiftSignals(supabase, catalogueRows);
+      const total = rowsWithLiftSignals.length;
+      const projectUnitCounts = countCurrentProjectUnits(rowsWithLiftSignals);
       const totalPages = Math.max(1, Math.ceil(total / data.pageSize));
       const page = Math.min(data.page, totalPages);
       const start = (page - 1) * data.pageSize;
-      const properties = catalogueRows.slice(start, start + data.pageSize);
+      const properties = rowsWithLiftSignals.slice(start, start + data.pageSize);
 
       return { properties, total, page, pageSize: data.pageSize, projectUnitCounts, error: null };
     } catch (error) {

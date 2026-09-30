@@ -134,7 +134,7 @@ export const Route = createFileRoute("/projects/$slug")({
       <h1 className="font-display text-3xl">Project guide not found</h1>
       <p className="mt-2 text-muted-foreground">Browse current Gurgaon projects and properties.</p>
       <Button asChild variant="gold" className="mt-6">
-        <Link to="/projects-in-gurgaon">View project guides</Link>
+        <Link to="/projects-in-gurgaon">Browse apartments for sale in Gurgaon</Link>
       </Button>
     </div>
   ),
@@ -371,7 +371,7 @@ function ProjectHubPage() {
                         {listing.display_price || formatINR(listing.price)}
                       </p>
                       <Button asChild size="sm" variant="goldOutline">
-                        <a href={listing.href}>View details</a>
+                        <a href={listing.href}>{listing.listing_type === "rent" ? "Apartments for Rent" : "Apartments for Sale"} at {listing.title}, {loaderData.sector}, Gurgaon</a>
                       </Button>
                     </div>
                   </div>

@@ -3,7 +3,7 @@ import { SeoIntentLanding } from "@/components/site/SeoIntentLanding";
 import { SITE_ORIGIN } from "@/lib/seo";
 
 const canonical = `${SITE_ORIGIN}/property-sector-62-gurgaon`;
-const title = "Property in Sector 62 Gurgaon | Heritage One & Urban Oasis";
+const title = "Apartments for Sale in Sector 62, Gurgaon | Heritage One & Urban Oasis";
 const description =
   "Explore property in Sector 62 Gurgaon on Golf Course Extension Road, including Conscient Heritage One and Emaar Urban Oasis, with current project inventory, buyer checks and home-loan guidance.";
 
@@ -48,7 +48,7 @@ function Sector62Page() {
       title="Property and apartments in Sector 62 Gurgaon"
       body="Compare Sector 62 projects through the actual project, current unit inventory, location context, financing and transaction checks rather than a generic portal list."
       intro="Sector 62 is a key residential micro-market on Golf Course Extension Road. For buyers, the useful comparison is project-to-project and then unit-to-unit: tower, floor, facing, view, area, condition, asking price, documentation and financing can materially change the decision."
-      interest="Property in Sector 62 Gurgaon"
+      interest="Apartments for Sale in Sector 62, Gurgaon"
       ctaTitle="Compare Sector 62 options"
       ctaBody="Share your budget, configuration and whether the purchase is for end use or investment. We can compare current Sector 62 inventory before you schedule visits."
       sections={[

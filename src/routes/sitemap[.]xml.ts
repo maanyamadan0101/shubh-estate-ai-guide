@@ -290,7 +290,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         const entries = [
           ...STATIC_PATHS.map(
             (p) =>
-              `  <url>\n    <loc>${escapeXml(`${SITE_ORIGIN}${p.path}`)}</loc>${safeLastmod(p.lastmod)}\n    <priority>${p.priority}</priority>\n  </url>`,
+              `  <url>\n    <loc>${escapeXml(`${SITE_ORIGIN}${p.path}`)}</loc>${safeLastmod(p.lastmod ?? SEO_TEMPLATE_LASTMOD)}\n    <priority>${p.priority}</priority>\n  </url>`,
           ),
           ...(hasRentalInventory
             ? [

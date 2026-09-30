@@ -395,13 +395,13 @@ function M3MGolfHillsPage() {
             <div className="mt-5 flex flex-wrap gap-3">
               <Button asChild variant="goldOutline">
                 <a href={M3M_PUBLIC_ENQUIRY_PAGE} target="_blank" rel="noopener noreferrer">
-                  View M3M public price context{" "}
+                  M3M Golf Hills apartments for sale in Sector 79, Gurgaon — public price context{" "}
                   <ExternalLink className="size-4" aria-hidden="true" />
                 </a>
               </Button>
               <Button asChild variant="goldOutline">
                 <a href={M3M_PROJECT_PAGE} target="_blank" rel="noopener noreferrer">
-                  View project information <ExternalLink className="size-4" aria-hidden="true" />
+                  M3M Golf Hills apartments for sale in Sector 79, Gurgaon — project information <ExternalLink className="size-4" aria-hidden="true" />
                 </a>
               </Button>
             </div>

@@ -84,7 +84,7 @@ function DesperateDealsPage() {
         },
       ]}
       related={[
-        { href: "/flats-for-sale-in-gurgaon", label: "Flats for sale in Gurgaon" },
+        { href: "/flats-for-sale-in-gurgaon", label: "Apartments for Sale in Gurgaon" },
         { href: "/locations/golf-course-extension-road", label: "Apartments on Golf Course Extension Road" },
         { href: "/higher-floor-apartments-golf-course-extension-road", label: "Higher-floor apartments" },
         { href: "/best-areas-gurgaon-property-investment", label: "Best areas to evaluate for investment" },

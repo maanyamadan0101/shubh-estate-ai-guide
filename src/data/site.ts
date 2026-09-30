@@ -7,9 +7,9 @@ export const CONTACT = {
   name: "Shubh Estate Brokers",
   tagline: "Fair & Transparent Real Estate Deals at the Best Price",
   address: "15th Floor, Ocus Quantum Mall, Sector 51, Gurugram – 122003, Haryana",
-  phone: "099110 50561",
+  phone: "+91 99110 50561",
   phoneHref: "tel:+919911050561",
-  alternatePhone: "081307 85000",
+  alternatePhone: "+91 81307 85000",
   alternatePhoneHref: "tel:+918130785000",
   // Keep WhatsApp CTAs on an internal noindex bridge. WhatsApp rate-limits
   // automated crawlers with HTTP 429, which Semrush can misclassify as a

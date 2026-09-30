@@ -104,8 +104,8 @@ export const Route = createFileRoute("/flats-for-rent-in-gurgaon")({
     const noindex = indexing.noindex || total === 0;
     const title =
       page > 1 && !hasFacet
-        ? `Flats for Rent in Gurgaon – Page ${page} | Shubh Estate Brokers`
-        : "Flats for Rent in Gurgaon | Furnished Homes | Shubh Estate";
+        ? `Apartments for Rent in Gurgaon – Page ${page} | Shubh Estate Brokers`
+        : "Apartments for Rent in Gurgaon | Furnished Homes | Shubh Estate";
     const description =
       "Explore current flats for rent in Gurgaon by sector, budget, furnishing and availability. Confirm rent, maintenance, deposit, photos and viewing arrangements with Shubh Estate Brokers.";
     const canonical = indexing.canonical;
@@ -133,7 +133,7 @@ export const Route = createFileRoute("/flats-for-rent-in-gurgaon")({
             "@context": "https://schema.org",
             "@type": "CollectionPage",
             "@id": `${canonical}#webpage`,
-            name: "Flats for Rent in Gurgaon",
+            name: "Apartments for Rent in Gurgaon",
             description,
             url: canonical,
             isPartOf: { "@id": `${SITE_ORIGIN}/#website` },
@@ -167,7 +167,7 @@ export const Route = createFileRoute("/flats-for-rent-in-gurgaon")({
               {
                 "@type": "ListItem",
                 position: 2,
-                name: "Flats for Rent in Gurgaon",
+                name: "Apartments for Rent in Gurgaon",
                 item: canonical,
               },
             ],

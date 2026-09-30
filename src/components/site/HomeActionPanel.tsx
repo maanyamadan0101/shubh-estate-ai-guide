@@ -4,7 +4,7 @@ import { HomeVisitTrust } from "@/components/site/HomeVisitTrust";
 
 const ACTIONS = [
   {
-    label: "Buy Property in Gurgaon",
+    label: "Apartments for Sale in Gurgaon",
     body: "Browse verified resale, ready-to-move, new-launch and under-construction options with price, location and transaction context.",
     eyebrow: "BUYERS",
     icon: Building2,
@@ -78,14 +78,14 @@ export function HomeActionPanel() {
                 DWARKA EXPRESSWAY INVENTORY
               </p>
               <h3 className="mt-2 font-display text-2xl text-foreground">
-                Compare flats for sale across key Dwarka Expressway project groups
+                Compare apartments for sale on Dwarka Expressway, Gurgaon
               </h3>
               <p className="mt-2 max-w-3xl text-sm leading-6 text-muted-foreground">
                 Review current resale and selected under-construction opportunities by project, sector, configuration and asking-price context.
               </p>
             </div>
             <span className="inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-gold">
-              View current inventory
+              View apartments for sale
               <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
             </span>
           </Link>

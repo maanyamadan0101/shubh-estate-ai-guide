@@ -436,7 +436,7 @@ function Page() {
               to="/locations/golf-course-extension-road"
               className="rounded-2xl border border-border bg-card p-6 transition hover:border-gold/50"
             >
-              <h3 className="font-display text-xl text-navy">Golf Course Extension Road guide</h3>
+              <h3 className="font-display text-xl text-navy">Apartments for Sale on Golf Course Extension Road, Gurgaon</h3>
               <p className="mt-2 text-sm leading-6 text-muted-foreground">
                 Compare the wider corridor, connectivity and residential micro-markets.
               </p>
@@ -445,9 +445,9 @@ function Page() {
               to="/property-sector-62-gurgaon"
               className="rounded-2xl border border-border bg-card p-6 transition hover:border-gold/50"
             >
-              <h3 className="font-display text-xl text-navy">Property in Sector 62 Gurgaon</h3>
+              <h3 className="font-display text-xl text-navy">Apartments for Sale in Sector 62, Gurgaon</h3>
               <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                See Sector 62 inventory and location-level options.
+                See apartments for sale in Sector 62, Gurgaon and compare location-level options.
               </p>
             </Link>
             <Link

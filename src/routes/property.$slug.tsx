@@ -248,7 +248,7 @@ export const Route = createFileRoute("/property/$slug")({
       {
         "@type": "ListItem",
         position: 2,
-        name: p.listing_type === "rent" ? "Flats for Rent in Gurgaon" : "Flats for Sale in Gurgaon",
+        name: p.listing_type === "rent" ? "Apartments for Rent in Gurgaon" : "Apartments for Sale in Gurgaon",
         item: catalogueHref,
       },
       ...(identity && projectCanonical
@@ -453,8 +453,8 @@ function PropertyPage() {
                   className="font-semibold text-gold underline-offset-4 hover:underline"
                 >
                   {data.property.listing_type === "rent"
-                    ? "Flats for rent in Gurgaon"
-                    : "Flats for sale in Gurgaon"}
+                    ? "Apartments for Rent in Gurgaon"
+                    : "Apartments for Sale in Gurgaon"}
                 </Link>
                 <Link
                   to="/home-loans"

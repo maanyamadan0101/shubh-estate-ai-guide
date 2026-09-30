@@ -393,14 +393,14 @@ function Home() {
 
           <nav aria-label="Popular Gurgaon project corridors" className="mt-7 flex flex-wrap gap-2">
             {[
-              { label: "Golf Course Road", href: "/locations/golf-course-road" },
+              { label: "Apartments for Sale on Golf Course Road, Gurgaon", href: "/locations/golf-course-road" },
               {
-                label: "Golf Course Extension Road",
+                label: "Apartments for Sale on Golf Course Extension Road, Gurgaon",
                 href: "/locations/golf-course-extension-road",
               },
-              { label: "Southern Peripheral Road", href: "/locations/southern-peripheral-road" },
-              { label: "Dwarka Expressway", href: "/locations/dwarka-expressway" },
-              { label: "New Gurgaon", href: "/locations/new-gurgaon" },
+              { label: "Apartments for Sale on Southern Peripheral Road, Gurgaon", href: "/locations/southern-peripheral-road" },
+              { label: "Apartments for Sale on Dwarka Expressway, Gurgaon", href: "/locations/dwarka-expressway" },
+              { label: "Apartments for Sale in New Gurgaon, Gurgaon", href: "/locations/new-gurgaon" },
             ].map((corridor) => (
               <a
                 key={corridor.href}
@@ -685,24 +685,24 @@ function Home() {
               to="/flats-for-sale-in-gurgaon"
               className="text-gold underline-offset-4 hover:underline"
             >
-              Flats for sale in Gurgaon
+              Apartments for Sale in Gurgaon
             </Link>
             <Link to="/luxury" className="text-gold underline-offset-4 hover:underline">
-              Luxury apartments in Gurgaon
+              Luxury Apartments for Sale in Gurgaon
             </Link>
             <Link
               to="/locations/$slug"
               params={{ slug: "dwarka-expressway" }}
               className="text-gold underline-offset-4 hover:underline"
             >
-              Dwarka Expressway property
+              Apartments for Sale on Dwarka Expressway, Gurgaon
             </Link>
             <Link
               to="/locations/$slug"
               params={{ slug: "new-gurgaon" }}
               className="text-gold underline-offset-4 hover:underline"
             >
-              New Gurgaon property
+              Apartments for Sale in New Gurgaon, Gurgaon
             </Link>
             <Link
               to="/godrej-101-sector-79-gurgaon-apartments"
@@ -714,19 +714,19 @@ function Home() {
               to="/property-sector-79-gurgaon"
               className="text-gold underline-offset-4 hover:underline"
             >
-              Property in Sector 79 Gurgaon
+              Apartments for Sale in Sector 79, Gurgaon
             </Link>
             <Link
               to="/ready-to-move-flats-in-gurgaon"
               className="text-gold underline-offset-4 hover:underline"
             >
-              Ready-to-move flats in Gurgaon
+              Ready-to-Move Apartments for Sale in Gurgaon
             </Link>
             <Link
               to="/3-bhk-builder-floor-for-sale-vatika-inxt-floors-sector-82a-gurgaon"
               className="text-gold underline-offset-4 hover:underline"
             >
-              Builder floors in Gurgaon
+              Builder Floors for Sale in Gurgaon
             </Link>
             <Link
               to="/3-bhk-for-sale-emaar-emerald-estate-sector-65-gurgaon-1395-sqft"
@@ -738,7 +738,7 @@ function Home() {
               to="/puri-emerald-bay-3-bhk-for-sale-sector-104-gurgaon"
               className="text-gold underline-offset-4 hover:underline"
             >
-              3 BHK near Dwarka Expressway
+              3 BHK Apartment for Sale on Dwarka Expressway, Gurgaon
             </Link>
           </div>
         </div>
