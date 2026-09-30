@@ -371,7 +371,7 @@ function ProjectHubPage() {
                         {listing.display_price || formatINR(listing.price)}
                       </p>
                       <Button asChild size="sm" variant="goldOutline">
-                        <a href={listing.href}>View details</a>
+                        <a href={listing.href}>{listing.listing_type === "rent" ? "Apartments for Rent" : "Apartments for Sale"} at {listing.title}, {loaderData.sector}, Gurgaon</a>
                       </Button>
                     </div>
                   </div>
