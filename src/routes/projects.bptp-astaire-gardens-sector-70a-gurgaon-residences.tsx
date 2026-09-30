@@ -564,7 +564,7 @@ function AstairePage() {
                 Golf Course Extension Road
               </Link>
               <Link to="/flats-for-sale-in-gurgaon" className="text-gold">
-                Flats for sale in Gurgaon
+                Apartments for Sale in Gurgaon
               </Link>
               <a
                 href="/capital-residences-360-3-bhk-for-sale-sector-70a-gurgaon"
