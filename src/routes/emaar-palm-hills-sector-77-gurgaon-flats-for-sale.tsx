@@ -133,7 +133,7 @@ export const Route = createFileRoute("/emaar-palm-hills-sector-77-gurgaon-flats-
         {
           "@type": "ListItem",
           position: 2,
-          name: "Flats for Sale in Gurgaon",
+          name: "Apartments for Sale in Gurgaon",
           item: `${SITE_ORIGIN}/flats-for-sale-in-gurgaon`,
         },
         {
@@ -220,7 +220,7 @@ function PalmHillsPage() {
                   to="/flats-for-sale-in-gurgaon"
                   className="font-semibold text-gold underline-offset-4 hover:underline"
                 >
-                  Flats for sale in Gurgaon
+                  Apartments for Sale in Gurgaon
                 </Link>
                 <Link
                   to="/ready-to-move-flats-in-gurgaon"
