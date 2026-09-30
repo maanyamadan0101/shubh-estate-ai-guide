@@ -388,6 +388,7 @@ function SprPropertyComboPage() {
         },
       ]}
       related={[
+        { href: "/projects/trehan-luxe-floors-one-good-earth-sector-71-gurgaon", label: "Trehan Luxe Floors 71 — One Good Earth 3 BHK floors" },
         {
           href: "/projects/bptp-astaire-gardens-sector-70a-gurgaon-residences",
           label: "BPTP Astaire Gardens project guide and current inventory",

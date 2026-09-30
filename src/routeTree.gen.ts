@@ -87,6 +87,7 @@ import { Route as ProjectsGodrejSoraSector53GurgaonApartmentsRouteImport } from 
 import { Route as ProjectsGodrejVrikshyaSector103GurgaonApartmentsRouteImport } from './routes/projects.godrej-vrikshya-sector-103-gurgaon-apartments'
 import { Route as ProjectsM3mGolfHillsSector79GurgaonApartmentsRouteImport } from './routes/projects.m3m-golf-hills-sector-79-gurgaon-apartments'
 import { Route as ProjectsTataRaisinaResidencySector59GurgaonApartmentsRouteImport } from './routes/projects.tata-raisina-residency-sector-59-gurgaon-apartments'
+import { Route as ProjectsTrehanLuxeFloorsOneGoodEarthSector71GurgaonRouteImport } from './routes/projects.trehan-luxe-floors-one-good-earth-sector-71-gurgaon'
 import { Route as PropertySlugRouteImport } from './routes/property.$slug'
 import { Route as PropertyDlfThePrimusSector82aGurgaonRouteImport } from './routes/property.dlf-the-primus-sector-82a-gurgaon'
 import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
@@ -534,6 +535,12 @@ const ProjectsTataRaisinaResidencySector59GurgaonApartmentsRoute =
     path: '/tata-raisina-residency-sector-59-gurgaon-apartments',
     getParentRoute: () => ProjectsRoute,
   } as any)
+const ProjectsTrehanLuxeFloorsOneGoodEarthSector71GurgaonRoute =
+  ProjectsTrehanLuxeFloorsOneGoodEarthSector71GurgaonRouteImport.update({
+    id: '/trehan-luxe-floors-one-good-earth-sector-71-gurgaon',
+    path: '/trehan-luxe-floors-one-good-earth-sector-71-gurgaon',
+    getParentRoute: () => ProjectsRoute,
+  } as any)
 const PropertySlugRoute = PropertySlugRouteImport.update({
   id: '/property/$slug',
   path: '/property/$slug',
@@ -699,6 +706,7 @@ export interface FileRoutesByFullPath {
   '/projects/godrej-vrikshya-sector-103-gurgaon-apartments': typeof ProjectsGodrejVrikshyaSector103GurgaonApartmentsRoute
   '/projects/m3m-golf-hills-sector-79-gurgaon-apartments': typeof ProjectsM3mGolfHillsSector79GurgaonApartmentsRoute
   '/projects/tata-raisina-residency-sector-59-gurgaon-apartments': typeof ProjectsTataRaisinaResidencySector59GurgaonApartmentsRoute
+  '/projects/trehan-luxe-floors-one-good-earth-sector-71-gurgaon': typeof ProjectsTrehanLuxeFloorsOneGoodEarthSector71GurgaonRoute
   '/property/$slug': typeof PropertySlugRoute
   '/property/dlf-the-primus-sector-82a-gurgaon': typeof PropertyDlfThePrimusSector82aGurgaonRoute
   '/blog/': typeof BlogIndexRoute
@@ -793,6 +801,7 @@ export interface FileRoutesByTo {
   '/projects/godrej-vrikshya-sector-103-gurgaon-apartments': typeof ProjectsGodrejVrikshyaSector103GurgaonApartmentsRoute
   '/projects/m3m-golf-hills-sector-79-gurgaon-apartments': typeof ProjectsM3mGolfHillsSector79GurgaonApartmentsRoute
   '/projects/tata-raisina-residency-sector-59-gurgaon-apartments': typeof ProjectsTataRaisinaResidencySector59GurgaonApartmentsRoute
+  '/projects/trehan-luxe-floors-one-good-earth-sector-71-gurgaon': typeof ProjectsTrehanLuxeFloorsOneGoodEarthSector71GurgaonRoute
   '/property/$slug': typeof PropertySlugRoute
   '/property/dlf-the-primus-sector-82a-gurgaon': typeof PropertyDlfThePrimusSector82aGurgaonRoute
   '/blog': typeof BlogIndexRoute
@@ -890,6 +899,7 @@ export interface FileRoutesById {
   '/projects/godrej-vrikshya-sector-103-gurgaon-apartments': typeof ProjectsGodrejVrikshyaSector103GurgaonApartmentsRoute
   '/projects/m3m-golf-hills-sector-79-gurgaon-apartments': typeof ProjectsM3mGolfHillsSector79GurgaonApartmentsRoute
   '/projects/tata-raisina-residency-sector-59-gurgaon-apartments': typeof ProjectsTataRaisinaResidencySector59GurgaonApartmentsRoute
+  '/projects/trehan-luxe-floors-one-good-earth-sector-71-gurgaon': typeof ProjectsTrehanLuxeFloorsOneGoodEarthSector71GurgaonRoute
   '/property/$slug': typeof PropertySlugRoute
   '/property/dlf-the-primus-sector-82a-gurgaon': typeof PropertyDlfThePrimusSector82aGurgaonRoute
   '/blog/': typeof BlogIndexRoute
@@ -987,6 +997,7 @@ export interface FileRouteTypes {
     | '/projects/godrej-vrikshya-sector-103-gurgaon-apartments'
     | '/projects/m3m-golf-hills-sector-79-gurgaon-apartments'
     | '/projects/tata-raisina-residency-sector-59-gurgaon-apartments'
+    | '/projects/trehan-luxe-floors-one-good-earth-sector-71-gurgaon'
     | '/property/$slug'
     | '/property/dlf-the-primus-sector-82a-gurgaon'
     | '/blog/'
@@ -1081,6 +1092,7 @@ export interface FileRouteTypes {
     | '/projects/godrej-vrikshya-sector-103-gurgaon-apartments'
     | '/projects/m3m-golf-hills-sector-79-gurgaon-apartments'
     | '/projects/tata-raisina-residency-sector-59-gurgaon-apartments'
+    | '/projects/trehan-luxe-floors-one-good-earth-sector-71-gurgaon'
     | '/property/$slug'
     | '/property/dlf-the-primus-sector-82a-gurgaon'
     | '/blog'
@@ -1177,6 +1189,7 @@ export interface FileRouteTypes {
     | '/projects/godrej-vrikshya-sector-103-gurgaon-apartments'
     | '/projects/m3m-golf-hills-sector-79-gurgaon-apartments'
     | '/projects/tata-raisina-residency-sector-59-gurgaon-apartments'
+    | '/projects/trehan-luxe-floors-one-good-earth-sector-71-gurgaon'
     | '/property/$slug'
     | '/property/dlf-the-primus-sector-82a-gurgaon'
     | '/blog/'
@@ -1816,6 +1829,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProjectsTataRaisinaResidencySector59GurgaonApartmentsRouteImport
       parentRoute: typeof ProjectsRoute
     }
+    '/projects/trehan-luxe-floors-one-good-earth-sector-71-gurgaon': {
+      id: '/projects/trehan-luxe-floors-one-good-earth-sector-71-gurgaon'
+      path: '/trehan-luxe-floors-one-good-earth-sector-71-gurgaon'
+      fullPath: '/projects/trehan-luxe-floors-one-good-earth-sector-71-gurgaon'
+      preLoaderRoute: typeof ProjectsTrehanLuxeFloorsOneGoodEarthSector71GurgaonRouteImport
+      parentRoute: typeof ProjectsRoute
+    }
     '/property/$slug': {
       id: '/property/$slug'
       path: '/property/$slug'
@@ -1979,6 +1999,7 @@ interface ProjectsRouteChildren {
   ProjectsGodrejVrikshyaSector103GurgaonApartmentsRoute: typeof ProjectsGodrejVrikshyaSector103GurgaonApartmentsRoute
   ProjectsM3mGolfHillsSector79GurgaonApartmentsRoute: typeof ProjectsM3mGolfHillsSector79GurgaonApartmentsRoute
   ProjectsTataRaisinaResidencySector59GurgaonApartmentsRoute: typeof ProjectsTataRaisinaResidencySector59GurgaonApartmentsRoute
+  ProjectsTrehanLuxeFloorsOneGoodEarthSector71GurgaonRoute: typeof ProjectsTrehanLuxeFloorsOneGoodEarthSector71GurgaonRoute
   ProjectsIndexRoute: typeof ProjectsIndexRoute
 }
 
@@ -2007,6 +2028,8 @@ const ProjectsRouteChildren: ProjectsRouteChildren = {
     ProjectsM3mGolfHillsSector79GurgaonApartmentsRoute,
   ProjectsTataRaisinaResidencySector59GurgaonApartmentsRoute:
     ProjectsTataRaisinaResidencySector59GurgaonApartmentsRoute,
+  ProjectsTrehanLuxeFloorsOneGoodEarthSector71GurgaonRoute:
+    ProjectsTrehanLuxeFloorsOneGoodEarthSector71GurgaonRoute,
   ProjectsIndexRoute: ProjectsIndexRoute,
 }
 

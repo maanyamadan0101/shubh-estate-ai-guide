@@ -112,6 +112,7 @@ const LOCATIONS: Record<string, Location> = {
   "southern-peripheral-road": {
     slug: "southern-peripheral-road",
     name: "Southern Peripheral Road (SPR)",
+    related: [{ href: "/projects/trehan-luxe-floors-one-good-earth-sector-71-gurgaon", label: "Trehan Luxe Floors 71 at One Good Earth — 3 BHK independent floors" }],
     localityFilter: "Southern Peripheral Road",
     title: "SPR Gurgaon | Property, Sectors & Project Guide",
     heading: "Property on Southern Peripheral Road (SPR), Gurgaon",
