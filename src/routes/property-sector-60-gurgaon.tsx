@@ -3,7 +3,7 @@ import { SeoIntentLanding } from "@/components/site/SeoIntentLanding";
 import { SITE_ORIGIN } from "@/lib/seo";
 
 const canonical = `${SITE_ORIGIN}/property-sector-60-gurgaon`;
-const title = "Property in Sector 60 Gurgaon | Ireo Skyon & Buyer Guide";
+const title = "Apartments for Sale in Sector 60, Gurgaon | Ireo Skyon & Buyer Guide";
 const description =
   "Explore property in Sector 60 Gurgaon on Golf Course Extension Road, including Ireo Skyon current inventory, resale checks, location context and home-loan guidance.";
 
@@ -48,7 +48,7 @@ function Sector60Page() {
       title="Property and apartments in Sector 60 Gurgaon"
       body="Explore Sector 60 through project-level research and current unit inventory, with a direct path to Ireo Skyon listings and practical buyer due diligence."
       intro="Sector 60 forms part of the Golf Course Extension Road residential belt. Ireo Skyon is located in Sector 60, so it should be grouped here rather than under Sector 62. Keeping the sector relationship accurate strengthens both buyer navigation and local SEO."
-      interest="Property in Sector 60 Gurgaon"
+      interest="Apartments for Sale in Sector 60, Gurgaon"
       ctaTitle="Compare Sector 60 properties"
       ctaBody="Tell us your budget, preferred configuration, floor and purchase purpose. We can compare live Sector 60 inventory and financing before a visit."
       sections={[
