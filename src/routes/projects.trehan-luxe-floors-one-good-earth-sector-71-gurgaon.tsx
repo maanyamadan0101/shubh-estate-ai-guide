@@ -312,12 +312,28 @@ function ProjectMedia() {
         </p>
       </section>
       <section>
-        <h2 className="font-display text-2xl">Floor plan, master plan and location</h2>
+        <h2 className="font-display text-2xl">Brochure interiors, layouts and specifications</h2>
         <div className="mt-4 grid gap-6">
           {[
+            [
+              "interior-gallery.jpg",
+              "Illustrative living room, bedroom, kitchen and utility-space interiors from the brochure",
+            ],
             ["floor-plan.jpg", "Typical 3 BHK layout and terrace allocation shown in the brochure"],
+            [
+              "basement-parking-layout.jpg",
+              "Basement utility-space allocation and stilt-parking layouts from the brochure",
+            ],
             ["master-plan.jpg", "One Good Earth township master plan from the supplied brochure"],
             ["location-map.jpg", "Brochure location map showing Sector 71, SPR and Sohna Road"],
+            [
+              "specifications.jpg",
+              "Brochure specification sheet covering finishes, kitchen, security, lift and electrical provisions",
+            ],
+            [
+              "developer-overview.jpg",
+              "Developer overview and portfolio as presented in the supplied brochure",
+            ],
           ].map(([file, alt]) => (
             <figure key={file}>
               <a href={`${assets}/${file}`} target="_blank" rel="noopener noreferrer">
@@ -331,7 +347,8 @@ function ProjectMedia() {
                 />
               </a>
               <figcaption className="mt-2 text-xs text-muted-foreground">
-                {alt}. Indicative; confirm the approved unit plan.
+                {alt}. Brochure material is indicative; confirm current unit details. Select the
+                image to view it at full size.
               </figcaption>
             </figure>
           ))}
