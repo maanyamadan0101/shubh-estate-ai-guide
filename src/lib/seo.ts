@@ -86,7 +86,7 @@ function anchorLocation(s: ListingAnchorSource) {
   if (/dwarka expressway/i.test(locality)) {
     return `on Dwarka Expressway, ${searchCity}`;
   }
-  if (/southern peripheral|\\bspr\\b/i.test(locality)) {
+  if (/southern peripheral|\bspr\b/i.test(locality)) {
     return `on Southern Peripheral Road, ${searchCity}`;
   }
   if (/sohna road/i.test(locality)) {
