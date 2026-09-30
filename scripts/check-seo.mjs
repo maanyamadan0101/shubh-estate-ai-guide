@@ -211,3 +211,9 @@ assert.match(
 console.log(
   `PASS: sitemap handler, ${locations.length} unique final URLs, alias exclusions, XML escaping and robots sitemap declaration`,
 );
+
+const trehanPath = "/projects/trehan-luxe-floors-one-good-earth-sector-71-gurgaon";
+assert.equal(internalHref(trehanPath), trehanPath);
+assert.equal(canonicalRedirect(new Request(`https://shubhestatebroker.in${trehanPath}`)), null);
+assert.equal(canonicalRedirect(new Request(`https://shubhestatebroker.in${trehanPath}-gurgaon-apartments`)).headers.get("Location"), `https://shubhestatebroker.in${trehanPath}`);
+console.log("PASS: Trehan dedicated page canonical and legacy suffix recovery");

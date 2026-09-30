@@ -13,6 +13,11 @@ const PROJECT_RESIDENCE_SUFFIX = "-gurgaon-residences";
 
 export function projectApartmentPath(slug: string): string {
   const normalized = slug.replace(/^\/+|\/+$/g, "");
+  // This dedicated builder-floor guide has its own published canonical URL.
+  const trehanSlug = "trehan-luxe-floors-one-good-earth-sector-71-gurgaon";
+  if (normalized === trehanSlug || normalized === `${trehanSlug}${PROJECT_APARTMENT_SUFFIX}`) {
+    return `/projects/${trehanSlug}`;
+  }
   if (
     normalized.endsWith(PROJECT_APARTMENT_SUFFIX) ||
     normalized.endsWith(PROJECT_RESIDENCE_SUFFIX)
