@@ -123,7 +123,7 @@ export const Route = createFileRoute(
             {
               "@type": "ListItem",
               position: 2,
-              name: "Flats for sale in Gurgaon",
+              name: "Apartments for Sale in Gurgaon",
               item: `${SITE_ORIGIN}/flats-for-sale-in-gurgaon`,
             },
             {
@@ -330,7 +330,7 @@ function ToninoLamborghiniResidencesPage() {
         },
       ]}
       related={[
-        { href: "/flats-for-sale-in-gurgaon", label: "Flats for sale in Gurgaon" },
+        { href: "/flats-for-sale-in-gurgaon", label: "Apartments for Sale in Gurgaon" },
         { href: "/luxury-apartments-gurgaon", label: "Luxury apartments in Gurgaon" },
         { href: "/under-construction-projects-gurgaon", label: "Under-construction projects in Gurgaon" },
         { href: "/property-buying-advisory-gurgaon", label: "Gurgaon property buying advisory" },
