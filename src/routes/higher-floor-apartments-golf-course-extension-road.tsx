@@ -90,7 +90,7 @@ function HigherFloorPage() {
         },
         { href: "/locations/golf-course-extension-road", label: "All apartments on Golf Course Extension Road" },
         { href: "/desperate-deals-gurgaon", label: "Urgent-sale properties in Gurgaon" },
-        { href: "/flats-for-sale-in-gurgaon", label: "Flats for sale in Gurgaon" },
+        { href: "/flats-for-sale-in-gurgaon", label: "Apartments for Sale in Gurgaon" },
         { href: "/senior-citizen-housing-gurgaon", label: "Senior-friendly housing guide" },
       ]}
     />
