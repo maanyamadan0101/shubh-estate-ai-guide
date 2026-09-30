@@ -206,7 +206,7 @@ export const Route = createFileRoute("/properties-for-sale-on-spr-gurgaon")({
                 {
                   "@type": "ListItem",
                   position: 2,
-                  name: "Flats for sale in Gurgaon",
+                  name: "Apartments for Sale in Gurgaon",
                   item: `${SITE_ORIGIN}/flats-for-sale-in-gurgaon`,
                 },
                 {
