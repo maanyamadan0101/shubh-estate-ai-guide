@@ -8,7 +8,7 @@ import { SITE_ORIGIN } from "@/lib/seo";
 
 const PAGE_PATH = "/ready-to-move-flats-in-gurgaon";
 const canonical = `${SITE_ORIGIN}${PAGE_PATH}`;
-const title = "Ready-to-Move Flats in Gurgaon | Resale Apartments";
+const title = "Ready-to-Move Apartments for Sale in Gurgaon | Resale Apartments";
 const description =
   "Browse current ready-to-move flats for sale in Gurgaon and Gurugram. Compare resale apartments by corridor, project, size and price with home-loan, title and due-diligence guidance.";
 const LAST_REVIEWED = "28 August 2026";
@@ -130,13 +130,13 @@ export const Route = createFileRoute("/ready-to-move-flats-in-gurgaon")({
         {
           "@type": "ListItem",
           position: 2,
-          name: "Flats for Sale in Gurgaon",
+          name: "Apartments for Sale in Gurgaon",
           item: `${SITE_ORIGIN}/flats-for-sale-in-gurgaon`,
         },
         {
           "@type": "ListItem",
           position: 3,
-          name: "Ready-to-Move Flats in Gurgaon",
+          name: "Ready-to-Move Apartments for Sale in Gurgaon",
           item: canonical,
         },
       ],
@@ -194,7 +194,7 @@ function ReadyToMoveGurgaonPage() {
     <>
       <PageHero
         eyebrow="Current Resale & Completed Homes"
-        title="Ready-to-Move Flats for Sale in Gurgaon"
+        title="Ready-to-Move Apartments for Sale in Gurgaon"
         body={`Compare ${properties.length} current published ready-to-move apartment options across Gurugram. Review the exact unit, price, project condition, documents and financing before making a purchase decision. Inventory reviewed ${LAST_REVIEWED}.`}
       />
 
