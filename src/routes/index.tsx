@@ -393,14 +393,26 @@ function Home() {
 
           <nav aria-label="Popular Gurgaon project corridors" className="mt-7 flex flex-wrap gap-2">
             {[
-              { label: "Apartments for Sale on Golf Course Road, Gurgaon", href: "/locations/golf-course-road" },
+              {
+                label: "Apartments for Sale on Golf Course Road, Gurgaon",
+                href: "/locations/golf-course-road",
+              },
               {
                 label: "Apartments for Sale on Golf Course Extension Road, Gurgaon",
                 href: "/locations/golf-course-extension-road",
               },
-              { label: "Apartments for Sale on Southern Peripheral Road, Gurgaon", href: "/locations/southern-peripheral-road" },
-              { label: "Apartments for Sale on Dwarka Expressway, Gurgaon", href: "/locations/dwarka-expressway" },
-              { label: "Apartments for Sale in New Gurgaon, Gurgaon", href: "/locations/new-gurgaon" },
+              {
+                label: "Apartments for Sale on Southern Peripheral Road, Gurgaon",
+                href: "/locations/southern-peripheral-road",
+              },
+              {
+                label: "Apartments for Sale on Dwarka Expressway, Gurgaon",
+                href: "/locations/dwarka-expressway",
+              },
+              {
+                label: "Apartments for Sale in New Gurgaon, Gurgaon",
+                href: "/locations/new-gurgaon",
+              },
             ].map((corridor) => (
               <a
                 key={corridor.href}
@@ -415,6 +427,7 @@ function Home() {
           <div className="mt-8">
             <FeaturedProjectShowcase
               projectNames={[
+                "The Story House",
                 "Godrej Miraya",
                 "Emaar Amaris",
                 "Ireo Skyon",

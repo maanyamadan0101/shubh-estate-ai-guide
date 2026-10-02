@@ -74,6 +74,10 @@ const KNOWN_PROJECT_NAMES: Array<{ patterns: string[]; name: string }> = [
 ];
 
 export const DEDICATED_PROJECT_GUIDES: Record<string, string> = {
+  "the-story-house": "/projects/the-story-house-sector-89a-gurgaon-apartments",
+  "the-story-house-sector-89a": "/projects/the-story-house-sector-89a-gurgaon-apartments",
+  "the-story-house-89a": "/projects/the-story-house-sector-89a-gurgaon-apartments",
+  "arttech-the-story-house": "/projects/the-story-house-sector-89a-gurgaon-apartments",
   "dlf-skycourt": "/dlf-skycourt-sector-86-gurgaon-apartments",
   "dlf-the-skycourt": "/dlf-skycourt-sector-86-gurgaon-apartments",
   "dlf-the-skycourt-sector-86": "/dlf-skycourt-sector-86-gurgaon-apartments",

@@ -8,6 +8,14 @@ export type DirectoryProjectImage = {
 };
 
 const PROJECT_IMAGES: Record<string, DirectoryProjectImage> = {
+  "the story house": {
+    src: "/projects/the-story-house/project-aerial.webp",
+    alt: "The Story House Sector 89A Gurugram project rendering from the supplied brochure",
+    sourceOrganisation: "Arttech / user-supplied project brochure",
+    sourceUrl: "/projects/the-story-house/the-story-house-sector-89a-brochure.pdf",
+    imageType: "project marketing visual",
+    usageBasis: "Project brochure supplied by the user for website marketing",
+  },
   "aipl riviera": {
     src: "/projects/aipl-riviera/aipl-riviera-walkthrough-poster.jpg",
     alt: "AIPL Riviera official project walkthrough still",

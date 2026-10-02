@@ -37,6 +37,10 @@ const DEDICATED_PROJECT_PAGES: Record<string, string> = {
 
 const FEATURED_RESEARCH_GUIDES = [
   {
+    name: "The Story House, Sector 89A — Senior Living",
+    href: "/projects/the-story-house-sector-89a-gurgaon-apartments",
+  },
+  {
     name: "BPTP Astaire Gardens",
     href: "/projects/bptp-astaire-gardens-sector-70a-gurgaon-residences",
   },

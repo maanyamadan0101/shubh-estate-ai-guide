@@ -146,6 +146,22 @@ const OTHER_LUXURY: ProjectCorridor = "Gwal Pahari & Other Luxury Locations";
 // Every other entry stays "Price on request" rather than publishing an old
 // launch price as a current buying price.
 const SEEDED_GURGAON_PROJECTS: GurgaonDirectoryProject[] = [
+  project("The Story House", "Arttech Elegant Homes LLP", "Sector 89A", NEW_GURGAON, {
+    configuration: "2 & 3 BHK senior-living apartments",
+    sizeRange: "756–1,018 sq ft carpet area",
+    sizeMinSqFt: 756,
+    sizeMaxSqFt: 1018,
+    areaBasis: "carpet_area",
+    priceLabel: "Current price on request",
+    status: "Check current phase",
+    factReviewedOn: "2 Oct 2026",
+    reraNumber: "GGM/984/716/2025/87",
+    officialSourceUrl: "https://haryanarera.gov.in/view_project/searchprojectDetail/3629",
+    internalSourceRecord: "supplied_story_house_brochure_and_hrera_review_2026-10-02",
+    inventoryAliases: ["The Story House", "Arttech The Story House"],
+    href: "/projects/the-story-house-sector-89a-gurgaon-apartments",
+    featured: true,
+  }),
   project("DLF The Camellias", "DLF", "Sector 42", CENTRAL, {
     configuration: "4, 5 & 6 BHK residences",
     sizeRange: "Large-format residences",
