@@ -146,6 +146,17 @@ const OTHER_LUXURY: ProjectCorridor = "Gwal Pahari & Other Luxury Locations";
 // Every other entry stays "Price on request" rather than publishing an old
 // launch price as a current buying price.
 const SEEDED_GURGAON_PROJECTS: GurgaonDirectoryProject[] = [
+  project("The Dualis", "Shapoorji Pallonji", "Sector 46", "Golf Course Road & Central Luxury", {
+    configuration: "3 & 4 BHK + utility",
+    sizeRange: "2,852–3,605 sq ft; marketed area, basis to confirm",
+    status: "Under construction",
+    href: "/projects/the-dualis-sector-46-gurgaon-apartments",
+    factReviewedOn: "2026-10-03",
+    reraNumber: "RC/REP/HARERA/GGM/939/671/2025/42",
+    officialSourceUrl: "https://shapoorjirealestate.com/residential/the-dualis/",
+    internalSourceRecord: "user_supplied_dualis_presentation_2026_10_03",
+    featured: true,
+  }),
   project("The Story House", "Arttech Elegant Homes LLP", "Sector 89A", NEW_GURGAON, {
     configuration: "2 & 3 BHK senior-living apartments",
     sizeRange: "756–1,018 sq ft carpet area",

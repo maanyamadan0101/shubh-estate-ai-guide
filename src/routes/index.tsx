@@ -427,6 +427,7 @@ function Home() {
           <div className="mt-8">
             <FeaturedProjectShowcase
               projectNames={[
+                "The Dualis",
                 "The Story House",
                 "Godrej Miraya",
                 "Emaar Amaris",

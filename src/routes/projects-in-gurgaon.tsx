@@ -37,6 +37,10 @@ const DEDICATED_PROJECT_PAGES: Record<string, string> = {
 
 const FEATURED_RESEARCH_GUIDES = [
   {
+    name: "The Dualis — 3 & 4 BHK Apartments for Sale in Sector 46 Gurgaon",
+    href: "/projects/the-dualis-sector-46-gurgaon-apartments",
+  },
+  {
     name: "The Story House, Sector 89A — Senior Living",
     href: "/projects/the-story-house-sector-89a-gurgaon-apartments",
   },

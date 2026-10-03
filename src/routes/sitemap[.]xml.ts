@@ -14,6 +14,11 @@ const SEO_TEMPLATE_LASTMOD = "2026-08-27";
 
 const STATIC_PATHS: StaticPath[] = [
   {
+    path: "/projects/the-dualis-sector-46-gurgaon-apartments",
+    priority: "0.9",
+    lastmod: "2026-10-03",
+  },
+  {
     path: "/projects/the-story-house-sector-89a-gurgaon-apartments",
     priority: "0.9",
     lastmod: "2026-10-02",

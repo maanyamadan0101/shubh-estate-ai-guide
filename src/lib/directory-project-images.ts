@@ -8,6 +8,14 @@ export type DirectoryProjectImage = {
 };
 
 const PROJECT_IMAGES: Record<string, DirectoryProjectImage> = {
+  "the dualis": {
+    src: "/projects/the-dualis/project-exterior.webp",
+    alt: "The Dualis twin towers in Sector 46 Gurgaon, artist impression",
+    sourceOrganisation: "User-supplied Shapoorji Pallonji presentation",
+    sourceUrl: "/projects/the-dualis/the-dualis-brochure.pdf",
+    imageType: "project marketing visual",
+    usageBasis: "Project presentation supplied by user for marketing",
+  },
   "the story house": {
     src: "/projects/the-story-house/project-aerial.webp",
     alt: "The Story House Sector 89A Gurugram project rendering from the supplied brochure",
