@@ -18,6 +18,11 @@ const NAV = [
 
 const PROPERTY_LINKS = [
   {
+    to: "/office-space-for-rent-in-gurgaon",
+    label: "Office Space for Rent in Gurgaon",
+    description: "Commercial leasing and One09 Sector 109 office",
+  },
+  {
     to: "/flats-for-sale-in-gurgaon",
     label: "All Gurgaon Properties",
     description: "Browse verified sale inventory",

@@ -104,6 +104,7 @@ export function SiteFooter() {
           <nav aria-label="Owner services">
             <p className="eyebrow">Owner Services</p>
             <ul className="mt-4 space-y-2 text-sm text-navy-foreground/80">
+              <li><a href="/office-space-for-rent-in-gurgaon" className="hover:text-gold">Office Space for Rent in Gurgaon</a></li>
               <li><Link to="/sell-property-gurgaon" className="hover:text-gold">Sell Property in Gurgaon</Link></li>
               <li><Link to="/rent-out-property-in-gurgaon" className="hover:text-gold">Rent Out Property in Gurgaon</Link></li>
               <li><Link to="/mandate-to-sell-property-in-gurgaon" className="hover:text-gold">Give Selling Mandate</Link></li>

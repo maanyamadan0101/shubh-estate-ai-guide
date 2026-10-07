@@ -40,6 +40,8 @@ import { Route as LuxuryRouteImport } from './routes/luxury'
 import { Route as MandateToSellPropertyInGurgaonRouteImport } from './routes/mandate-to-sell-property-in-gurgaon'
 import { Route as NriRouteImport } from './routes/nri'
 import { Route as NriSellPropertyGurgaonRouteImport } from './routes/nri-sell-property-gurgaon'
+import { Route as OfficeSpaceForRentInGurgaonRouteImport } from './routes/office-space-for-rent-in-gurgaon'
+import { Route as OfficeSpaceForRentOne09Sector109GurgaonRouteImport } from './routes/office-space-for-rent-one09-sector-109-gurgaon'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as ProjectsInGurgaonRouteImport } from './routes/projects-in-gurgaon'
@@ -276,6 +278,18 @@ const NriSellPropertyGurgaonRoute = NriSellPropertyGurgaonRouteImport.update({
   path: '/nri-sell-property-gurgaon',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OfficeSpaceForRentInGurgaonRoute =
+  OfficeSpaceForRentInGurgaonRouteImport.update({
+    id: '/office-space-for-rent-in-gurgaon',
+    path: '/office-space-for-rent-in-gurgaon',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const OfficeSpaceForRentOne09Sector109GurgaonRoute =
+  OfficeSpaceForRentOne09Sector109GurgaonRouteImport.update({
+    id: '/office-space-for-rent-one09-sector-109-gurgaon',
+    path: '/office-space-for-rent-one09-sector-109-gurgaon',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
   id: '/privacy-policy',
   path: '/privacy-policy',
@@ -675,6 +689,8 @@ export interface FileRoutesByFullPath {
   '/mandate-to-sell-property-in-gurgaon': typeof MandateToSellPropertyInGurgaonRoute
   '/nri': typeof NriRoute
   '/nri-sell-property-gurgaon': typeof NriSellPropertyGurgaonRoute
+  '/office-space-for-rent-in-gurgaon': typeof OfficeSpaceForRentInGurgaonRoute
+  '/office-space-for-rent-one09-sector-109-gurgaon': typeof OfficeSpaceForRentOne09Sector109GurgaonRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/projects': typeof ProjectsRouteWithChildren
   '/projects-in-gurgaon': typeof ProjectsInGurgaonRoute
@@ -773,6 +789,8 @@ export interface FileRoutesByTo {
   '/mandate-to-sell-property-in-gurgaon': typeof MandateToSellPropertyInGurgaonRoute
   '/nri': typeof NriRoute
   '/nri-sell-property-gurgaon': typeof NriSellPropertyGurgaonRoute
+  '/office-space-for-rent-in-gurgaon': typeof OfficeSpaceForRentInGurgaonRoute
+  '/office-space-for-rent-one09-sector-109-gurgaon': typeof OfficeSpaceForRentOne09Sector109GurgaonRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/projects-in-gurgaon': typeof ProjectsInGurgaonRoute
   '/properties': typeof PropertiesRoute
@@ -872,6 +890,8 @@ export interface FileRoutesById {
   '/mandate-to-sell-property-in-gurgaon': typeof MandateToSellPropertyInGurgaonRoute
   '/nri': typeof NriRoute
   '/nri-sell-property-gurgaon': typeof NriSellPropertyGurgaonRoute
+  '/office-space-for-rent-in-gurgaon': typeof OfficeSpaceForRentInGurgaonRoute
+  '/office-space-for-rent-one09-sector-109-gurgaon': typeof OfficeSpaceForRentOne09Sector109GurgaonRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/projects': typeof ProjectsRouteWithChildren
   '/projects-in-gurgaon': typeof ProjectsInGurgaonRoute
@@ -972,6 +992,8 @@ export interface FileRouteTypes {
     | '/mandate-to-sell-property-in-gurgaon'
     | '/nri'
     | '/nri-sell-property-gurgaon'
+    | '/office-space-for-rent-in-gurgaon'
+    | '/office-space-for-rent-one09-sector-109-gurgaon'
     | '/privacy-policy'
     | '/projects'
     | '/projects-in-gurgaon'
@@ -1070,6 +1092,8 @@ export interface FileRouteTypes {
     | '/mandate-to-sell-property-in-gurgaon'
     | '/nri'
     | '/nri-sell-property-gurgaon'
+    | '/office-space-for-rent-in-gurgaon'
+    | '/office-space-for-rent-one09-sector-109-gurgaon'
     | '/privacy-policy'
     | '/projects-in-gurgaon'
     | '/properties'
@@ -1168,6 +1192,8 @@ export interface FileRouteTypes {
     | '/mandate-to-sell-property-in-gurgaon'
     | '/nri'
     | '/nri-sell-property-gurgaon'
+    | '/office-space-for-rent-in-gurgaon'
+    | '/office-space-for-rent-one09-sector-109-gurgaon'
     | '/privacy-policy'
     | '/projects'
     | '/projects-in-gurgaon'
@@ -1268,6 +1294,8 @@ export interface RootRouteChildren {
   MandateToSellPropertyInGurgaonRoute: typeof MandateToSellPropertyInGurgaonRoute
   NriRoute: typeof NriRoute
   NriSellPropertyGurgaonRoute: typeof NriSellPropertyGurgaonRoute
+  OfficeSpaceForRentInGurgaonRoute: typeof OfficeSpaceForRentInGurgaonRoute
+  OfficeSpaceForRentOne09Sector109GurgaonRoute: typeof OfficeSpaceForRentOne09Sector109GurgaonRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   ProjectsRoute: typeof ProjectsRouteWithChildren
   ProjectsInGurgaonRoute: typeof ProjectsInGurgaonRoute
@@ -1524,6 +1552,20 @@ declare module '@tanstack/react-router' {
       path: '/nri-sell-property-gurgaon'
       fullPath: '/nri-sell-property-gurgaon'
       preLoaderRoute: typeof NriSellPropertyGurgaonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/office-space-for-rent-in-gurgaon': {
+      id: '/office-space-for-rent-in-gurgaon'
+      path: '/office-space-for-rent-in-gurgaon'
+      fullPath: '/office-space-for-rent-in-gurgaon'
+      preLoaderRoute: typeof OfficeSpaceForRentInGurgaonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/office-space-for-rent-one09-sector-109-gurgaon': {
+      id: '/office-space-for-rent-one09-sector-109-gurgaon'
+      path: '/office-space-for-rent-one09-sector-109-gurgaon'
+      fullPath: '/office-space-for-rent-one09-sector-109-gurgaon'
+      preLoaderRoute: typeof OfficeSpaceForRentOne09Sector109GurgaonRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy-policy': {
@@ -2129,6 +2171,9 @@ const rootRouteChildren: RootRouteChildren = {
   MandateToSellPropertyInGurgaonRoute: MandateToSellPropertyInGurgaonRoute,
   NriRoute: NriRoute,
   NriSellPropertyGurgaonRoute: NriSellPropertyGurgaonRoute,
+  OfficeSpaceForRentInGurgaonRoute: OfficeSpaceForRentInGurgaonRoute,
+  OfficeSpaceForRentOne09Sector109GurgaonRoute:
+    OfficeSpaceForRentOne09Sector109GurgaonRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
   ProjectsRoute: ProjectsRouteWithChildren,
   ProjectsInGurgaonRoute: ProjectsInGurgaonRoute,
