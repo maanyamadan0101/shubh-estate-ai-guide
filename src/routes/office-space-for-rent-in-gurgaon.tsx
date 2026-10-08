@@ -31,6 +31,6 @@ function OfficeLeasingPage() {
       { title: "Commercial leasing support from Shubh Estate Brokers", paragraphs: ["From an initial shortlist to site visits and commercial discussions, we help you compare properties on the points that affect your business. We can coordinate requests for ownership records, building documentation, maintenance details and the proposed lease terms for review before commitment."] },
       { title: "Can I request furnished or unfurnished office space?", paragraphs: ["Yes. Specify whether you need a furnished office, a fitted space or a bare-shell unit. Availability and fit-out specifications must be confirmed for each office; the One09 listing currently does not confirm furnishing or seating capacity."] },
     ]}
-    related={[{ href: "/office-space-for-rent-one09-sector-109-gurgaon", label: "Office space for rent in Sector 109 Gurgaon" }, { href: "/rent-out-property-in-gurgaon", label: "Lease out your Gurgaon property" }, { href: "/contact", label: "Contact our Gurugram office" }]}
+    related={[{ href: "/school-building-for-rent-in-gurgaon", label: "School building for rent in Gurgaon" }, { href: "/office-space-for-rent-one09-sector-109-gurgaon", label: "Office space for rent in Sector 109 Gurgaon" }, { href: "/rent-out-property-in-gurgaon", label: "Lease out your Gurgaon property" }, { href: "/contact", label: "Contact our Gurugram office" }]}
   />;
 }

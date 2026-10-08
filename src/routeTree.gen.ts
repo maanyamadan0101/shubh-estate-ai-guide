@@ -57,6 +57,7 @@ import { Route as PuriEmeraldBay3BhkForSaleSector104GurgaonRouteImport } from '.
 import { Route as ReadyToMoveFlatsInGurgaonRouteImport } from './routes/ready-to-move-flats-in-gurgaon'
 import { Route as RentOutPropertyInGurgaonRouteImport } from './routes/rent-out-property-in-gurgaon'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as SchoolBuildingForRentInGurgaonRouteImport } from './routes/school-building-for-rent-in-gurgaon'
 import { Route as SellPropertyGurgaonRouteImport } from './routes/sell-property-gurgaon'
 import { Route as SellerSubmitRouteImport } from './routes/seller-submit'
 import { Route as SeniorCitizenHousingGurgaonRouteImport } from './routes/senior-citizen-housing-gurgaon'
@@ -370,6 +371,12 @@ const ResetPasswordRoute = ResetPasswordRouteImport.update({
   path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SchoolBuildingForRentInGurgaonRoute =
+  SchoolBuildingForRentInGurgaonRouteImport.update({
+    id: '/school-building-for-rent-in-gurgaon',
+    path: '/school-building-for-rent-in-gurgaon',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const SellPropertyGurgaonRoute = SellPropertyGurgaonRouteImport.update({
   id: '/sell-property-gurgaon',
   path: '/sell-property-gurgaon',
@@ -706,6 +713,7 @@ export interface FileRoutesByFullPath {
   '/ready-to-move-flats-in-gurgaon': typeof ReadyToMoveFlatsInGurgaonRoute
   '/rent-out-property-in-gurgaon': typeof RentOutPropertyInGurgaonRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/school-building-for-rent-in-gurgaon': typeof SchoolBuildingForRentInGurgaonRoute
   '/sell-property-gurgaon': typeof SellPropertyGurgaonRoute
   '/seller-submit': typeof SellerSubmitRoute
   '/senior-citizen-housing-gurgaon': typeof SeniorCitizenHousingGurgaonRoute
@@ -805,6 +813,7 @@ export interface FileRoutesByTo {
   '/ready-to-move-flats-in-gurgaon': typeof ReadyToMoveFlatsInGurgaonRoute
   '/rent-out-property-in-gurgaon': typeof RentOutPropertyInGurgaonRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/school-building-for-rent-in-gurgaon': typeof SchoolBuildingForRentInGurgaonRoute
   '/sell-property-gurgaon': typeof SellPropertyGurgaonRoute
   '/seller-submit': typeof SellerSubmitRoute
   '/senior-citizen-housing-gurgaon': typeof SeniorCitizenHousingGurgaonRoute
@@ -907,6 +916,7 @@ export interface FileRoutesById {
   '/ready-to-move-flats-in-gurgaon': typeof ReadyToMoveFlatsInGurgaonRoute
   '/rent-out-property-in-gurgaon': typeof RentOutPropertyInGurgaonRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/school-building-for-rent-in-gurgaon': typeof SchoolBuildingForRentInGurgaonRoute
   '/sell-property-gurgaon': typeof SellPropertyGurgaonRoute
   '/seller-submit': typeof SellerSubmitRoute
   '/senior-citizen-housing-gurgaon': typeof SeniorCitizenHousingGurgaonRoute
@@ -1009,6 +1019,7 @@ export interface FileRouteTypes {
     | '/ready-to-move-flats-in-gurgaon'
     | '/rent-out-property-in-gurgaon'
     | '/reset-password'
+    | '/school-building-for-rent-in-gurgaon'
     | '/sell-property-gurgaon'
     | '/seller-submit'
     | '/senior-citizen-housing-gurgaon'
@@ -1108,6 +1119,7 @@ export interface FileRouteTypes {
     | '/ready-to-move-flats-in-gurgaon'
     | '/rent-out-property-in-gurgaon'
     | '/reset-password'
+    | '/school-building-for-rent-in-gurgaon'
     | '/sell-property-gurgaon'
     | '/seller-submit'
     | '/senior-citizen-housing-gurgaon'
@@ -1209,6 +1221,7 @@ export interface FileRouteTypes {
     | '/ready-to-move-flats-in-gurgaon'
     | '/rent-out-property-in-gurgaon'
     | '/reset-password'
+    | '/school-building-for-rent-in-gurgaon'
     | '/sell-property-gurgaon'
     | '/seller-submit'
     | '/senior-citizen-housing-gurgaon'
@@ -1311,6 +1324,7 @@ export interface RootRouteChildren {
   ReadyToMoveFlatsInGurgaonRoute: typeof ReadyToMoveFlatsInGurgaonRoute
   RentOutPropertyInGurgaonRoute: typeof RentOutPropertyInGurgaonRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
+  SchoolBuildingForRentInGurgaonRoute: typeof SchoolBuildingForRentInGurgaonRoute
   SellPropertyGurgaonRoute: typeof SellPropertyGurgaonRoute
   SellerSubmitRoute: typeof SellerSubmitRoute
   SeniorCitizenHousingGurgaonRoute: typeof SeniorCitizenHousingGurgaonRoute
@@ -1671,6 +1685,13 @@ declare module '@tanstack/react-router' {
       path: '/reset-password'
       fullPath: '/reset-password'
       preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/school-building-for-rent-in-gurgaon': {
+      id: '/school-building-for-rent-in-gurgaon'
+      path: '/school-building-for-rent-in-gurgaon'
+      fullPath: '/school-building-for-rent-in-gurgaon'
+      preLoaderRoute: typeof SchoolBuildingForRentInGurgaonRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sell-property-gurgaon': {
@@ -2190,6 +2211,7 @@ const rootRouteChildren: RootRouteChildren = {
   ReadyToMoveFlatsInGurgaonRoute: ReadyToMoveFlatsInGurgaonRoute,
   RentOutPropertyInGurgaonRoute: RentOutPropertyInGurgaonRoute,
   ResetPasswordRoute: ResetPasswordRoute,
+  SchoolBuildingForRentInGurgaonRoute: SchoolBuildingForRentInGurgaonRoute,
   SellPropertyGurgaonRoute: SellPropertyGurgaonRoute,
   SellerSubmitRoute: SellerSubmitRoute,
   SeniorCitizenHousingGurgaonRoute: SeniorCitizenHousingGurgaonRoute,
