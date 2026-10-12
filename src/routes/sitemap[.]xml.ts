@@ -261,14 +261,6 @@ function absoluteUrl(value: string) {
     : `${SITE_ORIGIN}${value.startsWith("/") ? value : `/${value}`}`;
 }
 
-function latestLastmod(value: string | null | undefined, baseline = SEO_TEMPLATE_LASTMOD) {
-  if (!value) return baseline;
-  const parsed = new Date(value);
-  const baselineDate = new Date(`${baseline}T00:00:00Z`);
-  if (Number.isNaN(parsed.getTime())) return baseline;
-  return parsed > baselineDate ? value : baseline;
-}
-
 function safeLastmod(value: string | null | undefined) {
   if (!value) return "";
   const date = new Date(value);
@@ -305,7 +297,9 @@ export const Route = createFileRoute("/sitemap.xml")({
         const projectHubs = projectHubsResult.value;
         const hasRentalInventory = properties.some((property) => property.listing_type === "rent");
         const entries = [
-          ...STATIC_PATHS.map(
+          // Only publish final, canonical paths. Legacy aliases belong in redirects,
+          // not in the sitemap where they waste crawl budget and dilute canonical signals.
+          ...STATIC_PATHS.filter((p) => internalHref(p.path) === p.path).map(
             (p) =>
               `  <url>\n    <loc>${escapeXml(`${SITE_ORIGIN}${p.path}`)}</loc>${safeLastmod(p.lastmod ?? SEO_TEMPLATE_LASTMOD)}\n    <priority>${p.priority}</priority>\n  </url>`,
           ),
@@ -323,7 +317,7 @@ export const Route = createFileRoute("/sitemap.xml")({
             )
             .map(
               (hub) =>
-                `  <url>\n    <loc>${escapeXml(`${SITE_ORIGIN}${projectApartmentPath(hub.slug)}`)}</loc>${safeLastmod(latestLastmod(hub.updated_at))}\n    <priority>0.8</priority>\n  </url>`,
+                `  <url>\n    <loc>${escapeXml(`${SITE_ORIGIN}${projectApartmentPath(hub.slug)}`)}</loc>${safeLastmod(hub.updated_at)}\n    <priority>0.8</priority>\n  </url>`,
             ),
           ...properties
             .filter(
@@ -335,7 +329,7 @@ export const Route = createFileRoute("/sitemap.xml")({
               const image = p.cover_image_url
                 ? `\n    <image:image>\n      <image:loc>${escapeXml(absoluteUrl(p.cover_image_url))}</image:loc>\n    </image:image>`
                 : "";
-              return `  <url>\n    <loc>${escapeXml(`${SITE_ORIGIN}/property/${p.slug}`)}</loc>${safeLastmod(latestLastmod(p.updated_at))}\n    <priority>0.8</priority>${image}\n  </url>`;
+              return `  <url>\n    <loc>${escapeXml(`${SITE_ORIGIN}/property/${p.slug}`)}</loc>${safeLastmod(p.updated_at)}\n    <priority>0.8</priority>${image}\n  </url>`;
             }),
         ];
 
