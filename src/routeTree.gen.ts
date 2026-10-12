@@ -54,6 +54,7 @@ import { Route as SeniorCitizenHousingGurgaonRouteImport } from './routes/senior
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ToninoLamborghiniResidencesSector71GurgaonRouteImport } from './routes/tonino-lamborghini-residences-sector-71-gurgaon'
 import { Route as UnderConstructionProjectsGurgaonRouteImport } from './routes/under-construction-projects-gurgaon'
+import { Route as WhatsappRouteImport } from './routes/whatsapp'
 import { Route as ApiEnquiryRouteImport } from './routes/api/enquiry'
 import { Route as ApiSellerSubmissionRouteImport } from './routes/api/seller-submission'
 import { Route as BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026RouteImport } from './routes/blog.buy-property-gurgaon-small-down-payment-home-loan-guide-2026'
@@ -332,6 +333,11 @@ const UnderConstructionProjectsGurgaonRoute =
     path: '/under-construction-projects-gurgaon',
     getParentRoute: () => rootRouteImport,
   } as any)
+const WhatsappRoute = WhatsappRouteImport.update({
+  id: '/whatsapp',
+  path: '/whatsapp',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiEnquiryRoute = ApiEnquiryRouteImport.update({
   id: '/api/enquiry',
   path: '/api/enquiry',
@@ -568,6 +574,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tonino-lamborghini-residences-sector-71-gurgaon': typeof ToninoLamborghiniResidencesSector71GurgaonRoute
   '/under-construction-projects-gurgaon': typeof UnderConstructionProjectsGurgaonRoute
+  '/whatsapp': typeof WhatsappRoute
   '/api/enquiry': typeof ApiEnquiryRoute
   '/api/seller-submission': typeof ApiSellerSubmissionRoute
   '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026': typeof BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route
@@ -647,6 +654,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tonino-lamborghini-residences-sector-71-gurgaon': typeof ToninoLamborghiniResidencesSector71GurgaonRoute
   '/under-construction-projects-gurgaon': typeof UnderConstructionProjectsGurgaonRoute
+  '/whatsapp': typeof WhatsappRoute
   '/api/enquiry': typeof ApiEnquiryRoute
   '/api/seller-submission': typeof ApiSellerSubmissionRoute
   '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026': typeof BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route
@@ -729,6 +737,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tonino-lamborghini-residences-sector-71-gurgaon': typeof ToninoLamborghiniResidencesSector71GurgaonRoute
   '/under-construction-projects-gurgaon': typeof UnderConstructionProjectsGurgaonRoute
+  '/whatsapp': typeof WhatsappRoute
   '/api/enquiry': typeof ApiEnquiryRoute
   '/api/seller-submission': typeof ApiSellerSubmissionRoute
   '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026': typeof BlogBuyPropertyGurgaonSmallDownPaymentHomeLoanGuide2026Route
@@ -811,6 +820,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/tonino-lamborghini-residences-sector-71-gurgaon'
     | '/under-construction-projects-gurgaon'
+    | '/whatsapp'
     | '/api/enquiry'
     | '/api/seller-submission'
     | '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026'
@@ -890,6 +900,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/tonino-lamborghini-residences-sector-71-gurgaon'
     | '/under-construction-projects-gurgaon'
+    | '/whatsapp'
     | '/api/enquiry'
     | '/api/seller-submission'
     | '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026'
@@ -971,6 +982,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/tonino-lamborghini-residences-sector-71-gurgaon'
     | '/under-construction-projects-gurgaon'
+    | '/whatsapp'
     | '/api/enquiry'
     | '/api/seller-submission'
     | '/blog/buy-property-gurgaon-small-down-payment-home-loan-guide-2026'
@@ -1053,6 +1065,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ToninoLamborghiniResidencesSector71GurgaonRoute: typeof ToninoLamborghiniResidencesSector71GurgaonRoute
   UnderConstructionProjectsGurgaonRoute: typeof UnderConstructionProjectsGurgaonRoute
+  WhatsappRoute: typeof WhatsappRoute
   ApiEnquiryRoute: typeof ApiEnquiryRoute
   ApiSellerSubmissionRoute: typeof ApiSellerSubmissionRoute
   LocationsSlugRoute: typeof LocationsSlugRoute
@@ -1379,6 +1392,13 @@ declare module '@tanstack/react-router' {
       path: '/under-construction-projects-gurgaon'
       fullPath: '/under-construction-projects-gurgaon'
       preLoaderRoute: typeof UnderConstructionProjectsGurgaonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/whatsapp': {
+      id: '/whatsapp'
+      path: '/whatsapp'
+      fullPath: '/whatsapp'
+      preLoaderRoute: typeof WhatsappRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/enquiry': {
@@ -1764,6 +1784,7 @@ const rootRouteChildren: RootRouteChildren = {
   ToninoLamborghiniResidencesSector71GurgaonRoute:
     ToninoLamborghiniResidencesSector71GurgaonRoute,
   UnderConstructionProjectsGurgaonRoute: UnderConstructionProjectsGurgaonRoute,
+  WhatsappRoute: WhatsappRoute,
   ApiEnquiryRoute: ApiEnquiryRoute,
   ApiSellerSubmissionRoute: ApiSellerSubmissionRoute,
   LocationsSlugRoute: LocationsSlugRoute,
