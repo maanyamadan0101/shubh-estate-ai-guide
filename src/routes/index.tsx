@@ -37,7 +37,7 @@ export const Route = createFileRoute("/")({
       data: { limit: 6, statuses: ["under_construction", "new_launch"] },
     }),
   head: () => {
-    const title = "Gurgaon Property Broker | Buy, Sell & Invest";
+    const title = "Property Dealer in Gurgaon | Shubh Estate Brokers";
     const description =
       "Buy or sell property in Gurgaon with verified resale listings, project guidance, valuation, title and home-loan support from Shubh Estate Brokers.";
 
@@ -47,7 +47,7 @@ export const Route = createFileRoute("/")({
         { name: "description", content: description },
         {
           property: "og:title",
-          content: "Property in Gurgaon | Founder-led Gurugram Advisory",
+          content: "Property Dealer in Gurgaon | Shubh Estate Brokers",
         },
         {
           property: "og:description",
