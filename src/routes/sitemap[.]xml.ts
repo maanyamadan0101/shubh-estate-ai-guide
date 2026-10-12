@@ -305,7 +305,9 @@ export const Route = createFileRoute("/sitemap.xml")({
         const projectHubs = projectHubsResult.value;
         const hasRentalInventory = properties.some((property) => property.listing_type === "rent");
         const entries = [
-          ...STATIC_PATHS.map(
+          // Only publish final, canonical paths. Legacy aliases belong in redirects,
+          // not in the sitemap where they waste crawl budget and dilute canonical signals.
+          ...STATIC_PATHS.filter((p) => internalHref(p.path) === p.path).map(
             (p) =>
               `  <url>\n    <loc>${escapeXml(`${SITE_ORIGIN}${p.path}`)}</loc>${safeLastmod(p.lastmod ?? SEO_TEMPLATE_LASTMOD)}\n    <priority>${p.priority}</priority>\n  </url>`,
           ),
