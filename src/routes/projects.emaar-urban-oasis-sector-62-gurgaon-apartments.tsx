@@ -340,7 +340,7 @@ function Page() {
               </a>
             </Button>
             <Button asChild variant="outline">
-              <Link to={CURRENT_LISTING}>View Current Shubh Listing</Link>
+              <a href={CURRENT_LISTING}>View Current Shubh Listing</a>
             </Button>
           </div>
         </div>

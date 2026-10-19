@@ -314,7 +314,7 @@ function BestSectorsArticle() {
                   ["/rent-out-property-in-gurgaon", "Rent out property in Gurgaon"],
                   ["/dwarka-expressway-flats-for-sale-gurgaon", "Dwarka Expressway property"],
                   ["/ready-to-move-flats-in-gurgaon", "Ready-to-move flats in Gurgaon"],
-                ].map(([to, label]) => (
+                ].map(([to, label]: [string, string]) => (
                   <Link
                     key={to}
                     to={to}

@@ -399,8 +399,8 @@ function Page() {
                 Compare current inventory and projects across the corridor.
               </p>
             </Link>
-            <Link
-              to="/locations/dwarka-expressway"
+            <a
+              href="/locations/dwarka-expressway"
               className="rounded-2xl border border-border bg-card p-6 transition hover:border-gold/50"
             >
               <MapPin className="size-6 text-gold" />

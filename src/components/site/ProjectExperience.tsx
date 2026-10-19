@@ -76,15 +76,15 @@ export function ProjectExperience({
 }) {
   const intelligence = verifiedProjectIntelligenceFor({
     title,
-    projectName: project?.name,
-    projectSlug: project?.slug,
+    projectName: project?.name ?? null,
+    projectSlug: project?.slug ?? null,
   });
   const directoryProject = directoryProjectFor({
     title,
-    projectName: project?.name,
-    sector,
+    projectName: project?.name ?? null,
+    sector: sector ?? null,
   });
-  const identity = projectIdentityFor({ title, sector, project });
+  const identity = projectIdentityFor({ title, sector: sector ?? null, project: project ?? null });
 
   if (!intelligence && !directoryProject && !project?.description) return null;
 
@@ -215,12 +215,12 @@ export function ProjectExperience({
                   <li key={item}>• {item}</li>
                 ))}
               </ul>
-              <Link
-                to={locationHref}
+              <a
+                href={locationHref}
                 className="mt-4 inline-block text-sm font-semibold text-gold underline-offset-4 hover:underline"
               >
                 Explore properties on this corridor
-              </Link>
+              </a>
             </div>
             <div className="rounded-xl border border-border bg-card p-5">
               <p className="font-semibold">Nearby business & daily-life context</p>
