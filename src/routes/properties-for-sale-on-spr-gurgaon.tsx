@@ -8,7 +8,20 @@ const title = "Properties for Sale on SPR Gurgaon | 2, 3, 4 & 5 BHK";
 const description =
   "Compare selected 2, 3, 4 and 5 BHK flats and builder floors near Southern Peripheral Road Gurgaon, including Sector 68, 69, 70 and 70A, with indicative asking prices checked on 25 August 2026.";
 
-const PROPERTIES = [
+type SprProperty = {
+  project: string;
+  sector: string;
+  configuration: string;
+  size: string;
+  price: string;
+  floor: string;
+  facing: string;
+  highlight: string;
+  fit: string;
+  href?: string;
+};
+
+const PROPERTIES: SprProperty[] = [
   {
     project: "M3M The Marina",
     sector: "Sector 68",

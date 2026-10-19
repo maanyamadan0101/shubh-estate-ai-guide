@@ -393,7 +393,7 @@ function GodrejSoraPage() {
             </div>
           </div>
           <div className="rounded-2xl bg-white p-5 text-foreground">
-            <EnquiryForm source="Godrej Sora Sector 53 project page" />
+            <EnquiryForm interest="Godrej Sora Sector 53 project page" />
           </div>
         </div>
       </section>

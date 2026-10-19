@@ -62,7 +62,7 @@ export function ListingCard({
     sector: property.sector,
     locality: property.locality,
     city: property.city,
-    hasLift: property.has_lift,
+    hasLift: property.has_lift ?? null,
   });
   const projectIntelligence = verifiedProjectIntelligenceFor({ title: property.title });
   const cardAmenities = projectIntelligence?.amenities.slice(0, 5) ?? [];

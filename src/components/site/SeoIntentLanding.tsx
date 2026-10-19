@@ -26,6 +26,7 @@ type Props = {
   ctaBody?: string;
   related?: RelatedLink[];
   media?: ReactNode;
+  faqs?: { q: string; a: string }[];
 };
 
 export function SeoIntentLanding({
@@ -39,6 +40,7 @@ export function SeoIntentLanding({
   ctaBody = "Share your budget, preferred location, configuration and timing. We will shortlist suitable options from the inventory available to us and explain the trade-offs before you visit.",
   related = [],
   media,
+  faqs = [],
 }: Props) {
   return (
     <>
@@ -104,6 +106,23 @@ export function SeoIntentLanding({
                 ))}
               </div>
             </nav>
+          ) : null}
+
+          {faqs.length ? (
+            <section className="mt-12">
+              <h2 className="font-display text-2xl md:text-3xl">Frequently asked questions</h2>
+              <div className="mt-5 space-y-4">
+                {faqs.map((faq) => (
+                  <details
+                    key={faq.q}
+                    className="rounded-xl border border-border bg-card p-5"
+                  >
+                    <summary className="cursor-pointer font-semibold">{faq.q}</summary>
+                    <p className="mt-3 text-sm leading-6 text-muted-foreground">{faq.a}</p>
+                  </details>
+                ))}
+              </div>
+            </section>
           ) : null}
 
           <p className="mt-8 text-sm text-muted-foreground">

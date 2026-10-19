@@ -453,9 +453,9 @@ function FsiFarGuide() {
                 you commit funds to a Gurgaon property.
               </p>
               <Button asChild variant="gold" className="mt-5 w-full">
-                <Link to="/contact?interest=property-due-diligence">
+                <a href="/contact?interest=property-due-diligence">
                   Request consultation <ArrowRight className="size-4" />
-                </Link>
+                </a>
               </Button>
             </section>
 
