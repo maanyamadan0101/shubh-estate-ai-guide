@@ -143,6 +143,9 @@ export function PropertyView({
   const propertyPhotosUnavailable =
     gallery.length === 0 || images.some((image) => image.id === "licensed-project-fallback");
   const forSale = property.listing_type !== "rent";
+  const saleableAreaBasis = features.some(
+    (feature) => feature.toLocaleLowerCase("en-IN") === "saleable area basis",
+  );
   const superBuiltUpBasis = features.some(
     (feature) => feature.toLocaleLowerCase("en-IN") === "super built-up area basis",
   );
@@ -158,11 +161,13 @@ export function PropertyView({
     property.bhk ? { icon: Building2, label: "Configuration", value: property.bhk } : null,
     {
       icon: Ruler,
-      label: superAreaBasis
-        ? "Super area"
-        : superBuiltUpBasis
-          ? "Super built-up area"
-          : "Built-up area",
+      label: saleableAreaBasis
+        ? "Saleable area"
+        : superAreaBasis
+          ? "Super area"
+          : superBuiltUpBasis
+            ? "Super built-up area"
+            : "Built-up area",
       value: formatArea(property.area_sqft),
     },
     property.carpet_area_sqft
