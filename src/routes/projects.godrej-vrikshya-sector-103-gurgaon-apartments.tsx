@@ -410,7 +410,7 @@ function Page() {
               <p className="mt-2 text-sm leading-6 text-muted-foreground">
                 Review the wider location, connectivity and property context.
               </p>
-            </Link>
+            </a>
             <Link
               to="/projects/aipl-riviera-sector-103-gurgaon-apartments"
               className="rounded-2xl border border-border bg-card p-6 transition hover:border-gold/50"
