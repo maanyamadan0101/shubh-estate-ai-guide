@@ -146,12 +146,23 @@ export function PropertyView({
   const superBuiltUpBasis = features.some(
     (feature) => feature.toLocaleLowerCase("en-IN") === "super built-up area basis",
   );
+  const superAreaBasis = features.some(
+    (feature) => feature.toLocaleLowerCase("en-IN") === "super area basis",
+  );
+  const headlinePrice =
+    property.price_text && /[–—]/.test(property.price_text)
+      ? (property.price_text.split("|")[0] ?? property.price_text).trim()
+      : formatINR(property.price);
 
   const specs = [
     property.bhk ? { icon: Building2, label: "Configuration", value: property.bhk } : null,
     {
       icon: Ruler,
-      label: superBuiltUpBasis ? "Super built-up area" : "Built-up area",
+      label: superAreaBasis
+        ? "Super area"
+        : superBuiltUpBasis
+          ? "Super built-up area"
+          : "Built-up area",
       value: formatArea(property.area_sqft),
     },
     property.carpet_area_sqft
@@ -276,7 +287,7 @@ export function PropertyView({
               </p>
             ) : null}
           </div>
-          <p className="font-display text-3xl md:text-4xl">{formatINR(property.price)}</p>
+          <p className="font-display text-3xl md:text-4xl">{headlinePrice}</p>
         </div>
         <p className="mt-3 text-xs text-muted-foreground">
           Published asking price · Shubh property ID {property.id.slice(0, 8).toUpperCase()}
