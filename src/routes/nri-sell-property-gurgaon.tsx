@@ -33,8 +33,8 @@ const FAQS = [
 
 export const Route = createFileRoute("/nri-sell-property-gurgaon")({
   head: () => {
-    const title = "Sell NRI Property in Gurgaon | Legal & Tax Help";
-    const description = "Sell NRI property in Gurgaon with valuation, verified buyers, POA, legal and tax coordination. Get transparent remote support and the best price.";
+    const title = "Sell NRI Property in Gurgaon | Remote Sale Support";
+    const description = "Own a Gurgaon property from overseas? Get local valuation, marketing, buyer screening and remote sale coordination for NRI owners in the UAE, UK, USA and beyond.";
     return {
       meta: [
         { title }, { name: "description", content: description },
@@ -66,7 +66,7 @@ export const Route = createFileRoute("/nri-sell-property-gurgaon")({
 function NriSellerPage() {
   return (
     <>
-      <PageHero eyebrow="NRI & Overseas Owner Desk" title="NRI Property Services in Gurugram" body="Sell, manage and unlock the value of your residential or commercial property in Gurugram from anywhere in the world—with one accountable local team for valuation, buyer search, inspections and transaction coordination." />
+      <PageHero eyebrow="NRI & Overseas Owner Desk" title="Sell Your Gurgaon Property from Abroad" body="For NRI and overseas owners: local valuation, property presentation, buyer screening, viewing coordination and sale follow-up in Gurgaon (Gurugram), while you stay in control from anywhere in the world." />
       <section className="container-page grid gap-10 py-14 lg:grid-cols-[1fr_20rem]">
         <main>
           <div className="rounded-2xl border border-gold/30 bg-card p-6 md:p-8">
