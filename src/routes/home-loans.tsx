@@ -207,6 +207,18 @@ function HomeLoans() {
           </div>
         </div>
       </section>
+      <section className="container-page pb-12">
+        <div className="rounded-2xl border border-gold/30 bg-muted/40 p-6 md:flex md:items-center md:justify-between md:gap-8 md:p-8">
+          <div className="max-w-3xl">
+            <p className="eyebrow">Homebuyer protection resource</p>
+            <h2 className="mt-3 font-display text-2xl md:text-3xl">Compare term insurance and home loan protection before you sign</h2>
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">Not sure whether to accept a bank or NBFC loan shield? Understand cover, premiums, exclusions, financed-premium interest and the questions to ask before deciding.</p>
+          </div>
+          <div className="mt-5 shrink-0 md:mt-0">
+            <Button asChild variant="gold"><Link to="/term-insurance-vs-home-loan-insurance">Compare protection options <ArrowRightLeft className="ml-2 size-4" /></Link></Button>
+          </div>
+        </div>
+      </section>
     </>
   );
 }
