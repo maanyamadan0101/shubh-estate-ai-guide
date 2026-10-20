@@ -13,7 +13,7 @@ const PAGE_TITLE = "Term Insurance vs Home Loan Insurance | Shubh Estate Brokers
 const PAGE_DESCRIPTION =
   "Confused between term insurance and a bank loan shield? Compare home loan protection, premiums, cover, exclusions and flexibility before choosing.";
 
-export const Route = createFileRoute(PAGE_PATH)({
+export const Route = createFileRoute("/term-insurance-vs-home-loan-insurance")({
   head: () => ({
     meta: [
       { title: PAGE_TITLE },
