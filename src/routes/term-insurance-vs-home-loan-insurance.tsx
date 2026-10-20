@@ -1,8 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState, type FormEvent } from "react";
 import {
-  ArrowRight, CheckCircle2, ChevronDown, CircleHelp, FileCheck2, HeartHandshake,
-  Landmark, LockKeyhole, ShieldCheck, Wallet, Calculator, Users, Scale, Info,
+  ArrowRight, CheckCircle2, ChevronDown, FileCheck2, HeartHandshake,
+  Landmark, LockKeyhole, ShieldCheck, Wallet, Calculator, Users, Info,
 } from "lucide-react";
 import { CONTACT } from "@/data/site";
 import { SITE_ORIGIN } from "@/lib/seo";
