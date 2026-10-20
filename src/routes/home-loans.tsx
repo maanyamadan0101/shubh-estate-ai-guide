@@ -203,6 +203,7 @@ function HomeLoans() {
           <div className="mt-6 flex flex-wrap gap-3">
             <Button asChild variant="gold"><a href={CONTACT.phoneHref}>Call {CONTACT.phone}</a></Button>
             <Button asChild variant="goldOutline"><Link to="/flats-for-sale-in-gurgaon">Browse Gurgaon Properties</Link></Button>
+            <Button asChild variant="goldOutline"><Link to="/home-loan-guide">Read the Complete Home Loan Guide</Link></Button>
             <Button asChild variant="goldOutline"><Link to="/contact">Request Loan Assistance</Link></Button>
           </div>
         </div>
