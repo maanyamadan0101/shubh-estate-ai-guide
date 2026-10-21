@@ -200,6 +200,7 @@ export const Route = createFileRoute("/homeloan")({
 });
 
 function HomeLoanGuide() {
+  const [propertyValue, setPropertyValue] = useState(12000000);
   const [principal, setPrincipal] = useState(8000000);
   const [rate, setRate] = useState(8.5);
   const [years, setYears] = useState(20);
@@ -214,6 +215,9 @@ function HomeLoanGuide() {
   const [consent, setConsent] = useState(false);
 
   const result = useMemo(() => calculateEmi(principal, rate, years), [principal, rate, years]);
+  const loanAbovePropertyValue = principal > propertyValue;
+  const ownContribution = Math.max(0, propertyValue - principal);
+  const loanToValue = propertyValue > 0 ? (principal / propertyValue) * 100 : 0;
   const tenureRows = useMemo(
     () => [15, 20, 25].map((term) => ({ years: term, ...calculateEmi(principal, rate, term) })),
     [principal, rate],
@@ -449,7 +453,11 @@ function HomeLoanGuide() {
             <h3 className="font-display text-xl">Your estimated EMI</h3>
             <div className="mt-5 space-y-5">
               <div className="space-y-2">
-                <Label htmlFor="guide-loan-amount">Loan amount (₹)</Label>
+                <Label htmlFor="guide-property-value">Property value (₹)</Label>
+                <Input id="guide-property-value" type="number" min="1" max="1000000000" step="100000" value={propertyValue} onChange={(e) => setPropertyValue(Math.max(1, Math.min(1000000000, Number(e.target.value) || 1)))} />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="guide-loan-amount">Requested loan amount (₹)</Label>
                 <Input id="guide-loan-amount" type="number" min="0" max="1000000000" step="100000" value={principal} onChange={(e) => setPrincipal(Math.max(0, Math.min(1000000000, Number(e.target.value) || 0)))} />
               </div>
               <div className="space-y-2">
@@ -461,12 +469,15 @@ function HomeLoanGuide() {
                 <Input id="guide-tenure" type="number" min="1" max="40" step="1" value={years} onChange={(e) => setYears(Math.max(1, Math.min(40, Number(e.target.value) || 1)))} />
               </div>
             </div>
+            {loanAbovePropertyValue && <p role="alert" className="rounded-lg border border-destructive/40 bg-destructive/5 p-3 text-sm text-destructive">The requested loan amount exceeds the entered property value. Reduce the loan amount or correct the property value; this estimate should not be used until the figures are consistent.</p>}
             <div className="mt-6 rounded-xl surface-navy p-5">
               <p className="text-sm text-navy-foreground/70">Estimated monthly EMI</p>
               <p className="mt-2 font-display text-3xl text-gradient-gold">{inr(result.emi)}</p>
               <div className="mt-4 grid gap-3 sm:grid-cols-2">
                 <div><p className="text-xs text-navy-foreground/60">Total repayment</p><p className="mt-1 font-semibold text-navy-foreground">{inr(result.total)}</p></div>
                 <div><p className="text-xs text-navy-foreground/60">Estimated interest</p><p className="mt-1 font-semibold text-navy-foreground">{inr(result.interest)}</p></div>
+                <div><p className="text-xs text-navy-foreground/60">Indicative own contribution</p><p className="mt-1 font-semibold text-navy-foreground">{inr(ownContribution)}</p></div>
+                <div><p className="text-xs text-navy-foreground/60">Indicative loan-to-value</p><p className="mt-1 font-semibold text-navy-foreground">{loanToValue.toFixed(1)}%</p></div>
               </div>
             </div>
             <p className="mt-4 text-xs leading-5 text-muted-foreground">Estimate only, using a standard monthly reducing-balance formula. Actual amounts may vary with lender calculations, disbursement timing, rate changes, fees, insurance and other terms.</p>
