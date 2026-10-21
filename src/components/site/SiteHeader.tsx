@@ -9,7 +9,7 @@ import { trackContact } from "@/lib/analytics";
 const NAV = [
   { to: "/", label: "Home" },
   { to: "/under-construction-projects-gurgaon", label: "New Projects" },
-  { to: "/property-services-gurgaon", label: "Services" },
+  { to: "/home-loans", label: "Home Loan" },
   { to: "/nri-sell-property-gurgaon", label: "NRI" },
   { to: "/blog", label: "Blog" },
   { to: "/about", label: "About" },
