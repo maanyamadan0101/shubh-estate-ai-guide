@@ -12,26 +12,39 @@ const NAV = [
   { to: "/contact", label: "Locate Us" },
 ] as const;
 
-const PROPERTY_LINKS = [
+const COMMERCIAL_LINKS = [
   {
     to: "/office-space-for-rent-in-gurgaon",
-    label: "Office Space for Rent in Gurgaon",
-    description: "Commercial leasing and One09 Sector 109 office",
+    label: "Office Space for Rent",
+    description: "Commercial leasing options across Gurugram",
   },
+  {
+    to: "/school-building-for-rent-in-gurgaon",
+    label: "School Buildings for Rent",
+    description: "Commercial and institutional leasing enquiries",
+  },
+] as const;
+
+const RESIDENTIAL_LINKS = [
   {
     to: "/flats-for-sale-in-gurgaon",
-    label: "All Gurgaon Properties",
-    description: "Browse verified sale inventory",
+    label: "All Residential Properties",
+    description: "Browse published residential sale inventory",
   },
   {
-    to: "/dwarka-expressway-flats-for-sale-gurgaon",
-    label: "Dwarka Expressway Flats for Sale",
-    description: "Current inventory across key projects",
+    to: "/ready-to-move-flats-in-gurgaon",
+    label: "Ready-to-Move Residential",
+    description: "Explore completed homes and resale apartments",
   },
   {
     to: "/under-construction-projects-gurgaon",
-    label: "Under-Construction Projects",
-    description: "Compare new and upcoming residential options",
+    label: "Under Construction",
+    description: "Compare construction-stage and new-launch homes",
+  },
+  {
+    to: "/dwarka-expressway-flats-for-sale-gurgaon",
+    label: "Dwarka Expressway Residential",
+    description: "Explore current residential options by corridor",
   },
 ] as const;
 
@@ -95,7 +108,8 @@ export function SiteHeader() {
             Home
           </Link>
 
-          <NavDropdown label="Properties" to="/flats-for-sale-in-gurgaon" items={PROPERTY_LINKS} />
+          <NavDropdown label="Commercial" to="/office-space-for-rent-in-gurgaon" items={COMMERCIAL_LINKS} />
+          <NavDropdown label="Residential" to="/flats-for-sale-in-gurgaon" items={RESIDENTIAL_LINKS} />
           <NavDropdown label="Owners" to="/sell-property-gurgaon" items={OWNER_LINKS} />
           {NAV.slice(0, 2).map((item) => (
             <Link
@@ -147,9 +161,15 @@ export function SiteHeader() {
                 </Link>
 
                 <MobileGroup
-                  title="Properties"
+                  title="Commercial"
+                  primaryTo="/office-space-for-rent-in-gurgaon"
+                  items={COMMERCIAL_LINKS}
+                  onClose={() => setOpen(false)}
+                />
+                <MobileGroup
+                  title="Residential"
                   primaryTo="/flats-for-sale-in-gurgaon"
-                  items={PROPERTY_LINKS}
+                  items={RESIDENTIAL_LINKS}
                   onClose={() => setOpen(false)}
                 />
                 <MobileGroup
