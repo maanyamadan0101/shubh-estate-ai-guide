@@ -7,12 +7,8 @@ import { CONTACT } from "@/data/site";
 import { trackContact } from "@/lib/analytics";
 
 const NAV = [
-  { to: "/", label: "Home" },
-  { to: "/under-construction-projects-gurgaon", label: "New Projects" },
   { to: "/home-loans", label: "Home Loan" },
   { to: "/nri-sell-property-gurgaon", label: "NRI" },
-  { to: "/blog", label: "Blog" },
-  { to: "/about", label: "About" },
   { to: "/contact", label: "Locate Us" },
 ] as const;
 
@@ -36,6 +32,19 @@ const PROPERTY_LINKS = [
     to: "/under-construction-projects-gurgaon",
     label: "Under-Construction Projects",
     description: "Compare new and upcoming residential options",
+  },
+] as const;
+
+const ABOUT_LINKS = [
+  {
+    to: "/about",
+    label: "About Shubh Estate Brokers",
+    description: "Our approach to transparent, banking-grade property advisory",
+  },
+  {
+    to: "/blog",
+    label: "Blog & Insights",
+    description: "Property, investment and home-loan guidance",
   },
 ] as const;
 
@@ -78,7 +87,7 @@ export function SiteHeader() {
             </span>
           </span>
         </Link>
-        <nav className="hidden items-center gap-5 lg:flex" aria-label="Primary">
+        <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary">
           <Link
             to="/"
             className="text-sm text-muted-foreground transition-colors hover:text-foreground [&.active]:text-foreground"
@@ -88,8 +97,17 @@ export function SiteHeader() {
 
           <NavDropdown label="Properties" to="/flats-for-sale-in-gurgaon" items={PROPERTY_LINKS} />
           <NavDropdown label="Owners" to="/sell-property-gurgaon" items={OWNER_LINKS} />
-
-          {NAV.slice(1).map((item) => (
+          {NAV.slice(0, 2).map((item) => (
+            <Link
+              key={item.to}
+              to={item.to}
+              className="text-sm text-muted-foreground transition-colors hover:text-foreground [&.active]:text-foreground"
+            >
+              {item.label}
+            </Link>
+          ))}
+          <NavDropdown label="About" to="/about" items={ABOUT_LINKS} />
+          {NAV.slice(2).map((item) => (
             <Link
               key={item.to}
               to={item.to}
@@ -140,8 +158,14 @@ export function SiteHeader() {
                   items={OWNER_LINKS}
                   onClose={() => setOpen(false)}
                 />
+                <MobileGroup
+                  title="About & Insights"
+                  primaryTo="/about"
+                  items={ABOUT_LINKS}
+                  onClose={() => setOpen(false)}
+                />
 
-                {NAV.slice(1).map((item) => (
+                {NAV.map((item) => (
                   <Link
                     key={item.to}
                     to={item.to}
