@@ -202,8 +202,7 @@ const STATIC_PATHS: StaticPath[] = [
   { path: "/locations/southern-peripheral-road", priority: "0.9", lastmod: "2026-09-19" },
   { path: "/locations/sohna-road", priority: "0.9", lastmod: "2026-09-19" },
   { path: "/locations/new-gurgaon", priority: "0.9", lastmod: "2026-09-19" },
-  { path: "/home-loans", priority: "0.9", lastmod: "2026-09-19" },
-  { path: "/home-loan-guide", priority: "0.9", lastmod: "2026-10-20" },
+  { path: "/homeloan", priority: "1.0", lastmod: "2026-10-21" },
   { path: "/emi-calculator", priority: "0.6" },
   {
     path: "/haryana-stamp-duty-registration-calculator",
