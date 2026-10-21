@@ -181,18 +181,6 @@ export const Route = createFileRoute("/homeloan")({
             ],
           }),
         },
-        {
-          type: "application/ld+json",
-          children: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            mainEntity: FAQS.map((faq) => ({
-              "@type": "Question",
-              name: faq.q,
-              acceptedAnswer: { "@type": "Answer", text: faq.a },
-            })),
-          }),
-        },
       ],
     };
   },
@@ -576,7 +564,7 @@ function HomeLoanGuide() {
                 <div className="space-y-2"><Label htmlFor="loan-guide-need">Estimated loan requirement (optional)</Label><Input id="loan-guide-need" value={loanNeed} onChange={(e) => setLoanNeed(e.target.value)} placeholder="e.g. ₹1.5 crore" maxLength={80} /></div>
               </div>
               <div className="space-y-2"><Label htmlFor="loan-guide-contact-method">Preferred contact method</Label><select id="loan-guide-contact-method" value={contactMethod} onChange={(e) => setContactMethod(e.target.value)} className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"><option>WhatsApp</option><option>Phone call</option></select></div>
-              <label className="flex items-start gap-3 text-sm leading-6 text-muted-foreground"><input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} required className="mt-1 size-4 shrink-0 accent-current" /><span>I agree that Shubh Estate Brokers may contact me about this home-loan enquiry. I understand that clicking the button opens WhatsApp and I must send the message myself.</span></label>
+              <label className="flex items-start gap-3 text-sm leading-6 text-muted-foreground"><input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} required className="mt-1 size-4 shrink-0 accent-current" /><span>I agree that Shubh Estate Brokers may contact me about this home-loan enquiry. I understand that clicking the button opens WhatsApp and I must send the message myself. Please read our <Link to="/privacy-policy" className="underline underline-offset-4">Privacy Policy</Link>.</span></label>
               <Button type="submit" variant="gold" size="lg" className="w-full" disabled={!consent || !name.trim() || !phone.trim()}>Prepare WhatsApp Enquiry <ArrowRight aria-hidden="true" /></Button>
             </form>
             <p className="mt-5 text-xs leading-5 text-muted-foreground">{LOAN_DISCLAIMER} Review the lender's Key Facts Statement, sanction letter and loan agreement before accepting any offer. Shubh Estate Brokers is an advisory and brokerage firm, not a lending institution; approval and final terms are determined by the lender.</p>
