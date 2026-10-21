@@ -4,9 +4,6 @@ import { EnquiryForm } from "@/components/site/EnquiryForm";
 import { CONTACT } from "@/data/site";
 import { trackContact, trackEvent } from "@/lib/analytics";
 
-const DISMISSED_KEY = "shubh_property_assistant_dismissed";
-const AUTO_OPEN_DELAY_MS = 4500;
-
 export function LeadAssistant({ pathname }: { pathname: string }) {
   const [mounted, setMounted] = useState(false);
   const [open, setOpen] = useState(false);
@@ -27,39 +24,15 @@ export function LeadAssistant({ pathname }: { pathname: string }) {
   }, [pathname]);
 
   useEffect(() => {
+    // Keep the assistant closed on page load; visitors open it only by clicking.
     setMounted(true);
-    if (hiddenRoute) return;
-
-    let dismissed = false;
-    try {
-      dismissed = sessionStorage.getItem(DISMISSED_KEY) === "1";
-    } catch {
-      // Ignore unavailable storage; the assistant can still work.
-    }
-
-    if (dismissed) return;
-
-    const timer = window.setTimeout(() => {
-      setOpen(true);
-      trackEvent("lead_assistant_open", {
-        page_path: window.location.pathname,
-        open_method: "automatic_delay",
-      });
-    }, AUTO_OPEN_DELAY_MS);
-
-    return () => window.clearTimeout(timer);
-  }, [hiddenRoute]);
+  }, []);
 
   if (!mounted || hiddenRoute) return null;
 
   const closeAssistant = () => {
     setOpen(false);
     setShowCallback(false);
-    try {
-      sessionStorage.setItem(DISMISSED_KEY, "1");
-    } catch {
-      // Ignore unavailable storage.
-    }
     trackEvent("lead_assistant_close", { page_path: pathname });
   };
 
