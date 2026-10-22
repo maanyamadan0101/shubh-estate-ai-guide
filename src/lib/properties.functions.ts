@@ -248,6 +248,9 @@ export const listPublicProperties = createServerFn({ method: "GET" })
           .array(z.enum(["ready_to_move", "under_construction", "new_launch", "sold_out"]))
           .max(4)
           .optional(),
+        // The homepage does not display lift-specific claims; avoid an extra
+        // database round-trip on the critical initial navigation.
+        includeLiftSignals: z.boolean().optional(),
       })
       .parse(input ?? {}),
   )
@@ -286,7 +289,9 @@ export const listPublicProperties = createServerFn({ method: "GET" })
       const publicRows = ((rows ?? []) as unknown as ListingRow[])
         .filter((row) => isPublicSlug(row.slug))
         .map(applyConfirmedInventoryCorrections);
-      const rowsWithLiftSignals = await addVerifiedLiftSignals(supabase, publicRows);
+      const rowsWithLiftSignals = data.includeLiftSignals === false
+        ? publicRows
+        : await addVerifiedLiftSignals(supabase, publicRows);
       const properties = data.locality
         ? dedupeLocationListings(rowsWithLiftSignals).slice(0, requestedLimit)
         : rowsWithLiftSignals;
