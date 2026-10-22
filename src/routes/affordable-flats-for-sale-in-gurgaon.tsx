@@ -14,13 +14,13 @@ type Project = { name: string; location: string; configurations: string; corrido
 const PROJECTS: Project[] = [
   { name: "Signature Global Solera", location: "Sector 107", configurations: "Confirm current configurations", corridor: "Dwarka Expressway", status: "Check current availability" },
   { name: "Conscient Habitat", location: "Sector 102 area", configurations: "Confirm exact project and configurations", corridor: "Dwarka Expressway", status: "Verify project identity" },
-  { name: "Yashika 99A", location: "Sector 99A area", configurations: "Confirm official name and configurations", corridor: "Dwarka Expressway", status: "Verify project identity" },
+  { name: "Yashika Green Square", location: "Sector 99A, Village Gopalpur", configurations: "Confirm current configurations", corridor: "Dwarka Expressway", status: "Check current availability" },
   { name: "Signature Global The Millennia", location: "Sector 37D", configurations: "2 BHK", corridor: "Dwarka Expressway", status: "Check current availability" },
   { name: "Signature Global The Roselia", location: "Sector 95A", configurations: "2 BHK", corridor: "New Gurgaon", status: "Check current availability" },
   { name: "Signature Global Orchard Avenue", location: "Sector 93", configurations: "1 & 2 BHK", corridor: "New Gurgaon", status: "Check current availability" },
   { name: "Adani Aangan", location: "Sectors 88A–89A", configurations: "1 & 2 BHK", corridor: "New Gurgaon", status: "Check current availability" },
-  { name: "GLS Avenue 81", location: "Sector 81", configurations: "2 & 3 BHK", corridor: "New Gurgaon", status: "Check current availability" },
-  { name: "GLS Avenue 86", location: "Sector 86", configurations: "2 & 3 BHK", corridor: "New Gurgaon", status: "Check current availability" },
+  { name: "GLS Avenue 81", location: "Sector 81", configurations: "2 BHK / 2 BHK with study (verify current inventory)", corridor: "New Gurgaon", status: "Check current availability and regulatory status" },
+  { name: "GLS Avenue 86", location: "Sector 86", configurations: "2 & 3 BHK", corridor: "New Gurgaon", status: "Check current availability and regulatory status" },
   { name: "Pyramid Urban Homes 2", location: "Sector 86", configurations: "1 & 2 BHK", corridor: "New Gurgaon", status: "Check current availability" },
   { name: "Pivotal Devaan", location: "Sector 84", configurations: "2 BHK", corridor: "New Gurgaon", status: "Check current availability" },
   { name: "Zara Aavaas", location: "Sector 104", configurations: "1 & 2 BHK", corridor: "Dwarka Expressway", status: "Check current availability" },
@@ -67,7 +67,7 @@ function AffordableFlatsPage() {
   const filtered = useMemo(() => PROJECTS.filter((project) => {
     const configOk = configuration === "All" || project.configurations.includes(configuration) || project.configurations.startsWith("Confirm");
     const corridorOk = corridor === "All" || project.corridor === corridor;
-    const budgetOk = budget === "All" || (budget === "Under ₹60 lakh" && configuration !== "3 BHK") || (budget === "₹60–80 lakh" && configuration === "3 BHK");
+    const budgetOk = budget === "All";
     return configOk && corridorOk && budgetOk;
   }), [configuration, corridor, budget]);
 
@@ -127,7 +127,7 @@ function AffordableFlatsPage() {
             <label className="text-sm font-medium">Location cluster<select value={corridor} onChange={(e) => setCorridor(e.target.value)} className="mt-2 h-11 w-full rounded-md border border-input bg-background px-3"><option>All</option>{[...new Set(PROJECTS.map((p) => p.corridor))].map((c) => <option key={c}>{c}</option>)}</select></label>
             <label className="text-sm font-medium">Budget guide<select value={budget} onChange={(e) => setBudget(e.target.value)} className="mt-2 h-11 w-full rounded-md border border-input bg-background px-3"><option>All</option><option>Under ₹60 lakh</option><option>₹60–80 lakh</option></select></label>
           </div>
-          <p className="mt-4 text-sm text-muted-foreground">{filtered.length} projects in this shortlist match your filters. All require current availability confirmation.</p>
+          <p className="mt-4 text-sm text-muted-foreground">{budget !== "All" ? "Unit-level prices have not been verified project by project yet, so this budget filter will not guess which projects fit. Clear the budget filter or send an enquiry for a current unit shortlist." : `${filtered.length} projects in this shortlist match your filters. All require current availability confirmation.`}</p>
           <div className="mt-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
             {filtered.map((project) => <article key={project.name} className="flex flex-col rounded-2xl border border-border bg-card p-5 shadow-sm"><div className="flex size-11 items-center justify-center rounded-xl bg-secondary text-gold"><MapPin /></div><h3 className="mt-4 font-display text-xl">{project.name}</h3><p className="mt-1 text-sm text-muted-foreground">{project.location} · {project.corridor}</p><div className="mt-4 space-y-2 text-sm"><p><span className="font-medium">Configurations:</span> {project.configurations}</p><p><span className="font-medium">Current price:</span> Price on request</p><p><span className="font-medium">Availability:</span> {project.status}</p></div><div className="mt-auto pt-5"><Button asChild variant="outline" className="w-full"><a href="#enquiry" onClick={() => { /* anchor opens the shared enquiry form below */ }}>Check Current Availability <ArrowRight className="ml-2 size-4" /></a></Button></div></article>)}
           </div>
