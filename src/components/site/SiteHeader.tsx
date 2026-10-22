@@ -37,6 +37,11 @@ const RESIDENTIAL_LINKS = [
     description: "Explore completed homes and resale apartments",
   },
   {
+    to: "/affordable-flats-for-sale-in-gurgaon",
+    label: "Affordable Flats in Gurgaon",
+    description: "Compare budget-focused 1, 2 and 3 BHK options",
+  },
+  {
     to: "/under-construction-projects-gurgaon",
     label: "Under Construction",
     description: "Compare construction-stage and new-launch homes",
