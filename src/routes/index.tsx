@@ -34,7 +34,7 @@ import { SITE_ORIGIN } from "@/lib/seo";
 export const Route = createFileRoute("/")({
   loader: async () =>
     listPublicProperties({
-      data: { limit: 6, statuses: ["under_construction", "new_launch"] },
+      data: { limit: 6, statuses: ["under_construction", "new_launch"], includeLiftSignals: false },
     }),
   head: () => {
     const title = "Property Dealer in Gurgaon | Shubh Estate Brokers";
@@ -187,7 +187,7 @@ function Home() {
         <div className="absolute inset-0 -z-10 bg-[linear-gradient(90deg,rgba(10,17,40,0.98)_0%,rgba(10,17,40,0.92)_48%,rgba(10,17,40,0.74)_100%)]" />
 
         <div className="container-page py-16 text-navy-foreground md:py-24 lg:py-28">
-          <div className="max-w-4xl animate-rise">
+          <div className="max-w-4xl">
             <div className="flex flex-wrap items-center gap-2">
               <span className="rounded-full border border-gold/40 bg-gold/10 px-3 py-1.5 text-xs font-medium text-gold">
                 Banking-grade real estate advisory
