@@ -63,3 +63,20 @@ Source inspection is not equivalent to successful runtime verification; the chec
 - 2026-10-27: Confirmed apex and www custom domains are verified and neither has a Vercel-level redirect configured.
 - 2026-10-27: Attempted Semrush domain/site-audit/organic reports; Semrush reported insufficient API units. No retry performed.
 - 2026-10-27: Local checkout/test execution was blocked because this environment could not resolve `github.com`. No source code changes or production deployments have been made in this audit pass.
+
+
+## Live-page observations added 2026-10-27
+
+A public browser crawl was available for `https://shubhestatebroker.in/flats-for-sale-in-gurgaon?page=2`. The page returned rendered content and was titled “Apartments for Sale in Gurgaon – Page 2 | Shubh Estate Brokers”. This confirms the route is publicly discoverable, but the browser view did not expose the HTML head, so canonical and robots directives remain unverified.
+
+Observed content-quality findings on that page:
+- The directory still states “Latest directory price review: 24 Aug 2026” and repeats “Directory review date: 24 Aug 2026”. This is over two months old as of the audit date and should be refreshed only after the underlying figures are checked.
+- Multiple project cards say “Official project image awaited” or “Project imagery being updated”.
+- Multiple cards label the unit area “area basis to confirm”.
+- Multiple project cards state “Phase-level RERA check required”, indicating project/phase verification is not yet presented as complete.
+- The page reports 94 matching sale listings and 151 project profiles; these are page-displayed counts, not independently reconciled database counts.
+- Page 2 displays previous/next pagination and distinct listing content, consistent with the intended paginated catalogue design.
+
+These are verified visible-page observations, not proof that all listings are inaccurate or that canonical tags are wrong. Do not globally hide these pages from search. The next safe editorial/data step is to reconcile source records, update review dates, and replace placeholders per project after permissioned media and RERA phase are verified.
+
+Public evidence URL: https://shubhestatebroker.in/flats-for-sale-in-gurgaon?page=2
