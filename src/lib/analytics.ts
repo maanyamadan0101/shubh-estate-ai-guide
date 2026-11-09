@@ -23,9 +23,69 @@ const CONTACT_EVENT_NAME: Record<ContactMethod, string> = {
   site_visit: "click_site_visit_cta",
 };
 
+const SENSITIVE_PARAM_KEY =
+  /(^|_)(full_name|first_name|last_name|name|email|phone|mobile|telephone|address|message|notes|password|token|reference|lead_id|customer_id|contact_details)(_|$)/i;
+
+const SAFE_PAGE_QUERY_PARAMS = new Set([
+  "utm_source",
+  "utm_medium",
+  "utm_campaign",
+  "utm_id",
+  "utm_content",
+  "utm_term",
+  "gclid",
+  "gbraid",
+  "wbraid",
+  "dclid",
+  "fbclid",
+  "msclkid",
+]);
+
+function sanitizePageLocation(value: string) {
+  try {
+    const url = new URL(value, window.location.origin);
+    const safeQuery = new URLSearchParams();
+    url.searchParams.forEach((paramValue, key) => {
+      if (SAFE_PAGE_QUERY_PARAMS.has(key.toLowerCase())) {
+        safeQuery.append(key, paramValue.slice(0, 150));
+      }
+    });
+    const query = safeQuery.toString();
+    return `${url.origin}${url.pathname}${query ? `?${query}` : ""}`;
+  } catch {
+    return value.split(/[?#]/, 1)[0] || "/";
+  }
+}
+
+/**
+ * Keep analytics payloads to low-risk scalar metadata. Names, contact details,
+ * free-text messages, identifiers that could be personal, and arbitrary URL
+ * query parameters must never be sent to GA4/GTM.
+ */
+export function sanitizeAnalyticsParams(params: AnalyticsParams = {}): AnalyticsParams {
+  const safe: AnalyticsParams = {};
+
+  for (const [key, value] of Object.entries(params)) {
+    if (SENSITIVE_PARAM_KEY.test(key) || value === null || value === undefined) continue;
+    if (typeof value === "string") {
+      if (key === "page_location") {
+        safe[key] = sanitizePageLocation(value);
+      } else if (key === "page_path") {
+        safe[key] = value.split(/[?#]/, 1)[0].slice(0, 150) || "/";
+      } else {
+        safe[key] = value.slice(0, 150);
+      }
+    } else if (typeof value === "number" || typeof value === "boolean") {
+      if (Number.isFinite(value as number) || typeof value === "boolean") safe[key] = value;
+    }
+  }
+
+  return safe;
+}
+
 export function trackEvent(eventName: string, params: AnalyticsParams = {}) {
   if (typeof window === "undefined" || typeof window.gtag !== "function") return;
-  window.gtag("event", eventName, params);
+  window.gtag("event", eventName, sanitizeAnalyticsParams(params));
 }
 
 export function trackContact(
