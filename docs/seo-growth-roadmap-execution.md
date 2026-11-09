@@ -143,6 +143,8 @@ The site already has substantial content. Prefer strengthening existing pages an
 
 The `/home-loans`, `/homeloan` and `/home-loan-guide` routes serve potentially different intents. Do not merge or redirect them until query/page data and content overlap have been compared. The legacy `/home-loan` path already redirects to `/home-loans`.
 
+A page-filtered GSC query comparison (same rolling 3-month window) found 4 query rows for `/home-loans` (including mortgage advice, mortgage loan takeover and own-contribution intent), 3 rows for `/homeloan` (mostly brand/loan-broker terms), and no rows for `/home-loan-guide`. This is not enough volume to establish separate keyword universes, but it does not currently show strong query duplication. Preserve all three until content overlap and a longer matched period are reviewed. The buyer catalogue has 33 query rows, including `flats for sale in gurgaon` (28 impressions, average position 49.29), `flats in gurgaon` (28 impressions, average position 57.04), and `buy flat in gurgaon` (10 impressions, average position 66.8). The NRI page has 4 rows and earns 2 clicks for `nri real estate services in gurgaon` (33 impressions, average position 4.58). The seller service page had no query rows in this extract; investigate its page impressions and internal discovery rather than assuming it is indexed or ranking well.
+
 ### Content standards
 
 - Cite primary sources for legal, regulatory, RERA, infrastructure, tax and lender claims.
