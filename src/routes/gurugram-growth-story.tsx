@@ -7,9 +7,9 @@ import { SITE_ORIGIN } from "@/lib/seo";
 export const Route = createFileRoute("/gurugram-growth-story")({
   head: () => {
     const canonical = `${SITE_ORIGIN}/gurugram-growth-story`;
-    const title = "New Gurgaon Property Investment | Projects & Growth";
+    const title = "Gurugram History & Growth | Property Market Guide";
     const description =
-      "Explore New Gurgaon’s growth story, infrastructure, investment potential and top residential projects. Compare corridors before investing.";
+      "Explore Gurugram’s history, infrastructure milestones and evolution into a major business and residential hub, with context on its property corridors.";
 
     return {
       meta: [
