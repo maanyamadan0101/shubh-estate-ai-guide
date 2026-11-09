@@ -33,8 +33,8 @@ const FAQS = [
 
 export const Route = createFileRoute("/nri-sell-property-gurgaon")({
   head: () => {
-    const title = "Sell NRI Property in Gurgaon | Legal & Tax Help";
-    const description = "Sell NRI property in Gurgaon with valuation, verified buyers, POA, legal and tax coordination. Get transparent remote support and the best price.";
+    const title = "NRI Property Services in Gurgaon | Sale & Management";
+    const description = "NRI property services in Gurugram for resale, remote inspections, POA and documentation coordination, buyer follow-up and property management.";
     return {
       meta: [
         { title }, { name: "description", content: description },
