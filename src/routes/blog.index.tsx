@@ -48,6 +48,13 @@ const TOPICS = [
 
 const FEATURED = [
   {
+    title: "Buying a Home Is More Than an Investment: A 20-Year Perspective",
+    description:
+      "A mortgage professional's perspective on property selection, home-loan affordability, insurance protection, SIPs and long-term wealth creation in India.",
+    to: "/blog/home-buying-wealth-creation-financial-planning-india",
+    label: "New · Wealth & Financial Planning",
+  },
+  {
     title: "FSI and FAR in Gurgaon: Meaning, Formula and Buyer Guide",
     description:
       "Understand floor-area calculations, ground coverage, purchasable FAR and the approvals to check before buying a plot, builder floor or independent house.",
