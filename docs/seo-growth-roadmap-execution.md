@@ -234,5 +234,5 @@ Do not compare incompatible connector extracts. Use a single matched Search Cons
 
 - `src/routes/gurugram-growth-story.tsx`: title and meta description aligned with the actual page subject and GSC query evidence.
 - `src/routes/nri-sell-property-gurgaon.tsx`: title and meta description aligned with the NRI property-services query signal and the actual coordination scope; removed the unqualified “best price” and “legal & tax help” snippet language.
-- `.github/workflows/seo-preview-validation.yml`: adds PR-only SEO regression, production build and focused ESLint checks with pinned Bun; it does not deploy or modify production.
+- `.github/workflows/seo-preview-validation.yml`: adds PR-only SEO regression, production build and focused ESLint checks with pinned Bun; it does not deploy or modify production. The NRI route has pre-existing Prettier formatting violations (55 reported when linted as a whole); this metadata-only change was not expanded into unrelated formatting edits. Its route is covered by the successful production build.
 - No URL, canonical, sitemap, robots, database, GA4/GTM account, Vercel environment or production settings changed.
