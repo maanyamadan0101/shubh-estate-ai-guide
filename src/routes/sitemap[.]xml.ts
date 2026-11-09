@@ -48,6 +48,11 @@ const STATIC_PATHS: StaticPath[] = [
   { path: "/projects-in-gurgaon", priority: "0.9", lastmod: "2026-09-20" },
   { path: "/blog", priority: "0.9", lastmod: "2026-09-19" },
   {
+    path: "/blog/home-buying-wealth-creation-financial-planning-india",
+    priority: "0.9",
+    lastmod: "2026-11-09",
+  },
+  {
     path: "/blog/fsi-far-meaning-calculation-gurgaon",
     priority: "0.9",
     lastmod: "2026-09-20",
