@@ -131,6 +131,18 @@ Then compare with Vercel request/runtime logs and deployment history for the sam
 - [ ] Verify consent behavior.
 - [ ] Confirm no PII in collected event parameters.
 
-## 8. Release gate
+## 8. Preview smoke-check results (9 November 2026)
+
+Latest Vercel preview deployment for commit `ec1f98612bcf41c5a0a831e2a7365317b6d3bf58` reached `READY`.
+
+- `/`: HTTP 200; root analytics bootstrap and production-host allowlist are present in rendered HTML; GTM noscript iframe is absent.
+- `/contact`: HTTP 200; same host guard / dataLayer bootstrap present; no GTM noscript iframe.
+- `/seller-submit`: HTTP 200; same host guard / dataLayer bootstrap present; no GTM noscript iframe.
+- The homepage server-rendered route payload also contains `supabaseKey is required.` in the preview. This indicates the preview environment is missing a Supabase key needed by the homepage data loader. The contact and seller-submit pages did not show this error in their HTML.
+- No real lead or seller form was submitted, and no production record was created.
+
+**Still outstanding:** browser-level verification of the queued `dataLayer` events, actual network-request absence on preview, sanitizer behavior with synthetic PII, and end-to-end form success/failure states. The preview HTML smoke check cannot prove those runtime interactions. Do not copy production Supabase secrets into Preview; use a separate test Supabase project / safe preview credentials before exercising backend-backed forms.
+
+## 9. Release gate
 
 This PR may be reviewed and tested in preview, but it must remain unmerged. Production approval is requested only after the preview checklist is completed, GTM container configuration has been inspected, and the GA4 key-event decisions are confirmed. Publishing GTM and merging the PR are separate approval actions.
