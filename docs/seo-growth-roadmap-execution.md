@@ -178,6 +178,13 @@ A page-filtered GSC query comparison (same rolling 3-month window) found 4 query
 - Once access is restored, compare Square Yards, Propzilla and other locally relevant competitors by commercial query clusters, ranking URLs, SERP features, referring domains and content format.
 - Use GSC query/page exports as the first-party prioritisation source.
 
+**Public website scan (9 November 2026; not a Semrush ranking/backlink audit):**
+- Propzilla prominently presents property discovery across cities, a large project catalogue, financial assistance/home-loan facilitation, taxation/legal-assistance language and after-sale service. Its project pages expose configuration, size, price, possession and RERA details.
+- Square Yards positions itself as a full-lifecycle proptech platform, combining listings and project discovery with home loans, property management, rentals, valuation and extensive Gurgaon price/transaction insights.
+- Ascens (a locally relevant advisory comparator) emphasises set-fee advisory, due diligence, tax/representation and asset management, alongside a stated Gurugram base and RERA credentials.
+
+**Shubh Estate Brokers response:** do not compete on national catalogue scale or unsupported market-size claims. Build proof around founder-led mortgage experience, transparent advisory scope, documented price/valuation methodology, resale-unit verification, title/document review coordination, lender-policy coordination and local Gurugram corridor knowledge. Add a clear explanation of the advisory process and what is/is not included in each service. Use original local market evidence rather than reproducing competitor price tables.
+
 ### Local entity consistency
 - Audit Google Business Profile name, category, address, phone, hours, service areas, website URL and appointment/contact links.
 - Keep business name, address and phone consistent across authoritative local citations.
