@@ -234,4 +234,5 @@ Do not compare incompatible connector extracts. Use a single matched Search Cons
 
 - `src/routes/gurugram-growth-story.tsx`: title and meta description aligned with the actual page subject and GSC query evidence.
 - `src/routes/nri-sell-property-gurgaon.tsx`: title and meta description aligned with the NRI property-services query signal and the actual coordination scope; removed the unqualified “best price” and “legal & tax help” snippet language.
+- `.github/workflows/seo-preview-validation.yml`: adds PR-only SEO regression, production build and focused ESLint checks with pinned Bun; it does not deploy or modify production.
 - No URL, canonical, sitemap, robots, database, GA4/GTM account, Vercel environment or production settings changed.
