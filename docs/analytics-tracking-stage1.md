@@ -38,7 +38,7 @@ The root analytics loader is restricted to the two production hostnames:
 - `shubhestatebroker.in`
 - `www.shubhestatebroker.in`
 
-On localhost, Vercel previews, Lovable previews and other non-production hosts, the inline dataLayer / gtag queue remains available for safe inspection, but the external GA4 and GTM scripts are not loaded. This prevents preview QA from contaminating the live GA4 property.
+On localhost, Vercel previews, Lovable previews and other non-production hosts, the inline dataLayer / gtag queue remains available for safe inspection, but the external GA4 and GTM scripts are not loaded. The GTM noscript iframe fallback is also omitted, so a preview cannot send GTM fallback requests when JavaScript is disabled. This removes the no-JavaScript GTM fallback for production visitors as well; normal JavaScript-enabled production tracking is unchanged.
 
 ### 3.2 Central analytics privacy filter
 
