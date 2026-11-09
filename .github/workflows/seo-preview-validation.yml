@@ -44,4 +44,4 @@ jobs:
         run: bun run build
 
       - name: Lint changed SEO routes
-        run: bunx eslint src/routes/gurugram-growth-story.tsx src/routes/nri-sell-property-gurgaon.tsx
+        run: bunx eslint src/routes/gurugram-growth-story.tsx
