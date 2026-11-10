@@ -19,7 +19,8 @@ type Props = {
   eyebrow: string;
   title: string;
   body: string;
-  intro: string;
+  intro: ReactNode;
+  heroActions?: ReactNode;
   sections: IntentSection[];
   interest: string;
   ctaTitle?: string;
@@ -34,6 +35,7 @@ export function SeoIntentLanding({
   title,
   body,
   intro,
+  heroActions,
   sections,
   interest,
   ctaTitle = "Tell us what you are looking for",
@@ -53,14 +55,14 @@ export function SeoIntentLanding({
         </span>
         <span aria-current="page">{title}</span>
       </nav>
-      <PageHero eyebrow={eyebrow} title={title} body={body} />
+      <PageHero eyebrow={eyebrow} title={title} body={body} actions={heroActions} />
 
       <section className="container-page grid gap-10 py-14 lg:grid-cols-[1fr_20rem]">
         <div>
           <div className="rounded-2xl border border-gold/30 bg-card p-6 md:p-8">
             <div className="flex items-start gap-3">
               <ShieldCheck className="mt-1 size-5 shrink-0 text-gold" aria-hidden="true" />
-              <p className="max-w-3xl text-sm leading-7 text-muted-foreground">{intro}</p>
+              <div className="max-w-3xl text-sm leading-7 text-muted-foreground">{intro}</div>
             </div>
           </div>
 
@@ -130,7 +132,7 @@ export function SeoIntentLanding({
           </p>
         </div>
 
-        <aside className="rounded-xl border border-border bg-card p-6 lg:sticky lg:top-24 lg:self-start">
+        <aside id="project-enquiry" className="scroll-mt-28 rounded-xl border border-border bg-card p-6 lg:sticky lg:top-24 lg:self-start">
           <h2 className="font-display text-xl">{ctaTitle}</h2>
           <p className="mt-2 text-xs leading-5 text-muted-foreground">{ctaBody}</p>
           <div className="mt-4">
