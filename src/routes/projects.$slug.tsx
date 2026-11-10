@@ -59,28 +59,12 @@ export const Route = createFileRoute("/projects/$slug")({
       (listing) => listing.listing_type === "rent",
     ).length;
     const intent = saleCount ? "Flats for Sale" : rentCount ? "Flats for Rent" : "Project Guide";
-    const isEmaarEmeraldEstate =
-      loaderData.slug === "emaar-emerald-estate-sector-65-gurgaon";
-    const featuredListing = isEmaarEmeraldEstate
-      ? loaderData.listings.find(
-          (listing) =>
-            listing.listing_type !== "rent" &&
-            listing.area_sqft === 1395 &&
-            /3\s?BHK/i.test(listing.bhk ?? ""),
-        )
-      : undefined;
-    const title = compactSeoTitle(
-      isEmaarEmeraldEstate
-        ? "Emaar Emerald Estate Sector 65 Resale | Shubh Estate"
-        : `${loaderData.name} ${location} | ${intent}`,
-    );
+    const title = compactSeoTitle(`${loaderData.name} ${location} | ${intent}`);
     const priceContext = hasAskingPrices
       ? ` Asking-price context: ${priceRange(numericPrices)}.`
       : "";
     const description = compactDescription(
-      isEmaarEmeraldEstate && featuredListing
-        ? `Emaar Emerald Estate, Sector 65 Gurgaon: resale flats, actual photos and current prices. See ${formatArea(featuredListing.area_sqft)} ${featuredListing.bhk} at ${formatINR(featuredListing.price)}; confirm availability.`
-        : `Explore ${loaderData.name}${loaderData.sector ? ` in ${loaderData.sector}, Gurgaon` : " in Gurgaon"}. Compare ${loaderData.listings.length} current listing${loaderData.listings.length === 1 ? "" : "s"}, sizes and possession status.${priceContext} Review buyer checks before shortlisting.`,
+      `Explore ${loaderData.name}${loaderData.sector ? ` in ${loaderData.sector}, Gurgaon` : " in Gurgaon"}. Compare ${loaderData.listings.length} current listing${loaderData.listings.length === 1 ? "" : "s"}, sizes and possession status.${priceContext} Review buyer checks before shortlisting.`,
     );
     const itemList = {
       "@context": "https://schema.org",
@@ -175,15 +159,6 @@ function ProjectHubPage() {
         new Date(hub.updated_at),
       )
     : "Current inventory";
-  const isEmaarEmeraldEstate = hub.slug === "emaar-emerald-estate-sector-65-gurgaon";
-  const featuredListing = isEmaarEmeraldEstate
-    ? hub.listings.find(
-        (listing) =>
-          listing.listing_type !== "rent" &&
-          listing.area_sqft === 1395 &&
-          /3\s?BHK/i.test(listing.bhk ?? ""),
-      )
-    : undefined;
 
   return (
     <>
@@ -208,50 +183,19 @@ function ProjectHubPage() {
               {hub.name}
               {hub.sector ? `, ${hub.sector} Gurgaon` : " Gurgaon"}
             </h1>
-            <div className="mt-4 flex flex-wrap gap-3">
-              {featuredListing ? (
-                <Button asChild variant="gold">
-                  <a href={featuredListing.href}>View Featured Apartment & Photos</a>
-                </Button>
-              ) : null}
-              <Button asChild variant={featuredListing ? "goldOutline" : "gold"}>
-                <a href="#current-listings">View Current Resale Apartments</a>
+            <p className="mt-4 max-w-3xl text-base leading-7 text-muted-foreground">
+              Compare the project with the actual units currently published by Shubh Estate Brokers.
+              Asking prices, floor, facing, area and availability are unit-specific and should be
+              reconfirmed before a visit or token payment.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <Button asChild variant="gold">
+                <a href="#current-listings">View Current Listings</a>
               </Button>
               <Button asChild variant="goldOutline">
-                <a href="#project-enquiry">Get Current Resale Prices</a>
+                <a href="#buyer-checks">Buyer Checks</a>
               </Button>
             </div>
-            {isEmaarEmeraldEstate && featuredListing ? (
-              <div className="mt-4 max-w-3xl space-y-3 text-base leading-7 text-muted-foreground">
-                <p>
-                  Looking to buy an apartment in Emaar Emerald Estate, Sector 65, Gurugram? Explore
-                  resale options in this established Emaar residential community on Golf Course
-                  Extension Road. Compare current listings and unit-level details rather than relying
-                  on a project-wide asking-price estimate.
-                </p>
-                <p>
-                  A currently published opportunity is a {featuredListing.bhk} apartment measuring{" "}
-                  {formatArea(featuredListing.area_sqft)}
-                  {featuredListing.floor ? `, on floor ${featuredListing.floor}` : ""}
-                  {featuredListing.facing ? `, ${featuredListing.facing}-facing` : ""}, with an
-                  asking price of {formatINR(featuredListing.price)}. Price and availability must be
-                  reconfirmed before a visit or token payment. View actual apartment photographs on
-                  the dedicated listing page and arrange a site visit with Shubh Estate Brokers.
-                </p>
-                <p>
-                  Our founder-led advisory can help compare resale prices, coordinate documentation
-                  and title checks, discuss seller negotiations and arrange home-loan assistance.
-                  Buyers based outside Gurugram or overseas can also request a remote consultation.
-                </p>
-              </div>
-            ) : (
-              <p className="mt-4 max-w-3xl text-base leading-7 text-muted-foreground">
-                Compare the project with the actual units currently published by Shubh Estate Brokers.
-                Asking prices, floor, facing, area and availability are unit-specific and should be
-                reconfirmed before a visit or token payment.
-              </p>
-            )}
-
           </div>
         </div>
       </section>
@@ -522,7 +466,7 @@ function ProjectHubPage() {
           </section>
         </main>
 
-        <aside id="project-enquiry" className="lg:sticky lg:top-32 lg:self-start scroll-mt-28">
+        <aside className="lg:sticky lg:top-32 lg:self-start">
           <div className="rounded-xl border border-border bg-card p-6">
             <p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">
               Ask about {hub.name}
