@@ -66,7 +66,7 @@ export const Route = createFileRoute("/projects/$slug")({
           (listing) =>
             listing.listing_type !== "rent" &&
             listing.area_sqft === 1395 &&
-            /3\\s?BHK/i.test(listing.bhk ?? ""),
+            /3\s?BHK/i.test(listing.bhk ?? ""),
         )
       : undefined;
     const title = compactSeoTitle(
@@ -181,7 +181,7 @@ function ProjectHubPage() {
         (listing) =>
           listing.listing_type !== "rent" &&
           listing.area_sqft === 1395 &&
-          /3\\s?BHK/i.test(listing.bhk ?? ""),
+          /3\s?BHK/i.test(listing.bhk ?? ""),
       )
     : undefined;
 
@@ -208,6 +208,19 @@ function ProjectHubPage() {
               {hub.name}
               {hub.sector ? `, ${hub.sector} Gurgaon` : " Gurgaon"}
             </h1>
+            <div className="mt-4 flex flex-wrap gap-3">
+              {featuredListing ? (
+                <Button asChild variant="gold">
+                  <a href={featuredListing.href}>View Featured Apartment & Photos</a>
+                </Button>
+              ) : null}
+              <Button asChild variant={featuredListing ? "goldOutline" : "gold"}>
+                <a href="#current-listings">View Current Resale Apartments</a>
+              </Button>
+              <Button asChild variant="goldOutline">
+                <a href="#project-enquiry">Get Current Resale Prices</a>
+              </Button>
+            </div>
             {isEmaarEmeraldEstate && featuredListing ? (
               <div className="mt-4 max-w-3xl space-y-3 text-base leading-7 text-muted-foreground">
                 <p>
@@ -238,19 +251,7 @@ function ProjectHubPage() {
                 reconfirmed before a visit or token payment.
               </p>
             )}
-            <div className="mt-6 flex flex-wrap gap-3">
-              {featuredListing ? (
-                <Button asChild variant="gold">
-                  <a href={featuredListing.href}>View Featured Apartment & Photos</a>
-                </Button>
-              ) : null}
-              <Button asChild variant={featuredListing ? "goldOutline" : "gold"}>
-                <a href="#current-listings">View Current Resale Apartments</a>
-              </Button>
-              <Button asChild variant="goldOutline">
-                <a href="#project-enquiry">Get Current Resale Prices</a>
-              </Button>
-            </div>
+
           </div>
         </div>
       </section>
