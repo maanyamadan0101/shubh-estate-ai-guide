@@ -41,6 +41,7 @@ export type AdminPropertyRow = {
   price: number | string;
   status: string;
   listing_type: string;
+  property_type: string;
   is_published: boolean;
   is_luxury: boolean;
   updated_at: string;
@@ -61,7 +62,7 @@ export const listAdminProperties = createServerFn({ method: "GET" })
     const { data, error } = await context.supabase
       .from("properties")
       .select(
-        "id,title,slug,bhk,sector,locality,price,status,listing_type,is_published,is_luxury,updated_at,cover_image_url",
+        "id,title,slug,bhk,sector,locality,price,status,listing_type,property_type,is_published,is_luxury,updated_at,cover_image_url",
       )
       .order("updated_at", { ascending: false });
     if (error) throw new Error(error.message);
