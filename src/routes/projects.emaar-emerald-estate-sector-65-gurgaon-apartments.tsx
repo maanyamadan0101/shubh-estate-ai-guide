@@ -5,9 +5,9 @@ import { SITE_ORIGIN } from "@/lib/seo";
 const PAGE_PATH = "/projects/emaar-emerald-estate-sector-65-gurgaon-apartments";
 const LISTING_PATH = "/3-bhk-for-sale-emaar-emerald-estate-sector-65-gurgaon-1395-sqft";
 const canonical = `${SITE_ORIGIN}${PAGE_PATH}`;
-const title = "Emaar Emerald Estate Sector 65 Gurgaon | Project & Resale";
+const title = "Emaar Emerald Estate Sector 65 Resale | Shubh Estate Brokers";
 const description =
-  "Explore Emaar Emerald Estate, Sector 65 Gurgaon: Spanish-inspired Emaar community, 50%+ landscaped greens, Golf Course Extension Road access and current 3 BHK resale inventory.";
+  "Emaar Emerald Estate, Sector 65 Gurgaon: resale flats, actual photos and current prices. See a 1,395 sq. ft. 3 BHK + 1 at ₹2.30 Cr; confirm availability.";
 
 const FAQS = [
   {
@@ -82,7 +82,7 @@ export const Route = createFileRoute("/projects/emaar-emerald-estate-sector-65-g
             description,
             url: canonical,
             datePublished: "2026-09-05",
-            dateModified: "2026-09-05",
+            dateModified: "2026-11-10",
             about: {
               "@type": "Place",
               name: "Emaar Emerald Estate",
@@ -136,8 +136,46 @@ function EmaarEmeraldEstateProjectPage() {
     <SeoIntentLanding
       eyebrow="Emaar · Sector 65 · Golf Course Extension Road"
       title="Emaar Emerald Estate, Sector 65 Gurgaon"
-      body="Permanent project guide · Location context · Current resale availability"
-      intro="Emaar Emerald Estate is an established Emaar residential community in Sector 65, Gurugram. Emaar describes the project as inspired by Spanish architecture, with premium modern design standards, more than 50% landscaped green area and proximity to the proposed Metro Corridor. This project page connects that community-level information directly with current unit-level resale inventory."
+      body="Explore current resale apartments, actual unit photographs and asking-price details in Emaar Emerald Estate, Sector 65, Gurugram."
+      heroActions={
+        <div className="flex flex-wrap gap-3">
+          <a
+            href={LISTING_PATH}
+            className="inline-flex min-h-11 items-center rounded-md bg-gold px-5 py-2 text-sm font-medium text-gold-foreground transition hover:bg-gold/90"
+          >
+            View Apartment & Actual Photos
+          </a>
+          <a
+            href="#project-enquiry"
+            className="inline-flex min-h-11 items-center rounded-md border border-white/35 px-5 py-2 text-sm font-medium text-white transition hover:bg-white/10"
+          >
+            Get Current Resale Prices
+          </a>
+        </div>
+      }
+      intro={
+        <div className="space-y-3">
+          <p>
+            Looking to buy an apartment in Emaar Emerald Estate, Sector 65, Gurugram? Explore resale
+            opportunities in this established Emaar residential community on Golf Course Extension
+            Road. Compare the actual apartment, its condition, floor, orientation and asking price
+            rather than relying only on a project-wide estimate.
+          </p>
+          <p>
+            A featured resale opportunity is an unused 3 BHK + 1 apartment measuring 1,395 sq. ft.,
+            positioned on a higher floor and facing east, with an asking price of ₹2.30 crore.
+            Availability and price are subject to confirmation and final negotiation. Actual
+            photographs are available on the dedicated property page so you can review the apartment
+            before arranging a site visit.
+          </p>
+          <p>
+            Shubh Estate Brokers provides founder-led, banking-informed property advisory. Buyers can
+            request unit-level price evaluation, seller negotiation support, documentation and title
+            due-diligence coordination, and home-loan assistance. Outstation and NRI buyers can also
+            arrange a remote consultation before planning a visit to Gurugram.
+          </p>
+        </div>
+      }
       interest="Emaar Emerald Estate Sector 65 Gurgaon resale"
       ctaTitle="Looking for an apartment in Emaar Emerald Estate?"
       ctaBody="Share your budget, preferred configuration, floor and facing. Shubh Estate Brokers can coordinate current availability, site visits, price discussion and home-loan support."
@@ -238,12 +276,20 @@ function CurrentAvailability() {
           East-facing apartment with actual unit photographs available. Open the dedicated property
           page for complete details, photographs, price context and site-visit enquiry.
         </p>
-        <a
-          href={LISTING_PATH}
-          className="mt-5 inline-flex min-h-11 items-center rounded-md bg-gold px-5 py-2 text-sm font-medium text-gold-foreground transition hover:bg-gold/90"
-        >
-          View 1,395 sq ft Emaar Emerald Estate apartment
-        </a>
+        <div className="mt-5 flex flex-wrap gap-3">
+          <a
+            href={LISTING_PATH}
+            className="inline-flex min-h-11 items-center rounded-md bg-gold px-5 py-2 text-sm font-medium text-gold-foreground transition hover:bg-gold/90"
+          >
+            View Actual Apartment Photos
+          </a>
+          <a
+            href="#project-enquiry"
+            className="inline-flex min-h-11 items-center rounded-md border border-border px-5 py-2 text-sm font-medium transition hover:bg-muted"
+          >
+            Arrange a Site Visit
+          </a>
+        </div>
       </div>
     </section>
   );
