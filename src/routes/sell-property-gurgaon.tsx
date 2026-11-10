@@ -79,6 +79,14 @@ const FAQS = [
     a: "Yes. We can coordinate the property-related lender requirements, valuation visit and transaction timeline. Loan eligibility, valuation and sanction remain subject to the lender's policies.",
   },
   {
+    q: "How do I choose a property broker to sell my flat in Gurgaon?",
+    a: "Look for a clear valuation rationale, a documented marketing plan, buyer qualification, controlled viewing arrangements and transparent communication. Avoid relying only on an inflated promised price or guaranteed sale timeline. Discuss the scope and brokerage terms before appointing an advisor.",
+  },
+  {
+    q: "Can you sell a Gurgaon property if I live in the UAE, UK or USA?",
+    a: "You can begin remotely with a video or phone consultation, property details and available documents. We can coordinate local presentation, buyer enquiries and viewings with your approval. Any power of attorney, tax, TDS or repatriation requirements should be confirmed with your qualified advocate, chartered accountant and authorised dealer bank.",
+  },
+  {
     q: "Should I give an exclusive selling mandate to one property advisor?",
     a: "A mandate can be useful when the owner wants one accountable representative, consistent pricing, controlled visits and coordinated negotiation. It should define the scope, period and expectations clearly without promising a guaranteed sale.",
   },
@@ -87,9 +95,9 @@ const FAQS = [
 export const Route = createFileRoute("/sell-property-gurgaon")({
   head: () => {
     const canonical = `${SITE_ORIGIN}/sell-property-gurgaon`;
-    const title = "Sell Property in Gurgaon | Owner Sale Advisory";
+    const title = "Sell Property in Gurgaon | Valuation & Buyer Support";
     const description =
-      "Sell property in Gurgaon with valuation guidance, professional marketing, buyer screening, negotiation, documentation and transaction coordination.";
+      "Want to sell a flat, builder floor or house in Gurgaon? Get realistic valuation guidance, buyer screening and sale coordination. Support for local and overseas owners.";
 
     return {
       meta: [
@@ -180,6 +188,11 @@ function SellPropertyPage() {
                     onClick={() => trackContact("whatsapp", "seller_page_hero")}
                   >
                     <MessageCircle aria-hidden="true" /> WhatsApp Property Details
+                  </a>
+                </Button>
+                <Button asChild variant="outline" size="lg" className="border-navy-foreground/25 bg-transparent text-navy-foreground hover:bg-navy-foreground/10">
+                  <a href={CONTACT.phoneHref} onClick={() => trackContact("phone", "seller_page_hero")}>
+                    <Phone aria-hidden="true" /> Call a Property Advisor
                   </a>
                 </Button>
               </div>
