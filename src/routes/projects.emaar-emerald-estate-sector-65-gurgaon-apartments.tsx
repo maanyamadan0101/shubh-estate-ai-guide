@@ -172,7 +172,11 @@ function EmaarEmeraldEstateProjectPage() {
             Shubh Estate Brokers provides founder-led, banking-informed property advisory. Buyers can
             request unit-level price evaluation, seller negotiation support, documentation and title
             due-diligence coordination, and home-loan assistance. Outstation and NRI buyers can also
-            arrange a remote consultation before planning a visit to Gurugram.
+            arrange a remote consultation before planning a visit to Gurugram. Before shortlisting,
+            compare the unit's tower placement, view, parking, maintenance dues, furnishing and seller
+            terms with comparable available apartments. Our team can help organise a structured review
+            of these points and coordinate a site visit at a suitable time. Buyers should verify
+            ownership and title documents and obtain lender confirmation before paying a token amount.
           </p>
         </div>
       }
