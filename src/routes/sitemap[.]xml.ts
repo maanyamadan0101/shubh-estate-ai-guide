@@ -83,7 +83,6 @@ const STATIC_PATHS: StaticPath[] = [
   {
     path: "/godrej-101-sector-79-gurgaon-apartments",
     priority: "0.8",
-    lastmod: SEO_TEMPLATE_LASTMOD,
   },
   {
     path: "/dlf-skycourt-sector-86-gurgaon-apartments",
