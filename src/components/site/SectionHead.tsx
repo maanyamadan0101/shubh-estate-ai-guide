@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 export function SectionHead({
   eyebrow,
   title,
@@ -21,10 +23,12 @@ export function PageHero({
   eyebrow,
   title,
   body,
+  actions,
 }: {
   eyebrow: string;
   title: string;
   body?: string;
+  actions?: ReactNode;
 }) {
   return (
     <section className="surface-navy">
@@ -32,6 +36,7 @@ export function PageHero({
         <span className="eyebrow">{eyebrow}</span>
         <h1 className="mt-4 max-w-3xl font-display text-4xl md:text-5xl">{title}</h1>
         {body ? <p className="mt-5 max-w-2xl text-navy-foreground/75">{body}</p> : null}
+        {actions ? <div className="mt-7">{actions}</div> : null}
       </div>
     </section>
   );
