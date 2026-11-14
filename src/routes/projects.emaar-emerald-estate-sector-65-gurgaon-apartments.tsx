@@ -5,9 +5,9 @@ import { SITE_ORIGIN } from "@/lib/seo";
 const PAGE_PATH = "/projects/emaar-emerald-estate-sector-65-gurgaon-apartments";
 const LISTING_PATH = "/3-bhk-for-sale-emaar-emerald-estate-sector-65-gurgaon-1395-sqft";
 const canonical = `${SITE_ORIGIN}${PAGE_PATH}`;
-const title = "Emaar Emerald Estate Sector 65 Resale | Shubh Estate Brokers";
+const title = "Emaar Emerald Estate Sector 65 | Resale Guide | Shubh Estate Brokers";
 const description =
-  "Emaar Emerald Estate, Sector 65 Gurgaon: resale flats, actual photos and current prices. See a 1,395 sq. ft. 3 BHK + 1 at ₹2.30 Cr; confirm availability.";
+  "Explore Emaar Emerald Estate resale apartments in Sector 65, Gurugram. Review project details, featured unit photographs and buyer guidance; confirm current prices and availability.";
 
 const FAQS = [
   {
@@ -136,7 +136,7 @@ function EmaarEmeraldEstateProjectPage() {
     <SeoIntentLanding
       eyebrow="Emaar · Sector 65 · Golf Course Extension Road"
       title="Emaar Emerald Estate, Sector 65 Gurgaon"
-      body="Explore current resale apartments, actual unit photographs and asking-price details in Emaar Emerald Estate, Sector 65, Gurugram."
+      body="Explore resale apartments, project details and buyer guidance for Emaar Emerald Estate, Sector 65, Gurugram. Confirm unit-level details and availability before planning a visit."
       heroActions={
         <div className="flex flex-wrap gap-3">
           <a
@@ -271,27 +271,27 @@ function CurrentAvailability() {
     <section aria-labelledby="emerald-estate-current-resale">
       <div className="rounded-2xl border border-gold/35 bg-card p-6 md:p-8">
         <p className="text-xs font-semibold uppercase tracking-[0.18em] text-gold">
-          Current resale availability
+          Featured resale enquiry
         </p>
         <h2 id="emerald-estate-current-resale" className="mt-2 font-display text-2xl md:text-3xl">
-          Unused 3 BHK + 1 · 1,395 sq ft · Higher floor · ₹2.30 Cr
+          Explore available resale apartments in Sector 65
         </h2>
         <p className="mt-3 max-w-3xl text-sm leading-7 text-muted-foreground">
-          East-facing apartment with actual unit photographs available. Open the dedicated property
-          page for complete details, photographs, price context and site-visit enquiry.
+          Request the latest confirmed unit details, actual photographs and asking price. Availability
+          and commercial terms are subject to reconfirmation before a site visit.
         </p>
         <div className="mt-5 flex flex-wrap gap-3">
           <a
             href={LISTING_PATH}
             className="inline-flex min-h-11 items-center rounded-md bg-gold px-5 py-2 text-sm font-medium text-gold-foreground transition hover:bg-gold/90"
           >
-            View Actual Apartment Photos
+            View Featured Apartment Details
           </a>
           <a
             href="#project-enquiry"
             className="inline-flex min-h-11 items-center rounded-md border border-border px-5 py-2 text-sm font-medium transition hover:bg-muted"
           >
-            Arrange a Site Visit
+            Check Current Availability
           </a>
         </div>
       </div>
