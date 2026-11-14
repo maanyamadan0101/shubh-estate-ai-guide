@@ -204,6 +204,7 @@ assert.ok(
   !locations.includes("https://shubhestatebroker.in/projects/bptp-astaire-gardens-sector-70a"),
 );
 assert.ok(xml.includes("image.jpg?a=1&amp;b=2"));
+assert.ok(!xml.includes("2026-08-27"), "sitemap must not invent a shared lastmod date for pages without verified update dates");
 assert.match(
   readFileSync(`${root}/public/robots.txt`, "utf8"),
   /Sitemap: https:\/\/shubhestatebroker\.in\/sitemap\.xml/,
