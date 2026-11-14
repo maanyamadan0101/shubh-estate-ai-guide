@@ -10,8 +10,6 @@ type StaticPath = {
   lastmod?: string;
 };
 
-const SEO_TEMPLATE_LASTMOD = "2026-08-27";
-
 const STATIC_PATHS: StaticPath[] = [
   { path: "/school-building-for-rent-in-gurgaon", priority: "0.9", lastmod: "2026-10-08" },
   { path: "/office-space-for-rent-in-gurgaon", priority: "0.9", lastmod: "2026-10-07" },
@@ -85,7 +83,6 @@ const STATIC_PATHS: StaticPath[] = [
   {
     path: "/godrej-101-sector-79-gurgaon-apartments",
     priority: "0.8",
-    lastmod: SEO_TEMPLATE_LASTMOD,
   },
   {
     path: "/dlf-skycourt-sector-86-gurgaon-apartments",
@@ -182,7 +179,7 @@ const STATIC_PATHS: StaticPath[] = [
     priority: "0.9",
     lastmod: "2026-08-25",
   },
-  { path: "/property-sector-79-gurgaon", priority: "0.8", lastmod: SEO_TEMPLATE_LASTMOD },
+  { path: "/property-sector-79-gurgaon", priority: "0.8" },
   { path: "/property-sector-62-gurgaon", priority: "0.8", lastmod: "2026-08-23" },
   { path: "/property-sector-60-gurgaon", priority: "0.8", lastmod: "2026-08-29" },
   { path: "/property-sector-59-gurgaon", priority: "0.8", lastmod: "2026-08-23" },
@@ -216,7 +213,7 @@ const STATIC_PATHS: StaticPath[] = [
     lastmod: "2026-09-11",
   },
   { path: "/gurugram-growth-story", priority: "0.6", lastmod: "2026-09-08" },
-  { path: "/about", priority: "0.5", lastmod: SEO_TEMPLATE_LASTMOD },
+  { path: "/about", priority: "0.5" },
   { path: "/contact", priority: "0.7", lastmod: "2026-09-19" },
 ];
 
@@ -307,7 +304,7 @@ export const Route = createFileRoute("/sitemap.xml")({
           // not in the sitemap where they waste crawl budget and dilute canonical signals.
           ...STATIC_PATHS.filter((p) => internalHref(p.path) === p.path).map(
             (p) =>
-              `  <url>\n    <loc>${escapeXml(`${SITE_ORIGIN}${p.path}`)}</loc>${safeLastmod(p.lastmod ?? SEO_TEMPLATE_LASTMOD)}\n    <priority>${p.priority}</priority>\n  </url>`,
+              `  <url>\n    <loc>${escapeXml(`${SITE_ORIGIN}${p.path}`)}</loc>${safeLastmod(p.lastmod)}\n    <priority>${p.priority}</priority>\n  </url>`,
           ),
           ...(hasRentalInventory
             ? [
