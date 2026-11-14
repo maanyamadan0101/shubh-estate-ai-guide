@@ -1,0 +1,47 @@
+name: SEO Preview Validation
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/seo-preview-validation.yml"
+      - "src/routes/**"
+      - "src/lib/**"
+      - "public/robots.txt"
+      - "scripts/**"
+      - "package.json"
+      - "bun.lock"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: seo-preview-validation-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  seo-validation:
+    name: SEO regression and production build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: 1.3.14
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Run SEO regression checks
+        run: bun run test:seo
+
+      - name: Build application
+        run: bun run build
+
+      - name: Lint changed SEO routes
+        run: bunx eslint src/routes/gurugram-growth-story.tsx
