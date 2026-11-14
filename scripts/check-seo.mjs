@@ -204,7 +204,7 @@ assert.ok(
   !locations.includes("https://shubhestatebroker.in/projects/bptp-astaire-gardens-sector-70a"),
 );
 assert.ok(xml.includes("image.jpg?a=1&amp;b=2"));
-const sitemapEntries = [...xml.matchAll(/<url>\\s*<loc>(.*?)<\\/loc>([\\s\\S]*?)<\\/url>/g)];
+const sitemapEntries = [...xml.matchAll(/<url>\s*<loc>(.*?)<\/loc>([\s\S]*?)<\/url>/g)];
 for (const path of ["/property-sector-79-gurgaon", "/about"]) {
   const entry = sitemapEntries.find(([, loc]) => loc === `https://shubhestatebroker.in${path}`);
   assert.ok(entry, `expected ${path} in sitemap`);
