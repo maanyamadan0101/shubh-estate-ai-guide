@@ -204,7 +204,12 @@ assert.ok(
   !locations.includes("https://shubhestatebroker.in/projects/bptp-astaire-gardens-sector-70a"),
 );
 assert.ok(xml.includes("image.jpg?a=1&amp;b=2"));
-assert.ok(!xml.includes("2026-08-27"), "sitemap must not invent a shared lastmod date for pages without verified update dates");
+const sitemapEntries = [...xml.matchAll(/<url>\\s*<loc>(.*?)<\\/loc>([\\s\\S]*?)<\\/url>/g)];
+for (const path of ["/property-sector-79-gurgaon", "/about"]) {
+  const entry = sitemapEntries.find(([, loc]) => loc === `https://shubhestatebroker.in${path}`);
+  assert.ok(entry, `expected ${path} in sitemap`);
+  assert.ok(!entry[2].includes("<lastmod>"), `${path} must not receive a fabricated lastmod date`);
+}
 assert.match(
   readFileSync(`${root}/public/robots.txt`, "utf8"),
   /Sitemap: https:\/\/shubhestatebroker\.in\/sitemap\.xml/,
