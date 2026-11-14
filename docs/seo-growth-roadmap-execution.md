@@ -236,3 +236,50 @@ Do not compare incompatible connector extracts. Use a single matched Search Cons
 - `src/routes/nri-sell-property-gurgaon.tsx`: title and meta description aligned with the NRI property-services query signal and the actual coordination scope; removed the unqualified “best price” and “legal & tax help” snippet language.
 - `.github/workflows/seo-preview-validation.yml`: adds PR-only SEO regression, production build and focused ESLint checks with pinned Bun; it does not deploy or modify production. The NRI route has pre-existing Prettier formatting violations (55 reported when linted as a whole); this metadata-only change was not expanded into unrelated formatting edits. Its route is covered by the successful production build.
 - No URL, canonical, sitemap, robots, database, GA4/GTM account, Vercel environment or production settings changed.
+
+
+## 8. Latest Search Console checkpoint — 14 November 2026
+
+Read-only Windsor.ai / Google Search Console snapshot for the connected domain property `sc-domain:shubhestatebroker.in`, preset `last_28d`. Google Search Console can lag by several days; treat this as a directional 28-day snapshot, not a real-time report.
+
+### Page opportunities (impressions, clicks, average position)
+
+- Emaar Emerald Estate project page: 1,476 impressions, 2 clicks, 0.14% CTR, position 9.17. The query `emaar emerald estate` alone generated 721 impressions at position 9.49 with no clicks. This validates the dedicated title/description and buyer-CTA work in PR #165; keep that PR focused on this page and verify the featured unit is still available before any release.
+- Haryana stamp-duty calculator: 1,040 impressions, 10 clicks, 0.96% CTR, position 8.58. Continue monitoring; the existing title already targets the core calculator intent. Improve the page only if query-level review identifies a specific missing question or inaccurate snippet.
+- Gurugram Growth Story: 551 impressions, 3 clicks, 0.54% CTR, position 7.16. This supports the metadata correction in this branch.
+- Project directory `/projects-in-gurgaon`: 226 impressions, 0 clicks, position 51.83. Treat as a content-depth/internal-linking opportunity, not a title-only fix; compare its project coverage and useful filters against the actual project hubs before expanding.
+- DLF The Arbour project page: 214 impressions, 0 clicks, position 23.21. Review unit-level availability, unique project information, internal links and snippet intent before changing metadata.
+- Godrej Sora project page: 148 impressions, 0 clicks, position 43.06. Strengthen only with verified project facts and current inventory, not generic copy.
+
+### Query signals
+
+- `emaar emerald estate`: 721 impressions, 0 clicks, average position 9.49.
+- `emerald estate sector 65 gurgaon`: 85 impressions, 0 clicks, position 8.75.
+- `history of gurgaon`: 58 impressions, 0 clicks, position 6.78.
+- `shubh estate brokers`: 57 impressions, 4 clicks, position 2.86.
+- `dlf arbour resale`: 35 impressions, 0 clicks, position 10.91.
+- `stamp duty calculator haryana`: 30 impressions, 0 clicks, position 8.97.
+
+### Device split
+
+- Mobile: 3,335 impressions, 27 clicks, 0.81% CTR, average position 9.40.
+- Desktop: 2,483 impressions, 22 clicks, 0.89% CTR, average position 26.33.
+- Tablet: 24 impressions, 0 clicks, average position 7.71.
+
+Mobile represents the larger share of search impressions. Preserve mobile-first testing for hero content, enquiry actions, listing imagery and form usability.
+
+### Sitemap status
+
+Search Console currently reports both `https://shubhestatebroker.in/sitemap.xml` and `https://www.shubhestatebroker.in/sitemap.xml` as submitted with 192 URLs, zero errors and zero warnings; both were downloaded on 13 November 2026. The canonical sitemap declared in `robots.txt` is the apex-host sitemap. Search Console account-side cleanup of the redundant www submission is not available through the connected read-only connector and must be reviewed in Search Console by an authorized owner.
+
+### Performance instrumentation
+
+The application already sends `web_vital` events for TTFB, FCP, LCP, CLS and INP to GA4, and the shared listing cards use responsive Vercel image srcsets, lazy loading and async decoding. The 28-day GA4 snapshot contains 760 `web_vital` events, 34 `contact` events and 1 `generate_lead` event. Event counts alone do not establish Core Web Vitals pass rates or qualified-lead volume; the next performance review must extract the custom metric parameters and compare field distributions by page/device. The Google PageSpeed connector is not currently connected.
+
+### Next execution order
+
+1. Review PR #165 against the 1,476-impression Emaar page and 721-impression head query.
+2. Complete PR #164's metadata changes and verify the Growth Story and NRI page snippets in preview.
+3. Use the project directory's actual project coverage and internal links to address its weak position; do not generate thin project pages.
+4. Extract GA4 `web_vital` metric parameters and run PageSpeed/Lighthouse checks on representative mobile pages before changing image or JavaScript delivery.
+5. Review the redundant www sitemap submission in Search Console; retain the apex sitemap as the canonical submission.
