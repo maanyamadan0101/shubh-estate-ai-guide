@@ -156,6 +156,23 @@ export function PropertyView({
     property.price_text && /[–—]/.test(property.price_text)
       ? (property.price_text.split("|")[0] ?? property.price_text).trim()
       : formatINR(property.price);
+  const propertyOverview =
+    property.description?.trim() ||
+    [
+      `This ${property.bhk ? `${property.bhk} ` : ""}${(PROPERTY_TYPE_LABEL[property.property_type] ?? "property").toLowerCase()} is offered for ${forSale ? "sale" : "rent"}${property.project?.name ? ` in ${property.project.name}` : ""}${place ? `, ${place}` : ""}.`,
+      property.area_sqft ? `The listed area is ${formatArea(property.area_sqft)}.` : null,
+      `The published ${forSale ? "asking price" : "monthly rent"} is ${headlinePrice}.`,
+    ]
+      .filter(Boolean)
+      .join(" ");
+  const pricePerSqft =
+    forSale &&
+    property.price > 0 &&
+    property.area_sqft &&
+    property.area_sqft > 0 &&
+    !(property.price_text && /[–—]/.test(property.price_text))
+      ? Math.round(property.price / property.area_sqft)
+      : null;
 
   const specs = [
     property.bhk ? { icon: Building2, label: "Configuration", value: property.bhk } : null,
@@ -173,13 +190,13 @@ export function PropertyView({
     property.carpet_area_sqft
       ? { icon: Ruler, label: "Carpet area", value: formatArea(property.carpet_area_sqft) }
       : null,
-    property.bathrooms
+    property.bathrooms !== null && property.bathrooms !== undefined
       ? { icon: Building2, label: "Bathrooms", value: String(property.bathrooms) }
       : null,
-    property.balconies
+    property.balconies !== null && property.balconies !== undefined
       ? { icon: Building2, label: "Balconies", value: String(property.balconies) }
       : null,
-    property.floor_number
+    property.floor_number !== null && property.floor_number !== undefined
       ? {
           icon: Layers,
           label: "Floor",
@@ -188,11 +205,14 @@ export function PropertyView({
       : null,
     property.facing ? { icon: Compass, label: "Facing", value: property.facing } : null,
     property.furnishing ? { icon: Sofa, label: "Furnishing", value: property.furnishing } : null,
-    property.parking
+    property.parking !== null && property.parking !== undefined
       ? {
           icon: Car,
           label: "Parking",
-          value: `${property.parking} space${property.parking > 1 ? "s" : ""}`,
+          value:
+            property.parking === 0
+              ? "Not included"
+              : `${property.parking} space${property.parking > 1 ? "s" : ""}`,
         }
       : null,
     property.servant_room ? { icon: Building2, label: "Servant room", value: "Yes" } : null,
@@ -226,8 +246,7 @@ export function PropertyView({
             onClick={() => {
               trackContact("whatsapp", "property_photo_request");
               trackEvent("property_photo_request", { property_id: property.id });
-            }}
-          >
+            }}          >
             <MessageCircle className="size-4" aria-hidden="true" />
             Get Property Photos on WhatsApp
           </a>
@@ -423,19 +442,17 @@ export function PropertyView({
             </dl>
           </div>
 
-          {property.description ? (
-            <div>
-              <h2 className="font-display text-2xl">About this property</h2>
-              <div className="mt-4 space-y-4 text-muted-foreground">
-                {String(property.description)
-                  .split(/\n{1,}/)
-                  .filter((p: string) => p.trim())
-                  .map((paragraph: string, i: number) => (
-                    <p key={i}>{paragraph}</p>
-                  ))}
-              </div>
+          <div>
+            <h2 className="font-display text-2xl">Property overview</h2>
+            <div className="mt-4 space-y-4 text-muted-foreground">
+              {propertyOverview
+                .split(/\n{1,}/)
+                .filter((paragraph: string) => paragraph.trim())
+                .map((paragraph: string, i: number) => (
+                  <p key={i}>{paragraph}</p>
+                ))}
             </div>
-          ) : null}
+          </div>
 
           {features.length ? (
             <div>
@@ -496,8 +513,7 @@ export function PropertyView({
                     <p className="mt-1 font-display text-xl">{property.builder.name}</p>
                     {property.builder.description ? (
                       <p className="mt-2 text-sm text-muted-foreground">
-                        {property.builder.description}
-                      </p>
+                        {property.builder.description}                      </p>
                     ) : null}
                   </div>
                 ) : null}
@@ -527,6 +543,20 @@ export function PropertyView({
               {formatArea(property.area_sqft)}
               {property.bhk ? ` · ${property.bhk}` : ""}
             </p>
+            {pricePerSqft ? (
+              <div className="mt-4 border-t border-border pt-4">
+                <p className="text-xs uppercase tracking-[0.14em] text-muted-foreground">
+                  Indicative asking rate
+                </p>
+                <p className="mt-1 text-lg font-semibold">
+                  {formatINR(pricePerSqft)} / sq. ft.
+                </p>
+                <p className="mt-1 text-xs leading-5 text-muted-foreground">
+                  Calculated from the published asking price and listed area; actual transaction
+                  value may differ.
+                </p>
+              </div>
+            ) : null}
 
             {forSale ? (
               <div className="mt-4 rounded-lg border border-gold/30 bg-gold/5 p-4">
