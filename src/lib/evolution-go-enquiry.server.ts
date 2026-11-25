@@ -13,7 +13,7 @@ type EvolutionGoEnquiryInput = {
 const MAX_MESSAGE_LENGTH = 1800;
 
 function clean(value: string | null | undefined, max = 300) {
-  return (value ?? "").replace(/[\\r\\n]+/g, " ").trim().slice(0, max);
+  return (value ?? "").replace(/[\r\n]+/g, " ").trim().slice(0, max);
 }
 
 /**
@@ -28,9 +28,9 @@ function clean(value: string | null | undefined, max = 300) {
  * Notification delivery is best-effort: a provider outage must not lose a saved enquiry.
  */
 export async function sendEvolutionGoEnquiryNotification(input: EvolutionGoEnquiryInput) {
-  const baseUrl = process.env["EVOLUTION_GO_BASE_URL"]?.trim().replace(/\\/+$/, "");
+  const baseUrl = process.env["EVOLUTION_GO_BASE_URL"]?.trim().replace(/\/+$/, "");
   const apiKey = process.env["EVOLUTION_GO_API_KEY"]?.trim();
-  const recipient = process.env["EVOLUTION_GO_NOTIFICATION_NUMBER"]?.replace(/\\D/g, "");
+  const recipient = process.env["EVOLUTION_GO_NOTIFICATION_NUMBER"]?.replace(/\D/g, "");
 
   if (!baseUrl || !apiKey || !recipient) {
     console.info("[Evolution GO] Enquiry notification skipped: provider settings are not configured.");
@@ -63,7 +63,7 @@ export async function sendEvolutionGoEnquiryNotification(input: EvolutionGoEnqui
     "",
     `Enquiry ID: ${clean(input.enquiryId, 100)}`,
   ].filter(Boolean);
-  const text = lines.join("\\n").slice(0, MAX_MESSAGE_LENGTH);
+  const text = lines.join("\n").slice(0, MAX_MESSAGE_LENGTH);
 
   try {
     const response = await fetch(endpoint, {
