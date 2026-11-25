@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { z } from "zod";
 import { sendEnquiryNotification } from "@/lib/enquiry-email.server";
+import { sendEvolutionGoEnquiryNotification } from "@/lib/evolution-go-enquiry.server";
 
 const enquirySchema = z.object({
   full_name: z.string().trim().min(2).max(100),
@@ -78,18 +79,33 @@ export const Route = createFileRoute("/api/enquiry")({
 
           if (error) throw new Error(`Could not save enquiry: ${error.message}`);
 
-          await sendEnquiryNotification({
-            enquiryId: enquiry.id,
-            category: input.property_id ? "property_enquiry" : "contact",
-            fullName: input.full_name,
-            phone: input.phone,
-            email: input.email || null,
-            interest: input.interest || null,
-            source: input.source,
-            propertyId: input.property_id || null,
-            reference: attributionReference(input) || null,
-            message: input.message || null,
-          });
+          // Store the lead first. Email and WhatsApp notifications are best-effort
+          // and must never cause a saved enquiry to be reported as failed.
+          await Promise.all([
+            sendEnquiryNotification({
+              enquiryId: enquiry.id,
+              category: input.property_id ? "property_enquiry" : "contact",
+              fullName: input.full_name,
+              phone: input.phone,
+              email: input.email || null,
+              interest: input.interest || null,
+              source: input.source,
+              propertyId: input.property_id || null,
+              reference: attributionReference(input) || null,
+              message: input.message || null,
+            }),
+            sendEvolutionGoEnquiryNotification({
+              enquiryId: enquiry.id,
+              fullName: input.full_name,
+              phone: input.phone,
+              email: input.email || null,
+              interest: input.interest || null,
+              source: input.source,
+              propertyId: input.property_id || null,
+              message: input.message || null,
+              currentPage: input.current_page || null,
+            }),
+          ]);
 
           return json({ ok: true, id: enquiry.id });
         } catch (error) {
