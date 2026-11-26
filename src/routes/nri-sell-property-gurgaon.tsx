@@ -138,6 +138,7 @@ function NriSellerPage() {
           <div className="mt-10 flex flex-wrap gap-5 text-sm">
             <Link to="/sell-property-gurgaon" className="inline-flex items-center gap-2 text-gold hover:underline"><CheckCircle2 className="size-4" aria-hidden="true" />Local owner selling support</Link>
             <Link to="/property-services-gurgaon" className="inline-flex items-center gap-2 text-gold hover:underline"><FileCheck2 className="size-4" aria-hidden="true" />Property advisory services</Link>
+            <Link to="/nri-property-buying-gurgaon" className="inline-flex items-center gap-2 text-gold hover:underline"><Globe2 className="size-4" aria-hidden="true" />NRI property buying in Gurgaon</Link>
           </div>
         </main>
 
