@@ -192,7 +192,7 @@ const QUICK_PATHS = [
     label: "NRI buying assistance",
     body: "Coordinate remote shortlisting, video visits, financing and local follow-through.",
     icon: Globe2,
-    href: "/nri",
+    href: "/nri-property-buying-gurgaon",
   },
   {
     label: "Home-loan assistance",

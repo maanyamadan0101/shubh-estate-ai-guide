@@ -8,7 +8,7 @@ import { trackContact } from "@/lib/analytics";
 
 const NAV = [
   { to: "/home-loans", label: "Home Loan" },
-  { to: "/nri-sell-property-gurgaon", label: "NRI" },
+  { to: "/nri-property-buying-gurgaon", label: "NRI Buyers" },
   { to: "/contact", label: "Locate Us" },
 ] as const;
 
@@ -81,6 +81,11 @@ const OWNER_LINKS = [
     to: "/mandate-to-sell-property-in-gurgaon",
     label: "Give Selling Mandate",
     description: "One accountable advisor for a coordinated sale",
+  },
+  {
+    to: "/nri-sell-property-gurgaon",
+    label: "NRI Property Seller Services",
+    description: "Sell or manage your Gurgaon property from overseas",
   },
 ] as const;
 
