@@ -78,6 +78,7 @@ const STATIC_PATHS: StaticPath[] = [
   { path: "/under-construction-projects-gurgaon", priority: "0.9", lastmod: "2026-09-01" },
   { path: "/affordable-flats-for-sale-in-gurgaon", priority: "0.95", lastmod: "2026-10-22" },
   { path: "/property-services-gurgaon", priority: "0.95", lastmod: "2026-09-19" },
+  { path: "/nri-property-buying-gurgaon", priority: "0.95", lastmod: "2026-11-26" },
   { path: "/luxury", priority: "0.8" },
   { path: "/property-buying-advisory-gurgaon", priority: "0.95", lastmod: "2026-09-19" },
   {
