@@ -6,7 +6,6 @@ import {
   FileCheck2,
   Globe2,
   Landmark,
-  MapPin,
   MessageCircle,
   ShieldCheck,
   Video,
@@ -131,7 +130,7 @@ export const Route = createFileRoute("/nri-property-buying-gurgaon")({
   head: () => {
     const title = "NRI Property Buying in Gurgaon | NRI Buyer Advisory";
     const description =
-      "Buy property in Gurgaon from abroad with NRI buyer assistance for shortlisting, video visits, price evaluation, due diligence, home-loan and transaction coordination.";
+      "NRI property buying in Gurgaon from abroad. Shortlisting, video visits, price evaluation, due diligence, home-loan coordination and remote purchase support.";
     return {
       meta: [
         { title },
