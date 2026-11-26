@@ -239,9 +239,9 @@ function NriPropertyBuyingPage() {
                 <article key={area.title} className="rounded-xl border border-border bg-card p-5">
                   <h3 className="font-display text-xl">{area.title}</h3>
                   <p className="mt-2 text-sm leading-6 text-muted-foreground">{area.description}</p>
-                  <Link to={area.href} className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-gold hover:underline">
+                  <a href={area.href} className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-gold hover:underline">
                     Explore {area.title} properties <span aria-hidden="true">→</span>
-                  </Link>
+                  </a>
                 </article>
               ))}
             </div>
