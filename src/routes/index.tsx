@@ -122,6 +122,19 @@ const MARKET_FACTS = [
 const CORE_SERVICES = [
   {
     icon: Globe2,
+    label: "NRI Buyers",
+    title: "Buy Property in Gurgaon from Abroad",
+    body: "Remote property shortlisting, video walkthroughs, price evaluation, due-diligence coordination and local purchase support for eligible NRI and OCI buyers.",
+    points: [
+      "Remote shortlist and video property visits",
+      "Price, documentation and lender coordination",
+      "Local transaction follow-through",
+    ],
+    to: "/nri-property-buying-gurgaon",
+    cta: "Explore NRI buyer services",
+  },
+  {
+    icon: Globe2,
     label: "NRI & Remote Owners",
     title: "NRI Property Selling Support",
     body: "A local Gurugram execution desk for overseas and outstation owners who need visibility, control and documented follow-through.",
