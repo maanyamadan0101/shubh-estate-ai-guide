@@ -248,6 +248,7 @@ const propertySchema = z.object({
   og_description: z.string().max(400).nullable(),
   canonical_url: z.string().max(400).nullable(),
   cover_image_url: z.string().max(600).nullable(),
+  image_license_confirmed: z.boolean().optional(),
   amenities: z.array(z.string().trim().min(1).max(80)).max(60),
   features: z.array(z.string().trim().min(1).max(80)).max(60),
   videos: z.array(z.string().trim().min(1).max(600)).max(4),
