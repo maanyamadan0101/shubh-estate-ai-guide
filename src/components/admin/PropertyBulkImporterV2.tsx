@@ -262,6 +262,14 @@ export function PropertyBulkImporterV2() {
         const title = [item.bhk, PROPERTY_TYPE_LABEL[item.propertyType], item.listingType === "sale" ? "for Sale" : "for Rent", `in ${item.projectName}`, item.sector, item.city === "Gurugram" ? "Gurgaon" : item.city, item.areaSqft ? `- ${item.areaSqft} Sq Ft` : ""].filter(Boolean).join(" ").replace(/\s+/g, " ").slice(0, 160);
         const seoSource: SeoSource = { title, bhk: item.bhk, propertyType: item.propertyType, listingType: item.listingType, projectName: item.projectName || null, builderName: item.builderName || null, sector: item.sector, locality: item.locality, city: item.city, price: item.price, areaSqft: item.areaSqft, description: item.description };
         const slug = item.proposedSlug || buildSlug(seoSource);
+        const imagePermissionConfirmed = Boolean(
+          item.projectImageUrl &&
+          item.projectImageCredit &&
+          item.projectImageSourceUrl &&
+          item.projectImageLicense &&
+          isReusableImageLicense(item.projectImageLicense),
+        );
+        const publishNow = imagePermissionConfirmed;
         const projectImageAlt = item.projectImageUrl ? encodeProjectImageAlt({
           description: `${item.projectName} residential project in ${item.sector}, ${item.city}`,
           credit: item.projectImageCredit,
@@ -304,7 +312,8 @@ export function PropertyBulkImporterV2() {
             study_room: item.studyRoom,
             rera_number: item.reraNumber || null,
             description: item.description,
-            is_published: true,
+            is_published: publishNow,
+            image_license_confirmed: imagePermissionConfirmed,
             is_featured: false,
             is_luxury: false,
             meta_title: buildSeoTitle(seoSource),
@@ -319,7 +328,7 @@ export function PropertyBulkImporterV2() {
             images: item.projectImageUrl ? [{ image_url: item.projectImageUrl, alt_text: projectImageAlt, is_primary: true }] : [],
           },
         });
-        nextResults.push({ row: item.rowNumber, ok: true, message: `Published: /property/${result.slug}` });
+        nextResults.push({ row: item.rowNumber, ok: true, message: publishNow ? `Published: /property/${result.slug}` : `Saved as draft: /property/${result.slug} — add an image with confirmed reuse permission before publishing` });
       } catch (error) {
         nextResults.push({ row: item.rowNumber, ok: false, message: error instanceof Error ? error.message : "Import failed" });
       }
@@ -353,8 +362,8 @@ export function PropertyBulkImporterV2() {
       {rows.length ? (
         <section className="rounded-2xl border border-border bg-card p-5 sm:p-7">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <div><h2 className="font-display text-xl">Preview</h2><p className="mt-1 text-sm text-muted-foreground">{validRows.length} of {rows.length} rows ready to publish.</p></div>
-            <Button type="button" variant="gold" onClick={() => void importAndPublish()} disabled={importing || !validRows.length}>{importing ? <Loader2 className="size-4 animate-spin" /> : <FileSpreadsheet className="size-4" />}{importing ? "Publishing…" : `Import & Publish ${validRows.length}`}</Button>
+            <div><h2 className="font-display text-xl">Preview</h2><p className="mt-1 text-sm text-muted-foreground">{validRows.length} of {rows.length} rows ready to import. Rows with verified reusable image details can publish; others are saved as drafts.</p></div>
+            <Button type="button" variant="gold" onClick={() => void importAndPublish()} disabled={importing || !validRows.length}>{importing ? <Loader2 className="size-4 animate-spin" /> : <FileSpreadsheet className="size-4" />}{importing ? "Importing…" : `Import ${validRows.length} (publish eligible / save drafts)`}</Button>
           </div>
           <div className="mt-5 overflow-x-auto rounded-xl border border-border">
             <table className="w-full min-w-[980px] text-left text-sm">
