@@ -21,6 +21,7 @@ type RawRow = Record<string, unknown>;
 type ImportRow = {
   rowNumber: number;
   propertyCode: string;
+  proposedSlug: string;
   listingType: "sale" | "rent";
   projectName: string;
   builderName: string;
@@ -162,6 +163,7 @@ function parseRow(row: RawRow, index: number): ImportRow {
   const base = {
     rowNumber: index + 2,
     propertyCode: cell(row, "Property Code *", "Property Code"),
+    proposedSlug: cell(row, "SEO Slug (proposed)", "SEO Slug"),
     listingType: listingType as "sale" | "rent",
     projectName,
     builderName: cell(row, "Builder / Developer", "Builder", "Developer"),
@@ -259,7 +261,7 @@ export function PropertyBulkImporterV2() {
       try {
         const title = [item.bhk, PROPERTY_TYPE_LABEL[item.propertyType], item.listingType === "sale" ? "for Sale" : "for Rent", `in ${item.projectName}`, item.sector, item.city === "Gurugram" ? "Gurgaon" : item.city, item.areaSqft ? `- ${item.areaSqft} Sq Ft` : ""].filter(Boolean).join(" ").replace(/\s+/g, " ").slice(0, 160);
         const seoSource: SeoSource = { title, bhk: item.bhk, propertyType: item.propertyType, listingType: item.listingType, projectName: item.projectName || null, builderName: item.builderName || null, sector: item.sector, locality: item.locality, city: item.city, price: item.price, areaSqft: item.areaSqft, description: item.description };
-        const slug = buildSlug(seoSource);
+        const slug = item.proposedSlug || buildSlug(seoSource);
         const projectImageAlt = item.projectImageUrl ? encodeProjectImageAlt({
           description: `${item.projectName} residential project in ${item.sector}, ${item.city}`,
           credit: item.projectImageCredit,
@@ -278,6 +280,7 @@ export function PropertyBulkImporterV2() {
             id: null,
             title,
             slug,
+            inventory_code: item.propertyCode || null,
             listing_type: item.listingType,
             property_type: item.propertyType,
             status: item.status,

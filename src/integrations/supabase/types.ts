@@ -335,6 +335,7 @@ export type Database = {
           floor_number: number | null
           furnishing: string | null
           id: string
+          inventory_code: string | null
           is_featured: boolean
           is_luxury: boolean
           is_published: boolean
@@ -384,6 +385,7 @@ export type Database = {
           floor_number?: number | null
           furnishing?: string | null
           id?: string
+          inventory_code?: string | null
           is_featured?: boolean
           is_luxury?: boolean
           is_published?: boolean
@@ -433,6 +435,7 @@ export type Database = {
           floor_number?: number | null
           furnishing?: string | null
           id?: string
+          inventory_code?: string | null
           is_featured?: boolean
           is_luxury?: boolean
           is_published?: boolean

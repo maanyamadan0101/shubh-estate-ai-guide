@@ -207,6 +207,7 @@ const propertySchema = z.object({
   id: z.string().uuid().nullable().optional(),
   title: z.string().trim().min(3).max(160),
   slug: z.string().trim().min(3).max(120),
+  inventory_code: z.string().trim().max(40).nullable().optional(),
   listing_type: z.enum(["sale", "rent"]),
   property_type: z.enum([
     "apartment",
@@ -268,10 +269,26 @@ export const savePropertyDraft = createServerFn({ method: "POST" })
     const { id, amenities, features, videos, images, ...fields } = data;
     let propertyId = id ?? crypto.randomUUID();
     let matchedExistingListing = false;
+    let matchedExistingSlug: string | null = null;
+
+    // Stable inventory codes make repeated workbook imports idempotent.
+    if (!id && fields.inventory_code) {
+      const { data: coded, error: codeError } = await context.supabase
+        .from("properties")
+        .select("id,slug")
+        .eq("inventory_code", fields.inventory_code)
+        .maybeSingle();
+      if (codeError) throw new Error(codeError.message);
+      if (coded) {
+        propertyId = coded.id;
+        matchedExistingListing = true;
+        matchedExistingSlug = coded.slug;
+      }
+    }
 
     // Bulk imports and repeated form submissions must update the same physical
     // listing instead of minting a numeric-suffix duplicate URL.
-    if (!id) {
+    if (!id && !matchedExistingListing) {
       let duplicateQuery = context.supabase
         .from("properties")
         .select("id,slug")
@@ -299,10 +316,37 @@ export const savePropertyDraft = createServerFn({ method: "POST" })
       if (existing) {
         propertyId = existing.id;
         matchedExistingListing = true;
+        matchedExistingSlug = existing.slug;
+      }
+
+      // Match a legacy row only when project/title, configuration, sector and
+      // exact area identify one unambiguous existing property. Never fuzzy-match
+      // multiple options to the same page.
+      if (!matchedExistingListing && fields.inventory_code && fields.title) {
+        const projectPhrase = fields.title.match(/\bin\s+(.+?),\s*Sector\s+[\w-]+/i)?.[1]?.trim();
+        if (projectPhrase && fields.area_sqft !== null && fields.sector) {
+          let legacyQuery = context.supabase
+            .from("properties")
+            .select("id,slug,title,bhk")
+            .eq("listing_type", fields.listing_type)
+            .eq("property_type", fields.property_type)
+            .eq("sector", fields.sector)
+            .eq("area_sqft", fields.area_sqft)
+            .ilike("title", `%${projectPhrase}%`)
+            .limit(3);
+          if (fields.bhk) legacyQuery = legacyQuery.eq("bhk", fields.bhk);
+          const { data: legacyRows, error: legacyError } = await legacyQuery;
+          if (legacyError) throw new Error(legacyError.message);
+          if (legacyRows?.length === 1) {
+            propertyId = legacyRows[0].id;
+            matchedExistingListing = true;
+            matchedExistingSlug = legacyRows[0].slug;
+          }
+        }
       }
     }
 
-    let requestedSlug = fields.slug;
+    let requestedSlug = matchedExistingListing && matchedExistingSlug ? matchedExistingSlug : fields.slug;
     if (id) {
       const { data: current, error: currentError } = await context.supabase
         .from("properties")
