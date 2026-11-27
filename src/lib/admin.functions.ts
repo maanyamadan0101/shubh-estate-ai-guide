@@ -323,7 +323,7 @@ export const savePropertyDraft = createServerFn({ method: "POST" })
       // exact area identify one unambiguous existing property. Never fuzzy-match
       // multiple options to the same page.
       if (!matchedExistingListing && fields.inventory_code && fields.title) {
-        const projectPhrase = fields.title.match(/\\bin\\s+(.+?),\\s*Sector\\s+[\\w-]+/i)?.[1]?.trim();
+        const projectPhrase = fields.title.match(/\bin\s+(.+?),\s*Sector\s+[\w-]+/i)?.[1]?.trim();
         if (projectPhrase && fields.area_sqft !== null && fields.sector) {
           let legacyQuery = context.supabase
             .from("properties")
